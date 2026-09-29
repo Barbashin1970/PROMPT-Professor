@@ -69,6 +69,10 @@ def proverit_stranicy():
             oshibka(f"{imya}: нет <title>")
         if 'lang="ru"' not in html:
             oshibka(f"{imya}: нет lang=\"ru\"")
+        # подвал с картой сайта — на каждой странице, включая рукописные (тест, конструктор):
+        # на широком экране только он ведёт к страницам, которых нет в шапке
+        if 'class="foot__karta"' not in html:
+            oshibka(f"{imya}: в подвале нет карты сайта")
         povtory = [i for i, n in Counter(re.findall(r'\bid="([^"]+)"', html)).items() if n > 1]
         if povtory:
             oshibka(f"{imya}: повторяются id: {', '.join(povtory[:5])}")

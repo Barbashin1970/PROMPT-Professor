@@ -21,7 +21,9 @@
 В `site/` большая часть файлов собирается из `content/` и `skills/` — их правят
 в исходниках. Написаны вручную и правятся прямо в `site/`: `assets/sajt.css`,
 `assets/sajt.js`, `assets/ikonka.svg`, `test/index.html`, `test/test.js`,
-`konstruktor/index.html`, `konstruktor/konstruktor.js`.
+`konstruktor/index.html`, `konstruktor/konstruktor.js`. Подвал в `test/index.html`
+и `konstruktor/index.html` сборщик заменяет подвалом из шаблона — править его нужно
+в `tools/shablon-stranicy.html`.
 
 ## Сборка и проверка
 

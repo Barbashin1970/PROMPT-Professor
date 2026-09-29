@@ -313,11 +313,16 @@ html { scroll-padding-top: calc(var(--vysota-shapki, 53px) + 16px); }
 .nav__menu-knopka[aria-expanded="true"] .nav__menu-liniya:last-child { transform: translateY(-3.75px) rotate(-45deg); }
 
 /* Панель — на всю высоту под шапкой, непрозрачная: под ней страница не прокручивается */
+/* Высота — по большому вьюпорту (lvh): в iOS Safari панель браузера плавает поверх страницы,
+   и «bottom: 0» кончается над ней — снизу просвечивала страница (снимок с iPhone, 29.09.2026).
+   Нижний отступ — чтобы последний пункт можно было поднять над панелью браузера. */
 .menu-sajta {
-  position: fixed; z-index: 49; left: 0; right: 0; bottom: 0;
+  position: fixed; z-index: 49; left: 0; right: 0;
   top: var(--vysota-shapki, 53px);
+  height: calc(100vh - var(--vysota-shapki, 53px));
+  height: calc(100lvh - var(--vysota-shapki, 53px));
   overflow-y: auto; overscroll-behavior: contain;
-  padding: 12px var(--gutter) 48px;
+  padding: 12px var(--gutter) calc(96px + env(safe-area-inset-bottom, 0px));
   background: var(--bg);
 }
 .menu-sajta ul { list-style: none; margin: 0; padding: 0; }
@@ -491,12 +496,37 @@ html.menu-otkryto .naverh { display: none; }
 
 /* ── 13. Подвал ────────────────────────────────────────────────────────────── */
 
+/* «Толстый» подвал по навыку apple-design-web: карта сайта в колонках, мелкий спокойный
+   текст, без украшений. Здесь на широком экране живут и страницы, которые меню телефона
+   показывает ниже черты. Колонки — сеткой, на телефоне по две. */
+/* Снизу — место под кружок «наверх» (он закреплён в правом нижнем углу, до 72 px от низа):
+   иначе у самого конца страницы он ложится на последнюю строку подвала. */
 .foot {
   border-top: 1px solid var(--separator);
-  padding: 32px 0 48px;
-  font-size: var(--t-caption); color: var(--label-2);
+  background: var(--surface);
+  padding: 32px 0 calc(88px + env(safe-area-inset-bottom, 0px));
+  font-size: var(--t-caption); line-height: 1.4; color: var(--label-2);
 }
-.foot a { color: var(--label-2); text-decoration: underline; }
+.foot__karta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 24px 16px; padding-bottom: 24px; border-bottom: 1px solid var(--separator);
+}
+.foot__zag { margin: 0 0 8px; font-weight: 600; color: var(--label); }
+.foot__karta ul { list-style: none; margin: 0; padding: 0; }
+.foot__karta a {
+  display: inline-block; padding: 5px 0;
+  color: var(--label-2); text-decoration: none;
+}
+.foot__karta a:hover { color: var(--label); text-decoration: underline; text-underline-offset: 0.15em; }
+.foot__niz {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px;
+  padding-top: 16px;
+}
+.foot__niz p { margin: 0; }
+.foot a { color: var(--label-2); }
+@media (max-width: 734px) {
+  .foot__karta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 /* ── 14. Меньше движения ───────────────────────────────────────────────────── */
 

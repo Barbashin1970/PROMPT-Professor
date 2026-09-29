@@ -189,6 +189,43 @@ def oformit_ssylki(tekst_html):
 
 # ── Страница целиком ──────────────────────────────────────────────────────────
 
+# Подвал — карта сайта по рецепту «толстого подвала» навыка apple-design-web. Здесь же
+# все страницы, которые меню телефона показывает ниже черты: на широком экране их место —
+# в подвале. Колонка уроков строится из UROKI, чтобы новый урок попадал сюда сам.
+KRATKO_UROKOV = {
+    "lekciya-1": "Как устроен ИИ",
+    "lekciya-2": "Промпты и адаптация",
+    "lekciya-3": "Агенты и проверка работ",
+    "bonus-navyki": "Навыки",
+    "bonus-illyustracii": "Нейроиллюстрации",
+}
+KARTA_SAJTA = [
+    ("Инструменты", [("/promty/", "Библиотека промптов"), ("/konstruktor/", "Конструктор промптов"),
+                     ("/navyki/", "Навыки для нейросетей"), ("/obrazcy/", "Образцы текстов"),
+                     ("/slovar/", "Словарь терминов")]),
+    ("Практика и зачёт", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
+                          ("/test/", "Итоговый тест")]),
+    ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
+                 ("/o-kurse/#licenzii", "Заимствования и лицензии")]),
+]
+
+
+def podpis_v_podvale(slug, podpis):
+    kratko = KRATKO_UROKOV.get(slug)
+    korotkaya = podpis.replace("Бонусный урок", "Бонус")
+    return f"{korotkaya}. {kratko}" if kratko else korotkaya
+
+
+def karta_sajta():
+    uroki = [(f"/{slug}/", podpis_v_podvale(slug, podpis)) for slug, podpis in UROKI]
+    kolonki = []
+    for i, (zagolovok, ssylki) in enumerate([("Уроки", uroki)] + KARTA_SAJTA):
+        punkty = "".join(f'<li><a href="{href}">{html.escape(tekst)}</a></li>' for href, tekst in ssylki)
+        kolonki.append(f'<div class="foot__kolonka"><p class="foot__zag" id="podval-{i}">{html.escape(zagolovok)}</p>'
+                       f'<ul aria-labelledby="podval-{i}">{punkty}</ul></div>')
+    return '<nav class="foot__karta" aria-label="Карта сайта">' + "".join(kolonki) + "</nav>"
+
+
 def stranica(title, description, soderzhimoe, tekushchij="", head_extra=""):
     zamenitel = {
         "{{title}}": html.escape(title),
@@ -196,6 +233,7 @@ def stranica(title, description, soderzhimoe, tekushchij="", head_extra=""):
         "{{content}}": soderzhimoe,
         "{{date}}": SEGODNYA,
         "{{head_extra}}": head_extra,
+        "{{karta_sajta}}": karta_sajta(),
     }
     for razdel in ("lekcii", "promty", "konstruktor", "navyki", "test"):
         zamenitel["{{cur_" + razdel + "}}"] = ' aria-current="page"' if razdel == tekushchij else ""
@@ -655,6 +693,20 @@ def main():
     primer = next((p for p in vse_promty if p["id"] == "l1-test-po-formule"), None)
     sobrat_glavnuyu(uroki, dannye, primer)
     sobrat_404()
+
+    # Рукописные страницы (тест, конструктор) получают тот же подвал, что и собранные:
+    # карта сайта и дата сборки не расходятся, править подвал нужно только в шаблоне.
+    podval = re.search(r'<footer class="foot">.*?</footer>', stranica("", "", ""), re.S).group(0)
+    for ruchnaya in ("test/index.html", "konstruktor/index.html"):
+        put = SITE / ruchnaya
+        if not put.exists():
+            continue
+        staryj = put.read_text(encoding="utf-8")
+        novyj, n = re.subn(r'<footer class="foot">.*?</footer>', lambda m: podval, staryj, flags=re.S)
+        if n != 1:
+            zamechanie(f"{ruchnaya}: подвал не найден — не подставлен")
+        elif novyj != staryj:
+            put.write_text(novyj, encoding="utf-8")
 
     print(f"Готово. Замечаний: {len(zamechaniya)}.")
     return 1 if zamechaniya else 0
