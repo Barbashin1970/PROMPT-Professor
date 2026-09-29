@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Лекция 3. ИИ-агенты, проверка работ и выявление ИИ-контента — ИИ в учебном процессе</title>
+<meta name="description" content="Как собрать своего ИИ-помощника, как проверять студенческие работы с ИИ, почему детектор ИИ не доказательство и какие правила ввести в курсе.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm" aria-current="page">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide">
+<header class="page-head"><p class="kicker">Лекция 3</p><h1>ИИ-агенты, проверка работ и выявление ИИ-контента</h1><p class="lead">Лекция о том, как собрать своего ИИ-помощника, проверять работы студентов быстрее
+и честнее — и не обвинить студента по ошибке детектора.</p></header>
+<div class="layout-toc">
+<nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-лекции">Что вы унесёте с лекции</a></li><li><a href="#agenty">1. ИИ-агенты и проекты</a></li><li><a href="#proverka-rabot">2. Проверка работ с помощью ИИ</a></li><li><a href="#vyyavlenie">3. Выявление ИИ-контента</a></li><li><a href="#etika">4. Этика и правила курса</a></li><li><a href="#praktika">5. Практика: своя программа по отчётам об ИИ</a></li><li><a href="#kto-avtor">6. Кто автор статьи — ИИ или человек?</a></li><li><a href="#promty">Промпты лекции</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
+<article class="prose">
+<div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>
+<div class="downloads"><div class="dl"><span class="dl__name">Слайды лекции</span><span class="dl__meta">PDF появится после записи видео</span></div><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 29 КБ · сборка 2026-09-29</span><a class="btn btn--small" href="/files/konspekt-lekciya-3.docx" download>Скачать</a></div></div>
+
+<h2 id="что-вы-унесёте-с-лекции">Что вы унесёте с лекции</h2>
+<ul>
+<li>как собрать агента: системный слой + ваши файлы — даже на бесплатном тарифе;</li>
+<li>промпты для проверки эссе и задач по критериям;</li>
+<li>что на самом деле умеют детекторы ИИ — по исследованиям, с числами;</li>
+<li>три способа проверки без детектора и вопросы для беседы со студентом;</li>
+<li>правила для своего курса: как студентам пользоваться ИИ;</li>
+<li>задания, которые трудно «сдать нейросетью».</li>
+</ul>
+<h2 id="agenty">1. ИИ-агенты и проекты</h2>
+<p><strong>ИИ-агент</strong> — это модель, которой дали постоянную роль и материалы: <strong>системный слой</strong>
+(лекция 1) плюс ваши файлы, а иногда и инструменты — поиск, исполнение кода. Обычный чат
+отвечает на отдельные вопросы; агент работает как ассистент-методист или
+ассистент-исследователь, который помнит курс и его правила.</p>
+<h3 id="где-собрать-агента">Где собрать агента</h3>
+<table>
+<thead>
+<tr>
+<th>Способ</th>
+<th>Что это</th>
+<th>Когда подходит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Проект</strong></td>
+<td>папка с инструкцией, файлами и чатами; в Perplexity — «проекты» (до 2026 года «пространства»), только в платных тарифах</td>
+<td>если у вас есть такая функция в тарифе</td>
+</tr>
+<tr>
+<td><strong>Первое сообщение</strong></td>
+<td>новый чат → первым сообщением системный слой → приложить файлы → работать</td>
+<td>бесплатно, в любом сервисе</td>
+</tr>
+<tr>
+<td><strong>Навык</strong></td>
+<td>системный слой, упакованный в папку со SKILL.md, — ставится один раз</td>
+<td>бонусный урок и страница <a href="/navyki/">«Навыки»</a></td>
+</tr>
+</tbody>
+</table>
+<p>Приём «первое сообщение» работает везде и ничего не стоит. Храните свой системный слой
+в отдельном файле <code>.md</code> — в «копилке» — и вставляйте его в начале каждого рабочего чата.
+Читать и править такие файлы удобно в бесплатном Obsidian (бонусный урок, раздел 3).</p>
+<h3 id="четыре-правила-работы-с-проектом">Четыре правила работы с проектом</h3>
+<ol>
+<li><strong>Один проект — одна тема.</strong> Отдельно «Мой курс по Python», отдельно «Исследование
+   по нейросетям»: материалы не перемешиваются.</li>
+<li><strong>Загрузите материалы и инструкцию:</strong> лекции, программу, методички — и системный слой.</li>
+<li><strong>Спрашивайте по документам:</strong> «что главное в этой статье?», «найди определение термина X».</li>
+<li><strong>Создавайте материалы на их основе:</strong> план лекции, тест, обзор статей.</li>
+</ol>
+<p><strong>Память между чатами.</strong> Некоторые сервисы запоминают сведения из разговоров и подмешивают
+их в новые ответы. Если ответы вдруг «помнят» чужую тему — проверьте настройки памяти
+или работайте внутри проекта, где контекст отделён.</p>
+<h3 id="из-агентов-в-навыки">Из агентов — в навыки</h3>
+<p>Агенты курса упакованы в навыки: «шесть шляп», копирайтер, исследователь литературы,
+проверка текста на следы ИИ и редактор ИИ-штампов. Скачать и поставить — на странице
+<a href="/navyki/">«Навыки»</a>, подробно — в бонусном уроке.</p>
+<h2 id="proverka-rabot">2. Проверка работ с помощью ИИ</h2>
+<p>ИИ хорошо готовит <strong>черновик разбора</strong>: находит слабые места, предлагает формулировки
+обратной связи, проверяет ход решения. Решение об оценке — ваше.</p>
+<p>Три правила:</p>
+<ol>
+<li><strong>Сначала критерии, потом текст.</strong> Промпт с критериями даёт разбор, который можно
+   проверить; «проверь эссе» даёт общие слова.</li>
+<li><strong>Без персональных данных.</strong> Уберите из работы фамилию, группу, оценки. Для разбора
+   нужен текст, а не человек.</li>
+<li><strong>Сверяйте замечания с работой.</strong> Модель может «найти» ошибку, которой нет, или
+   пропустить настоящую.</li>
+</ol>
+<p>Готовые промпты — «Проверка эссе по критериям», «Проверка решения задачи»
+и «Поддерживающая обратная связь» — в разделе «Промпты лекции».</p>
+<h2 id="vyyavlenie">3. Выявление ИИ-контента</h2>
+<h3 id="сначала-о-пределах-детектор-не-доказательство">Сначала о пределах: детектор — не доказательство</h3>
+<p>Что известно по проверяемым исследованиям:</p>
+<ul>
+<li><strong>OpenAI закрыла собственный детектор.</strong> Её классификатор распознавал 26 % текстов,
+  написанных ИИ, и ошибочно помечал 9 % человеческих; в июле 2023 года его отключили
+  из-за низкой точности (<a href="https://web.archive.org/web/20230801010754/https://openai.com/blog/new-ai-classifier-for-indicating-ai-written-text" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>объявление OpenAI в архиве<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>Детекторы ошибаются на неносителях языка.</strong> Семь детекторов в среднем пометили
+  как ИИ 61,3 % эссе, написанных людьми для экзамена TOEFL; хотя бы один детектор
+  пометил 97,8 % из них (<a href="https://doi.org/10.1016/j.patter.2023.100779" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Liang и др., 2023<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>Инструменты неточны и ненадёжны</strong> — так заключили авторы, проверив 14 детекторов, в том
+  числе Turnitin; на перефразированном тексте результат ещё хуже
+  (<a href="https://doi.org/10.1007/s40979-023-00146-z" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Weber-Wulff и др., 2023<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>Насмотренный читатель точнее детектора, но и он не выносит приговор.</strong> В эксперименте
+  2025 года пятеро людей, которые часто пишут с нейросетями, по большинству голосов
+  ошиблись лишь на одной статье из 300 и обошли большинство детекторов — даже
+  на перефразированных и «очеловеченных» текстах (<a href="https://arxiv.org/abs/2501.15654" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Russell и др., 2025<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).
+  Они замечали и «словарь ИИ», и тонкие вещи: оригинальность, ясность, уровень
+  формальности. Но чутьё — повод для разговора, а не доказательство: редакторы Википедии,
+  которые годами вычищают ИИ-тексты, в своём <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>руководстве<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+  предупреждают, что у детекторов заметная доля ошибок, а один признак ничего не доказывает.</li>
+</ul>
+<p><strong>Вывод:</strong> процент «вероятности ИИ» — не основание для обвинения. Опора — факты,
+источники, связь с курсом, прежние работы и разговор с автором.</p>
+<h3 id="сколько-студентов-пользуются-ии">Сколько студентов пользуются ИИ</h3>
+<table>
+<thead>
+<tr>
+<th>Исследование</th>
+<th>Что выяснили</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>НИУ ВШЭ, 2025, 4207 студентов десяти ведущих вузов России</td>
+<td>87 % пользовались ИИ в учёбе в текущем или прошлом году (<a href="https://doi.org/10.31992/0869-3617-2025-34-6-9-35" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Кузьминов и др.<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, «Высшее образование в России», 2025, № 6); выборка смещена к сильным вузам</td>
+</tr>
+<tr>
+<td>Digital Education Council, 2024, 3839 студентов из 16 стран</td>
+<td>86 % используют ИИ в учёбе (<a href="https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-student-survey-2024" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>опрос DEC<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+<tr>
+<td>HEPI, Великобритания, 2025</td>
+<td>92 % студентов бакалавриата — в 2024 году было 66 % (<a href="https://www.hepi.ac.uk/wp-content/uploads/2025/02/HEPI-Kortext-Student-Generative-AI-Survey-2025.pdf" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>отчёт HEPI<span class="visually-hidden"> (откроется в новой вкладке)</span></a>); 88 % — для оцениваемых работ</td>
+</tr>
+<tr>
+<td>Digital Education Council, 2025, 1681 преподаватель</td>
+<td>61 % хотя бы раз использовали ИИ в преподавании; из них 88 % — минимально или умеренно (<a href="https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-faculty-survey" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>опрос DEC<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+</tbody>
+</table>
+<p>Вопрос уже не «пользуются ли студенты ИИ», а «как» — поэтому нужны правила (раздел 4).</p>
+<h3 id="что-смотреть-в-тексте">Что смотреть в тексте</h3>
+<p>Признаки делятся по силе. Полный каталог — в навыке
+<a href="/navyki/"><code>spotting-ai-writing</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Сила</th>
+<th>Признаки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Сильные</strong></td>
+<td>реплики чата: «Конечно! Вот ваш текст», «как языковая модель»; оставшиеся <code>[подстановки]</code>; метки <code>utm_source=chatgpt.com</code> в ссылках; источник, который не находится</td>
+</tr>
+<tr>
+<td><strong>Средние</strong></td>
+<td>скопления «важно отметить», «играет ключевую роль», «является», отглагольных существительных и калек; мораль в конце каждого абзаца; ровный ритм длинного текста; числа и «исследования показывают» без источника; резкий скачок уровня; нет материала вашего курса</td>
+</tr>
+<tr>
+<td><strong>Слабые</strong></td>
+<td>жирный шрифт через слово, эмодзи, всё «по три», заголовок над каждым абзацем</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Что признаком не считать:</strong> грамотность; сложные предложения; формальный стиль в жанре,
+где он положен; тире и слово «является» сами по себе; текст неносителя языка; исправления,
+подсказанные проверкой орфографии.</p>
+<h3 id="три-способа-проверки-без-детектора">Три способа проверки без детектора</h3>
+<ol>
+<li><strong>Сравнить с прежними работами.</strong> Резкий скачок уровня, исчезнувшие привычные ошибки
+   и обороты — повод для вопроса.</li>
+<li><strong>Проверить факты и источники.</strong> Выдуманная ссылка — самый сильный из текстовых
+   признаков: её не спрятать правкой стиля.</li>
+<li><strong>Поговорить с автором.</strong> Попросите пересказать абзац своими словами, объяснить выбор
+   примера, показать источник, рассказать, как шла работа. Вопросы для беседы — промпт
+   «Вопросы для беседы по работе».</li>
+</ol>
+<h3 id="эксперимент-редактор-против-детектора">Эксперимент «редактор против детектора»</h3>
+<p>Возьмите ответ нейросети, проверьте его навыком <code>spotting-ai-writing</code>, затем поправьте
+навыком <code>editing-ai-writing</code> и проверьте снова. Стилевые признаки исчезнут за минуты,
+а выдуманные источники, чужие числа и отрыв от вашего курса останутся. Поэтому проверка
+строится на фактах и беседе, а не на стиле.</p>
+<h3 id="разбор-подозрительное-эссе">Разбор: подозрительное эссе</h3>
+<p>Фрагмент эссе студента 2 курса:</p>
+<blockquote>
+<p>Великая Отечественная война представляет собой один из наиболее значительных периодов
+в истории нашего государства. Важно отметить, что данное историческое событие оказало
+колоссальное влияние на развитие общества. Стоит подчеркнуть, что анализ данного периода
+требует комплексного подхода к изучению всех аспектов военного времени.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Что видно</th>
+<th>Код</th>
+<th>Невинное объяснение</th>
+<th>Вопрос студенту</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«представляет собой один из наиболее значительных»</td>
+<td>В1</td>
+<td>так пишут школьные учебники</td>
+<td>—</td>
+</tr>
+<tr>
+<td>«данное историческое событие», «данного периода»</td>
+<td>В6</td>
+<td>канцелярская привычка</td>
+<td>—</td>
+</tr>
+<tr>
+<td>«важно отметить», «стоит подчеркнуть» — в двух фразах из трёх</td>
+<td>А1</td>
+<td>привычка школьного сочинения</td>
+<td>—</td>
+</tr>
+<tr>
+<td>общие слова без единого факта, имени, даты</td>
+<td>Ж2</td>
+<td>студент ещё не освоил тему</td>
+<td>«Какое событие этого периода вы считаете главным и почему?»</td>
+</tr>
+</tbody>
+</table>
+<p>Итог: оснований для обвинения нет, <strong>есть повод поговорить</strong>: стилевые признаки средние,
+фактов для проверки нет вовсе. Беседа покажет, владеет ли студент темой.</p>
+<h2 id="etika">4. Этика и правила курса</h2>
+<h3 id="правила-для-студентов">Правила для студентов</h3>
+<p>Объявите правила письменно в начале курса — с примерами. Главное из них: <strong>студент
+указывает, пользовался ли он ИИ и как.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Разрешено</th>
+<th>Запрещено</th>
+<th>По согласованию с преподавателем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>мозговой штурм и поиск идей</td>
+<td>сдавать текст ИИ без правки и без указания</td>
+<td>анализ данных для исследования</td>
+</tr>
+<tr>
+<td>проверка грамматики готового текста</td>
+<td>ИИ на контрольных и экзаменах, если не разрешено</td>
+<td>генерация иллюстраций</td>
+</tr>
+<tr>
+<td>объяснение сложных понятий</td>
+<td>вводить в ИИ чужие персональные данные</td>
+<td>обработка больших объёмов текста</td>
+</tr>
+<tr>
+<td>план и структура, если дальше студент работает сам</td>
+<td>выдавать сгенерированное за своё</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="задания-которые-трудно-сдать-нейросетью">Задания, которые трудно «сдать нейросетью»</h3>
+<p>Не потому, что ИИ «не умеет», — а потому, что проверка идёт через процесс и живой разговор.</p>
+<ol>
+<li><strong>Личный и местный контекст.</strong> «Примените метод курса к проблеме, с которой вы
+   столкнулись на практике в [организация]; опишите свой опыт». Проверяется одним
+   вопросом на занятии.</li>
+<li><strong>Процесс вместо результата.</strong> Дневник наблюдений, промежуточные отчёты, история
+   версий — итоговая работа показывает, как менялось понимание.</li>
+<li><strong>Устная защита.</strong> Короткая беседа по работе — 5–10 минут; вопросы готовит промпт
+   «Вопросы для беседы по работе».</li>
+<li><strong>Работа в аудитории.</strong> Часть задания — черновик, расчёт, продолжение мысли — делается
+   на занятии.</li>
+<li><strong>Противоречивые источники с защитой позиции.</strong> Три источника с разными точками зрения
+   и собственный вывод, который студент отстаивает вслух.</li>
+</ol>
+<h3 id="уровни-свободы-по-курсам">Уровни свободы по курсам</h3>
+<table>
+<thead>
+<tr>
+<th>Кто</th>
+<th>Как с ИИ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2 курс</td>
+<td>минимально: учимся писать и рассуждать сами</td>
+</tr>
+<tr>
+<td>3–4 курс</td>
+<td>под контролем, с обязательной рефлексией: «как я использовал ИИ, что проверил, что изменил»</td>
+</tr>
+<tr>
+<td>магистратура</td>
+<td>свободно, с упором на критический разбор ответов ИИ</td>
+</tr>
+</tbody>
+</table>
+<p>Тип задания тоже важен: в тренировочных ИИ свободнее, в контрольных — строго ограничен,
+в итоговых проектах — прозрачен, с объяснением каждого этапа.</p>
+<h3 id="этика-преподавателя">Этика преподавателя</h3>
+<ol>
+<li><strong>Прозрачность.</strong> Расскажите студентам, как вы используете ИИ — в подготовке и в проверке.</li>
+<li><strong>Персональные данные.</strong> Не загружайте в публичные сервисы фамилии, оценки, работы
+   с именами студентов.</li>
+<li><strong>Справедливость.</strong> Не обвиняйте без беседы: сначала факты, потом разговор.</li>
+<li><strong>Обучение, а не наказание.</strong> Если студент пользуется ИИ неправильно, научите его,
+   как правильно.</li>
+<li><strong>Обновление.</strong> Правила пересматривайте каждый семестр — инструменты меняются быстрее.</li>
+</ol>
+<h3 id="документы">Документы</h3>
+<ul>
+<li><strong>Кодекс этики в сфере ИИ</strong> (Россия) — добровольный; его подписали 26 октября 2021 года
+  компании и организации по инициативе Альянса в сфере ИИ при участии Аналитического
+  центра при Правительстве РФ и Минэкономразвития (<a href="https://ethics.a-ai.ru/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>текст кодекса<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>Рекомендаций Минобрнауки</strong> по генеративному ИИ в вузах на 28.09.2026 мы не нашли.
+  Для школ Минпросвещения выпустило письмо от 31.08.2026 № СК-702/08
+  (<a href="https://www.garant.ru/news/2247360/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>сообщение ГАРАНТа<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>За рубежом:</strong> регламент ЕС об ИИ относит системы для приёма, оценивания и экзаменов
+  в образовании к высокому риску; требования к ним начнут применяться со 2 декабря
+  2027 года — срок перенесён регламентом 2026/1744
+  (<a href="http://data.europa.eu/eli/reg/2026/1744/oj" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>официальная публикация<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+</ul>
+<p>Правила вашего курса важнее любого общего документа: их читают студенты, по ним
+вы проверяете работы.</p>
+<h2 id="praktika">5. Практика: своя программа по отчётам об ИИ</h2>
+<p>Два исследования, созданные людьми, — для сверки с ИИ-черновиком:</p>
+<ul>
+<li><strong>Stanford AI Index</strong> — ежегодный отчёт об ИИ; выпуск 2026 года вышел 13 апреля 2026 года:
+  <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>страница отчёта 2026<span class="visually-hidden"> (откроется в новой вкладке)</span></a>,
+  <a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>отчёт 2025<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</li>
+<li><strong>«Future of Work with AI Agents»</strong> (<a href="https://arxiv.org/abs/2506.06576" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Shao и др., 2025<span class="visually-hidden"> (откроется в новой вкладке)</span></a>) —
+  какие рабочие задачи люди готовы отдать ИИ-агентам. Авторы ввели шкалу участия человека
+  от H1 (агент справляется сам) до H5 (без постоянного участия человека не обойтись).</li>
+</ul>
+<p><strong>Упражнение.</strong> В разделе <a href="/obrazcy/">«Образцы»</a> лежит «Проект программы повышения
+квалификации преподавателей в эпоху ИИ» — его целиком написал ИИ. Сверьте его с этими
+отчётами: найдите утверждения, которые не подтверждаются, и числа, приписанные не тем
+источникам. Затем соберите свою программу или программу курса для студентов — по своему
+предмету.</p>
+<details>
+<summary>Ключ для проверки</summary>
+<ul>
+<li>«Короткая продолжительность внимания (8 секунд)» — известный миф. Число пошло из отчёта
+  Microsoft Canada 2015 года, который сослался на сайт Statistic Brain, а не на исследование;
+  <a href="https://www.bbc.com/news/health-38896790" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>BBC в 2017 году<span class="visually-hidden"> (откроется в новой вкладке)</span></a> показала, что под ним нет данных.</li>
+<li>«86 % студентов и 61 % преподавателей уже используют ИИ» приписано Stanford AI Index 2025.
+  В отчёте эти числа есть, но это пересказ опросов Digital Education Council — ссылаться
+  надо на DEC. И про преподавателей точнее: 61 % <strong>хотя бы раз</strong> использовали ИИ.</li>
+<li>Остальные утверждения проверьте сами тем же способом: у каждого числа — первоисточник,
+  у каждого первоисточника — то ли это число.</li>
+</ul>
+</details>
+<h2 id="kto-avtor">6. Кто автор статьи — ИИ или человек?</h2>
+<p>В разделе <a href="/obrazcy/">«Образцы»</a> — два варианта одного текста о снимках с обратной стороны
+Луны:</p>
+<ul>
+<li><strong>вариант 1</strong> — как его написал ИИ, а потом «очеловечил» гуманизатор в 2025 году;</li>
+<li><strong>вариант 2</strong> — тот же текст после правки навыком <code>editing-ai-writing</code>: ИИ-штампы
+  вычищены, факты исправлены по первоисточникам.</li>
+</ul>
+<p>Прочитать на сайте: <a href="/obrazcy/#luna-1-ishodnyj">вариант 1</a> и
+<a href="/obrazcy/#luna-2-vychishchennyj">вариант 2</a>. Скачать: вариант 1 —
+<a href="/files/obrazcy/luna-1-ishodnyj.docx">.docx</a>, <a href="/files/obrazcy/luna-1-ishodnyj.txt">.txt</a>;
+вариант 2 — <a href="/files/obrazcy/luna-2-vychishchennyj.docx">.docx</a>,
+<a href="/files/obrazcy/luna-2-vychishchennyj.txt">.txt</a>.</p>
+<p>Проверьте оба варианта навыком <code>spotting-ai-writing</code> или промптом «Признаки участия ИИ»
+в двух сервисах. В каком варианте ИИ-паттернов много, в каком они вычищены? Что осталось
+сигналом во втором варианте? Какой способ проверки дал вам понятный и полезный результат?</p>
+<details>
+<summary>Ключ для проверяющего</summary>
+<p><strong>Вариант 1 — что должно найтись:</strong></p>
+<ul>
+<li><strong>выдуманный личный опыт:</strong> «Знаете, когда я впервые увидел снимки…», «Для меня лично
+  эта история…» — приём гуманизатора, а не воспоминание автора;</li>
+<li><strong>разговорные связки по шаблону:</strong> «И вот штука:», «И вот тут начинается самое
+  интересное», «а тут – раз, и…»;</li>
+<li><strong>следы генерации:</strong> подписи к картинкам остались на английском;</li>
+<li><strong>самый сильный след:</strong> источник № 27 — файл «SISTEMNYI-PROMPT-DLIa-SOZDANIIa-
+  ChELOVEKOPODOBNOGO-TEKSTA.pdf», то есть сама инструкция гуманизатора;</li>
+<li><strong>список источников длиннее текста:</strong> 58 адресов, в тексте упомянуты 26; сноски стоят
+  пачками — «[2][8][9][5][7]»;</li>
+<li><strong>фактические ошибки</strong> — их найдёт только проверка фактов: первые снимки обратной
+  стороны Луны сделала советская «Луна-3» в 1959 году, а «Чанъэ-4» — первые снимки
+  <strong>с её поверхности</strong>; скорость связи с Землёй завышена в тысячу раз («2 гигабита» вместо
+  1–10 мегабит в секунду); морей на обратной стороне не два: кроме Моря Москвы и Моря Мечты там есть части
+  Восточного и Южного морей — всего около 3,5 % площади; запуск «Чанъэ-7» в 2026 году перенесён.</li>
+</ul>
+<p><strong>Вариант 2 — что изменилось:</strong> выдуманного опыта, шаблонных связок, английских подписей
+и лишних источников нет; факты исправлены. Стилевых признаков почти не осталось — хотя
+текст по-прежнему в основе написан ИИ.</p>
+<p><strong>Вывод упражнения.</strong> Правка вычищает стилевые признаки за минуты, поэтому по стилю
+авторство не доказать. Надёжны только проверка фактов и источников, сравнение с прежними
+работами автора и беседа с ним. Уточнения фактов — по материалам CNSA, NASA и статьям
+разработчиков спутника «Цюэцяо», проверено 28.09.2026.</p>
+</details>
+<h2 id="promty">Промпты лекции</h2>
+<section class="prompt" id="p-l3-akademicheskij-assistent" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Академический ассистент — системный слой для проекта или первого сообщения</h3>
+      <p class="prompt__when">Когда: собираете своего помощника по курсу</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-akademicheskij-assistent">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-akademicheskij-assistent">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-akademicheskij-assistent">Ты — академический ассистент преподавателя дисциплины «<mark class="ph">[ДИСЦИПЛИНА]</mark>»: помогаешь с научными текстами, конспектами, методическими материалами и перепиской со студентами и коллегами.
+Стиль: вежливый, структурированный, научно-деловой; для студентов — проще, с пояснением терминов.
+Формат: инструкции — списком, пояснения — абзацами, сравнения — таблицей, к каждой теме — пример.
+Опора на материалы: отвечай по приложенным файлам курса; если ответа в них нет — скажи об этом прямо.
+Проверка: давай ссылки на первоисточники там, где это возможно, — с DOI или URL.
+Не уверен — так и скажи, не угадывай. Никаких персональных данных студентов.</div>
+</section>
+<section class="prompt" id="p-l3-samorefleksiya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Блок самопроверки для системного слоя</h3>
+      <p class="prompt__when">Когда: хотите, чтобы помощник сам проверял ответ перед выдачей</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-samorefleksiya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-samorefleksiya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-samorefleksiya">Перед каждым ответом:
+1. Составь для себя критерии хорошего ответа на этот запрос — 5–7 пунктов.
+2. Напиши черновик и сверь его с критериями.
+3. Исправь то, что не дотягивает, и проверь снова.
+4. Выдай только итог. Критерии и черновик не показывай.
+Если в материалах нет данных для ответа — скажи об этом, а не заполняй пробел догадкой.</div>
+</section>
+<section class="prompt" id="p-l3-slovar-discipliny" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Словарь дисциплины для системного слоя</h3>
+      <p class="prompt__when">Когда: нужно задать модели точные значения терминов вашего предмета</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-slovar-discipliny">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-slovar-discipliny">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-slovar-discipliny">Ты — эксперт в области «<mark class="ph">[ОБЛАСТЬ]</mark>». Составь словарь из 20 профессиональных терминов этой области для студентов <mark class="ph">[УРОВЕНЬ]</mark>.
+Для каждого: термин; определение в одно-два предложения; пример употребления; частая ошибка студентов в понимании термина.
+Упорядочи по алфавиту, очевидные термины пропусти.
+Если у термина в разных школах разные определения — укажи это.</div>
+</section>
+<section class="prompt" id="p-l3-proverka-esse" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверка эссе по критериям</h3>
+      <p class="prompt__when">Когда: нужен черновик разбора студенческого эссе</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-proverka-esse">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-proverka-esse">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-proverka-esse">Ты — преподаватель <mark class="ph">[ДИСЦИПЛИНА]</mark>. Оцени эссе студента <mark class="ph">[КУРС]</mark> на тему «<mark class="ph">[ТЕМА]</mark>».
+Критерии, 1–5 баллов с обоснованием:
+1. Соответствие теме: есть ли тезис и раскрыт ли он.
+2. Логика и аргументация.
+3. Примеры и доказательства: конкретны ли, уместны ли.
+4. Грамотность и стиль.
+5. Самостоятельность мысли: есть ли своя интерпретация.
+Затем: 2–3 сильные стороны, 2–3 слабых места, конкретные рекомендации.
+Тон — конструктивный и поддерживающий: цель — помочь студенту вырасти.
+Цитируй места из текста, на которые опираешься.
+Эссе: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-proverka-zadachi" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверка решения задачи</h3>
+      <p class="prompt__when">Когда: нужен разбор хода решения, а не только ответа</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-proverka-zadachi">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-proverka-zadachi">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-proverka-zadachi">Проверь решение студента <mark class="ph">[КУРС]</mark> по теме «<mark class="ph">[ТЕМА]</mark>».
+Задача: <mark class="ph">[УСЛОВИЕ]</mark>.
+Оцени: верна ли формула; верна ли подстановка; вычисления и округления; единицы измерения; обоснован ли каждый шаг.
+Если есть ошибки: укажи, где именно; объясни, почему это неверно; дай верное решение с пояснениями.
+Проверь своё решение дважды, прежде чем указывать на ошибку студента.
+Решение студента: <mark class="ph">[ВСТАВЬТЕ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-obratnaya-svyaz" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Поддерживающая обратная связь</h3>
+      <p class="prompt__when">Когда: разбор готов, нужен текст для студента</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-obratnaya-svyaz">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-obratnaya-svyaz">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-obratnaya-svyaz">По разбору ниже напиши обратную связь студенту — 120–180 слов.
+Начни с того, что получилось, затем 2–3 главные точки роста с конкретным советом, закончи следующим шагом. Без оценочных ярлыков, без канцелярита, обращение на «вы».
+Разбор: <mark class="ph">[ВСТАВЬТЕ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-priznaki-ii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Признаки участия ИИ — основа для беседы, не приговор</h3>
+      <p class="prompt__when">Когда: есть сомнение в самостоятельности работы</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-priznaki-ii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-priznaki-ii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-priznaki-ii">Проанализируй текст ниже на признаки участия ИИ. Это основа для беседы со студентом, а не приговор.
+Контекст: <mark class="ph">[КУРС]</mark>, <mark class="ph">[ТИП ЗАДАНИЯ]</mark>, <mark class="ph">[ДИСЦИПЛИНА]</mark>; правила курса об ИИ: <mark class="ph">[КАКИЕ]</mark>.
+Для каждой находки: точная цитата; что это за признак; насколько он сильный; чем он может объясняться БЕЗ ИИ.
+Отдельно: какие ссылки, даты и числа нужно проверить и как.
+Отдельно: признаки живого автора.
+В конце — 3–5 вопросов для беседы, привязанных к местам текста.
+Не ставь процент вероятности, не называй модель, не делай выводов о человеке.
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-voprosy-dlya-besedy" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Вопросы для беседы по работе</h3>
+      <p class="prompt__when">Когда: хотите убедиться, что студент владеет своим текстом</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-voprosy-dlya-besedy">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-voprosy-dlya-besedy">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-voprosy-dlya-besedy">По работе студента ниже подготовь 6 вопросов для короткой устной беседы (10 минут):
+– 2 вопроса «перескажите своими словами» к конкретным абзацам;
+– 1 вопрос о выборе примера или метода;
+– 1 вопрос «что изменится, если…» на понимание;
+– 1 вопрос об источнике;
+– 1 вопрос о том, как шла работа.
+Тон — доброжелательный, не допрос. К каждому вопросу — что должен показать хороший ответ.
+Работа: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-pravila-kursa" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Правила использования ИИ для моего курса</h3>
+      <p class="prompt__when">Когда: готовите правила к началу семестра</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-pravila-kursa">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-pravila-kursa">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-pravila-kursa">Помоги составить правила использования ИИ для курса «<mark class="ph">[КУРС]</mark>» (<mark class="ph">[УРОВЕНЬ СТУДЕНТОВ]</mark>).
+Структура: разрешено (3–5 пунктов с примерами); запрещено (3–5 с примерами); по согласованию с преподавателем (2–3); как студент указывает использование ИИ (готовая формулировка для работы); как я проверяю соблюдение правил; что происходит при нарушении — обучающе, а не карательно.
+Язык — понятный студентам, без канцелярита, на одну страницу.</div>
+</section>
+<section class="prompt" id="p-l3-ustojchivoe-zadanie" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Задание, которое трудно «сдать нейросетью»</h3>
+      <p class="prompt__when">Когда: переделываете задание, которое легко сгенерировать</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-ustojchivoe-zadanie">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-ustojchivoe-zadanie">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-ustojchivoe-zadanie">Помоги переделать задание по <mark class="ph">[ДИСЦИПЛИНА]</mark> для <mark class="ph">[КУРС]</mark> так, чтобы выполнить его без понимания темы было трудно.
+Исходное задание: <mark class="ph">[ТЕКСТ ЗАДАНИЯ]</mark>. Длительность: <mark class="ph">[НЕДЕЛИ]</mark>.
+Используй: личный или местный контекст студента; промежуточные этапы с отчётами; часть работы на занятии; устную защиту.
+Предложи: формулировку задания; этапы и сроки; критерии оценки; 5 вопросов для устной защиты.</div>
+</section>
+<h2 id="samostoyatelno">Самостоятельная практика</h2>
+<p><strong>Время:</strong> около 6 часов. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
+<a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p>
+<ol>
+<li><strong>Свой агент.</strong> Соберите системный слой для своей дисциплины (промпты «Академический
+   ассистент», «Словарь дисциплины», «Блок самопроверки») и подключите его: в проект, если
+   он есть в вашем тарифе, или первым сообщением в новом чате. Приложите 2–3 своих файла.
+   Задайте одни и те же три вопроса в обычном чате и в чате с агентом — сравните ответы.</li>
+<li><strong>Кто автор статьи?</strong> Проверьте оба варианта текста «Луна» из раздела <a href="/obrazcy/">«Образцы»</a>
+   навыком <code>spotting-ai-writing</code> или промптом «Признаки участия ИИ» — в двух сервисах.
+   Сравните: в каком варианте ИИ-паттернов много, в каком они вычищены; что нашли оба
+   сервиса, что только один; что осталось сигналом во втором варианте.</li>
+<li><strong>Правила курса.</strong> Напишите правила использования ИИ для своего курса: что разрешено,
+   что запрещено, что — по согласованию и как студент указывает, что и как делал с ИИ.</li>
+<li><strong>Устойчивое задание.</strong> Переделайте одно своё задание по промпту «Задание, которое
+   трудно „сдать нейросетью“»; добавьте критерии и вопросы для устной защиты.</li>
+<li><strong>По желанию:</strong> упражнение из раздела 5 — сверьте с отчётами проект программы,
+   написанный ИИ, и соберите свою программу по предмету.</li>
+</ol>
+<p><strong>Как понять, что получилось:</strong> агент действительно отвечает по вашим материалам — видно по
+сравнению; в разборе текста нет «процента ИИ», есть цитаты и вопросы; правила понятны
+студенту; задание можно проверить беседой.</p>
+<h2 id="proverte-sebya">Проверьте себя</h2>
+<details>
+<summary>Можно ли обвинить студента по результату детектора ИИ?</summary>
+<p>Нет. Детекторы заметно ошибаются: собственный классификатор OpenAI распознавал лишь 26 %
+ИИ-текстов, а семь детекторов в исследовании Liang и др. пометили как ИИ в среднем 61,3 %
+эссе, написанных людьми. Основание для решения — факты, источники и беседа с автором.</p>
+</details>
+<details>
+<summary>Как собрать агента, если проектов нет в вашем тарифе?</summary>
+<p>Новый чат → первым сообщением системный слой → приложить файлы → работать.
+Системный слой хранить в своём файле и вставлять каждый раз.</p>
+</details>
+<details>
+<summary>Какой текстовый признак ИИ самый сильный и почему?</summary>
+<p>Источник, который не находится: выдуманную ссылку нельзя замаскировать правкой стиля.
+Так же сильны реплики чата вроде «Конечно! Вот ваш текст».</p>
+</details>
+<details>
+<summary>Назовите три способа проверки без детектора.</summary>
+<p>Сравнить с прежними работами, проверить факты и источники, поговорить с автором.</p>
+</details>
+<details>
+<summary>Что должно быть в правилах использования ИИ для студентов?</summary>
+<p>Что разрешено, что запрещено, что — по согласованию, и как студент указывает, что
+и как делал с ИИ.</p>
+</details>
+<details>
+<summary>Почему личный контекст и устная защита делают задание устойчивым?</summary>
+<p>Проверка идёт через процесс и живой разговор: чтобы защитить работу, нужно владеть темой,
+кто бы ни помогал с текстом.</p>
+</details>
+<h2 id="istochniki">Источники</h2>
+<ul>
+<li>OpenAI. New AI classifier for indicating AI-written text. 2023. Архивная копия: <a href="https://web.archive.org/web/20230801010754/https://openai.com/blog/new-ai-classifier-for-indicating-ai-written-text" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://web.archive.org/web/20230801010754/https://openai.com/blog/new-ai-classifier-for-indicating-ai-written-text<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Liang W., Yuksekgonul M., Mao Y., Wu E., Zou J. GPT detectors are biased against non-native English writers. Patterns. 2023. <a href="https://doi.org/10.1016/j.patter.2023.100779" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.1016/j.patter.2023.100779<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Weber-Wulff D. и др. Testing of detection tools for AI-generated text. International Journal for Educational Integrity. 2023. <a href="https://doi.org/10.1007/s40979-023-00146-z" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.1007/s40979-023-00146-z<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Russell J., Karpinska M., Iyyer M. People who frequently use ChatGPT for writing tasks are accurate and robust detectors of AI-generated text. 2025. <a href="https://arxiv.org/abs/2501.15654" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2501.15654<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — насмотренный читатель против детекторов.</li>
+<li>Wikipedia: Signs of AI writing (WikiProject AI Cleanup). <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Кузьминов Я. И., Кручинская Е. В., Груздев И. А., Наумов А. А. Отстающие и опережающие: как студенты используют генеративный искусственный интеллект в образовательных целях // Высшее образование в России. 2025. Т. 34, № 6. С. 9–35. <a href="https://doi.org/10.31992/0869-3617-2025-34-6-9-35" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.31992/0869-3617-2025-34-6-9-35<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Digital Education Council. Global AI Student Survey 2024. <a href="https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-student-survey-2024" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-student-survey-2024<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Digital Education Council. Global AI Faculty Survey 2025. <a href="https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-faculty-survey" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.digitaleducationcouncil.com/post/digital-education-council-global-ai-faculty-survey<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Freeman J. HEPI / Kortext Student Generative AI Survey 2025. <a href="https://www.hepi.ac.uk/wp-content/uploads/2025/02/HEPI-Kortext-Student-Generative-AI-Survey-2025.pdf" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.hepi.ac.uk/wp-content/uploads/2025/02/HEPI-Kortext-Student-Generative-AI-Survey-2025.pdf<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Stanford HAI. AI Index Report 2026. <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://hai.stanford.edu/ai-index/2026-ai-index-report<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Shao Y. и др. Future of Work with AI Agents. 2025. <a href="https://arxiv.org/abs/2506.06576" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2506.06576<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Maybin S. Busting the attention span myth. BBC. 2017. <a href="https://www.bbc.com/news/health-38896790" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.bbc.com/news/health-38896790<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

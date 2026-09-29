@@ -1,0 +1,605 @@
+Автор учебного курса Олег Барбашин 
+Ведущий специалист Центра Искусственного Интеллекта НГУ
+Бизнес-аналитик отдела координации проектов в сфере ИИ
+Искусственный интеллект в учебном процессе
+1
+1
+
+Карточка докладчика
+Олег Барбашин
+Опыт в аналитике и управлении:
+Аналитик бизнес-процессов с 30+ летним стажем: книгоиздание, оптовая торговля, строительство, страхование, инвестиции, управление персоналом, администрирование и разработка корпоративной документации, разработка  и тестирование ПО, разработка игр для мобильных устройств
+Руководитель строительной компании “Всё для банка” с 20+ летним стажем с 1000+ объектами банковских отделений от Урала до Камчатки.
+Опыт в информационных технологиях:
+Ведущий специалист (бизнес-аналитик и технический писатель) ЦИИ НГУ с 3+ летним опытом в IT.
+Сертифицированный специалист (Яндекс Практикум) по автоматизации тестирования на Java и управлению цифровым продуктом.
+Выпускник НГУ, Магистр по специальности “Прикладная математика и механика” 
+2
+Ключевой кейс: Как ИИ открыл путь в аналитику
+Инициатива: В рамках работы тестировщиком в сжатые сроки разработал комплексное Техническое задание (ТЗ) на грантовый проект с использованием prompt-инжиниринга.
+Результат: ТЗ было успешно принято и легло в основу заявки, одобренной Аналитическим центром при Правительстве РФ.
+Итог: Успех проекта стал катализатором карьерного перехода из тестирования в продуктовую аналитику в НГУ, где я возглавил работу по координации команд и разработке документации по ГОСТ.
+
+Моя цель: Применить этот уникальный опыт — глубокое понимание строительства, экспертизу в IT и владение prompt-инжинирингом — для автоматизации и повышения эффективности ваших проектов.
+
+Курс 
+ИИ в учебном процессе
+
+Создание нейроиллюстраций
+Занятие 2 и 3/4
+3
+
+ИИ-агент “Арт промпт мастер”
+4
+
+Системный промпт для ИИ-агента
+Ты ART PROMPT MASTER — профессиональный специалист по промпт-инжинирингу для визуальной генерации. Используй инструкции проекта для ответов пользователю.
+
+Твои основные возможности:
+
+A) АНАЛИЗ ИЗОБРАЖЕНИЙ — 4 этапа:
+Визуальный анализ — определение стиля, движения, техники
+Декомпозиция по 11 блокам универсального фреймворка
+Идентификация стиля — сопоставление с библиотекой известных стилей
+Вывод результата — структурированный ответ с промптами
+
+B) ГЕНЕРАЦИЯ ПРОМПТОВ ПО КРАТКОМУ ЗАПРОСУ — 5 шагов:
+Извлечение ключевых элементов
+Уточняющие вопросы (опционально)
+Применение универсального фреймворка
+Генерация 3 вариантов (краткий/стандартный/детальный)
+Адаптация под платформу (Midjourney/DALL-E/SD/Flux)
+
+Файлы с инструкциями для ИИ-агента ищите в папке с домашним заданием на Яндекс-диске
+5
+
+Универсальный фреймворк промпта для визуальной генерации
+
+SUBJECT (Предмет/Субъект) — что/кто главный объект
+ACTION/POSE (Действие/Поза) — что делает, как расположен
+ENVIRONMENT/SETTING (Окружение) — где происходит, контекст места
+LIGHTING (Освещение) — направление, качество, цвет света — самый подробный раздел
+COLOR (Цветовая палитра) — доминирующие цвета, схемы
+STYLE/MEDIUM (Стиль/Техника) — живопись, фото, 3D, художественные движения
+COMPOSITION (Композиция) — ракурс, план, правила композиции, aspect ratio
+TECHNICAL/CAMERA (Технические параметры) — камера, объектив, диафрагма, фокус
+MOOD/ATMOSPHERE (Настроение) — эмоциональное воздействие
+QUALITY MODIFIERS (Модификаторы качества) — детализация, разрешение
+NEGATIVE PROMPTS — что исключить
+PLATFORM-SPECIFIC — параметры для Midjourney, DALL-E, Stable Diffusion, Flux
+6
+6
+
+Для Midjourney:
+Используйте параметры --q 2 для максимального качества
+--s (stylize) от 500 до 750 для баланса контроля и креативности
+--style raw для фотореализма (Ultra Realistic стиль)
+--ar для точного соотношения сторон
+Комбинируйте элементы из разных промптов для уникальных результатов
+Экспериментируйте с параметрами платформы
+Сохраняйте удачные seed для воспроизводимости
+Адаптируйте промпты под свою конкретную задачу
+Итеративный подход - начните с базового промпта, постепенно добавляйте детали
+
+Комментарий: с таким промптом для MJ можно генерировать и в Perplexity на модели ChatGPT5, например.
+
+
+7
+7
+
+8
+8
+
+Perplexity и выбор арт-модели
+9
+9
+
+Nano Banana
+Модель генерации изображений Gemini 2.5 Flash от Google
+10
+10
+
+SeeDreem 4.0
+Модель генерации изображений от Bytedance
+11
+11
+
+Коллекция промптов 
+для нейро-
+иллюстрации
+12
+12
+
+Коллекция промптов 12 визуальных стилей:
+3D-RENDERING — Футуристические киборги с глянцевым пластиком и хромом
+ДЕКОНСТРУКТИВИЗМ — Монохромная архитектурная фрагментация
+NOIR — Драматичный черно-белый портрет с контрастным светом
+THOMAS KINKADE — Романтический пейзаж с теплым светом
+PAPER LAYERED — Многослойная бумажная аппликация с 3D-эффектом
+ИЛЛЮСТРАЦИЯ/КАРИКАТУРА — Детальная гротескная иллюстрация (баварский повар)
+CINEMATIC PANORAMIC — Эпическая широкоформатная панорама древнего города
+ULTRA REALISTIC — Ультрареалистичная фотография (туристы в горах)
+GROTESQUE — Гротескная сюрреалистическая иллюстрация (органические формы)
+OUTLINE ICON, NEON LIGHT — Неоновые контурные иконки на черном фоне
+OIL PAINTING — Классическая масляная живопись (маяк и море)
+Classical maritime oil painting – парусник и море
+13
+13
+
+СТИЛЬ 1: 3D-RENDERING (Футуристические киборги)
+14
+14
+
+3D-RENDERING
+Футуристические киборги с глянцевым пластиком и хромом
+Высокотехнологичные текстуры и футуристические детали
+Глянцевые поверхности и отражения
+GigaChat
+15
+15
+
+Perplexity
+16
+16
+
+СТИЛЬ 1: 3D-RENDERING (Футуристические киборги)
+Описание стиля:
+Фотореалистичный 3D рендер с глянцевыми пластиковыми поверхностями, хромированными деталями и футуристическими женскими персонажами-киборгами. Контраст между органическим (человеческая кожа) и синтетическим (пластик, металл).
+Ключевые визуальные особенности:
+Оранжево-красные глянцевые пластиковые шлемы/маски
+Хромированные металлические элементы с отражениями
+Женские лица с идеальной кожей
+Футуристические визоры, шлемы, кибернетические импланты
+Холодный голубой градиентный фон
+Студийное освещение с четкими бликами
+ПРОМПТ ДЛЯ MIDJOURNEY:
+Photorealistic 3D render of futuristic female cyborg, wearing glossy orange-red plastic helmet with chrome metallic details, perfect human skin visible on face, cybernetic implants, futuristic visor, studio lighting with sharp highlights and reflections, cold blue gradient background, contrast between organic and synthetic materials, shot in portrait orientation, rendered in Octane Render with ray tracing, ultra-detailed textures, 8K, hyperrealistic --ar 9:16 --q 2 --s 750
+17
+17
+
+СТИЛЬ 2: ДЕКОНСТРУКТИВИЗМ (Архитектурный хаос)
+18
+18
+
+ДЕКОНСТРУКТИВИЗМ
+Монохромная фрагментация архитектурных форм
+Разрушение привычных пропорций и симметрии
+Эксперимент с пространством и материалами
+GigaChat
+19
+19
+
+Perplexity
+20
+20
+
+СТИЛЬ 2: ДЕКОНСТРУКТИВИЗМ (Архитектурный хаос)
+Описание стиля:
+Монохромная черно-белая композиция с фрагментированными геометрическими структурами, создающая ощущение архитектурного хаоса и монументальности. Множественные перспективы одновременно.
+
+Ключевые визуальные особенности:
+Строгая монохромная палитра (черный, белый, серый)
+Геометрические фрагментированные архитектурные элементы
+Лучи света, расходящиеся от центральной точки
+Массы людей в виде темных силуэтов
+Колонны, ступени, платформы в хаотичном порядке
+Центральная симметричная композиция
+Высокий контраст света и тени
+ПРОМПТ ДЛЯ MIDJOURNEY:
+Monochrome black and white deconstructivist architectural illustration, fragmented geometric structures, multiple perspectives simultaneously, dramatic rays of light radiating from center, crowds of people as dark 
+silhouettes, architectural elements like columns steps platforms in chaotic arrangement, central symmetrical composition, high contrast chiaroscuro lighting, sense of monumentality and controlled chaos, inspired by M.C. Escher and Zaha Hadid, digital art, intricate details --ar 1:1 --q 2 --s 500
+21
+21
+
+СТИЛЬ 3: NOIR (Драматичный черно-белый портрет)
+22
+22
+
+NOIR
+Черно-белый портрет с глубокими тенями и яркими световыми акцентами
+Контрастный свет, создающий драматичную атмосферу
+Эмоционально насыщенные образы, подчеркивающие глубину и интригу
+GigaChat
+23
+23
+
+Perplexity
+24
+24
+
+СТИЛЬ 3: NOIR (Драматичный черно-белый портрет)
+
+Описание стиля:
+Классический нуар-портрет с драматичным контрастным освещением, создающий таинственную и мрачную атмосферу. Развевающиеся ткани добавляют динамику.
+
+Ключевые визуальные особенности:
+Строгая черно-белая фотография
+Женское лицо с выразительным макияжем (темные губы)
+Развевающаяся ткань или волосы (эффект ветра)
+Сильное контрастное освещение (chiaroscuro)
+Боковой или нижний свет
+Таинственная, мрачная атмосфера
+Детализированные текстуры ткани
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Film noir style black and white portrait photography, mysterious woman with dark lipstick, dramatic fabric or veil flowing dynamically around face as if blown by wind, strong chiaroscuro lighting from side, high contrast shadows, moody and mysterious atmosphere, detailed fabric textures, cinematic composition, inspired by сlassic 1940s film noir, fashion photography aesthetic, shot on medium format camera, sharp focus on face --ar 3:2 --q 2 --style raw
+25
+25
+
+СТИЛЬ 4: THOMAS KINKADE (Романтический пейзаж)
+26
+26
+
+THOMAS KINKADE
+Романтический пейзаж с уютными домиками и деревьями
+Теплый свет, создающий атмосферу уюта и спокойствия
+Идеализированные сцены, вдохновленные природой и традициями
+GigaChat
+27
+27
+
+Perplexity
+28
+28
+
+СТИЛЬ 4: THOMAS KINKADE (Романтический пейзаж)
+
+Описание стиля:
+Идиллические романтические пейзажи с теплым светящимся освещением, уютными домиками и живописной природой. Фирменный стиль художника Томаса Кинкейда с объемным светом.
+
+Ключевые визуальные особенности:
+Уютный дом с фахверковой архитектурой
+Горный или лесной пейзаж на заднем плане
+Золотой час / закатное освещение
+Теплое свечение из окон домов
+Извилистая тропинка
+Пышная зелень, деревья, цветы
+Водоемы (озеро, река, ручей)
+Мягкий романтический объемный свет
+Облачное небо с просветами
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Thomas Kinkade style romantic landscape painting, cozy cottage with half-timbered architecture, warm glowing lights from windows, winding stone path leading to house, lush green meadow with wildflowers, 
+majestic mountains in background, serene lake reflecting scene, golden hour sunset lighting with volumetric light rays, soft clouds with sunlight breaking through, magical warm atmosphere, rich colors, oil painting texture, idyllic and peaceful mood, highly detailed foliage and architectural details --ar 16:9 --q 2 --s 750
+29
+29
+
+СТИЛЬ 5: PAPER LAYERED / PAPERCUT (Многослойная аппликация)
+30
+30
+
+PAPER LAYERED
+Многослойная аппликация из бумаги с 3D-эффектом
+Объемные текстуры, создающие иллюзию глубины
+Использование бумажных материалов для создания уникальных визуальных эффектов
+GigaChat
+31
+31
+
+Perplexity
+32
+32
+
+СТИЛЬ 5: PAPER LAYERED / PAPERCUT (Многослойная аппликация)
+
+Описание стиля:
+Искусство вырезания из бумаги с многослойной композицией, создающей объемный 3D-эффект. Популярный стиль с использованием цветной бумаги и теней между слоями.
+
+Ключевые визуальные особенности:
+Четко различимые слои цветной бумаги
+Тени между слоями создают глубину
+Морская или природная тематика
+Волнистые формы (волны, облака)
+Силуэты животных и растений
+Ограниченная цветовая палитра (2-5 цветов)
+Плоские цвета без градиентов
+3D объемный эффект
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Paper cut art, layered papercraft illustration, underwater ocean scene with whales and marine life, multiple layers of colored paper creating depth, wave patterns in turquoise and dark blue paper layers, coral reefs and seaweed in foreground, two whales swimming, small tropical fish, gold and yellow accent elements, visible shadows between layers creating 3D effect, paper texture visible, limited color palette of teal turquoise navy blue white gold, clean silhouettes, papercraft style, top view lighting --ar 16:9 --q 2 --s 500
+33
+33
+
+СТИЛЬ 6: КАРИКАТУРА (Детальная характерная иллюстрация)
+34
+34
+
+КАРИКАТУРА
+Детальная гротескная иллюстрация с акцентом на преувеличенные черты и юмористические элементы
+Образ баварского повара с характерными атрибутами и выразительными деталями
+Юмористические элементы, подчеркивающие комичность и гротескность сцены
+GigaChat
+35
+35
+
+Perplexity
+36
+36
+
+СТИЛЬ 6: КАРИКАТУРА (Детальная характерная иллюстрация)
+
+Описание стиля:
+Яркая гиперболизированная иллюстрация с карикатурными пропорциями и богатой детализацией. Юмористический, праздничный характер с акцентом на текстуры и атмосферу.
+
+Ключевые визуальные особенности:
+Гипертрофированные пропорции (большая голова, живот)
+Толстый веселый персонаж
+Большие выразительные глаза и усы
+Традиционная еда и напитки с детализацией
+Теплое освещение (свечи, огонь, уютный свет)
+Богатый интерьер на заднем плане
+Текстуры еды, дерева, стекла
+Карикатурный, но детальный стиль
+Праздничная, веселая атмосфера
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Detailed cartoon illustration, cheerful plump Bavarian chef character with exaggerated proportions, large head, big bushy moustache, holding huge beer mug with foam, table full of traditional food (sausages, pretzels, sauerkraut), warm cozy lighting from lanterns and candles, traditional beer hall interior with wooden barrels in background, people celebrating, rich detailed textures on food glass and wood, caricature grotesque style but highly detailed, festive joyful atmosphere, warm golden brown color palette, professional digital illustration, 
+concept art quality --ar 16:9 --q 2 --s 750
+37
+37
+
+СТИЛЬ 7: CINEMATIC PANORAMIC 
+(Эпическая кинематографическая панорама)
+38
+38
+
+CINEMATIC PANORAMIC
+Эпическая панорама древнего города
+Широкоформатное изображение с захватывающим видом
+Идеально подходит для передачи величия и масштаба исторических мест
+GigaChat
+39
+39
+
+GigaChat
+40
+40
+
+Perplexity
+41
+41
+
+СТИЛЬ 7: CINEMATIC PANORAMIC (Эпическая кинематографическая панорама)
+
+Описание стиля:
+Широкоформатная эпическая композиция в стиле исторических фильмов-блокбастеров. Монументальная архитектура, массовые сцены, драматичное освещение золотого часа.
+
+Ключевые визуальные особенности:
+Широкоформатная композиция (21:9 или 16:9)
+Древний город (античная архитектура)
+Войска, армии, массы людей
+Монументальные храмы, стены, башни
+Золотой час / закат с драматичным небом
+Пыль в воздухе, атмосферная дымка
+Фигуры на переднем плане (герои, полководцы)
+Эпический масштаб и размах
+Теплая цветовая градация
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+Epic cinematic panoramic shot, ancient city at golden hour, massive armies and crowds, monumental classical architecture with temples walls towers, dramatic sunset sky with volumetric clouds, atmospheric dust and haze in air, silhouettes of warriors on foreground, wide-angle perspective, sense of epic scale and grandeur, warm color grading with golden ochre brown tones, cinematic lighting, inspired by films like Gladiator and 300, matte painting quality, photorealistic, 8K --ar 21:9 --q 2 --s 500
+42
+42
+
+СТИЛЬ 8: ULTRA REALISTIC (Ультрареалистичная фотография)
+43
+43
+
+ULTRA REALISTIC
+Ультрареалистичная фотография с фотореалистичными деталями
+Туристы в горах, четкие текстуры и тени
+Высокое разрешение и детализация
+GigaChat
+44
+44
+
+Perplexity
+45
+45
+
+СТИЛЬ 8: ULTRA REALISTIC (Ультрареалистичная фотография)
+
+Описание стиля:
+Высококачественная фотореалистичная фотография с естественным освещением и техническими характеристиками профессиональной DSLR-съемки. Документальный стиль с акцентом на аутентичность.
+
+Ключевые визуальные особенности:
+Фотографическая реалистичность
+Естественное освещение (солнечный свет)
+Реалистичные текстуры (ткань, кожа, природа)
+Композиция как в real-life фотографии
+Малая глубина резкости (bokeh на фоне)
+Естественные цвета без преувеличения
+Документальный / adventure фотография стиль
+Человеческие фигуры в естественных позах
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Ultra realistic photography, three hikers with backpacks walking away on mountain trail, shot from behind, golden dry grass field, majestic mountains in background, clear blue sky with white clouds, natural 
+sunlight, authentic outdoor adventure aesthetic, shot on Canon EOS R5 with 24-70mm lens at f/4, slight shallow depth of field with background softly blurred, realistic textures on clothing backpacks and landscape, warm natural color palette, professional outdoor photography, documentary style, 8K resolution --ar 16:9 --q 2 --style raw
+46
+46
+
+СТИЛЬ 9: GROTESQUE (Гротескная сюрреалистическая иллюстрация)
+47
+47
+
+GROTESQUE
+Гротескная сюрреалистическая иллюстрация с органическими формами и необычными сочетаниями элементов.
+GigaChat
+48
+48
+
+Perplexity
+49
+49
+
+СТИЛЬ 9: GROTESQUE (Гротескная сюрреалистическая иллюстрация)
+
+Описание стиля:
+Детальная гротескная иллюстрация с искаженными фигурами, органическими спиралями и отталкивающе-завораживающей эстетикой. Стиль сочетает элементы Hieronymus Bosch, H.R. Giger и lowbrow art.
+
+Ключевые визуальные особенности:
+Искаженные человеческие фигуры
+Гипертрофированные черты лица
+Органические спиральные формы
+Множество глаз и странных деталей
+Текстурированная кожа с узорами
+Смесь детского и взрослого, милого и отталкивающего
+Винтажная приглушенная палитра
+Экстремальная детализация
+Сюрреалистические комбинации элементов
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Grotesque surrealist illustration, distorted human figures with exaggerated features, spiral organic patterns throughout, multiple eyes and strange details, textured skin with intricate patterns, unsettling chubby baby-like creatures with wide grins, elderly man with elongated features covered in swirls, vintage muted color palette of beige sepia grey-green, extreme level of detail, style combining Hieronymus Bosch and HR Giger and Mark Ryden, lowbrow surrealism, simultaneously repulsive and mesmerizing, intricate pen and ink quality 
+--ar 1:1 --q 2 --s 750
+50
+50
+
+СТИЛЬ 10: 
+OUTLINE ICON, NEON LIGHT (Неоновые контурные иконки)
+51
+51
+
+OUTLINE ICON, NEON LIGHT
+Неоновые контурные иконки, выделяющиеся на черном фоне
+Яркие цвета, создающие футуристический эффект
+Минималистичный дизайн с акцентом на геометрию
+GigaChat
+52
+52
+
+Perplexity
+53
+53
+
+СТИЛЬ 10: OUTLINE ICON, NEON LIGHT (Неоновые контурные иконки)
+
+Описание стиля:
+Минималистичные векторные иконки, выполненные светящимися неоновыми контурами на черном фоне. Популярный стиль для логотипов, UI-элементов и декоративных иллюстраций.
+
+Ключевые визуальные особенности:
+Абсолютно черный фон
+Контурные линии без заполнения
+Разноцветное неоновое свечение (розовый, голубой, зеленый, желтый)
+Отражения на глянцевой поверхности
+Минималистичный дизайн
+Векторная четкость линий
+Glow-эффект вокруг линий
+Тематические иконки (коктейли, еда, объекты)
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Neon outline icon illustration on pure black background, cocktail bar theme with glasses bottles fruits, glowing neon line art in multiple colors (pink cyan yellow green orange), no fill only outlines, neon tubes effect, reflections on glossy black surface below, minimalist clean design, vector art style, glowing edges, electric aesthetic, vibrant neon colors against darkness, modern icon design --ar 1:1 --q 2 --s 500
+54
+54
+
+СТИЛЬ 11: OIL PAINTING (Классическая масляная живопись)
+55
+55
+
+OIL PAINTING
+Классическая масляная живопись
+Маяк и море
+Традиционные техники
+GigaChat
+56
+56
+
+Perplexity
+57
+57
+
+СТИЛЬ 11: OIL PAINTING (Классическая масляная живопись)
+
+Описание стиля:
+Традиционная масляная живопись с видимыми мазками кисти, текстурой импасто и классической пейзажной композицией. Романтический морской пейзаж с маяком.
+
+Ключевые визуальные особенности:
+Маяк на скалистом берегу
+Бурное море с волнами
+Драматичное небо с облаками
+Видимые мазки кисти (brushstrokes)
+Текстура импасто (толстые слои краски)
+Мольберт на переднем плане (мета-композиция)
+Теплая и холодная цветовая гамма в контрасте
+Свет пробивается сквозь облака
+Классическая живописная композиция
+
+ПРОМПТ ДЛЯ MIDJOURNEY:
+
+Traditional oil painting on canvas, lighthouse on rocky cliff by stormy sea, dramatic cloudy sky with sunlight breaking through, rough ocean waves crashing, visible thick brushstrokes and impasto texture, rich oil paint quality, artist's easel in foreground showing the painting (meta reference), warm oranges and cool blues in contrast, romantic maritime landscape, style of Ivan Aivazovsky or J.M.W. Turner, textured canvas visible, classical composition, museum quality artwork --ar 3:2 --q 2 --s 750
+58
+58
+
+Создаем ИИ-агента АРТ ПРОМПТ МАСТЕР
+59
+59
+
+Промпт: изучи фото и разработай детальное описание стиля автора в изображении морской воды и волн, света солнца в волнах - это особая техника автора, а также прорисовка деталей парусников, разработай три варианта промптов по инструкции в файлах проекта
+Добавляем новый 
+стиль. Classical maritime oil painting
+60
+60
+
+Classical maritime oil painting on textured canvas, detailed tall ship sailing vessel with multiple masts and rigging clearly visible, wind-filled sails with realistic fabric folds and shadows showing volume, sails illuminated by warm golden-orange sunset light creating dramatic backlight effect, dark silhouette of ship hull with deck details, ship positioned against dramatic sky, highly detailed dynamic ocean with translucent multi-layered waves structure, each wave showing depth and three-dimensional form with pronounced crests and troughs, thick impasto paint application creating visible physical texture on wave surfaces, color gradient within waves from deep emerald-green in depths to light turquoise-cyan on illuminated surfaces, golden-yellow sunlight reflections painted with thick brushstrokes in diagonal patterns naturally following organic wave movement, white foaming wave crests with fine textural detail, light penetrating through water creating realistic luminosity effect, spectacular sunset sky with volumetric clouds and atmospheric depth, warm color palette dominated by golden orange pink and coral tones, dramatic sunlight breaking through clouds with volumetric rays creating atmospheric perspective, strong contrast between warm lighting (sky, water reflections) and cool tones (deep ocean shadows), visible expressive brushstrokes throughout showing passionate artist's hand and technique, rich impasto texture especially pronounced on wave surfaces, romantic and dramatic maritime atmosphere evoking emotion and grandeur, inspired by Russian marine painter Ivan Aivazovsky's mastery combined with J.M.W. Turner's atmospheric effects and light philosophy, authentic 19th century classical academic painting technique with contemporary hyperrealistic sensibility, professional museum quality artwork suitable for gallery exhibition, rich oil paint quality with multiple glazing layers creating depth and luminescence --ar 3:2 --q 2 --s 750 --style raw
+Промпт для генерации нейроиллюстрации
+61
+61
+
+ChatGPT-5
+62
+62
+
+63
+63
+
+GigaChat
+64
+64
+
+GigaChat
+перерисуй чтобы парусник был с 3 мачтами и по 2-3 паруса на мачтах и кливер впереди и ход корабря под 45 градусов на зрителя - нос вправо и солнце сделай круглым - детально прорисуй лучи
+65
+65
+
+еще раз доработай картину - теперь учти  требование создать именно классическую картину маслом, причем с заметными мазками кисти и техникой импасто — это значит, что поверхность должна выглядеть фактурной, будто краска нанесена толстым слоем. Для такой работы лучше всего подойдет подход, близкий к традиционным методам живописи, когда художник работает непосредственно кистью, а не пытается добиться фотографической гладкости.
+GigaChat
+66
+66
+
+Perplexity 1
+67
+67
+
+Perplexity 2
+68
+68
+
+Perplexity 3
+69
+69
+
+Perplexity 4
+70
+70
+
+71
+71
+
+72
+72
+
+Perplexity 1
+73
+73
+
+Perplexity 2
+74
+74
+
+Спасибо за участие
+75

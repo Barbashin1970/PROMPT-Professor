@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Навыки — ИИ в учебном процессе</title>
+<meta name="description" content="Навыки курса — скачать zip, поставить в Perplexity или Claude либо бесплатно подключить в любой нейросети.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm" aria-current="page">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap"><header class="page-head"><h1>Навыки</h1></header><article class="prose"><p>Навык — папка с файлом <code>SKILL.md</code>: ваш помощник, упакованный один раз. Что это и как
+собрать свой — в <a href="/bonus-navyki/">бонусном уроке</a>.</p>
+<h2 id="как-поставить-коротко">Как поставить — коротко</h2>
+<ul>
+<li><strong>Perplexity</strong> — «Настройка» → «Навыки» → «Создать навык» → «Загрузить навык», выбрать
+  zip. Загрузка своих навыков и библиотека встроенных работают и на бесплатном тарифе
+  (проверено автором курса 28.09.2026); создать навык разговором с Computer — только
+  с лимитами платного тарифа. Пределы, проверенные автором: в архиве навыка — до 100
+  файлов; за одну загрузку — до 5 навыков, остальные — следующими загрузками; описание —
+  не длиннее 1024 байт.</li>
+<li><strong>Claude</strong> — папка навыка в <code>~/.claude/skills/</code> для Claude Code; для приложения —
+  <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>документация Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</li>
+<li><strong>Бесплатно, в любой нейросети</strong> — распакуйте zip, приложите файлы к новому чату
+  и напишите первым сообщением: «Следуй инструкции из файла SKILL.md; остальные файлы —
+  справочники к ней». Если сервис не принимает <code>.md</code>, переименуйте файлы в <code>.txt</code>.</li>
+</ul>
+<h2 id="как-открыть-и-поправить">Как открыть и поправить</h2>
+<p>Распакуйте zip в папку «Мои навыки» и откройте её в бесплатном
+<a href="https://obsidian.md/download" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Obsidian<span class="visually-hidden"> (откроется в новой вкладке)</span></a> как хранилище: шапка навыка видна полями,
+ссылки на справочники открываются щелчком. Две настройки для своих навыков и ловушка
+со служебной папкой <code>.obsidian</code> — в <a href="/bonus-navyki/#obsidian">бонусном уроке</a>.</p>
+<h2 id="навыки-курса">Навыки курса</h2>
+<p>Список пополняется: новые навыки появятся здесь.</p>
+<div class="card-grid"><div class="card"><p class="num">thinking-with-six-hats</p><h3>Шесть шляп мышления</h3><p>Разбирает вопрос, идею или решение по методу шести шляп Эдварда де Боно: факты, чувства, идеи, выгоды, риски и итог с вариантами действий. Шляпы надеваются по очереди и не смешиваются, факты берутся только у пользователя, пробелы помечаются «нет данных», решение остаётся за человеком. Использовать, когда преподаватель или исследователь взвешивает решение по курсу, кафедре или НИР, ищет идеи или готовит занятие по шести шляпам со студентами.</p><p class="caption">Файлы: SKILL.md, references/primer.md, references/shlyapy.md · описание 810 байт · zip 16 КБ</p><div class="btn-row"><a class="btn btn--primary" href="/files/navyki/thinking-with-six-hats.zip" download>Скачать zip</a></div></div>
+<div class="card"><p class="num">writing-in-styles</p><h3>Копирайтер в восьми стилях</h3><p>Пишет текст на заданную тему в одном из восьми стилей — трендовом, эмоциональном, бунтарском, аналитическом, вдохновляющем, историйном, минималистичном, ироничном — или в смеси стилей по схеме 70/20/10. Начинает с меню стилей; факты, цифры и личные истории берёт только у пользователя, недостающее помечает. Использовать, когда преподавателю нужен пост для Telegram-канала кафедры, анонс курса в LMS, письмо студентам, колонка на сайт факультета или текст выступления.</p><p class="caption">Файлы: SKILL.md, references/smesi.md, references/stili.md · описание 839 байт · zip 13 КБ</p><div class="btn-row"><a class="btn btn--primary" href="/files/navyki/writing-in-styles.zip" download>Скачать zip</a></div></div>
+<div class="card"><p class="num">researching-literature</p><h3>Исследователь литературы</h3><p>Ведёт обзор литературы по научному или прикладному вопросу в четыре фазы: план по PICOS, сбор источников, критическая оценка, итоговый отчёт; после каждой фазы ждёт решения пользователя. Опирается только на источники, которые реально открыты или приложены: у каждой ссылки — DOI, URL или ISBN, без него — «не проверен»; счётчики — только по реестру источников. Использовать, когда преподаватель или исследователь готовит обзор к статье, диссертации, отчёту о НИР, заявке или обновлению курса.</p><p class="caption">Файлы: SKILL.md, references/fazy.md, references/metodiki.md, references/primer.md, references/shablon-otcheta.md · описание 885 байт · zip 20 КБ</p><div class="btn-row"><a class="btn btn--primary" href="/files/navyki/researching-literature.zip" download>Скачать zip</a></div></div>
+<div class="card"><p class="num">spotting-ai-writing</p><h3>Проверка текста на следы ИИ</h3><p>Проверяет студенческую работу на признаки участия ИИ и готовит разговор со студентом: размечает по каталогу штампы, следы чата, непроверяемые ссылки и расхождения с уровнем автора, приводит цитаты, к каждой находке даёт невинное объяснение и вопросы для устной беседы. Не выносит приговор, не ставит процент вероятности и не придумывает метрик. Использовать при проверке эссе, реферата, курсовой, отчёта или домашнего задания, когда есть сомнение в самостоятельности работы.</p><p class="caption">Файлы: SKILL.md, references/beseda.md, references/otchet.md, references/priznaki-ii-teksta.md, scripts/schitat-priznaki.py · описание 871 байт · zip 21 КБ</p><div class="btn-row"><a class="btn btn--primary" href="/files/navyki/spotting-ai-writing.zip" download>Скачать zip</a></div></div>
+<div class="card"><p class="num">editing-ai-writing</p><h3>Редактор ИИ-штампов</h3><p>Переписывает русский текст, который звучит как ответ нейросети, живым языком автора, не меняя смысла: убирает штампы, канцелярит, кальки, ровный ритм, лишнюю разметку и следы чата, сохраняет факты, числа, термины и ссылки. Ничего не выдумывает — ни фактов, ни личного опыта, ни источников — и не обещает обойти детекторы. Использовать, когда черновик анонса, письма, поста, методички или научно-популярного текста звучит казённо, а также в упражнении курса «редактор против детектора».</p><p class="caption">Файлы: SKILL.md, references/primery.md, references/priznaki-ii-teksta.md, scripts/schitat-priznaki.py · описание 883 байт · zip 20 КБ</p><div class="btn-row"><a class="btn btn--primary" href="/files/navyki/editing-ai-writing.zip" download>Скачать zip</a></div></div></div></article></div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

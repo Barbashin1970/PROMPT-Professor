@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Бонусный урок. Навыки — помощник, упакованный в папку — ИИ в учебном процессе</title>
+<meta name="description" content="Что такое навык ИИ-агента, как поставить навыки курса в Perplexity, Claude или бесплатно в любой нейросети и как собрать навык по своей дисциплине.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm" aria-current="page">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide">
+<header class="page-head"><p class="kicker">Бонусный урок</p><h1>Навыки — помощник, упакованный в папку</h1><p class="lead">Системный слой из лекций 1 и 3 можно не вставлять каждый раз, а <strong>упаковать один раз</strong> —
+в навык. Навык ставится в агента, передаётся коллеге файлом и срабатывает сам, когда
+задача подходит под его описание.</p></header>
+<div class="layout-toc">
+<nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-урока">Что вы унесёте с урока</a></li><li><a href="#chto-takoe-navyk">1. Что такое навык</a></li><li><a href="#navyki-kursa">2. Навыки курса</a></li><li><a href="#obsidian">3. Чем открыть и править навык</a></li><li><a href="#kak-postavit">4. Как поставить</a></li><li><a href="#svoj-navyk">5. Как собрать свой навык</a></li><li><a href="#agent">6. Агент на своём компьютере</a></li><li><a href="#promty">Промпты урока</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
+<article class="prose">
+<div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>
+<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 29 КБ · сборка 2026-09-29</span><a class="btn btn--small" href="/files/konspekt-bonus-navyki.docx" download>Скачать</a></div></div>
+
+<h2 id="что-вы-унесёте-с-урока">Что вы унесёте с урока</h2>
+<ul>
+<li>что такое навык и чем он удобнее системного промпта;</li>
+<li>чем открыть и править навык — бесплатный Obsidian и две его настройки;</li>
+<li>как поставить навыки курса — в Perplexity, в Claude или бесплатно в любой нейросети;</li>
+<li>как собрать навык по своей дисциплине и проверить, что он работает;</li>
+<li>как поручить сборку навыка агенту на своём компьютере — VS Code и бесплатные агенты без VPN.</li>
+</ul>
+<h2 id="chto-takoe-navyk">1. Что такое навык</h2>
+<p><strong>Навык</strong> (skill) — папка с файлом <code>SKILL.md</code>. В начале файла — шапка из двух полей:</p>
+<ul>
+<li><code>name</code> — короткое имя латиницей: строчные буквы, цифры и дефисы;</li>
+<li><code>description</code> — <strong>что навык делает и когда его применять</strong>, от третьего лица.</li>
+</ul>
+<p>Ниже шапки — сама инструкция: порядок работы, правила, формат результата, примеры.
+Рядом можно положить справочные файлы: критерии, словарь, образцы.</p>
+<p>Все файлы навыка — обычный текст в разметке Markdown (<code>.md</code>): решётка — заголовок,
+звёздочки — жирный, дефис — пункт списка. Открыть их можно хоть в Блокноте, но удобнее —
+в Obsidian (раздел 3).</p>
+<p><strong>Почему это экономно.</strong> Агент постоянно видит только имена и описания всех навыков.
+Сам <code>SKILL.md</code> он читает, когда задача подходит под описание, а справочные файлы —
+только когда они нужны. Десять навыков не занимают места в разговоре, пока не понадобятся
+(<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>как это устроено — документация Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Системный промпт в чате</th>
+<th>Проект</th>
+<th>Навык</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Где живёт</td>
+<td>в начале разговора</td>
+<td>в папке сервиса</td>
+<td>файл у вас и в агенте</td>
+</tr>
+<tr>
+<td>Как передать коллеге</td>
+<td>скопировать текст</td>
+<td>пригласить в проект</td>
+<td>отправить zip</td>
+</tr>
+<tr>
+<td>Когда срабатывает</td>
+<td>всегда в этом чате</td>
+<td>всегда в этом проекте</td>
+<td>сам, когда задача подходит под описание</td>
+</tr>
+</tbody>
+</table>
+<h2 id="navyki-kursa">2. Навыки курса</h2>
+<table>
+<thead>
+<tr>
+<th>Навык</th>
+<th>Что делает</th>
+<th>Когда пригодится</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>thinking-with-six-hats</code></td>
+<td>разбирает решение по шести шляпам де Боно и сводит итог с первыми шагами</td>
+<td>взвесить нововведение, провести мозговой штурм</td>
+</tr>
+<tr>
+<td><code>writing-in-styles</code></td>
+<td>пишет текст в одном из восьми стилей или в смеси стилей</td>
+<td>анонс курса, пост, эссе, вступление к лекции</td>
+</tr>
+<tr>
+<td><code>researching-literature</code></td>
+<td>ведёт обзор литературы в четыре фазы; источники — только проверяемые</td>
+<td>обзор к статье, заявке, новому курсу</td>
+</tr>
+<tr>
+<td><code>spotting-ai-writing</code></td>
+<td>ищет в работе признаки участия ИИ и готовит вопросы для беседы — без приговора и процентов</td>
+<td>сомнение в самостоятельности работы</td>
+</tr>
+<tr>
+<td><code>editing-ai-writing</code></td>
+<td>убирает из текста ИИ-штампы, не меняя смысла и ничего не выдумывая</td>
+<td>черновик звучит казённо</td>
+</tr>
+</tbody>
+</table>
+<p>Последние два — зеркальная пара на одном каталоге признаков: первый признаки ищет, второй
+убирает. Скачать каждый навык отдельным zip — на странице <a href="/navyki/">«Навыки»</a>. Список
+пополняется: новые навыки курса появятся там же.</p>
+<h2 id="obsidian">3. Чем открыть и править навык</h2>
+<p>В Блокноте навык читается как код: решётки, звёздочки, дефисы. Удобнее — в <strong>Obsidian</strong>,
+бесплатном редакторе заметок в Markdown для Windows, macOS, Linux, Android и iOS, с русским
+интерфейсом (<a href="https://obsidian.md/download" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>скачать<span class="visually-hidden"> (откроется в новой вкладке)</span></a>). Для работы он тоже бесплатен:
+коммерческую лицензию разработчики предлагают организациям, но не требуют
+(<a href="https://obsidian.md/pricing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>условия<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</p>
+<p><strong>Как открыть навыки курса:</strong></p>
+<ol>
+<li>Создайте папку «Мои навыки» и распакуйте в неё скачанные zip — каждый навык в свою
+   подпапку.</li>
+<li>В Obsidian выберите «Открыть папку как хранилище» и укажите «Мои навыки».</li>
+<li>Откройте <code>SKILL.md</code>. Шапка с <code>name</code> и <code>description</code> видна как «Свойства» — поля над
+   текстом (<a href="https://obsidian.md/help/Editing+and+formatting/Properties" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка Obsidian<span class="visually-hidden"> (откроется в новой вкладке)</span></a>),
+   а ссылки на справочные файлы открываются щелчком.</li>
+</ol>
+<p><strong>Две настройки, если будете писать свои навыки</strong> — «Настройки» → «Файлы и ссылки»:</p>
+<ul>
+<li>выключите «Использовать [[Wiki-ссылки]]». Тогда Obsidian вставляет обычные ссылки
+  Markdown — <code>[критерии](references/kriterii.md)</code>. Их понимают Perplexity, Claude и любая
+  нейросеть, а <code>[[вики-ссылки]]</code> — только сам Obsidian
+  (<a href="https://obsidian.md/help/Linking+notes+and+files/Internal+links" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>);</li>
+<li>в «Формат новой ссылки» выберите «Относительный путь к файлу». Тогда ссылка из <code>SKILL.md</code>
+  запишется с путём внутри папки навыка — <code>references/kriterii.md</code>, а не просто
+  <code>kriterii.md</code>.</li>
+</ul>
+<p>Имена файлов навыка пишите латиницей и без пробелов: так ссылки не ломаются ни в одном
+сервисе.</p>
+<p><strong>Осторожно с архивом.</strong> Obsidian хранит свои настройки в скрытой папке <code>.obsidian</code> внутри
+той папки, которую вы открыли как хранилище
+(<a href="https://obsidian.md/help/Files+and+folders/Configuration+folder" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>). Поэтому
+открывайте общую папку «Мои навыки», а не папку одного навыка. <code>[замер 28.09.2026]</code>
+Архив, собранный на Mac, забрал и скрытую <code>.obsidian</code>, и служебную папку <code>__MACOSX</code>.
+Перед загрузкой откройте архив и проверьте: внутри только <code>SKILL.md</code> и справочники.
+Архивы на сайте курса собраны без служебных файлов.</p>
+<h2 id="kak-postavit">4. Как поставить</h2>
+<h3 id="в-perplexity">В Perplexity</h3>
+<p>Навыки — в разделе <strong>«Настройка» → «Навыки»</strong>; рядом вкладки «Коннекторы», «Рабочие
+процессы» и «Память» <code>[по снимку экрана автора, 28.09.2026]</code>. Кнопка «Создать навык»
+предлагает два пути:</p>
+<ul>
+<li><strong>«Загрузить навык»</strong> — отдельный файл <code>.md</code>, пакет <code>.skill</code> или архив <code>.zip</code>, содержащий
+  <code>SKILL.md</code>; в <code>SKILL.md</code> название и описание навыка оформлены в YAML
+  <code>[по окну загрузки, 29.09.2026]</code> (<a href="https://www.perplexity.ai/help-center/en/articles/13914413-how-to-use-computer-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка Perplexity<span class="visually-hidden"> (откроется в новой вкладке)</span></a>);</li>
+<li><strong>«Создать с Computer»</strong> — собрать навык разговором прямо в чате.</li>
+</ul>
+<p>Во вкладке «Обзор» — библиотека встроенных навыков, в «Установленных навыках» — ваши.</p>
+<p><code>[проверено автором курса 28.09.2026]</code> <strong>На бесплатном тарифе</strong> раздел есть: доступны
+библиотека встроенных навыков и загрузка своих — для этого навыки курса и выложены
+на сайте. <strong>Создать новый навык разговором</strong> («Создать с Computer») можно только
+с лимитами Computer, а их дают на платном тарифе
+(<a href="https://www.perplexity.ai/changelog/what-we-shipped---march-13-2026" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>журнал изменений Perplexity, 13.03.2026<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</p>
+<p><code>[замер 19.09.2026]</code> Автор курса проверил пределы на своих навыках:</p>
+<ul>
+<li><strong>в одном архиве навыка — до 100 файлов:</strong> <code>SKILL.md</code>, справочники, примеры;</li>
+<li><strong>за одну загрузку — до 5 навыков.</strong> В окне «Загрузить навыки» помещается пять файлов —
+  архивов, <code>.md</code> или <code>.skill</code>. Навыков больше — загрузите в несколько приёмов: 16 архивов —
+  за четыре раза. Навыков в аккаунте может быть много — пять относится только к одной загрузке;</li>
+<li><strong>описание навыка (<code>description</code> в шапке) — не длиннее 1024 байт.</strong> Это предел только
+  для описания, а не для навыка. Кириллица в кодировке UTF-8 весит два байта на букву,
+  поэтому русское описание упирается в предел примерно на 500 знаках.</li>
+</ul>
+<p>Описания навыков курса — 700–900 байт.</p>
+<h3 id="в-claude">В Claude</h3>
+<p>В Claude Code навык — это папка в каталоге <code>~/.claude/skills/</code>; в приложении Claude
+и через программный интерфейс навыки загружаются по
+<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>документации Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</p>
+<h3 id="бесплатно-в-любой-нейросети">Бесплатно — в любой нейросети</h3>
+<p>Навык — обычный текст, поэтому работает и без специальной функции:</p>
+<ol>
+<li>Откройте новый чат в GigaChat, Алисе AI, DeepSeek или другом сервисе.</li>
+<li>Приложите <code>SKILL.md</code> и справочные файлы. Если сервис не принимает <code>.md</code>, переименуйте
+   файлы в <code>.txt</code> или вставьте текст <code>SKILL.md</code> прямо в сообщение.</li>
+<li>Первым сообщением напишите: «Следуй инструкции из файла SKILL.md; остальные файлы —
+   справочники к ней». Дальше работайте как обычно.</li>
+</ol>
+<p>Минус один: инструкцию придётся прикладывать в каждом новом чате. Зато бесплатно.</p>
+<h2 id="svoj-navyk">5. Как собрать свой навык</h2>
+<p><strong>Шаг 1. Выберите повторяющуюся задачу.</strong> Проверка лабораторных по одной схеме, варианты
+задач по шаблону, отзыв на выпускную работу, ответы на типовые письма студентов.</p>
+<p><strong>Шаг 2. Сделайте её один раз с моделью — обычным разговором.</strong> Запишите всё, что
+пришлось объяснять: критерии, термины, формат, частые ошибки. Именно это и пойдёт в навык.</p>
+<p><strong>Шаг 3. Напишите <code>SKILL.md</code></strong> — в Obsidian (раздел 3) или любом текстовом редакторе.
+Шаблон — ниже, среди промптов урока. Главное:</p>
+<ul>
+<li><strong>описание</strong> — что делает и когда применять, от третьего лица, с ключевыми словами,
+  по которым преподаватель будет об этом просить;</li>
+<li><strong>порядок работы</strong> — нумерованные шаги и чек-лист, который модель отмечает;</li>
+<li><strong>правила — с объяснением «зачем»</strong>, а не капсом «ВСЕГДА» и «НИКОГДА»: модель лучше
+  применяет правило, когда понимает его цель;</li>
+<li><strong>формат результата и пример</strong>;</li>
+<li><strong>чего не делать</strong> — выдумывать данные, выносить приговоры, раскрывать персональные данные.</li>
+</ul>
+<p><strong>Шаг 4. Вынесите справочники в отдельные файлы:</strong> критерии, словарь дисциплины, образцы.
+<code>SKILL.md</code> ссылается на каждый напрямую — справочники не ссылаются друг на друга.
+Примеры и образцы тоже кладите файлами: в архиве навыка для Perplexity — до 100 файлов.</p>
+<p><strong>Шаг 5. Проверьте на трёх сценариях:</strong> обычная задача; трудный случай; запрос, на который
+навык должен ответить «не знаю» или отказом. Не сработал — поправьте и проверьте снова.</p>
+<p><strong>Чек-лист перед раздачей</strong> — по
+<a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>рекомендациям Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>:</p>
+<ul>
+<li>☐ описание говорит, что делает навык и когда его применять;</li>
+<li>☐ <code>SKILL.md</code> короче 500 строк, подробности — в справочных файлах;</li>
+<li>☐ справочники — на один уровень от <code>SKILL.md</code>;</li>
+<li>☐ нет быстро устаревающих сведений: цен, версий моделей, «в этом году»;</li>
+<li>☐ один термин — одно значение по всему навыку;</li>
+<li>☐ пример конкретный, а не абстрактный;</li>
+<li>☐ проверен на трёх сценариях.</li>
+</ul>
+<h3 id="идеи-навыков-по-академическим-ролям">Идеи навыков по академическим ролям</h3>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Идея навыка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Лектор-визионер</td>
+<td>вступление к лекции по карте смыслов курса</td>
+</tr>
+<tr>
+<td>Методист-архитектор</td>
+<td>проверка рабочей программы на согласованность целей, тем и оценивания</td>
+</tr>
+<tr>
+<td>Практик-фасилитатор</td>
+<td>кейс для семинара по шаблону кафедры</td>
+</tr>
+<tr>
+<td>Куратор НИР</td>
+<td>отзыв научного руководителя по критериям</td>
+</tr>
+<tr>
+<td>Исследователь-публикант</td>
+<td>проверка статьи на требования журнала</td>
+</tr>
+<tr>
+<td>Администратор-организатор</td>
+<td>служебная записка по шаблону вуза</td>
+</tr>
+<tr>
+<td>Автор учебного пособия</td>
+<td>глава практикума: теория — пример — задачи — ответы</td>
+</tr>
+</tbody>
+</table>
+<h2 id="agent">6. Агент на своём компьютере</h2>
+<p>Чат в браузере знает только то, что вы в него вставили. <strong>Агент в редакторе кода</strong> работает
+с папкой на вашем компьютере: сам читает файлы, создаёт новые, запускает проверки. Это
+уровень агентного программирования из лекции 1, только задачи здесь — не программы,
+а навыки и тексты.</p>
+<p>Устроены такие агенты одинаково: расширение для VS Code, связанное с аккаунтом сервиса.
+Kimi Code входит через аккаунт Kimi, GigaCode — через GitVerse, Claude Code — через
+аккаунт Claude. Модель работает на сервере сервиса, а расширение даёт ей доступ к открытой
+папке.</p>
+<h3 id="что-понадобится">Что понадобится</h3>
+<ul>
+<li><strong>VS Code</strong> — бесплатный редактор (<a href="https://code.visualstudio.com/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>скачать<span class="visually-hidden"> (откроется в новой вкладке)</span></a>). Файлы
+  Markdown он показывает и как документ: <code>Ctrl+Shift+V</code>, на Mac <code>⇧⌘V</code>
+  (<a href="https://code.visualstudio.com/docs/languages/markdown" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка VS Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+<li><strong>Агент</strong> — расширение для VS Code. <code>[проверено 29.09.2026]</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Агент</th>
+<th>Сколько стоит</th>
+<th>Из России без VPN</th>
+<th>Навыки <code>SKILL.md</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Kimi Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Moonshot)</td>
+<td>в подписке Kimi от тарифа Plus, там же модель K3; запросы из VS Code, CLI и приложения — из одной квоты (<a href="https://www.kimi.com/code/docs/en/kimi-code/membership.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>у автора курса расширение из маркетплейса VS Code установилось и вход сработал <code>[29.09.2026]</code>; оплата российской картой — не выяснено</td>
+<td>да — <code>~/.kimi-code/skills/</code> или общая папка <code>~/.agents/skills/</code>, в проекте — <code>.kimi-code/skills/</code> (<a href="https://www.kimi.com/code/docs/en/kimi-code-cli/customization/skills.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+<tr>
+<td><a href="https://gitverse.ru/features/gigacode/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>GigaCode<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Сбер)</td>
+<td>персональный тариф бесплатный, агентный режим есть; лимиты не опубликованы</td>
+<td>да</td>
+<td>да — в папке проекта <code>.gigacode/skills/&lt;имя&gt;/SKILL.md</code> (<a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode/skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+<tr>
+<td><a href="https://sourcecraft.dev/portal/code-assistant/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>SourceCraft Code Assistant<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Яндекс)</td>
+<td>бесплатно 500 нейрокредитов в месяц, новым пользователям ещё 4000 на три месяца (<a href="https://sourcecraft.dev/portal/docs/ru/sourcecraft/pricing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>тарифы<span class="visually-hidden"> (откроется в новой вкладке)</span></a>); сколько это запросов агента — не сказано</td>
+<td>да</td>
+<td>AI-навыки и файл <code>AGENTS.md</code> (<a href="https://sourcecraft.dev/portal/docs/ru/sourcecraft/operations/ai-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+<tr>
+<td><a href="https://roocodeinc.github.io/Roo-Code/providers/lmstudio" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Roo Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и LM Studio</td>
+<td>бесплатно: модель работает на вашем компьютере</td>
+<td>да, интернет не нужен</td>
+<td>да (<a href="https://agentskills.io" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>агенты стандарта навыков<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GigaCode бесплатен, но слабее.</strong> По опыту автора курса простой код на Python он пишет,
+но с ошибками, которые приходится править. Навык или отзыв на работу, собранные
+GigaCode, перечитывайте особенно внимательно.</p>
+<p><strong>Что не подойдёт без VPN и подписки:</strong></p>
+<ul>
+<li><strong>GitHub Copilot</strong>, встроенный в VS Code, сам понимает навыки
+  (<a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка VS Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>),
+  но из России недоступен даже бесплатный тариф — так пишут пользователи
+  на <a href="https://github.com/orgs/community/discussions/182386" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>форуме GitHub<span class="visually-hidden"> (откроется в новой вкладке)</span></a>;</li>
+<li><strong>Qwen Code</strong> — бесплатный вход через Qwen OAuth закрыт 15.04.2026; остались платные
+  планы или своя модель (<a href="https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка Qwen Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).</li>
+</ul>
+<p><strong>Локальная модель — для работ с персональными данными.</strong> Roo Code с LM Studio не отправляет
+файлы в интернет. Цена — нагрузка на компьютер: разработчики Roo Code предупреждают, что
+локальные модели требовательны к ресурсам, и советуют подбирать модель под свой компьютер.</p>
+<p><strong>Как агент найдёт навык.</strong> Kimi Code читает навыки из папки <code>.agents/skills/</code> в домашней
+папке пользователя — эту общую папку понимают и другие агенты стандарта навыков. GigaCode —
+из <code>.gigacode/skills/</code> внутри открытой папки. Новый навык агент подхватит в новом
+разговоре. В любом другом агенте хватит просьбы: «Прочитай SKILL.md в папке [ИМЯ НАВЫКА]
+и работай по нему» — тот же приём первого сообщения, что в разделе 4.</p>
+<h3 id="чат-или-агент">Чат или агент</h3>
+<p>В GigaCode для VS Code два режима работы — <strong>Ask</strong> и <strong>Agent</strong> — и переключатель плана
+<code>[по справке GitVerse, 29.09.2026]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Режим</th>
+<th>Что делает</th>
+<th>Файлы</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ask</strong> — чат</td>
+<td>отвечает на вопросы; что показать, решаете вы: файлы и папки прикрепляете через <code>@</code>, текст — выделением (<a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>изменение файлов справка относит к режиму Agent</td>
+</tr>
+<tr>
+<td><strong>Agent</strong> — агент</td>
+<td>сам изучает файлы открытой папки, строит план, создаёт и меняет файлы, запускает команды, проверяет результат и исправляет ошибки (<a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/basic-terms/agentic-mode" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>меняет — после вашего подтверждения; кнопка под полем ввода разрешает правки без вопросов</td>
+</tr>
+<tr>
+<td><strong>Plan</strong> — кнопка «Plan On»</td>
+<td>изучает проект и пишет пошаговый план, ничего не меняя; после плана ждёт подтверждения (<a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/basic-terms/plan-mode" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>не меняет, пока вы не подтвердите</td>
+</tr>
+</tbody>
+</table>
+<p>Задачи ниже выполняются в режиме <strong>Agent</strong>. Для большой задачи сначала включите Plan
+и прочитайте план.</p>
+<p><strong>Режимы отличаются правами, а не маршрутом данных.</strong> Модель в обоих режимах работает
+не на вашем компьютере: GigaCode подключает свою модель и модели облака cloud.ru
+(<a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/basic-terms/models" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>). Сбер пишет, что код не используется для дообучения
+моделей, а данные обрабатываются анонимно (<a href="https://gitverse.ru/features/gigacode/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>страница GigaCode<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).
+Правило курса от этого не меняется: всё, что вы показываете чату или агенту, считайте
+отправленным на сервер. Поиск в интернете в справке о режимах не упоминается.</p>
+<h3 id="задача-1-навык-из-описания">Задача 1. Навык из описания</h3>
+<ol>
+<li>Откройте в VS Code папку «Мои навыки» — ту же, что в Obsidian: «Файл» → «Открыть папку».</li>
+<li>Откройте чат агента, вставьте промпт «Агент собирает навык по описанию» (ниже, среди
+   промптов урока) и опишите задачу своими словами.</li>
+<li>Агент создаст папку навыка, <code>SKILL.md</code> и справочники, а потом сам проверит пределы:
+   длину описания в байтах, число файлов, ссылки. Чат в браузере так не может — файлов
+   на вашем компьютере он не видит.</li>
+<li>Прочитайте результат в Obsidian или в просмотре Markdown и поправьте. Попросите агента
+   упаковать zip без служебных файлов — и загрузите навык в Perplexity или приложите к чату.</li>
+</ol>
+<h3 id="задача-2-навык-проверки-домашней-работы">Задача 2. Навык проверки домашней работы</h3>
+<ol>
+<li>Сохраните свою инструкцию или критерии проверки в файл <code>instrukciya.md</code> в той же папке —
+   текст можно просто вставить из Word.</li>
+<li>Дайте промпт «Навык проверки ДЗ из вашей инструкции». Агент перенесёт критерии дословно,
+   а если для проверки чего-то не хватает — шкалы, образца, правила для спорных случаев, —
+   задаст вопросы, а не додумает.</li>
+<li>Положите в папку <code>raboty/</code> две-три <strong>обезличенные</strong> работы и дайте промпт «Проверить
+   папку работ по навыку». На каждую работу агент напишет отзыв в папку <code>otzyvy/</code> и сведёт
+   таблицу.</li>
+<li>Сверьте два-три отзыва со своей проверкой, прежде чем доверять остальным. Итоговую
+   оценку ставите вы.</li>
+</ol>
+<h3 id="четыре-правила">Четыре правила</h3>
+<ol>
+<li><strong>Обезличьте работы.</strong> Облачный агент отправляет файлы на сервер сервиса. Фамилии,
+   номера групп и зачёток замените кодами вроде «Студент-01»
+   (<a href="/lekciya-1/#bezopasnost">лекция 1, «Минимум безопасности»</a>). Работы с именами —
+   только локальной моделью.</li>
+<li><strong>Работайте в копии.</strong> Агент меняет файлы; оригиналы держите отдельно.</li>
+<li><strong>Читайте, что разрешаете.</strong> Если агент спрашивает разрешение на команду или правку,
+   прочитайте, что именно он собирается сделать. Режим автоподтверждения, если он есть,
+   для чужих файлов не включайте.</li>
+<li><strong>Решение — за преподавателем.</strong> Агент готовит черновик отзыва; оценку и выводы
+   о самостоятельности работы делаете вы после беседы со студентом (лекция 3).</li>
+</ol>
+<h2 id="promty">Промпты урока</h2>
+<section class="prompt" id="p-b-shablon-skill" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Шаблон SKILL.md</h3>
+      <p class="prompt__when">Когда: начинаете свой навык</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-shablon-skill">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-shablon-skill">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-shablon-skill">---
+name: <mark class="ph">[imya-navyka-latinicej]</mark>
+description: &quot;<mark class="ph">[Что делает навык, от третьего лица]</mark>. <mark class="ph">[Когда применять: какие задачи и какими словами о них просят]</mark>.&quot;
+---
+
+# <mark class="ph">[Название навыка по-русски]</mark>
+
+<mark class="ph">[Одна-две фразы: для кого навык и какой результат даёт.]</mark>
+
+## Порядок работы
+
+Скопируй чек-лист в ответ и отмечай шаги:
+
+- [ ] 1. <mark class="ph">[Уточнить контекст: …]</mark>
+- [ ] 2. <mark class="ph">[Основной шаг]</mark>
+- [ ] 3. <mark class="ph">[Проверка результата по правилам ниже]</mark>
+- [ ] 4. <mark class="ph">[Выдать результат в формате ниже]</mark>
+
+## Правила
+
+- <mark class="ph">[Правило]</mark> — <mark class="ph">[зачем оно]</mark>.
+- Если данных не хватает — скажи об этом, не придумывай.
+
+## Формат результата
+
+<mark class="ph">[Шаблон или описание.]</mark>
+
+## Пример
+
+<mark class="ph">[Короткий пример: вход → результат.]</mark>
+
+## Чего не делать
+
+- <mark class="ph">[Чего нельзя]</mark> — <mark class="ph">[почему]</mark>.
+
+## Файлы навыка
+
+- <mark class="ph">[references/файл.md]</mark> — <mark class="ph">[что в нём]</mark>.</div>
+</section>
+<section class="prompt" id="p-b-sobrat-navyk" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Собрать навык вместе с нейросетью</h3>
+      <p class="prompt__when">Когда: задача уже решена в разговоре, хотите превратить её в навык</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-sobrat-navyk">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-sobrat-navyk">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-sobrat-navyk">Мы только что вместе решили задачу: <mark class="ph">[КОРОТКО ЗАДАЧА]</mark>. Собери из этого навык в формате
+SKILL.md.
+Требования:
+– шапка: name — латиницей, строчные буквы и дефисы; description — что делает и когда применять, от третьего лица, не длиннее 450 знаков;
+– порядок работы — нумерованные шаги и чек-лист;
+– правила — с объяснением, зачем каждое;
+– формат результата и один пример;
+– раздел «Чего не делать»;
+– всё, что я объяснял тебе по ходу — критерии, термины, частые ошибки, — перенеси в навык; подробные списки и образцы — в отдельные справочные файлы.
+Затем предложи три сценария проверки: обычный, трудный и такой, где навык должен отказаться или ответить «не знаю».</div>
+</section>
+<section class="prompt" id="p-b-agent-navyk-iz-opisaniya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Агент собирает навык по описанию</h3>
+      <p class="prompt__when">Когда: VS Code с агентом, открыта папка «Мои навыки»</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-navyk-iz-opisaniya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-navyk-iz-opisaniya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-navyk-iz-opisaniya">Создай в этой папке новый навык по описанию ниже.
+
+Описание задачи: <mark class="ph">[ЧТО ДОЛЖЕН ДЕЛАТЬ НАВЫК, ДЛЯ КОГО И КАКОЙ РЕЗУЛЬТАТ]</mark>.
+
+Требования к формату:
+– папка навыка — <mark class="ph">[imya-latinicej]</mark>; внутри SKILL.md, справочники и примеры — в подпапке references;
+– шапка SKILL.md: name — латиницей, строчные буквы, цифры и дефисы; description — что делает навык и когда его применять, от третьего лица;
+– ссылки на справочники — обычные ссылки Markdown с путём от SKILL.md, например на файл references/kriterii.md;
+– в SKILL.md: порядок работы с чек-листом, правила с объяснением «зачем», формат результата, один пример, раздел «Чего не делать».
+
+Потом проверь сам и покажи результаты проверки:
+1. длина description в кодировке UTF-8 — не больше 1024 байт;
+2. в папке навыка нет служебных файлов (.DS_Store, .obsidian, __MACOSX) и не больше 100 файлов;
+3. каждая ссылка из SKILL.md ведёт на существующий файл.
+
+Работай только внутри этой папки. Перед каждой командой коротко объясни, что она делает.</div>
+</section>
+<section class="prompt" id="p-b-agent-navyk-proverki-dz" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Навык проверки ДЗ из вашей инструкции</h3>
+      <p class="prompt__when">Когда: есть своя инструкция или критерии проверки работ</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-navyk-proverki-dz">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-navyk-proverki-dz">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-navyk-proverki-dz">В файле instrukciya.md — моя инструкция по проверке домашней работы по дисциплине «<mark class="ph">[ДИСЦИПЛИНА]</mark>». Собери из неё навык <mark class="ph">[proverka-dz-...]</mark> в этой папке.
+– Критерии и шкалу перенеси в references/kriterii.md дословно, ничего не добавляя от себя.
+– Если для проверки чего-то не хватает — шкалы, образца хорошей работы, правила для спорных случаев, — не придумывай, а задай мне вопросы списком.
+– Результат навыка по одной работе: оценка по каждому критерию с цитатой из работы, замечания, вопросы к студенту. Итоговую оценку навык не ставит — её ставит преподаватель.
+– Выводов о списывании и участии ИИ навык не делает: где сомневается, пишет вопрос к студенту.
+Проверь формат так же, как при сборке навыка по описанию: description не длиннее 1024 байт, служебных файлов нет, ссылки работают.</div>
+</section>
+<section class="prompt" id="p-b-agent-proverit-papku" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверить папку работ по навыку</h3>
+      <p class="prompt__when">Когда: навык проверки готов, работы обезличены</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-proverit-papku">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-proverit-papku">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-proverit-papku">Возьми навык <mark class="ph">[proverka-dz-...]</mark> и проверь работы из папки raboty/.
+– На каждую работу создай в папке otzyvy/ файл с тем же именем: оценка по каждому критерию с цитатой из работы, замечания, вопросы к студенту.
+– В конце создай otzyvy/svodka.md — таблицу «работа — баллы по критериям — что проверить мне вручную».
+– Итоговых оценок не ставь и выводов о списывании или участии ИИ не делай: где сомневаешься, пиши вопрос к студенту.
+– Файлы в папке raboty/ не меняй.</div>
+</section>
+<h2 id="samostoyatelno">Самостоятельная практика</h2>
+<p><strong>Время:</strong> около 3 часов. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
+<a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p>
+<ol>
+<li>Выберите повторяющуюся задачу из своей работы.</li>
+<li>Соберите навык: <code>SKILL.md</code> и справочные файлы — критерии, словарь, образцы.</li>
+<li>Проверьте на трёх сценариях — обычном, трудном и сценарии отказа — в одном сервисе:
+   в Perplexity, в Claude или бесплатным способом из раздела 4.</li>
+<li>Запишите для себя: какую задачу закрывает навык; три сценария и что вышло; что
+   пришлось поправить после проверки.</li>
+<li>По желанию — соберите навык агентом в VS Code (раздел 6) и отметьте, что агент
+   сделал сам и что вы поправили.</li>
+</ol>
+<p><strong>Как понять, что получилось:</strong> описание понятно и говорит, когда применять навык; навык работает
+на трёх сценариях; на сценарий отказа он не выдумывает ответ.</p>
+<h2 id="proverte-sebya">Проверьте себя</h2>
+<details>
+<summary>Из чего состоит навык?</summary>
+<p>Из папки с файлом <code>SKILL.md</code>: шапка с именем и описанием, ниже — инструкция. Рядом могут
+лежать справочные файлы.</p>
+</details>
+<details>
+<summary>Почему десять навыков не мешают разговору?</summary>
+<p>Агент постоянно видит только имена и описания. Сам навык он читает, когда задача подходит
+под описание, а справочники — только когда нужны.</p>
+</details>
+<details>
+<summary>Как пользоваться навыком без платной подписки?</summary>
+<p>Приложить <code>SKILL.md</code> и справочники к новому чату в любой нейросети и первым сообщением
+попросить следовать инструкции из <code>SKILL.md</code>. В Perplexity готовый навык можно загрузить
+и на бесплатном тарифе: «Настройка» → «Навыки» → «Создать навык» → «Загрузить навык».</p>
+</details>
+<details>
+<summary>Почему в Obsidian как хранилище открывают общую папку «Мои навыки», а не папку одного навыка?</summary>
+<p>Obsidian кладёт свои настройки в скрытую папку <code>.obsidian</code> внутри открытой папки. Если
+открыть папку навыка, <code>.obsidian</code> попадёт в архив навыка лишними файлами.</p>
+</details>
+<details>
+<summary>Чем агент в VS Code отличается от чата в браузере?</summary>
+<p>Он работает с папкой на вашем компьютере: сам читает и создаёт файлы и может проверить
+результат — например, посчитать байты описания навыка.</p>
+</details>
+<details>
+<summary>Что сделать с работами студентов, прежде чем отдавать их облачному агенту?</summary>
+<p>Обезличить: фамилии, номера групп и зачёток заменить кодами. Работы с именами — только
+локальной моделью. Итоговую оценку ставит преподаватель.</p>
+</details>
+<details>
+<summary>Почему русское описание навыка для Perplexity должно быть короче английского?</summary>
+<p>Предел — 1024 байта, а кириллица в UTF-8 весит два байта на букву: русское описание
+упирается в предел примерно на 500 знаках.</p>
+</details>
+<h2 id="istochniki">Источники</h2>
+<ul>
+<li>Anthropic. Agent Skills — обзор. <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Anthropic. Skill authoring best practices. <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Perplexity. How to use Computer skills. <a href="https://www.perplexity.ai/help-center/en/articles/13914413-how-to-use-computer-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.perplexity.ai/help-center/en/articles/13914413-how-to-use-computer-skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; также <a href="https://www.perplexity.ai/hub/academy/how-to-use-computer-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.perplexity.ai/hub/academy/how-to-use-computer-skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Obsidian: скачать — <a href="https://obsidian.md/download" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://obsidian.md/download<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; условия — <a href="https://obsidian.md/pricing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://obsidian.md/pricing<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; справка о свойствах, ссылках и папке настроек — <a href="https://obsidian.md/help/Editing+and+formatting/Properties" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://obsidian.md/help/Editing+and+formatting/Properties<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, <a href="https://obsidian.md/help/Linking+notes+and+files/Internal+links" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://obsidian.md/help/Linking+notes+and+files/Internal+links<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, <a href="https://obsidian.md/help/Files+and+folders/Configuration+folder" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://obsidian.md/help/Files+and+folders/Configuration+folder<span class="visually-hidden"> (откроется в новой вкладке)</span></a>. Названия настроек — по официальному русскому переводу интерфейса: <a href="https://github.com/obsidianmd/obsidian-translations" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/obsidianmd/obsidian-translations<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Perplexity. Agent API — Skills. <a href="https://docs.perplexity.ai/docs/agent-api/skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://docs.perplexity.ai/docs/agent-api/skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Агент в VS Code: навыки в VS Code — <a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://code.visualstudio.com/docs/copilot/customization/agent-skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; стандарт навыков и список агентов — <a href="https://agentskills.io" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://agentskills.io<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Kimi Code — <a href="https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, подписка — <a href="https://www.kimi.com/code/docs/en/kimi-code/membership.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.kimi.com/code/docs/en/kimi-code/membership.html<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, навыки — <a href="https://www.kimi.com/code/docs/en/kimi-code-cli/customization/skills.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.kimi.com/code/docs/en/kimi-code-cli/customization/skills.html<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; GigaCode — <a href="https://gitverse.ru/features/gigacode/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://gitverse.ru/features/gigacode/<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и навыки GigaCode — <a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode/skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode/skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; тарифы SourceCraft — <a href="https://sourcecraft.dev/portal/docs/ru/sourcecraft/pricing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://sourcecraft.dev/portal/docs/ru/sourcecraft/pricing<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; вход в Qwen Code — <a href="https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Roo Code и LM Studio — <a href="https://roocodeinc.github.io/Roo-Code/providers/lmstudio" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://roocodeinc.github.io/Roo-Code/providers/lmstudio<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Copilot из России — <a href="https://github.com/orgs/community/discussions/182386" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/orgs/community/discussions/182386<span class="visually-hidden"> (откроется в новой вкладке)</span></a>. Проверено 29.09.2026.</li>
+<li>Навык humanizer (blader, лицензия MIT) — образец порядка работы для навыка-редактора. <a href="https://github.com/blader/humanizer" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/blader/humanizer<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Wikipedia: Signs of AI writing — основа каталога признаков. <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>{{title}} — ИИ в учебном процессе</title>
+<meta name="description" content="{{description}}">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+{{head_extra}}
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm"{{cur_lekcii}}>Лекции</a>
+      <a href="/promty/" class="nav__hide-xs"{{cur_promty}}>Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm"{{cur_konstruktor}}>Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm"{{cur_navyki}}>Навыки</a>
+      <a href="/test/" class="nav__hide-sm"{{cur_test}}>Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+{{content}}
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка {{date}}</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Главная — ИИ в учебном процессе</title>
+<meta name="description" content="Курс «ИИ в учебном процессе» ЦИИ НГУ: лекции, промпты, конструктор, навыки и итоговый тест.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide">
+<header class="page-head">
+  <p class="kicker">Курс повышения квалификации · Центр искусственного интеллекта НГУ</p>
+  <h1>ИИ в учебном процессе</h1>
+  <p class="lead">Три лекции и бонусный урок: как готовить материалы, проверять работы
+  и собирать своих помощников — на бесплатных нейросетях.</p>
+  <div class="btn-row"><a class="btn btn--primary" href="/lekciya-1/">Начать с лекции 1</a>
+  <a class="btn" href="/promty/">Библиотека промптов</a><a class="btn" href="/konstruktor/">Конструктор промптов</a></div>
+</header>
+
+<section class="section">
+  <h2>Как проходить курс</h2>
+  <div class="card-grid">
+    <div class="card"><p class="num">Шаг 1</p><h3>Смотрите лекцию</h3><p>Видео и слайды — на странице лекции; конспект повторяет видео и углубляет его.</p></div>
+    <div class="card"><p class="num">Шаг 2</p><h3>Пробуйте промпты</h3><p>«Открыть в…» копирует промпт и открывает нейросеть в новой вкладке — вкладка курса остаётся открытой.</p></div>
+    <div class="card"><p class="num">Шаг 3</p><h3>Практика и зачёт</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Зачёт — <a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p></div>
+  </div>
+</section>
+
+<section class="section" id="lekcii">
+  <h2>Лекции</h2>
+  <div class="card-grid"><a class="card card--link" href="/lekciya-1/"><p class="num">Лекция 1</p><h3>Как устроен ИИ и как с ним разговаривать</h3><p>Что такое языковая модель, почему она уверенно ошибается, как написать запрос по формуле из восьми элементов и какие бесплатные сервисы взять в работу.</p></a>
+<a class="card card--link" href="/lekciya-2/"><p class="num">Лекция 2</p><h3>Техники промптинга и адаптация материалов</h3><p>Роли, ограничения, цепочки и диалоги с моделью, фреймворки, работа с голосом и LaTeX, адаптация материала под разный уровень и карта смыслов курса.</p></a>
+<a class="card card--link" href="/lekciya-3/"><p class="num">Лекция 3</p><h3>ИИ-агенты, проверка работ и выявление ИИ-контента</h3><p>Как собрать своего ИИ-помощника, как проверять студенческие работы с ИИ, почему детектор ИИ не доказательство и какие правила ввести в курсе.</p></a>
+<a class="card card--link" href="/bonus-navyki/"><p class="num">Бонусный урок</p><h3>Навыки — помощник, упакованный в папку</h3><p>Что такое навык ИИ-агента, как поставить навыки курса в Perplexity, Claude или бесплатно в любой нейросети и как собрать навык по своей дисциплине.</p></a></div>
+</section>
+
+<section class="section">
+  <h2>Попробуйте прямо сейчас</h2>
+  <p class="caption">Промпт из лекции 1. Замените подсвеченное своими данными.</p>
+  <section class="prompt" id="p-l1-test-po-formule" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Тест по формуле из восьми элементов</h3>
+      <p class="prompt__when">Когда: нужен тест с ключом по вашей теме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-test-po-formule">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-test-po-formule">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-test-po-formule">ROLE: Ты — методист по <mark class="ph">[ДИСЦИПЛИНА]</mark>.
+GOAL: Создай тест из 10 вопросов по теме «<mark class="ph">[ТЕМА]</mark>».
+INPUT: Аудитория — <mark class="ph">[КУРС И УРОВЕНЬ, например: первый курс, базовый уровень]</mark>.
+FORMAT:
+– 7 вопросов с выбором одного ответа из четырёх;
+– 2 задания на соответствие;
+– 1 вопрос с открытым ответом;
+– в конце — ключ ответов с кратким пояснением для проверяющего.
+STYLE: ясно и кратко, без канцелярита.
+CONSTRAINTS:
+– вопросы однозначны: у каждого ровно один верный ответ;
+– все вопросы строго в пределах темы;
+– без терминов, которых не было на занятиях.
+EXAMPLES:
+(Выбор) <mark class="ph">[ПРИМЕР ВОПРОСА С ЧЕТЫРЬМЯ ВАРИАНТАМИ]</mark>
+Ответ: <mark class="ph">[ВЕРНЫЙ ВАРИАНТ]</mark>
+VERIFY: перед выдачей проверь по списку: все вопросы по теме; у каждого один верный ответ; ключ совпадает с вопросами; формулировки понятны первокурснику. Если что-то не выполнено — исправь и проверь снова.</div>
+</section>
+</section>
+
+<section class="section">
+  <h2>Нейросети</h2>
+  <p class="caption">Открываются в новой вкладке. Бесплатность и доступность проверены 2026-09-28; тарифы меняются — смотрите справку сервиса.</p>
+  <div class="card-grid"><a class="card card--link" href="https://giga.chat" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">GigaChat</h3><p>бесплатно; русский язык, презентации</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://alice.yandex.ru" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Алиса AI</h3><p>бесплатно; рассуждения — режим «Эксперт»</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://chat.deepseek.com" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">DeepSeek</h3><p>бесплатно; рассуждения, код, LaTeX</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Perplexity</h3><p>ответы со ссылками; проекты — в платном тарифе</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://www.kimi.com" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Kimi</h3><p>длинные документы, рассуждения, код</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">ChatGPT</h3><p>Россия не в списке стран OpenAI</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a></div>
+  <h3>Инструменты</h3>
+  <div class="card-grid"><a class="card card--link" href="https://arena.ai" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Arena (бывшая LMArena)</h3><p>сравнить ответы моделей вслепую</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">LM Studio</h3><p>модель на своём компьютере, без интернета</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://www.overleaf.com" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Overleaf</h3><p>собрать LaTeX в PDF</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://app.xmind.com" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Xmind</h3><p>нарисовать карту смыслов</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://obsidian.md/download" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Obsidian</h3><p>читать и править навыки и другие файлы .md</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">VS Code</h3><p>редактор, где агент работает с вашими файлами</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">Kimi Code</h3><p>агент для VS Code по подписке Kimi, работает из России</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<a class="card card--link" href="https://gitverse.ru/features/gigacode/" target="_blank" rel="noopener noreferrer" data-ryadom><h3 class="ext">GigaCode</h3><p>бесплатный агент для VS Code от Сбера, без VPN</p><span class="visually-hidden"> (откроется в новой вкладке)</span></a></div>
+</section>
+
+<section class="section">
+  <h2>Ещё на сайте</h2>
+  <div class="card-grid">
+    <a class="card card--link" href="/navyki/"><h3>Навыки</h3><p>Помощники курса — скачать zip и поставить.</p></a>
+    <a class="card card--link" href="/obrazcy/"><h3>Образцы текстов</h3><p>Тексты для упражнений: скопировать или скачать.</p></a>
+    <a class="card card--link" href="/slovar/"><h3>Словарь</h3><p>Термины курса одним списком.</p></a>
+    <a class="card card--link" href="/o-kurse/"><h3>О курсе</h3><p>Автор, программа, источники и лицензии.</p></a>
+  </div>
+</section>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

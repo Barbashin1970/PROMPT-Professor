@@ -1,0 +1,444 @@
+/* Сайт курса «ИИ в учебном процессе» — общие стили.
+   Дизайн: утилитарная поверхность по навыкам apple-design (светлая тема по умолчанию,
+   один акцент, иерархия шрифтом и воздухом, стекло только у шапки, движение — только
+   смена состояний). Проект — docs/SAIT-PROEKT.md, §5. В CSS — только смысловые роли. */
+
+/* ── 1. Токены ─────────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #f2f2f7;
+  --label: #1d1d1f;
+  --label-2: rgba(60, 60, 67, 0.78);   /* 0.60 у Apple; поднято до 4,5:1 и выше на --bg и --surface-2 */
+  --label-3: rgba(60, 60, 67, 0.45);
+  --separator: rgba(60, 60, 67, 0.22);
+  --accent: #0066cc;                    /* systemBlue, затемнённый до 4,5:1 для текста ссылок */
+  --accent-strong: #0071e3;             /* заливка основной кнопки */
+  --accent-tint: rgba(0, 113, 227, 0.12);
+  --success: #248a3d;
+  --toast-bg: rgba(29, 29, 31, 0.94);
+  --toast-fg: #f5f5f7;
+  --nav-bg: rgba(245, 245, 247, 0.78);
+
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --t-body: 17px;
+  --lh-body: 1.47;
+  --t-small: 15px;
+  --t-caption: 13px;
+
+  --r-control: 12px;
+  --r-card: 18px;
+  --tap: 44px;
+
+  --wrap: 980px;
+  --wrap-wide: 1120px;
+  --gutter: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #2c2c2e;
+    --label: #f5f5f7;
+    --label-2: rgba(235, 235, 245, 0.72);
+    --label-3: rgba(235, 235, 245, 0.45);
+    --separator: rgba(84, 84, 88, 0.6);
+    --accent: #4da3ff;
+    --accent-strong: #0062d6;   /* темнее системного #0a84ff: белый текст на кнопке ≥ 4,5:1 */
+    --accent-tint: rgba(10, 132, 255, 0.24);
+    --success: #30d158;
+    --toast-bg: rgba(245, 245, 247, 0.94);
+    --toast-fg: #1d1d1f;
+    --nav-bg: rgba(0, 0, 0, 0.72);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: #1c1c1e;
+  --surface-2: #2c2c2e;
+  --label: #f5f5f7;
+  --label-2: rgba(235, 235, 245, 0.72);
+  --label-3: rgba(235, 235, 245, 0.45);
+  --separator: rgba(84, 84, 88, 0.6);
+  --accent: #4da3ff;
+  --accent-strong: #0062d6;
+  --accent-tint: rgba(10, 132, 255, 0.24);
+  --success: #30d158;
+  --toast-bg: rgba(245, 245, 247, 0.94);
+  --toast-fg: #1d1d1f;
+  --nav-bg: rgba(0, 0, 0, 0.72);
+}
+
+/* ── 2. Основа ─────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--label);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+img, svg, video { max-width: 100%; height: auto; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+
+:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 16px; top: -48px; z-index: 100;
+  background: var(--surface); color: var(--accent);
+  padding: 8px 16px; border-radius: var(--r-control);
+}
+.skip-link:focus { top: 8px; }
+
+/* ── 3. Типографика ────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 { color: var(--label); margin: 0; font-weight: 700; }
+h1 { font-size: clamp(34px, 5vw, 48px); line-height: 1.08; letter-spacing: -0.02em; }
+h2 { font-size: 28px; line-height: 1.2; letter-spacing: -0.014em; margin-top: 48px; }
+h3 { font-size: 22px; line-height: 1.27; letter-spacing: -0.008em; margin-top: 32px; }
+h4 { font-size: 20px; line-height: 1.25; margin-top: 24px; }
+
+.lead { font-size: 21px; line-height: 1.38; color: var(--label-2); margin: 16px 0 0; }
+.caption { font-size: var(--t-caption); color: var(--label-2); }
+
+.prose { max-width: 70ch; }
+.prose p, .prose ul, .prose ol, .prose table, .prose blockquote { margin: 16px 0 0; }
+.prose li + li { margin-top: 6px; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose blockquote {
+  margin-left: 0; padding: 12px 16px;
+  border-left: 3px solid var(--separator);
+  color: var(--label-2);
+  background: var(--surface);
+  border-radius: 0 var(--r-control) var(--r-control) 0;
+}
+.prose code {
+  font-family: var(--mono); font-size: 0.88em;
+  background: var(--surface-2); padding: 1px 5px; border-radius: 5px;
+}
+.prose pre {
+  font-family: var(--mono); font-size: 14px; line-height: 1.5;
+  background: var(--surface-2); padding: 16px; border-radius: var(--r-control);
+  overflow-x: auto; margin: 16px 0 0;
+}
+.prose pre code { background: none; padding: 0; }
+.prose hr { border: 0; border-top: 1px solid var(--separator); margin: 32px 0; }
+
+.prose table {
+  width: 100%; border-collapse: collapse; font-size: var(--t-small);
+  display: block; overflow-x: auto;
+}
+.prose th, .prose td {
+  text-align: left; vertical-align: top;
+  padding: 10px 12px; border-bottom: 1px solid var(--separator);
+}
+.prose th { font-weight: 600; color: var(--label-2); white-space: nowrap; }
+
+/* ── 4. Раскладка ──────────────────────────────────────────────────────────── */
+
+.wrap { max-width: calc(var(--wrap) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap--wide { max-width: calc(var(--wrap-wide) + 2 * var(--gutter)); }
+main { padding-bottom: 96px; }
+.section { margin-top: 64px; }
+.page-head { padding: 56px 0 8px; }
+.page-head .kicker { font-size: var(--t-small); font-weight: 600; color: var(--label-2); margin: 0 0 8px; }
+
+@media (max-width: 734px) {
+  :root { --gutter: 16px; }
+  h2 { font-size: 24px; margin-top: 40px; }
+  .page-head { padding-top: 32px; }
+}
+
+/* ── 5. Шапка: стекло только здесь ─────────────────────────────────────────── */
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--separator);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav { background: var(--bg); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .nav { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+.nav__row { display: flex; align-items: center; gap: 8px; min-height: 52px; }
+.nav__brand { font-weight: 700; color: var(--label); margin-right: auto; font-size: var(--t-small); }
+.nav__brand:hover { text-decoration: none; }
+.nav__links { display: flex; gap: 4px; align-items: center; }
+.nav__links a {
+  display: inline-flex; align-items: center; min-height: var(--tap);
+  padding: 0 10px; color: var(--label); font-size: var(--t-small); border-radius: var(--r-control);
+}
+.nav__links a[aria-current="page"] { color: var(--accent); }
+@media (max-width: 734px) { .nav__links .nav__hide-sm { display: none; } }
+@media (max-width: 480px) {
+  .nav__links .nav__hide-xs { display: none; }
+  .nav__brand { font-size: 14px; }
+}
+
+/* ── 6. Кнопки ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: var(--tap); padding: 0 16px;
+  font: inherit; font-size: var(--t-small); font-weight: 600;
+  color: var(--accent); background: var(--surface);
+  border: 1px solid var(--separator); border-radius: var(--r-control);
+  cursor: pointer; text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { text-decoration: none; background: var(--surface-2); }
+.btn--primary { color: #fff; background: var(--accent-strong); border-color: transparent; }
+.btn--primary:hover { background: var(--accent); }
+.btn--quiet { background: transparent; border-color: transparent; }
+.btn--quiet:hover { background: var(--accent-tint); }
+.btn--small { min-height: 36px; padding: 0 12px; font-size: var(--t-caption); }
+.btn.is-done { color: var(--success); }
+.btn--primary.is-done { color: #fff; } /* на синей кнопке зелёный текст не читается; пометкой служит само слово «Скопировано» */
+.btn[disabled] { opacity: 0.45; cursor: default; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+/* ── 7. Карточки ───────────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-card);
+  padding: 24px;
+}
+.card h3 { margin-top: 0; }
+.card p { margin: 8px 0 0; color: var(--label-2); }
+.card-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 24px; }
+.card--link { display: block; color: inherit; transition: border-color 0.15s ease; }
+.card--link:hover { text-decoration: none; border-color: var(--accent); }
+.card .num { font-size: var(--t-caption); font-weight: 600; color: var(--label-2); letter-spacing: 0.02em; }
+
+/* ── 8. Карточка промпта и образца ─────────────────────────────────────────── */
+
+.prompt {
+  margin: 24px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-card);
+  padding: 20px;
+  max-width: 78ch;
+}
+.prompt__head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 16px; }
+.prompt__title { font-size: 18px; font-weight: 700; margin: 0; flex: 1 1 260px; }
+.prompt__when { font-size: var(--t-small); color: var(--label-2); margin: 4px 0 0; }
+.prompt__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.prompt__body {
+  margin: 16px 0 0; padding: 16px;
+  background: var(--surface-2); border-radius: var(--r-control);
+  font: inherit; font-size: 16px; line-height: 1.5;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.ph {
+  background: var(--accent-tint); color: inherit;
+  border-radius: 4px; padding: 0 3px;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+.obrazec .prompt__body { max-height: 420px; overflow-y: auto; }
+
+/* ── 9. Меню сервисов «Открыть в…» и «Нейросети» ──────────────────────────── */
+
+.svc { position: relative; display: inline-block; }
+.svc__menu {
+  position: absolute; right: 0; top: calc(100% + 6px); z-index: 60;
+  min-width: 260px; margin: 0; padding: 6px; list-style: none;
+  background: var(--surface); border: 1px solid var(--separator);
+  border-radius: var(--r-control);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+.svc__menu[hidden] { display: none; }
+.svc__menu a {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: var(--tap); padding: 6px 12px; border-radius: 8px; color: var(--label);
+}
+.svc__menu a:hover, .svc__menu a:focus-visible { background: var(--accent-tint); text-decoration: none; }
+.svc__menu small { color: var(--label-2); font-size: var(--t-caption); }
+
+.ext::after { content: " ↗"; }
+
+/* ── 10. Оглавление лекции ─────────────────────────────────────────────────── */
+
+.layout-toc { display: block; }
+.toc { font-size: var(--t-small); }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc a { display: block; padding: 6px 0; color: var(--label-2); }
+.toc a:hover { color: var(--accent); }
+@media (min-width: 1100px) {
+  .layout-toc { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+  .toc { position: sticky; top: 72px; align-self: start; max-height: calc(100vh - 96px); overflow-y: auto; }
+}
+@media (max-width: 1099px) {
+  .toc ol { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .toc { border-bottom: 1px solid var(--separator); padding-bottom: 12px; margin-bottom: 8px; }
+}
+
+/* ── 11. Врезки, скачивание, ДЗ ────────────────────────────────────────────── */
+
+.note {
+  margin: 24px 0 0; padding: 16px 20px;
+  background: var(--surface); border: 1px solid var(--separator);
+  border-left: 4px solid var(--accent-strong);
+  border-radius: var(--r-control);
+  max-width: 78ch;
+}
+.note > :first-child { margin-top: 0; }
+.note__title { font-weight: 700; margin: 0; }
+
+.dl {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+  padding: 12px 0; border-bottom: 1px solid var(--separator);
+}
+.dl__name { flex: 1 1 240px; font-weight: 600; }
+.dl__meta { font-size: var(--t-caption); color: var(--label-2); }
+
+.video {
+  aspect-ratio: 16 / 9; width: 100%;
+  background: var(--surface-2); border-radius: var(--r-card);
+  display: grid; place-items: center; color: var(--label-2); text-align: center; padding: 24px;
+}
+.video--empty { aspect-ratio: auto; min-height: 96px; font-size: var(--t-small); }
+.page-head + .layout-toc { margin-top: 24px; }
+.downloads { margin-top: 16px; }
+
+/* ── 12. Сообщение «Скопировано» ───────────────────────────────────────────── */
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 200;
+  max-width: min(560px, calc(100vw - 32px));
+  transform: translate(-50%, 12px); opacity: 0;
+  background: var(--toast-bg); color: var(--toast-fg);
+  padding: 12px 18px; border-radius: var(--r-control);
+  font-size: var(--t-small); line-height: 1.4;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── 13. Подвал ────────────────────────────────────────────────────────────── */
+
+.foot {
+  border-top: 1px solid var(--separator);
+  padding: 32px 0 48px;
+  font-size: var(--t-caption); color: var(--label-2);
+}
+.foot a { color: var(--label-2); text-decoration: underline; }
+
+/* ── 14. Меньше движения ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .toast { transform: translate(-50%, 0); }
+}
+
+/* ── 13a. Поле поиска (библиотека промптов) ────────────────────────────────────
+   Подпись — отдельной строкой. Отступ под ней больше выступа кольца фокуса
+   (3 px толщина + 3 px отступ): иначе синее кольцо ложится на буквы подписи. */
+.poisk { margin: 28px 0 12px; }
+.poisk__podpis {
+  display: block; margin: 0 0 12px;
+  font-size: var(--t-small); font-weight: 600; color: var(--label);
+}
+.poisk__pole {
+  display: block; box-sizing: border-box; width: min(100%, 420px); min-height: var(--tap);
+  margin: 0; padding: 0 14px;
+  font: inherit; color: var(--label);
+  background: var(--surface); border: 1px solid var(--separator); border-radius: var(--r-control);
+}
+.poisk__pole::placeholder { color: var(--label-3); }
+.poisk__pole:focus-visible { outline-offset: 3px; border-color: var(--accent); border-radius: var(--r-control); }
+.poisk__itog { margin: 10px 0 0; min-height: 1.4em; }
+
+/* ── 14a. Переключатель темы и кнопка «наверх» ───────────────────────────────
+   Обе ставит сценарий sajt.js на всех страницах — одно место правки. */
+
+/* Тема: «как в системе» → светлая → тёмная. Значок показывает текущий режим;
+   выбор хранится в браузере, ранний сценарий в <head> ставит его до отрисовки. */
+.tema {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--tap); height: var(--tap); padding: 0; flex: none;
+  border: 0; border-radius: 50%; background: transparent; color: var(--label-2);
+  cursor: pointer;
+}
+.tema:hover { color: var(--label); background: var(--surface-2); }
+.tema:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tema svg { width: 20px; height: 20px; display: block; }
+
+/* «Наверх» — как в ARCHI: полупрозрачный круг справа внизу. Прячется, пока страница
+   не прокручена на высоту экрана, — на короткой странице его не видно вовсе.
+   Прозрачность уходит при наведении и фокусе: тогда кнопка нужна. */
+.naverh {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 48px; height: 48px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--separator); border-radius: 50%;
+  background: var(--surface); color: var(--accent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  opacity: 0; pointer-events: none;   /* невидимая кнопка не ловит нажатия */
+  transform: translateY(8px);
+  transition: opacity 0.16s, transform 0.16s;
+}
+.naverh.vidna { opacity: 0.62; pointer-events: auto; transform: none; }
+.naverh.vidna:hover, .naverh.vidna:focus-visible { opacity: 1; }
+.naverh:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.naverh svg { width: 22px; height: 22px; display: block; }
+@media (max-width: 480px) {
+  .naverh {
+    right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom));
+    width: var(--tap); height: var(--tap);
+  }
+}
+@media (prefers-reduced-motion: reduce) { .naverh { transition: none; } }
+@media (prefers-reduced-transparency: reduce) { .naverh.vidna { opacity: 1; } }
+
+/* ── 15. Печать (конспекты, карточка результата теста) ─────────────────────── */
+
+@media print {
+  .nav, .foot, .prompt__actions, .btn-row, .toc, .skip-link, .toast, .naverh { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .card, .prompt, .note { border-color: #999; break-inside: avoid; }
+  a { color: #000; text-decoration: underline; }
+}

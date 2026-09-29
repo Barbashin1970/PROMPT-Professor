@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор Промптов - Улучшенная Версия</title>
+    <style>
+        :root {
+            --bg-primary: #F5F5F5;
+            --bg-secondary: #FFFFFF;
+            --bg-code: #F8F8F8;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --border-color: #E0E0E0;
+            --accent-color: #2196F3;
+            --accent-hover: #1976D2;
+            --error-color: #F44336;
+            --success-color: #4CAF50;
+            --slider-bg: linear-gradient(to right, #E0E0E0, #2196F3);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1E1E1E;
+            --bg-secondary: #2D2D2D;
+            --bg-code: #252525;
+            --text-primary: #E0E0E0;
+            --text-secondary: #AAAAAA;
+            --border-color: #444444;
+            --accent-color: #42A5F5;
+            --accent-hover: #64B5F6;
+            --error-color: #EF5350;
+            --success-color: #66BB6A;
+            --slider-bg: linear-gradient(to right, #444444, #42A5F5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            width: 400px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 24px;
+            transition: background-color 0.3s;
+        }
+
+        .right-panel {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .tooltip {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: var(--text-secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 11px;
+            margin-left: 4px;
+            cursor: help;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.2s, background-color 0.3s, color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        input.error,
+        textarea.error {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .slider-group {
+            margin-bottom: 20px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .slider-value {
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 14px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--slider-bg);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-description {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.15s;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-primary:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .preview-container {
+            flex: 1;
+            background-color: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-y: auto;
+            transition: background-color 0.3s;
+            resize: none;
+            color: var(--text-primary);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .preview-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .stats {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.success {
+            background-color: var(--success-color);
+        }
+
+        .toast.error {
+            background-color: var(--error-color);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
+
+
+
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 50vh;
+            }
+
+            .right-panel {
+                max-height: 50vh;
+            }
+        }
+
+        .char-counter {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h1>Конструктор Промптов</h1>
+            <p class="subtitle">Создавайте эффективные промпты для ИИ</p>
+
+
+
+            <!-- Main Parameters -->
+            <div class="section">
+                <h2 class="section-title">Основные параметры</h2>
+
+                <div class="form-group">
+                    <label for="role">Роль</label>
+                    <select id="role" aria-label="Выберите роль">
+                        <option value="Аналитик в предметной области">Аналитик в предметной области</option>
+                        <option value="Методист по [предмет]">Методист по [предмет]</option>
+                        <option value="Технический аналитик с опытом в ИИ">Технический аналитик с опытом в ИИ</option>
+                        <option value="Преподаватель высшего учебного заведения">Преподаватель высшего учебного заведения</option>
+                        <option value="Преподаватель, куратор учебной группы студентов">Преподаватель, куратор учебной группы студентов</option>
+                        <option value="Эксперт по промпт-инжинирингу">Эксперт по промпт-инжинирингу</option>
+                        <option value="Специалист по исследованию аудитории">Специалист по исследованию аудитории</option>
+                        <option value="Продуктолог мирового уровня">Продуктолог мирового уровня</option>
+                        <option value="Журналист мирового уровня">Журналист мирового уровня</option>
+                        <option value="Консультант по образовательным технологиям">Консультант по образовательным технологиям</option>
+                        <option value="Разработчик учебных программ">Разработчик учебных программ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="task">Задача</label>
+                    <select id="task" aria-label="Выберите задачу">
+                        <option value="Суммаризируй содержание файла">Суммаризируй содержание файла</option>
+                        <option value="Создать тест из 10 вопросов по теме">Создать тест из 10 вопросов по теме</option>
+                        <option value="Адаптировать текст под целевую аудиторию">Адаптировать текст под целевую аудиторию</option>
+                        <option value="Создать кейс для семинара">Создать кейс для семинара</option>
+                        <option value="Объяснить концепцию [концепция] в нейросетях">Объяснить концепцию [концепция] в нейросетях</option>
+                        <option value="Подготовить план нового учебного курса">Подготовить план нового учебного курса</option>
+                        <option value="Написать пост для Telegram-канала группы">Написать пост для Telegram-канала группы</option>
+                        <option value="Подготовить коммерческое предложение">Подготовить коммерческое предложение</option>
+                        <option value="Разработать концепцию лекции">Разработать концепцию лекции</option>
+                        <option value="Найти противоречия и несостыковки в документе">Найти противоречия и несостыковки в документе</option>
+                        <option value="Систематизировать информацию по теме">Систематизировать информацию по теме</option>
+                        <option value="Написать объявление о наборе на курс">Написать объявление о наборе на курс</option>
+                        <option value="Придумать заголовки для статьи">Придумать заголовки для статьи</option>
+                        <option value="Создать Buyer Persona для аудитории">Создать Buyer Persona для аудитории</option>
+                        <option value="Разработать новый образовательный продукт">Разработать новый образовательный продукт</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="topic">Тема * <span class="tooltip" title="Обязательное поле, минимум 5 символов">?</span></label>
+                    <input type="text" id="topic" placeholder="Введите тему промпта..." aria-label="Введите тему" aria-required="true">
+                    <div class="error-message" id="topicError">Введите тему (минимум 5 символов)</div>
+                    <div class="char-counter" id="topicCounter">0 символов</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="context">Контекст</label>
+                    <select id="context" aria-label="Выберите контекст">
+                        <option value="Широкая аудитория без специальной подготовки">Широкая аудитория без специальной подготовки</option>
+                        <option value="Студенты бакалавриата (1-2 курс)">Студенты бакалавриата (1-2 курс)</option>
+                        <option value="Студенты специалитета (3-4 курс)">Студенты специалитета (3-4 курс)</option>
+                        <option value="Магистранты факультета [...]">Магистранты факультета [...]</option>
+                        <option value="Аспиранты и научные сотрудники">Аспиранты и научные сотрудники</option>
+                        <option value="Школьники (9-11 классы)">Школьники (9-11 классы)</option>
+                        <option value="Профессионалы с опытом">Профессионалы с опытом</option>
+                        <option value="Новички в области">Новички в области</option>
+                        <option value="IT специалисты">IT специалисты</option>
+                        <option value="Педагоги и методисты">Педагоги и методисты</option>
+                        <option value="Администраторы учебных заведений">Администраторы учебных заведений</option>
+                        <option value="Родители и законные представители">Родители и законные представители</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="format">Формат вывода</label>
+                    <select id="format" aria-label="Выберите формат">
+                        <option value="Текст параграфами">Текст параграфами</option>
+                        <option value="Markdown">Markdown</option>
+                        <option value="JSON">JSON</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSV">CSV</option>
+                        <option value="Таблица">Таблица</option>
+                        <option value="Список с пунктами">Список с пунктами</option>
+                        <option value="Код (Python/JavaScript)">Код (Python/JavaScript)</option>
+                        <option value="YAML">YAML</option>
+                        <option value="XML">XML</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="constraints">Ограничения</label>
+                    <select id="constraints" aria-label="Выберите ограничения">
+                        <option value="Только проверенные источники">Только проверенные источники</option>
+                        <option value="Избегать сложной математики">Избегать сложной математики</option>
+                        <option value="Использовать простой язык">Использовать простой язык</option>
+                        <option value="Избегать сленга и молодёжных фраз">Избегать сленга и молодёжных фраз</option>
+                        <option value="Быть формальным и научным">Быть формальным и научным</option>
+                        <option value="Избегать личных мнений">Избегать личных мнений</option>
+                        <option value="Максимум 3 уровня вложенности">Максимум 3 уровня вложенности</option>
+                        <option value="Фокус на примерах">Фокус на примерах</option>
+                        <option value="Избегать спойлеров">Избегать спойлеров</option>
+                        <option value="Учитывать временные ограничения">Учитывать временные ограничения</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Quality Parameters -->
+            <div class="section">
+                <h2 class="section-title">Параметры качества</h2>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="detail">Уровень детализации <span class="tooltip" title="От общих сведений до детального разбора">?</span></label>
+                        <span class="slider-value" id="detailValue">5</span>
+                    </div>
+                    <input type="range" id="detail" min="0" max="10" value="5" aria-label="Уровень детализации" role="slider">
+                    <div class="slider-description" id="detailDesc">Средний уровень детализации</div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="structure">Структурированность <span class="tooltip" title="От свободного стиля до строгой структуры">?</span></label>
+                        <span class="slider-value" id="structureValue">5</span>
+                    </div>
+                    <input type="range" id="structure" min="0" max="10" value="5" aria-label="Структурированность" role="slider">
+                    <div class="slider-description" id="structureDesc">Средняя структурированность</div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="formality">Формальность тона <span class="tooltip" title="От дружеского до академического стиля">?</span></label>
+                        <span class="slider-value" id="formalityValue">5</span>
+                    </div>
+                    <input type="range" id="formality" min="0" max="10" value="5" aria-label="Формальность" role="slider">
+                    <div class="slider-description" id="formalityDesc">Средняя формальность</div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="creativity">Креативность <span class="tooltip" title="От стандартного подхода до творческого">?</span></label>
+                        <span class="slider-value" id="creativityValue">5</span>
+                    </div>
+                    <input type="range" id="creativity" min="0" max="10" value="5" aria-label="Креативность" role="slider">
+                    <div class="slider-description" id="creativityDesc">Средняя креативность</div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="depth">Глубина анализа <span class="tooltip" title="От базового до продвинутого уровня">?</span></label>
+                        <span class="slider-value" id="depthValue">5</span>
+                    </div>
+                    <input type="range" id="depth" min="0" max="10" value="5" aria-label="Глубина анализа" role="slider">
+                    <div class="slider-description" id="depthDesc">Средняя глубина</div>
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <label for="responseLength">Объём ответа <span class="tooltip" title="Приблизительная длина генерируемого ответа">?</span></label>
+                        <span class="slider-value" id="responseLengthValue">4000</span>
+                    </div>
+                    <input type="range" id="responseLength" min="2000" max="8000" step="2000" value="4000" aria-label="Объём ответа" role="slider">
+                    <div class="slider-description" id="responseLengthDesc">Средний объём (~4000 символов)</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button type="button" class="btn-primary" id="copyBtn" aria-label="Копировать промпт">📋 Copy Prompt</button>
+                <button type="button" class="btn-secondary" id="themeToggle" aria-label="Переключить тему">🌙 Тема</button>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="preview-header">
+                <h2 class="preview-title">Предпросмотр промпта</h2>
+                <div class="stats" id="stats">0 символов | ~0 мин чтения</div>
+            </div>
+            <textarea id="promptPreview" class="preview-container" spellcheck="false" placeholder="Промпт будет отображен здесь...">Выберите параметры слева, чтобы сгенерировать промпт...</textarea>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Default state configuration
+        const DEFAULT_STATE = {
+            version: 1,
+            role: "Аналитик в предметной области",
+            task: "Суммаризируй содержание файла",
+            topic: "Сказка про Репку и Колобка",
+            context: "Широкая аудитория без специальной подготовки",
+            format: "Текст параграфами",
+            constraints: "Только проверенные источники",
+            detail: 5,
+            structure: 5,
+            formality: 5,
+            creativity: 5,
+            depth: 5,
+            responseLength: 4000
+        };
+
+        // Storage Manager using JavaScript variables (localStorage not available in sandbox)
+        const StorageManager = {
+            storage: {
+                promptBuilderState: null,
+                promptBuilderTheme: null
+            },
+
+            save(key, data) {
+                try {
+                    this.storage[key] = JSON.parse(JSON.stringify(data)); // Deep clone
+                    return true;
+                } catch (e) {
+                    console.error('Storage error:', e);
+                    return false;
+                }
+            },
+
+            load(key, defaultValue = null) {
+                try {
+                    const item = this.storage[key];
+                    return item !== null && item !== undefined ? item : defaultValue;
+                } catch (e) {
+                    console.error('Load error:', e);
+                    return defaultValue;
+                }
+            },
+
+            clear(key) {
+                try {
+                    this.storage[key] = null;
+                    return true;
+                } catch (e) {
+                    console.error('Clear error:', e);
+                    return false;
+                }
+            }
+        };
+
+        // Prompt Generator
+        const PromptGenerator = {
+            buildPrompt(config) {
+                try {
+                    // Validation
+                    if (!config.role || !config.task || !config.topic || !config.context || !config.format) {
+                        return 'Заполните все обязательные поля (роль, задача, тема, контекст, формат)';
+                    }
+
+                    // Format response length text
+                    let lengthText = 'Стандартно (~4000 символов)';
+                    if (config.responseLength === 2000) lengthText = 'Кратко (~2000 символов)';
+                    else if (config.responseLength === 4000) lengthText = 'Стандартно (~4000 символов)';
+                    else if (config.responseLength === 6000) lengthText = 'Подробно (~6000 символов)';
+                    else if (config.responseLength === 8000) lengthText = 'Очень подробно (~8000 символов)';
+
+                    // Build structured prompt with ::: and square brackets
+                    const prompt = `::: Действуй как: ${config.role}
+::: Задача: ${config.task}
+::: Тема: ${config.topic}
+::: Контекст/Аудитория: ${config.context}
+::: Формат вывода: ${config.format}
+::: Ограничения: ${config.constraints}
+::: Параметры качества: [Уровень детализации: ${config.detail}/10], [Структурированность: ${config.structure}/10], [Формальность: ${config.formality}/10], [Креативность: ${config.creativity}/10], [Глубина анализа: ${config.depth}/10], [Объём ответа: ${lengthText}]
+
+Начни выполнение задачи:`;
+
+                    return prompt;
+                } catch (err) {
+                    console.error('Ошибка генерации промпта:', err);
+                    return 'Ошибка при генерации промпта';
+                }
+            },
+
+            getLengthLabel(length) {
+                if (length <= 2000) return 'Кратко (~2000 символов)';
+                if (length <= 4000) return 'Стандартно (~4000 символов)';
+                if (length <= 6000) return 'Подробно (~6000 символов)';
+                return 'Очень подробно (~8000 символов)';
+            },
+
+            validateConfig(config) {
+                return config.topic && config.topic.trim().length >= 5;
+            }
+        };
+
+
+
+        // UI Manager
+        const UIManager = {
+            elements: {},
+            debounceTimer: null,
+
+            init() {
+                // Cache DOM elements
+                this.elements = {
+                    role: document.getElementById('role'),
+                    task: document.getElementById('task'),
+                    topic: document.getElementById('topic'),
+                    context: document.getElementById('context'),
+                    format: document.getElementById('format'),
+                    constraints: document.getElementById('constraints'),
+                    detail: document.getElementById('detail'),
+                    structure: document.getElementById('structure'),
+                    formality: document.getElementById('formality'),
+                    creativity: document.getElementById('creativity'),
+                    depth: document.getElementById('depth'),
+                    responseLength: document.getElementById('responseLength'),
+                    preview: document.getElementById('preview'),
+                    stats: document.getElementById('stats'),
+                    copyBtn: document.getElementById('copyBtn'),
+                    themeToggle: document.getElementById('themeToggle'),
+                    promptPreview: document.getElementById('promptPreview'),
+                    topicError: document.getElementById('topicError'),
+                    topicCounter: document.getElementById('topicCounter'),
+                    toast: document.getElementById('toast')
+                };
+
+                this.attachEventListeners();
+                this.loadState();
+                this.loadTheme();
+                this.updatePreview();
+            },
+
+            attachEventListeners() {
+                console.log('📎 Attaching event listeners...');
+                
+                // Form changes
+                const formElements = ['role', 'task', 'topic', 'context', 'format', 'constraints',
+                                     'detail', 'structure', 'formality', 'creativity', 'depth', 'responseLength'];
+                
+                formElements.forEach(name => {
+                    const el = this.elements[name];
+                    if (el) {
+                        el.addEventListener('input', () => this.handleFormChange());
+                        el.addEventListener('change', () => this.handleFormChange());
+                    }
+                });
+
+                // Sliders
+                ['detail', 'structure', 'formality', 'creativity', 'depth', 'responseLength'].forEach(name => {
+                    const slider = this.elements[name];
+                    if (slider) {
+                        slider.addEventListener('input', () => this.updateSlider(name));
+                    }
+                });
+
+                // Topic validation
+                this.elements.topic.addEventListener('input', () => {
+                    this.validateTopic();
+                    this.updateCharCounter();
+                });
+
+                // Buttons
+                this.elements.copyBtn.addEventListener('click', () => this.copyPrompt());
+                this.elements.themeToggle.addEventListener('click', () => this.toggleTheme());
+                
+                console.log('✅ Event listeners attached (except Reset)');
+            },
+
+            handleFormChange() {
+                clearTimeout(this.debounceTimer);
+                this.debounceTimer = setTimeout(() => {
+                    this.saveState();
+                    this.updatePreview();
+                }, 300);
+            },
+
+            updateSlider(name) {
+                const slider = this.elements[name];
+                const value = slider.value;
+                const valueSpan = document.getElementById(`${name}Value`);
+                const descSpan = document.getElementById(`${name}Desc`);
+
+                if (valueSpan) {
+                    valueSpan.textContent = value;
+                }
+
+                if (descSpan) {
+                    descSpan.textContent = this.getSliderDescription(name, value);
+                }
+            },
+
+            getSliderDescription(name, value) {
+                const descriptions = {
+                    detail: {
+                        low: 'Поверхностно, общие сведения',
+                        mid: 'Средний уровень детализации',
+                        high: 'Детальный разбор, всё включено'
+                    },
+                    structure: {
+                        low: 'Свободный стиль, творческий подход',
+                        mid: 'Средняя структурированность',
+                        high: 'Строгая структура, логический порядок'
+                    },
+                    formality: {
+                        low: 'Дружеский, разговорный тон',
+                        mid: 'Средняя формальность',
+                        high: 'Академический, формальный стиль'
+                    },
+                    creativity: {
+                        low: 'Стандартный, проверенный подход',
+                        mid: 'Средняя креативность',
+                        high: 'Креативный, неожиданный угол зрения'
+                    },
+                    depth: {
+                        low: 'Базовый уровень, простые примеры',
+                        mid: 'Средняя глубина',
+                        high: 'Глубокий анализ, продвинутые концепции'
+                    },
+                    responseLength: {
+                        2000: 'Кратко (~2000 символов)',
+                        4000: 'Средний объём (~4000 символов)',
+                        6000: 'Подробно (~6000 символов)',
+                        8000: 'Очень подробно (~8000 символов)'
+                    }
+                };
+
+                if (name === 'responseLength') {
+                    return descriptions[name][value] || 'Средний объём';
+                }
+
+                const val = parseInt(value);
+                if (val <= 3) return descriptions[name].low;
+                if (val <= 7) return descriptions[name].mid;
+                return descriptions[name].high;
+            },
+
+            validateTopic() {
+                const topic = this.elements.topic.value.trim();
+                const isValid = topic.length >= 5;
+                
+                if (topic.length > 0 && !isValid) {
+                    this.elements.topic.classList.add('error');
+                    this.elements.topicError.classList.add('show');
+                } else {
+                    this.elements.topic.classList.remove('error');
+                    this.elements.topicError.classList.remove('show');
+                }
+
+                // Update copy button state
+                this.elements.copyBtn.disabled = !isValid;
+                
+                return isValid;
+            },
+
+            updateCharCounter() {
+                const count = this.elements.topic.value.length;
+                this.elements.topicCounter.textContent = `${count} символов`;
+            },
+
+            updatePreview() {
+                const config = this.getCurrentConfig();
+                const prompt = PromptGenerator.buildPrompt(config);
+                
+                this.elements.promptPreview.value = prompt;
+                
+                // Update stats
+                const charCount = prompt.length;
+                const readTime = Math.ceil(charCount / 1000); // ~1000 chars per minute
+                this.elements.stats.textContent = `${charCount} символов | ~${readTime} мин чтения`;
+            },
+
+            getCurrentConfig() {
+                return {
+                    version: 1,
+                    role: this.elements.role.value,
+                    task: this.elements.task.value,
+                    topic: this.elements.topic.value,
+                    context: this.elements.context.value,
+                    format: this.elements.format.value,
+                    constraints: this.elements.constraints.value,
+                    detail: parseInt(this.elements.detail.value),
+                    structure: parseInt(this.elements.structure.value),
+                    formality: parseInt(this.elements.formality.value),
+                    creativity: parseInt(this.elements.creativity.value),
+                    depth: parseInt(this.elements.depth.value),
+                    responseLength: parseInt(this.elements.responseLength.value)
+                };
+            },
+
+            saveState() {
+                const config = this.getCurrentConfig();
+                StorageManager.save('promptBuilderState', config);
+            },
+
+            loadState() {
+                const savedState = StorageManager.load('promptBuilderState');
+                const config = savedState || DEFAULT_STATE;
+                this.applyConfig(config);
+                // Initialize sliders display
+                ['detail', 'structure', 'formality', 'creativity', 'depth', 'responseLength'].forEach(name => {
+                    this.updateSlider(name);
+                });
+                this.updateCharCounter();
+            },
+
+            applyConfig(config) {
+                if (config.role) this.elements.role.value = config.role;
+                if (config.task) this.elements.task.value = config.task;
+                if (config.topic) this.elements.topic.value = config.topic;
+                if (config.context) this.elements.context.value = config.context;
+                if (config.format) this.elements.format.value = config.format;
+                if (config.constraints) this.elements.constraints.value = config.constraints;
+                if (config.detail !== undefined) this.elements.detail.value = config.detail;
+                if (config.structure !== undefined) this.elements.structure.value = config.structure;
+                if (config.formality !== undefined) this.elements.formality.value = config.formality;
+                if (config.creativity !== undefined) this.elements.creativity.value = config.creativity;
+                if (config.depth !== undefined) this.elements.depth.value = config.depth;
+                if (config.responseLength !== undefined) this.elements.responseLength.value = config.responseLength;
+            },
+
+            async copyPrompt() {
+                // Получить текст из textarea
+                const promptText = this.elements.promptPreview.value;
+                
+                if (!promptText || promptText.trim().length === 0) {
+                    this.showToast('Ошибка: Промпт пуст', 'error');
+                    return;
+                }
+                
+                // Попытка 1: Использовать современный Clipboard API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    try {
+                        await navigator.clipboard.writeText(promptText);
+                        
+                        // Показать успех
+                        this.showSuccess('✓ Промпт скопирован в буфер обмена!');
+                        
+                        // Изменить текст кнопки на время
+                        const btn = this.elements.copyBtn;
+                        const originalText = btn.textContent;
+                        btn.textContent = '✓ Скопировано!';
+                        btn.style.backgroundColor = '#4CAF50';
+                        
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.backgroundColor = '';
+                        }, 2000);
+                        
+                    } catch (err) {
+                        console.error('Clipboard API ошибка:', err);
+                        // Fallback на старый способ
+                        this.fallbackCopyToClipboard(promptText);
+                    }
+                } else {
+                    // Fallback для старых браузеров
+                    this.fallbackCopyToClipboard(promptText);
+                }
+            },
+
+            // Fallback для старых браузеров без Clipboard API
+            fallbackCopyToClipboard(promptText) {
+                try {
+                    // Создать временный textarea
+                    const textarea = document.createElement('textarea');
+                    textarea.value = promptText;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    textarea.style.top = '0';
+                    textarea.style.left = '0';
+                    
+                    document.body.appendChild(textarea);
+                    
+                    // Выбрать текст
+                    textarea.select();
+                    textarea.setSelectionRange(0, 99999); // Для мобильных
+                    
+                    // Скопировать
+                    const successful = document.execCommand('copy');
+                    
+                    // Удалить textarea
+                    document.body.removeChild(textarea);
+                    
+                    if (successful) {
+                        // Показать успех
+                        this.showSuccess('✓ Промпт скопирован в буфер обмена!');
+                        
+                        // Изменить текст кнопки на время
+                        const btn = this.elements.copyBtn;
+                        const originalText = btn.textContent;
+                        btn.textContent = '✓ Скопировано!';
+                        btn.style.backgroundColor = '#4CAF50';
+                        
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.backgroundColor = '';
+                        }, 2000);
+                    } else {
+                        this.showToast('Ошибка: Не удалось скопировать в буфер обмена', 'error');
+                    }
+                } catch (err) {
+                    console.error('Fallback копирование ошибка:', err);
+                    this.showToast('Ошибка: Браузер не поддерживает копирование в буфер обмена', 'error');
+                }
+            },
+
+
+
+
+
+            toggleTheme() {
+                const body = document.body;
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                body.setAttribute('data-theme', newTheme);
+                StorageManager.save('promptBuilderTheme', newTheme);
+                
+                this.elements.themeToggle.textContent = newTheme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+            },
+
+            loadTheme() {
+                const savedTheme = StorageManager.load('promptBuilderTheme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                
+                document.body.setAttribute('data-theme', theme);
+                this.elements.themeToggle.textContent = theme === 'dark' ? '☀️ Светлая' : '🌙 Тёмная';
+            },
+
+
+
+            showToast(message, type = 'success') {
+                const toast = this.elements.toast;
+                toast.textContent = message;
+                toast.className = `toast ${type} show`;
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            },
+
+            // Показать успех (альтернативный метод)
+            showSuccess(message) {
+                this.showToast(message, 'success');
+            }
+        };
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Приложение инициализируется...');
+            UIManager.init();
+        });
+    </script>
+</body>
+</html>

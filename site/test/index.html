@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Итоговый тест — ИИ в учебном процессе</title>
+<meta name="description" content="Итоговый тест курса: шесть модулей по пять вопросов, «сдано» — от 60 %: 44 балла из 72. Результаты хранятся только в вашем браузере.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+<style>
+/* Итоговый тест — только раскладка. Цвета, скругления и размер нажимаемой цели —
+   общие переменные sajt.css; своих цветов нет. */
+.test-stranica [hidden] { display: none !important; }
+.test-razdel { margin-top: 48px; }
+.test-razdel > h2, .test-vid h2, .test-itog h2, .test-dialog h2 { margin-top: 0; }
+.test-pravila { max-width: 70ch; margin: 16px 0 0; padding-left: 1.3em; }
+.test-pravila li + li { margin-top: 6px; }
+.test-poyasnenie { max-width: 70ch; margin: 8px 0 0; color: var(--label-2); }
+
+/* Подпись */
+.test-polya { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 760px; margin-top: 16px; }
+.test-pole label { display: block; margin-bottom: 6px; font-weight: 600; }
+.test-neobyazatelno { font-weight: 400; color: var(--label-2); }
+.test-pole input, .test-para select {
+  width: 100%; min-height: var(--tap); padding: 8px 12px;
+  font: inherit; color: var(--label); background: var(--surface);
+  border: 1px solid var(--separator); border-radius: var(--r-control);
+}
+.test-pole input[aria-invalid="true"], .test-para select[aria-invalid="true"] {
+  border-color: var(--accent-strong); box-shadow: inset 0 0 0 1px var(--accent-strong);
+}
+.test-pole__oshibka { margin: 6px 0 0; font-weight: 600; }
+.test-pole__oshibka:empty { margin: 0; }
+
+/* Карточки модулей */
+.test-kartochka { display: flex; flex-direction: column; }
+.test-kartochka h3 { margin-top: 4px; font-size: 20px; }
+.test-kartochka strong { color: var(--label); }
+.test-kartochka .btn-row { margin-top: auto; padding-top: 16px; }
+.test-ochistka { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--separator); }
+.test-ochistka .btn { margin-top: 8px; }
+
+/* Модуль: вопрос за вопросом */
+.test-vid { max-width: 760px; margin-top: 32px; }
+.test-kicker { margin: 0 0 8px; font-size: 15px; font-weight: 600; color: var(--label-2); }
+.test-progress { height: 4px; margin-top: 16px; overflow: hidden; background: var(--separator); border-radius: 2px; }
+.test-progress__polosa { width: 0; height: 100%; background: var(--accent-strong); transition: width 0.2s ease; }
+.test-vopros { min-width: 0; margin: 24px 0 0; padding: 0; border: 0; }
+.test-vopros legend { padding: 0; }
+.test-vopros__zag { margin: 0; font-size: 22px; line-height: 1.3; }
+.test-vopros__nomer { display: block; margin-bottom: 6px; font-size: 15px; font-weight: 600; color: var(--label-2); }
+.test-vopros__tekst { display: block; white-space: pre-line; }
+.test-vopros__podskazka { margin: 12px 0 0; color: var(--label-2); }
+.test-varianty, .test-pary { display: grid; gap: 8px; margin-top: 12px; }
+.test-variant {
+  display: flex; align-items: flex-start; gap: 12px;
+  min-height: var(--tap); padding: 11px 16px;
+  background: var(--surface); border: 1px solid var(--separator); border-radius: var(--r-control);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.test-variant input { flex: none; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent-strong); }
+.test-bukva { flex: none; min-width: 1.6em; font-weight: 700; }
+@media (hover: hover) { .test-variant:hover { border-color: var(--accent); } }
+/* Выбранный вариант виден не только цветом: точка переключателя и двойная рамка. */
+@supports selector(:has(*)) {
+  .test-variant:has(input:checked) { border-color: var(--accent-strong); background: var(--accent-tint); box-shadow: inset 0 0 0 1px var(--accent-strong); }
+  .test-variant:has(input:focus-visible) { outline: 3px solid var(--accent-strong); outline-offset: 2px; }
+  .test-variant input:focus-visible { outline: none; }
+}
+.test-podzag { margin: 16px 0 0; font-weight: 600; }
+.test-sopost-varianty { display: grid; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.test-sopost-varianty li { display: flex; gap: 8px; }
+.test-para {
+  display: grid; gap: 8px; padding: 12px 16px;
+  background: var(--surface); border: 1px solid var(--separator); border-radius: var(--r-control);
+}
+.test-para label { display: flex; gap: 8px; }
+.test-strelka { position: relative; }
+.test-strelka::after {
+  content: ""; position: absolute; top: 50%; right: 18px;
+  width: 8px; height: 8px; margin-top: -6px;
+  border-right: 2px solid var(--label-2); border-bottom: 2px solid var(--label-2);
+  transform: rotate(45deg); pointer-events: none;
+}
+.test-para select { -webkit-appearance: none; appearance: none; padding-right: 44px; cursor: pointer; }
+.test-propusk { margin: 8px 0 0; font-weight: 600; }
+.test-oshibka ul { margin: 8px 0 0; padding: 0; list-style: none; }
+.test-oshibka .btn { justify-content: flex-start; width: 100%; padding: 8px; text-align: left; }
+.test-knopki { justify-content: space-between; margin-top: 24px; }
+.test-knopki .btn { flex: 1 1 140px; max-width: 280px; }
+
+/* Балл модуля */
+.test-rezultat__ball { margin: 16px 0 0; font-size: 22px; }
+.test-rezultat__ball strong { font-size: 34px; }
+
+/* Итоговая карточка */
+.test-itog { margin-top: 32px; }
+.test-itog__svedeniya { display: grid; grid-template-columns: max-content 1fr; gap: 4px 24px; margin: 16px 0 0; }
+.test-itog__svedeniya dt { color: var(--label-2); }
+.test-itog__svedeniya dd { margin: 0; }
+.test-itog table { width: 100%; margin-top: 16px; border-collapse: collapse; }
+.test-itog th, .test-itog td { padding: 10px 0; text-align: left; vertical-align: top; font-weight: 400; border-bottom: 1px solid var(--separator); }
+.test-itog td { width: 1%; padding-left: 16px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.test-itog tfoot th, .test-itog tfoot td { font-weight: 700; border-bottom: 0; }
+.test-itog__procent { display: block; font-size: 15px; font-weight: 400; color: var(--label-2); }
+.test-itog__povtor { display: block; margin-top: 2px; font-size: 15px; }
+.test-itog .test-itog__verdikt { margin: 24px 0 0; font-size: 28px; font-weight: 700; line-height: 1.2; color: var(--label); }
+.test-itog .test-itog__verdikt.is-zachet { color: var(--success); }
+.test-itog__detali { margin-top: 16px; }
+.test-itog__detali summary { padding: 10px 0; color: var(--accent); cursor: pointer; }
+.test-itog__tekst { margin: 8px 0 0; padding: 16px; font: inherit; font-size: 15px; white-space: pre-wrap; background: var(--surface-2); border-radius: var(--r-control); }
+
+/* Окно очистки */
+.test-dialog { width: min(480px, calc(100% - 32px)); color: var(--label); }
+.test-dialog h2 { font-size: 22px; }
+
+@media (max-width: 480px) {
+  .test-itog__svedeniya { grid-template-columns: 1fr; gap: 0; }
+  .test-itog__svedeniya dd + dt { margin-top: 8px; }
+  .test-knopki .btn { max-width: none; }
+  .test-itog .btn-row .btn { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .test-progress__polosa, .test-variant { transition: none; }
+}
+@media print {
+  .test-net-pechati { display: none !important; }
+  .test-itog { margin-top: 16px; }
+}
+</style>
+<script src="/test/voprosy.js" defer></script><script src="/test/test.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm" aria-current="page">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap test-stranica" id="test-koren">
+  <header class="page-head">
+    <p class="kicker">Курс «ИИ в учебном процессе» · НГУ, 2026</p>
+    <h1>Итоговый тест</h1>
+    <p class="lead test-net-pechati">Шесть модулей по пять вопросов — по два модуля на каждую лекцию. Сдано — от 60&nbsp;%: 44&nbsp;балла из&nbsp;72.</p>
+  </header>
+
+  <div id="test-plashki" class="test-net-pechati" aria-live="polite"></div>
+  <noscript><p class="note">Для прохождения теста нужен JavaScript — включите его в настройках браузера и обновите страницу.</p></noscript>
+
+  <div id="test-panel">
+    <section id="test-itog" class="card test-itog" aria-labelledby="test-itog-zag" hidden></section>
+
+    <section class="test-razdel test-net-pechati" aria-labelledby="test-pravila-zag">
+      <h2 id="test-pravila-zag">Как устроен тест</h2>
+      <ul class="test-pravila">
+        <li>Вопрос с одним верным ответом — 2&nbsp;балла. Сопоставление трёх пар — 3&nbsp;балла: по баллу за каждую верную пару. В модуле 12&nbsp;баллов, во всём тесте —&nbsp;72.</li>
+        <li>Модули проходятся в любом порядке. Внутри модуля можно возвращаться к прошлым вопросам; завершить модуль можно, когда отвечены все вопросы.</li>
+        <li>После модуля показывается только его балл, без разбора ответов: тест аттестационный. Модуль можно пройти заново — засчитывается последняя попытка.</li>
+        <li>Когда пройдены все шесть модулей, появится итог: от 44 до 72&nbsp;баллов — сдано. Итог можно скопировать или распечатать.</li>
+        <li>Баллы и подпись хранятся только в этом браузере — сайт их не собирает. Отправлять результат автору курса не нужно.</li>
+        <li>Тест можно проходить сколько угодно раз: модуль — кнопкой «Пройти заново», весь тест — после кнопки «Очистить результаты…» внизу страницы. Повторный проход закрепляет урок в памяти.</li>
+      </ul>
+    </section>
+
+    <section id="test-podpis" class="test-razdel test-net-pechati" aria-labelledby="test-podpis-zag" hidden>
+      <h2 id="test-podpis-zag">Как подписать результат</h2>
+      <p class="test-poyasnenie">Фамилия, имя и поток попадут в итог теста. Хранятся только в этом браузере.</p>
+      <div class="test-polya">
+        <div class="test-pole">
+          <label for="test-familiya">Фамилия</label>
+          <input id="test-familiya" type="text" autocomplete="family-name" spellcheck="false" maxlength="80" aria-describedby="test-familiya-oshibka">
+          <p id="test-familiya-oshibka" class="test-pole__oshibka" aria-live="polite"></p>
+        </div>
+        <div class="test-pole">
+          <label for="test-imya">Имя</label>
+          <input id="test-imya" type="text" autocomplete="given-name" spellcheck="false" maxlength="80" aria-describedby="test-imya-oshibka">
+          <p id="test-imya-oshibka" class="test-pole__oshibka" aria-live="polite"></p>
+        </div>
+        <div class="test-pole">
+          <label for="test-potok">Поток <span class="test-neobyazatelno">— если есть</span></label>
+          <input id="test-potok" type="text" autocomplete="off" maxlength="40">
+        </div>
+      </div>
+    </section>
+
+    <section id="test-moduli-razdel" class="test-razdel test-net-pechati" aria-labelledby="test-moduli-zag" hidden>
+      <h2 id="test-moduli-zag" tabindex="-1">Модули</h2>
+      <p id="test-svodka" class="test-poyasnenie" hidden></p>
+      <div id="test-moduli" class="card-grid"></div>
+      <div class="test-ochistka">
+        <p class="caption">Очистка удалит баллы всех модулей и подпись из этого браузера.</p>
+        <button type="button" class="btn btn--quiet" data-deistvie="ochistit">Очистить результаты…</button>
+      </div>
+    </section>
+  </div>
+
+  <section id="test-modul" class="test-vid test-net-pechati" aria-labelledby="test-modul-zag" hidden>
+    <p id="test-modul-kicker" class="test-kicker"></p>
+    <h2 id="test-modul-zag" tabindex="-1"></h2>
+    <div class="test-progress" aria-hidden="true"><div id="test-progress-polosa" class="test-progress__polosa"></div></div>
+    <form id="test-forma" novalidate>
+      <div id="test-vopros-mesto"></div>
+      <div id="test-oshibka" class="note test-oshibka" tabindex="-1" aria-live="polite" hidden></div>
+      <div class="btn-row test-knopki">
+        <button type="button" id="test-nazad" class="btn" data-deistvie="nazad">Назад</button>
+        <button type="submit" id="test-dalee" class="btn btn--primary">Далее</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="test-rezultat" class="test-vid test-net-pechati" aria-labelledby="test-rezultat-zag" hidden>
+    <p id="test-rezultat-kicker" class="test-kicker"></p>
+    <h2 id="test-rezultat-zag" tabindex="-1">Модуль пройден</h2>
+    <p id="test-rezultat-ball" class="test-rezultat__ball"></p>
+    <p class="test-poyasnenie">Правильные ответы не показываются: тест аттестационный. Модуль можно пройти заново — засчитается последняя попытка.</p>
+    <div id="test-rezultat-dop"></div>
+    <div id="test-rezultat-knopki" class="btn-row"></div>
+  </section>
+
+  <dialog id="test-ochistka-dialog" class="card test-dialog" aria-labelledby="test-ochistka-zag" aria-describedby="test-ochistka-opis">
+    <form method="dialog">
+      <h2 id="test-ochistka-zag">Очистить результаты?</h2>
+      <p id="test-ochistka-opis">Баллы всех модулей и подпись удалятся из этого браузера. Вернуть их будет нельзя.</p>
+      <div class="btn-row">
+        <button id="test-ochistka-otmena" class="btn" value="otmena">Отмена</button>
+        <button class="btn btn--primary" value="ochistit" data-deistvie="ochistit-da">Очистить</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-28</p>
+  </div>
+</footer>
+</body>
+</html>

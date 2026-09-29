@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Лекция 1. Как устроен ИИ и как с ним разговаривать — ИИ в учебном процессе</title>
+<meta name="description" content="Что такое языковая модель, почему она уверенно ошибается, как написать запрос по формуле из восьми элементов и какие бесплатные сервисы взять в работу.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm" aria-current="page">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide">
+<header class="page-head"><p class="kicker">Лекция 1</p><h1>Как устроен ИИ и как с ним разговаривать</h1><p class="lead">Лекция о том, как устроены языковые модели, почему они уверенно ошибаются и как
+написать запрос, после которого ответ не стыдно показать студентам.</p></header>
+<div class="layout-toc">
+<nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-лекции">Что вы унесёте с лекции</a></li><li><a href="#chto-takoe">1. Что такое ИИ и что он умеет</a></li><li><a href="#ierarhiya">2. Иерархия ИИ: от общего к языковым моделям</a></li><li><a href="#kak-ustroen">3. Как устроена языковая модель</a></li><li><a href="#gallyucinacii">4. Галлюцинации: почему модель уверенно ошибается</a></li><li><a href="#rychagi">5. Четыре рычага управления ответом</a></li><li><a href="#formula">6. Формула промпта из восьми элементов</a></li><li><a href="#instrumenty">7. Инструменты преподавателя</a></li><li><a href="#proverka">8. Проверка ответов и источников</a></li><li><a href="#vajb-koding">9. Вайб-кодинг: программа на человеческом языке</a></li><li><a href="#bezopasnost">10. Минимум безопасности</a></li><li><a href="#promty">Промпты лекции</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
+<article class="prose">
+<div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>
+<div class="downloads"><div class="dl"><span class="dl__name">Слайды лекции</span><span class="dl__meta">PDF появится после записи видео</span></div><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 30 КБ · сборка 2026-09-29</span><a class="btn btn--small" href="/files/konspekt-lekciya-1.docx" download>Скачать</a></div></div>
+
+<h2 id="что-вы-унесёте-с-лекции">Что вы унесёте с лекции</h2>
+<ul>
+<li>как языковая модель превращает ваш вопрос в ответ — и где в этой цепочке рождаются ошибки;</li>
+<li>почему русский текст «дороже» английского и что из этого следует на практике;</li>
+<li>четыре рычага, которыми вы управляете ответом;</li>
+<li>формулу промпта из восьми элементов и два слоя, на которые она делится;</li>
+<li>какие бесплатные сервисы взять в работу и как выбирать между ними;</li>
+<li>как проверять ответы и источники.</li>
+</ul>
+<h2 id="chto-takoe">1. Что такое ИИ и что он умеет</h2>
+<p><strong>Искусственный интеллект</strong> — программы, которые решают задачи, раньше требовавшие
+человеческого интеллекта. Главное отличие от обычной программы: обычная выполняет
+прописанные правила, а ИИ <strong>учится на данных</strong> и справляется со случаями, которых
+разработчик заранее не описывал.</p>
+<p>Пять типов задач, которые ИИ решает уже сегодня:</p>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Пример из работы преподавателя</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Понимать речь и текст</td>
+<td>надиктовать план занятия голосом и получить готовый текст</td>
+</tr>
+<tr>
+<td>Распознавать изображения</td>
+<td>сфотографировать рукописную работу и получить редактируемый текст</td>
+</tr>
+<tr>
+<td>Рассуждать</td>
+<td>найти в результатах теста темы, которые группа усвоила хуже всего</td>
+</tr>
+<tr>
+<td>Создавать содержание</td>
+<td>подготовить черновик теста, конспекта, презентации</td>
+</tr>
+<tr>
+<td>Действовать в физическом мире</td>
+<td>роботы, беспилотники — в нашем курсе их не разбираем</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ierarhiya">2. Иерархия ИИ: от общего к языковым моделям</h2>
+<p>Чтобы понимать возможности и пределы инструментов, полезно видеть, где они стоят
+в общей картине.</p>
+<table>
+<thead>
+<tr>
+<th>Уровень</th>
+<th>Что это</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Сила ИИ</td>
+<td><strong>узкий</strong> ИИ решает задачи одной области; <strong>общий</strong> ИИ (как человек, во многих областях) пока не создан; <strong>сверхинтеллект</strong> — гипотеза</td>
+<td>все сервисы нашего курса — узкий ИИ</td>
+</tr>
+<tr>
+<td>2. Подходы внутри узкого ИИ</td>
+<td><strong>экспертные системы</strong> и системы на правилах (знания записаны явно: «если… то…») и <strong>машинное обучение</strong> (знания извлекаются из данных)</td>
+<td>в ЦИИ НГУ развивают фреймворк «Сигма» на символьном, семантическом подходе</td>
+</tr>
+<tr>
+<td>3. Способы машинного обучения</td>
+<td>с учителем (размеченные примеры), без учителя (поиск закономерностей), с подкреплением (награды и штрафы)</td>
+<td>диагностика по размеченным снимкам; сегментация; игровые программы</td>
+</tr>
+<tr>
+<td>4. Глубокое обучение</td>
+<td>многослойные нейронные сети</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5. Архитектуры сетей</td>
+<td>свёрточные — для изображений; рекуррентные — для последовательностей; <strong>трансформеры</strong> (<a href="https://arxiv.org/abs/1706.03762" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Vaswani и др., 2017<span class="visually-hidden"> (откроется в новой вкладке)</span></a>) — основа современных языковых моделей</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6. Большие языковые модели и генеративный ИИ</td>
+<td>модели, которые пишут текст, код, рисуют, озвучивают</td>
+<td>GigaChat, Алиса, DeepSeek, ChatGPT</td>
+</tr>
+<tr>
+<td>7. Области применения</td>
+<td>компьютерное зрение, обработка языка, рекомендации</td>
+<td>распознавание рукописного текста (OCR)</td>
+</tr>
+<tr>
+<td>8. Физический и воплощённый ИИ</td>
+<td>ИИ в роботах, которые учатся, взаимодействуя с миром</td>
+<td>роботы-манипуляторы, беспилотники</td>
+</tr>
+</tbody>
+</table>
+<p>Всё, с чем мы работаем в курсе, — узкий ИИ. Его не надо бояться и не надо
+переоценивать.</p>
+<p><strong>Своя школа.</strong> Символьный подход в Новосибирске — давняя линия: семантическое
+программирование предложили в середине 1980-х Ю. Л. Ершов, С. С. Гончаров
+и Д. И. Свириденко в Институте математики СО АН СССР
+(<a href="https://www.mathnet.ru/rus/dan8473" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Гончаров, Свириденко, 1986<span class="visually-hidden"> (откроется в новой вкладке)</span></a>). Сегодня эту линию
+продолжают в Академгородке, а в ЦИИ НГУ на символьном подходе строят фреймворк «Сигма».
+Гибридный ИИ — языковая модель плюс явные знания и правила — одно из направлений,
+где эти школы встречаются.</p>
+<p>Из этой линии вырос <strong>задачный подход</strong>: чтобы ИИ меньше галлюцинировал, решение
+строится от самой задачи и критериев её решения
+(<a href="https://doi.org/10.26516/1997-7670.2025.54.96" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Нечесов, Витяев, Гончаров, Свириденко, 2025<span class="visually-hidden"> (откроется в новой вкладке)</span></a>).
+В формуле промпта критерий решения — последний элемент, проверка (раздел 6). Почитать
+по-русски: <a href="https://doi.org/10.25205/2541-7517-2018-16-4-5-25" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>«Семантическое моделирование и искусственный интеллект»<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+(2018) и <a href="https://doi.org/10.25205/2541-7517-2020-18-2-5-29" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>«О задачном подходе в искусственном интеллекте и когнитивных науках»<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+(2020).</p>
+<h2 id="kak-ustroen">3. Как устроена языковая модель</h2>
+<h3 id="модель-продолжает-текст">Модель продолжает текст</h3>
+<p>Языковая модель решает одну задачу: <strong>какой кусочек текста вероятнее всего идёт дальше</strong>.
+Получив вопрос, она выбирает продолжение, потом следующее — и так до конца ответа.</p>
+<p>После слов «Я говорю с учёным о физике, которая…» у модели есть кандидаты
+«важна», «является», «может» — каждый со своей вероятностью; «колбаса» почти невероятна.
+Пример условный, но принцип такой: модель <strong>не проверяет истину</strong>, она выбирает
+правдоподобное.</p>
+<p>Отсюда и сила — модель пишет гладко на любую тему, — и слабость: гладко не значит верно.</p>
+<h3 id="токены-русский-текст-дороже">Токены: русский текст «дороже»</h3>
+<p>Модель читает не слова, а <strong>токены</strong> — куски слов. Английские слова часто целиком
+помещаются в один токен, русские дробятся сильнее.</p>
+<p><code>[замер 2026-09-28]</code> Одна и та же фраза в двух токенизаторах OpenAI:</p>
+<table>
+<thead>
+<tr>
+<th>Фраза</th>
+<th>Токенизатор GPT-4</th>
+<th>Токенизатор GPT-4o и новее</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«The cat sits on the mat»</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>«Кошка сидит на коврике»</td>
+<td>12</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Три пары фраз: во сколько раз русский вариант длиннее в токенах</td>
+<td>в 2,2 раза</td>
+<td>в 1,45 раза</td>
+</tr>
+</tbody>
+</table>
+<p>В новом токенизаторе «Кошка сидит на коврике» режется так:
+<code>К · ош · ка · сид · ит · на · ков · ри · ке</code>. Замер воспроизводится
+<a href="/files/zamer-tokenov.py">сценарием курса</a> на библиотеке
+<a href="https://github.com/openai/tiktoken" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>tiktoken<span class="visually-hidden"> (откроется в новой вкладке)</span></a>. Токенизаторы GigaChat, Алисы и DeepSeek
+устроены по-своему и здесь не мерились.</p>
+<p><strong>Что из этого следует:</strong></p>
+<ul>
+<li>русский текст быстрее заполняет «память» модели — в неё помещается меньше материала;</li>
+<li>у платных программных интерфейсов цена считается в токенах — русский выходит дороже;</li>
+<li>для больших документов планируйте запросы: делите текст на части, просите сначала
+  краткое содержание.</li>
+</ul>
+<h3 id="контекстное-окно-память-диалога">Контекстное окно — память диалога</h3>
+<p><strong>Контекстное окно</strong> — всё, что модель «видит» в текущем разговоре: ваши вопросы,
+её ответы, приложенные файлы. У окна есть предел; то, что в него не поместилось,
+модель просто не учитывает. Размер окна у разных сервисов разный и меняется
+с каждой версией — смотрите справку сервиса.</p>
+<p>Практическое правило: длинный разговор со временем «забывает» начало. Если ответы
+поплыли — начните новый чат и дайте модели главное заново.</p>
+<h3 id="как-модель-учится">Как модель учится</h3>
+<ol>
+<li><strong>Предобучение.</strong> Модель читает огромные массивы текстов и учится предсказывать
+   продолжение.</li>
+<li><strong>Дообучение на примерах.</strong> Разработчики показывают модели образцы хороших ответов
+   на задания.</li>
+<li><strong>Обучение на оценках людей</strong> (RLHF — обучение с подкреплением на отзывах людей):
+   люди сравнивают ответы, лучшие поощряются. Так модели учат следовать инструкциям
+   и быть полезными — подробно в <a href="https://arxiv.org/abs/2203.02155" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>статье Ouyang и др., 2022<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</li>
+</ol>
+<h2 id="gallyucinacii">4. Галлюцинации: почему модель уверенно ошибается</h2>
+<p><strong>Галлюцинация</strong> — уверенный, правдоподобный и неверный ответ: выдуманная статья,
+не та дата, неправильная формула, несуществующая цитата.</p>
+<p><strong>Почему так происходит.</strong> Первая причина уже понятна: модель выбирает правдоподобное,
+а не проверяет истину. Вторая — в том, как модели учат и оценивают. В статье
+исследователей OpenAI <a href="https://arxiv.org/abs/2509.04664" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>«Why Language Models Hallucinate»<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+(Kalai и др., 2025) показано: большинство тестов, по которым
+сравнивают модели, ставят балл за верный ответ и ноль — за всё остальное. Ответ
+«не знаю» получает столько же, сколько ошибка, поэтому модели <strong>выгоднее угадывать</strong>,
+чем признаться, что она не знает. Авторы предлагают штрафовать ошибку сильнее, чем честный
+отказ.</p>
+<p><strong>Новее не значит честнее.</strong> В <a href="https://cdn.openai.com/pdf/2221c875-02dc-4789-800b-e7758f3722c1/o3-and-o4-mini-system-card.pdf" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>отчёте OpenAI о моделях o3 и o4-mini<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+(апрель 2025, таблица 4) на тесте
+PersonQA — вопросы о фактах из жизни людей — доля выдуманных ответов у o3 составила 33 %,
+у o4-mini — 48 %, а у предыдущей модели o1 — 16 %. Разработчики объясняют это тем, что o3
+вообще делает больше утверждений — и верных, и неверных. Вывод для нас: проверять надо
+<strong>любую</strong> модель, в том числе самую новую.</p>
+<p><strong>Что с этим делать:</strong></p>
+<ul>
+<li>разрешите модели не знать: «если в источниках нет ответа — так и скажи, не угадывай»;</li>
+<li>просите источники и открывайте их;</li>
+<li>даты, имена, числа, формулы и цитаты проверяйте всегда;</li>
+<li>для фактов подключайте поиск или свои документы (см. ниже).</li>
+</ul>
+<h2 id="rychagi">5. Четыре рычага управления ответом</h2>
+<table>
+<thead>
+<tr>
+<th>Рычаг</th>
+<th>Что делает</th>
+<th>Когда включать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Промпт</strong></td>
+<td>точная постановка задачи: кто, что, для кого, в каком виде</td>
+<td>всегда</td>
+</tr>
+<tr>
+<td><strong>Файлы и поиск</strong> (RAG — поиск с дополнением, <a href="https://arxiv.org/abs/2005.11401" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Lewis и др., 2020<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>модель сначала находит нужное в ваших документах или в интернете, потом отвечает</td>
+<td>когда нужны факты, ссылки, опора на ваши материалы</td>
+</tr>
+<tr>
+<td><strong>Режим рассуждений</strong> (пошаговые рассуждения, <a href="https://arxiv.org/abs/2201.11903" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Wei и др., 2022<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>модель разбивает задачу на шаги и проверяет их</td>
+<td>математика, логика, многошаговые задачи</td>
+</tr>
+<tr>
+<td><strong>Системный промпт</strong> — профиль, проект, навык</td>
+<td>постоянная инструкция, которая действует во всех разговорах</td>
+<td>когда задачи одного типа повторяются</td>
+</tr>
+</tbody>
+</table>
+<p>Метафоры для студентов. RAG — студент, которому разрешили открыть учебник перед ответом.
+Режим рассуждений — студент, который показывает черновик с решением, а не только ответ.</p>
+<h3 id="два-слоя-промпта">Два слоя промпта</h3>
+<p>Запросы преподавателя удобно делить на два слоя.</p>
+<table>
+<thead>
+<tr>
+<th>Слой</th>
+<th>Что в нём</th>
+<th>Где живёт</th>
+<th>Как часто меняется</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Системный</strong></td>
+<td>роль; словарь дисциплины — ключевые термины и их точные определения; правила (уровень аудитории, точность, этика); опора на файлы; как проверять ответ и когда отвечать «не знаю»</td>
+<td>профиль, проект, навык; бесплатно — первое сообщение в новом чате</td>
+<td>раз в семестр</td>
+</tr>
+<tr>
+<td><strong>Задачный</strong></td>
+<td>что сделать сейчас: тема, аудитория, объём, формат, пример, проверка именно этой задачи</td>
+<td>сообщение в чате</td>
+<td>каждый раз</td>
+</tr>
+</tbody>
+</table>
+<p>Системный слой пишется один раз и избавляет от повторов; задачный остаётся коротким —
+обычно 100–150 слов. В лекции 3 мы соберём из системного слоя своего агента,
+а в бонусном уроке — навык.</p>
+<h2 id="formula">6. Формула промпта из восьми элементов</h2>
+<table>
+<thead>
+<tr>
+<th>Элемент</th>
+<th>По-русски</th>
+<th>На какой вопрос отвечает</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROLE</td>
+<td>Роль</td>
+<td>кто отвечает</td>
+<td>«Ты — методист по истории»</td>
+</tr>
+<tr>
+<td>GOAL</td>
+<td>Задача</td>
+<td>что сделать</td>
+<td>«Создай тест из 10 вопросов»</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td>Контекст и аудитория</td>
+<td>для кого и на каком материале</td>
+<td>«первый курс, базовый уровень»</td>
+</tr>
+<tr>
+<td>FORMAT</td>
+<td>Формат</td>
+<td>как должен выглядеть результат</td>
+<td>«7 вопросов с выбором, 2 на соответствие, 1 открытый»</td>
+</tr>
+<tr>
+<td>STYLE</td>
+<td>Стиль</td>
+<td>как звучит текст</td>
+<td>«ясно, без канцелярита»</td>
+</tr>
+<tr>
+<td>CONSTRAINTS</td>
+<td>Ограничения</td>
+<td>чего нельзя и что обязательно</td>
+<td>«без двусмысленных вопросов, с ключом»</td>
+</tr>
+<tr>
+<td>EXAMPLES</td>
+<td>Примеры</td>
+<td>как выглядит хороший результат</td>
+<td>один образцовый вопрос</td>
+</tr>
+<tr>
+<td>VERIFY</td>
+<td>Проверка</td>
+<td>что модель сверяет перед выдачей</td>
+<td>«проверь, что все вопросы по теме и однозначны»</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Какие элементы уходят в системный слой:</strong> роль, стиль, общие ограничения и общие правила
+проверки. <strong>Какие остаются в задачном:</strong> задача, контекст, формат, примеры и проверка
+именно этой задачи.</p>
+<p><strong>Проверка ловит ошибки, которые легко пропустить глазами.</strong> Типичная — вопрос вне темы:
+например, вопрос о реформах Петра I в тесте про Киевскую Русь IX–XI веков. Строка
+«все вопросы — строго в пределах темы и периода» в VERIFY заставляет модель это заметить.</p>
+<p>Шаблон — первый промпт в разделе <a href="#promty">«Промпты лекции»</a>, заполненный пример по истории — второй.</p>
+<h2 id="instrumenty">7. Инструменты преподавателя</h2>
+<p>Держите под рукой два-три сервиса: для разных задач сильны разные модели, и один ответ
+полезно сверить с другим.</p>
+<p><code>[замер 2026-09-28]</code> Тарифы, названия моделей и режимы меняются ежемесячно — перед занятием
+загляните в справку сервиса.</p>
+<table>
+<thead>
+<tr>
+<th>Сервис</th>
+<th>Что проверено</th>
+<th>Чем силён</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://giga.chat" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>GigaChat<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Сбер)</td>
+<td>бесплатный; вход по номеру российского оператора или <a href="https://giga.chat/help/articles/how-to-start-work-with-gigachat" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Сбер ID<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, нужен российский IP; PDF — до 20 МБ или первые 50 страниц (<a href="https://giga.chat/help/articles/faq" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка<span class="visually-hidden"> (откроется в новой вкладке)</span></a>)</td>
+<td>русский язык, презентации с выгрузкой в pptx и pdf, режим рассуждений</td>
+</tr>
+<tr>
+<td><a href="https://alice.yandex.ru" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Алиса AI<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Яндекс)</td>
+<td><a href="https://alice.yandex.ru/support/ru/assistant/chat-alice" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>бесплатная<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; при высокой нагрузке без подписки <a href="https://alice.yandex.ru/support/ru/assistant/alice-plus" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>«Алиса Плюс»<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (199 ₽ в месяц) рассуждения, картинки и разбор файлов могут быть недоступны</td>
+<td>русский язык; рассуждения — кнопка <a href="https://alice.yandex.ru/support/ru/assistant/chat/intellect" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>«Интеллект» → «Эксперт»<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; картинки; файл до 100 МБ</td>
+</tr>
+<tr>
+<td><a href="https://chat.deepseek.com" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>DeepSeek<span class="visually-hidden"> (откроется в новой вкладке)</span></a></td>
+<td>бесплатный; в <a href="https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>условиях использования<span class="visually-hidden"> (откроется в новой вкладке)</span></a> Россия среди запрещённых стран не названа, работу из России мы не проверяли</td>
+<td>рассуждения, код, LaTeX, длинные документы</td>
+</tr>
+<tr>
+<td><a href="https://www.perplexity.ai" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Perplexity<span class="visually-hidden"> (откроется в новой вкладке)</span></a></td>
+<td>бесплатный тариф с <a href="https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>недельными лимитами<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; <strong>проекты (бывшие «пространства») и навыки — только в платных тарифах</strong>; Pro — 20 $ в месяц</td>
+<td>ответы со ссылками на источники</td>
+</tr>
+<tr>
+<td><a href="https://www.kimi.com" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Kimi<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (Moonshot AI)</td>
+<td>модель K3 вышла в июле 2026 года с открытыми весами; есть ли бесплатный тариф — не выяснено</td>
+<td>длинные документы, рассуждения, код</td>
+</tr>
+<tr>
+<td><a href="https://chatgpt.com" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>ChatGPT<span class="visually-hidden"> (откроется в новой вкладке)</span></a></td>
+<td>Россия не входит в <a href="https://developers.openai.com/api/docs/supported-countries" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>официальный список стран OpenAI<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; за доступ из других стран учётную запись могут заблокировать</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Дешёвого Perplexity Pro больше нет.</strong> В 2025 году годовой Pro продавали за 200–900 ₽ —
+это была перепродажа чужих партнёрских промокодов, например для абонентов индийского
+оператора Airtel. С 24 декабря 2025 года Perplexity
+<a href="https://habr.com/ru/news/980202/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>массово отзывает такие подписки<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, а условия сервиса
+запрещают передавать промокоды. Официально Pro стоит 20 $ в месяц; скидка Education Pro
+положена проверенным студентам и преподавателям, но доступна ли она из России —
+не выяснено. Поэтому курс 2026 года построен на бесплатных сервисах: всё, что показано
+в лекциях, выполняется без подписки.</p>
+<p>Ещё два инструмента:</p>
+<ul>
+<li><a href="https://lmstudio.ai" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom><strong>LM Studio</strong><span class="visually-hidden"> (откроется в новой вкладке)</span></a> — запускает небольшую модель прямо на вашем
+  компьютере, без интернета: полезно, когда документы нельзя отправлять в облако. Нужен
+  компьютер с хорошей видеокартой или большим объёмом памяти; чем больше модель, тем она
+  умнее и медленнее.</li>
+<li><a href="https://arena.ai" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom><strong>Arena</strong><span class="visually-hidden"> (откроется в новой вкладке)</span></a> (до января 2026 года — LMArena) — задаёте вопрос, получаете
+  ответы двух моделей вслепую и голосуете за лучший. Так удобно выбирать модель под
+  свою задачу.</li>
+</ul>
+<p><strong>Как выбирать:</strong> не «лучшую модель вообще», а лучшую для вашей задачи. Запустите один
+и тот же промпт в двух-трёх сервисах и сравните — это и есть первая самостоятельная практика.</p>
+<h3 id="проекты-и-пространства">Проекты и пространства</h3>
+<p><strong>Проект</strong> (в Perplexity до 2026 года — «пространство») — рабочая папка, где лежат ваши
+файлы, постоянная инструкция и чаты по одной теме. Одна папка — один курс или одна научная
+тема. В Perplexity проекты доступны только в платных тарифах; на бесплатном тарифе их
+в любом сервисе заменяет простой приём: системный слой первым сообщением в новом чате плюс
+приложенные файлы. Подробно — в лекции 3.</p>
+<h2 id="proverka">8. Проверка ответов и источников</h2>
+<p>Модель пишет уверенно всегда — уверенность ничего не говорит о точности. Порядок проверки:</p>
+<ol>
+<li>Попросите источники с проверяемыми адресами: DOI, URL, ISBN.</li>
+<li>Откройте каждый: существует ли, те ли авторы и год, говорит ли источник то, что ему
+   приписано.</li>
+<li>Ключевые факты сверьте во втором сервисе или в учебнике.</li>
+<li>Попросите модель саму разметить свой ответ: что подтверждено источником, а что нет.</li>
+</ol>
+<p>Ссылка вида «Иванов и др., 2024» без названия и журнала — не источник, пока вы его
+не нашли.</p>
+<h2 id="vajb-koding">9. Вайб-кодинг: программа на человеческом языке</h2>
+<p><strong>Вайб-кодинг</strong> — вы описываете задачу словами, модель пишет код: страницу сайта, анкету,
+тренажёр, небольшую программу. Так сделаны конструктор промптов курса,
+<a href="https://ai-in-edtech.vercel.app/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>интерактивная презентация по FOREST<span class="visually-hidden"> (откроется в новой вкладке)</span></a> из лекции 2 и примеры, которые вы увидите
+на лекции 3.</p>
+<table>
+<thead>
+<tr>
+<th>Уместно</th>
+<th>Неуместно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>быстро проверить идею: страница, анкета, тренажёр</td>
+<td>программы, от которых зависят люди, деньги, здоровье</td>
+</tr>
+<tr>
+<td>автоматизировать рутину</td>
+<td>работа с персональными данными без проверки специалистом</td>
+</tr>
+<tr>
+<td>учиться — если разбираете код, который получили</td>
+<td>студенческие задания, цель которых — научиться программировать самому</td>
+</tr>
+</tbody>
+</table>
+<h3 id="следующий-уровень-агентное-программирование">Следующий уровень — агентное программирование</h3>
+<p>В вайб-кодинге вы переносите код из чата в файл сами. В <strong>агентном программировании</strong>
+ИИ-агент работает прямо в редакторе кода: читает файлы проекта, пишет и запускает код,
+гоняет проверки и исправляет ошибки. Такие агенты — Claude Code, Codex, GigaCode.
+В редакторе VS Code из России работают, например, Kimi Code (по подписке Kimi),
+бесплатные GigaCode и SourceCraft Code Assistant; как поручить агенту собрать навык —
+в бонусном уроке, раздел 6.</p>
+<p>Чем больше агент делает сам, тем важнее порядок работы: сначала описание задачи и разбор,
+потом код, потом проверка и обновление документов. Автор курса работает по методике
+«ски-кодинг»: текстовые и кодовые шаги идут через один, как лыжные следы, и каждый шаг
+оставляет артефакт, который можно проверить. Так собран и сайт курса.</p>
+<p>Как упаковать свой порядок работы в инструкцию, которой агент будет следовать сам, — тема
+бонусного урока про навыки.</p>
+<h2 id="bezopasnost">10. Минимум безопасности</h2>
+<ul>
+<li><strong>Не загружайте персональные данные студентов:</strong> фамилии, оценки, работы с именами.
+  Для разбора — обезличенные тексты.</li>
+<li><strong>Проверяйте факты</strong> — ответственность за материал на вас, а не на модели.</li>
+<li><strong>Вы — автор.</strong> Черновик ИИ плюс ваша правка, ваши примеры и проверка — это ваш материал.</li>
+<li><strong>Говорите студентам, что пользуетесь ИИ,</strong> и объясняйте как. Правила для студентов —
+  в лекции 3.</li>
+</ul>
+<h2 id="promty">Промпты лекции</h2>
+<section class="prompt" id="p-l1-test-po-formule" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Тест по формуле из восьми элементов</h3>
+      <p class="prompt__when">Когда: нужен тест с ключом по вашей теме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-test-po-formule">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-test-po-formule">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-test-po-formule">ROLE: Ты — методист по <mark class="ph">[ДИСЦИПЛИНА]</mark>.
+GOAL: Создай тест из 10 вопросов по теме «<mark class="ph">[ТЕМА]</mark>».
+INPUT: Аудитория — <mark class="ph">[КУРС И УРОВЕНЬ, например: первый курс, базовый уровень]</mark>.
+FORMAT:
+– 7 вопросов с выбором одного ответа из четырёх;
+– 2 задания на соответствие;
+– 1 вопрос с открытым ответом;
+– в конце — ключ ответов с кратким пояснением для проверяющего.
+STYLE: ясно и кратко, без канцелярита.
+CONSTRAINTS:
+– вопросы однозначны: у каждого ровно один верный ответ;
+– все вопросы строго в пределах темы;
+– без терминов, которых не было на занятиях.
+EXAMPLES:
+(Выбор) <mark class="ph">[ПРИМЕР ВОПРОСА С ЧЕТЫРЬМЯ ВАРИАНТАМИ]</mark>
+Ответ: <mark class="ph">[ВЕРНЫЙ ВАРИАНТ]</mark>
+VERIFY: перед выдачей проверь по списку: все вопросы по теме; у каждого один верный ответ; ключ совпадает с вопросами; формулировки понятны первокурснику. Если что-то не выполнено — исправь и проверь снова.</div>
+</section>
+<section class="prompt" id="p-l1-test-kievskaya-rus" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Пример: тест по истории «Крещение Руси»</h3>
+      <p class="prompt__when">Когда: посмотреть, как выглядит заполненная формула</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-test-kievskaya-rus">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-test-kievskaya-rus">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-test-kievskaya-rus">ROLE: Ты — методист по истории России.
+GOAL: Создай тест из 10 вопросов по теме «Крещение Руси и его последствия».
+INPUT: Аудитория — первокурсники, базовый уровень.
+FORMAT:
+– 7 вопросов с выбором одного ответа из четырёх;
+– 2 задания на соответствие;
+– 1 вопрос с открытым ответом;
+– в конце — ключ ответов с пояснением для проверяющего.
+STYLE: кратко, формулировки ясные, без двусмысленностей.
+CONSTRAINTS:
+– без сложных терминов;
+– все вопросы — в пределах IX–XI веков;
+– у каждого вопроса ровно один верный ответ.
+EXAMPLES:
+1. (Выбор) Какой князь крестил Русь в 988 году? а) Игорь; б) Владимир; в) Олег; г) Святослав.
+Ответ: б) Владимир.
+2. (Соответствие) Соотнесите событие и год: а) Крещение Руси; б) съезд князей в Любече.
+1) 988; 2) 1097.
+Ответ: а — 1; б — 2.
+3. (Открытый) Почему принятие христианства изменило положение Руси среди соседних государств?
+VERIFY: проверь, что все вопросы относятся к IX–XI векам, однозначны, а ключ указан для каждого вопроса.</div>
+</section>
+<section class="prompt" id="p-l1-plan-zanyatiya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">План занятия</h3>
+      <p class="prompt__when">Когда: нужен план семинара или лекции на одну пару</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-plan-zanyatiya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-plan-zanyatiya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-plan-zanyatiya">Ты — опытный преподаватель <mark class="ph">[ДИСЦИПЛИНА]</mark>. Составь план занятия по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[КУРС И НАПРАВЛЕНИЕ]</mark> на 90 минут.
+Структура:
+1. Цели занятия — 2–3 пункта.
+2. Ключевые понятия — 3–5 с определениями.
+3. Теория — кратко, по пунктам, с хронометражем.
+4. Пример с разбором.
+5. Практическое задание — что делают студенты и сколько минут.
+6. Контрольные вопросы — 3–4.
+7. Домашнее задание.
+Язык — понятный для <mark class="ph">[УРОВЕНЬ]</mark>, без воды: одно-два предложения на пункт.
+Если для какого-то пункта нужны сведения, которых у тебя нет, — отметь это, не придумывай.</div>
+</section>
+<section class="prompt" id="p-l1-konspekt" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Краткий конспект с мини-словарём</h3>
+      <p class="prompt__when">Когда: нужен короткий опорный конспект для студентов</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-konspekt">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-konspekt">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-konspekt">Сделай конспект по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[УРОВЕНЬ]</mark> объёмом 250–300 слов.
+Структура: что это — почему важно — как работает — 3 примера.
+Язык простой; если термин нужен — объясни его.
+В конце — мини-словарь: 5 терминов с пояснениями в одну строку.
+Проверь перед выдачей: каждое определение верно и соответствует уровню аудитории.</div>
+</section>
+<section class="prompt" id="p-l1-rezyume-fajla" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Резюме своего учебного файла</h3>
+      <p class="prompt__when">Когда: нужно быстро пересказать или разложить свой материал</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-rezyume-fajla">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-rezyume-fajla">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-rezyume-fajla">Прочитай приложенный файл «<mark class="ph">[НАЗВАНИЕ ФАЙЛА]</mark>».
+1. Сделай связное резюме до 2000 знаков, сохрани стиль и терминологию автора.
+2. Затем извлеки главные тезисы и оформи таблицей: «тезис — где в тексте — пример из текста».
+Опирайся только на файл. Если чего-то в файле нет — не добавляй от себя.</div>
+</section>
+<section class="prompt" id="p-l1-istochniki" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Подбор источников, которые можно проверить</h3>
+      <p class="prompt__when">Когда: нужна литература к занятию или статье</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-istochniki">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-istochniki">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-istochniki">Предложи 5 источников по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[АУДИТОРИЯ]</mark>.
+Для каждого: авторы, название, год, издание или журнал и проверяемый идентификатор —
+DOI, URL или ISBN.
+Предлагай только источники, в существовании которых уверен. Если не уверен — так и скажи и объясни, где искать самому. Выдуманные ссылки хуже, чем их отсутствие.</div>
+</section>
+<section class="prompt" id="p-l1-proverka-otveta" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Попросить модель проверить свой ответ</h3>
+      <p class="prompt__when">Когда: ответ нужен для занятия, и в нём есть факты</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-proverka-otveta">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-proverka-otveta">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-proverka-otveta">Разбери свой предыдущий ответ по утверждениям.
+Для каждого утверждения укажи: подтверждено ли оно источником (каким), или это твоё обобщение, или ты не уверен.
+Отдельно перечисли даты, имена, числа и формулы, которые мне стоит проверить самому, и подскажи, где их проверить.</div>
+</section>
+<section class="prompt" id="p-l1-sistemnyj-sloj" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Системный слой для профиля, проекта или навыка</h3>
+      <p class="prompt__when">Когда: хотите один раз настроить помощника под свою дисциплину</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-sistemnyj-sloj">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-sistemnyj-sloj">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-sistemnyj-sloj">Ты — ассистент преподавателя по дисциплине «<mark class="ph">[ДИСЦИПЛИНА]</mark>» для <mark class="ph">[КУРС, НАПРАВЛЕНИЕ]</mark>.
+
+Словарь дисциплины — используй термины строго в этих значениях:
+– <mark class="ph">[ТЕРМИН 1]</mark> — <mark class="ph">[ОПРЕДЕЛЕНИЕ]</mark>;
+– <mark class="ph">[ТЕРМИН 2]</mark> — <mark class="ph">[ОПРЕДЕЛЕНИЕ]</mark>.
+
+Правила:
+– язык и примеры — по уровню студентов <mark class="ph">[КУРС]</mark>;
+– факты, даты, формулы — только проверяемые; ссылки — с DOI, URL или ISBN;
+– никаких персональных данных студентов.
+
+Опора на материалы: отвечай прежде всего по приложенным файлам курса. Если ответа в них нет — скажи об этом прямо, а потом, если уместно, дай общий ответ с пометкой
+«не из материалов курса».
+
+Проверка: перед каждым ответом сверь его с правилами выше. Если не уверен — так и скажи, не угадывай.</div>
+</section>
+<h2 id="samostoyatelno">Самостоятельная практика</h2>
+<p><strong>Время:</strong> около 3 часов. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
+<a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p>
+<ol>
+<li><strong>Зарегистрируйтесь</strong> в двух бесплатных сервисах из таблицы раздела 7.</li>
+<li><strong>Промпт по формуле.</strong> Составьте промпт из восьми элементов для своей дисциплины:
+   тест, план занятия или конспект. Запустите его в двух-трёх сервисах; в одном из них —
+   дважды: с поиском и режимом рассуждений и без них.</li>
+<li><strong>Таблица сравнения:</strong> сервис и режим — что вышло хорошо — что плохо — какие ошибки
+   нашли.</li>
+<li><strong>Резюме своего файла.</strong> Загрузите свой учебный материал на 2–10 страниц без
+   персональных данных, получите резюме и тезисы (промпт «Резюме своего учебного файла»).
+   Сверьте с исходником три факта из резюме.</li>
+<li><strong>Выводы</strong> — 5–7 предложений: какие формулировки улучшили ответ, где модель ошиблась,
+   что и как вы проверили.</li>
+</ol>
+<p><strong>Сохраните для себя</strong> промпт, таблицу сравнения, лучший результат после своей правки
+и выводы — они пригодятся на следующих лекциях.</p>
+<p><strong>По желанию:</strong> цепочка из трёх сервисов — тест в одном, текст лекции по тесту во втором,
+презентация по лекции в третьем.</p>
+<p><strong>Как понять, что получилось:</strong> в промпте есть все восемь элементов (или понятно, почему
+какого-то нет); сравнение конкретное; найдена и исправлена хотя бы одна ошибка модели.</p>
+<h2 id="proverte-sebya">Проверьте себя</h2>
+<details>
+<summary>Почему модель уверенно ошибается?</summary>
+<p>Она выбирает правдоподобное продолжение текста, а не проверяет истину. Вторая причина:
+большинство тестов, по которым сравнивают модели, не поощряют ответ «не знаю» — модели
+выгоднее угадывать.</p>
+</details>
+<details>
+<summary>Почему русский текст «дороже» английского?</summary>
+<p>Русские слова дробятся на большее число токенов. В замере курса на трёх парах фраз
+русский вариант занял в 1,45 раза больше токенов в токенизаторе GPT-4o и в 2,2 раза
+больше — в токенизаторе GPT-4. В окно модели помещается меньше русского текста.</p>
+</details>
+<details>
+<summary>Что будет с текстом, который не поместился в контекстное окно?</summary>
+<p>Модель его не учтёт: для неё этого текста нет. Длинный разговор «забывает» начало.</p>
+</details>
+<details>
+<summary>Чем системный слой промпта отличается от задачного?</summary>
+<p>Системный — постоянная инструкция: роль, словарь, правила, опора на файлы, проверка;
+меняется редко. Задачный — конкретная задача сейчас: тема, аудитория, формат, пример.</p>
+</details>
+<details>
+<summary>Назовите восемь элементов формулы промпта.</summary>
+<p>Роль, задача, контекст и аудитория, формат, стиль, ограничения, примеры, проверка.</p>
+</details>
+<details>
+<summary>Зачем подключать к модели свои файлы или поиск?</summary>
+<p>Модель сначала находит нужное в документах и только потом отвечает — ответ опирается
+на источник, а не на «память» модели, и его можно проверить.</p>
+</details>
+<h2 id="istochniki">Источники</h2>
+<ul>
+<li>Vaswani A. и др. Attention Is All You Need. 2017. <a href="https://arxiv.org/abs/1706.03762" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/1706.03762<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — статья, с которой начались трансформеры.</li>
+<li>Lewis P. и др. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. 2020. <a href="https://arxiv.org/abs/2005.11401" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2005.11401<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — поиск с дополнением (RAG).</li>
+<li>Wei J. и др. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. 2022. <a href="https://arxiv.org/abs/2201.11903" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2201.11903<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — рассуждения по шагам.</li>
+<li>Ouyang L. и др. Training language models to follow instructions with human feedback. 2022. <a href="https://arxiv.org/abs/2203.02155" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2203.02155<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — обучение на оценках людей.</li>
+<li>Kalai A. T., Nachum O., Vempala S. S., Zhang E. Why Language Models Hallucinate. 2025. <a href="https://arxiv.org/abs/2509.04664" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2509.04664<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — почему модели угадывают.</li>
+<li>OpenAI. OpenAI o3 and o4-mini System Card. Апрель 2025. <a href="https://cdn.openai.com/pdf/2221c875-02dc-4789-800b-e7758f3722c1/o3-and-o4-mini-system-card.pdf" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://cdn.openai.com/pdf/2221c875-02dc-4789-800b-e7758f3722c1/o3-and-o4-mini-system-card.pdf<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — таблица 4, тест PersonQA.</li>
+<li>Chiang W.-L. и др. Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference. 2024. <a href="https://arxiv.org/abs/2403.04132" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arxiv.org/abs/2403.04132<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; сайт — <a href="https://arena.ai" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://arena.ai<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</li>
+<li>Сведения о сервисах — справки и условия сервисов по ссылкам в разделе 7, проверено 28.09.2026.</li>
+<li>Отзыв перепроданных подписок Perplexity: <a href="https://habr.com/ru/news/980202/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://habr.com/ru/news/980202/<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Замер токенов курса: <a href="/files/zamer-tokenov.py">сценарий</a>, 28.09.2026.</li>
+<li>Гончаров С. С., Свириденко Д. И. Математические основы семантического программирования // Доклады АН СССР. 1986. Т. 289, № 6. С. 1324–1328. <a href="https://www.mathnet.ru/rus/dan8473" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.mathnet.ru/rus/dan8473<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Гончаров С. С., Свириденко Д. И. Семантическое моделирование и искусственный интеллект // Сибирский философский журнал. 2018. Т. 16, № 4. С. 5–25. <a href="https://doi.org/10.25205/2541-7517-2018-16-4-5-25" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.25205/2541-7517-2018-16-4-5-25<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Витяев Е. Е., Гончаров С. С., Свириденко Д. И. О задачном подходе в искусственном интеллекте и когнитивных науках // Сибирский философский журнал. 2020. Т. 18, № 2. С. 5–29. <a href="https://doi.org/10.25205/2541-7517-2020-18-2-5-29" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.25205/2541-7517-2020-18-2-5-29<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Vityaev E. E., Goncharov S. S., Sviridenko D. I. Task-driven approach to artificial intelligence // Cognitive Systems Research. 2023. Vol. 81. P. 50–56. <a href="https://doi.org/10.1016/j.cogsys.2023.05.001" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.1016/j.cogsys.2023.05.001<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Nechesov A. V., Vityaev E. E., Goncharov S. S., Sviridenko D. I. The Task-Based Approach: A New Paradigm for Building Trustworthy Artificial Intelligence // Известия Иркутского государственного университета. Серия «Математика». 2025. Т. 54. С. 96–112. <a href="https://doi.org/10.26516/1997-7670.2025.54.96" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://doi.org/10.26516/1997-7670.2025.54.96<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — задачный подход против галлюцинаций.</li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

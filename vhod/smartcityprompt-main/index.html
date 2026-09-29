@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Промпт‑конструктор для аналитиков умного города</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-elevated: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --danger: #fb7185;
+      --radius: 12px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+      color: var(--text);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 0;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pane {
+      padding: 20px 22px 22px;
+    }
+
+    .pane + .pane {
+      border-left: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    @media (max-width: 900px) {
+      .pane + .pane {
+        border-left: none;
+        border-top: 1px solid rgba(15, 23, 42, 0.9);
+      }
+    }
+
+    .section {
+      margin-bottom: 18px;
+      padding: 14px 14px 12px;
+      border-radius: var(--radius);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), rgba(15, 23, 42, 0.7));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .section-caption {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    select:focus, input[type="text"]:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 68px;
+      max-height: 220px;
+      line-height: 1.4;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      cursor: pointer;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .slider-row span {
+      font-size: 11px;
+      color: var(--muted);
+      width: 105px;
+      flex-shrink: 0;
+    }
+
+    input[type="range"] {
+      flex: 1;
+    }
+
+    .slider-value {
+      width: 26px;
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .radio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .radio-pill input {
+      margin: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.9));
+      color: var(--text);
+      font-size: 11px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.7);
+      border-color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), rgba(15, 23, 42, 1));
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-style: dashed;
+    }
+
+    .btn-danger {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: var(--danger);
+      background: radial-gradient(circle at top left, rgba(248, 113, 113, 0.15), rgba(15, 23, 42, 0.95));
+    }
+
+    .btn-small {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
+
+    .pill-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill-select select {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text);
+      width: auto;
+      min-width: 90px;
+    }
+
+    .pill-select select:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    #output {
+      width: 100%;
+      min-height: 280px;
+      max-height: 520px;
+      padding: 10px 10px 10px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.9));
+      color: var(--text);
+      font-family: Consolas, Menlo, Monaco, "SF Mono", ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      resize: vertical;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .preset-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .preset-item {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 11px;
+      color: var(--muted);
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .preset-item:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div style="max-width: 1200px; margin: 0 auto 18px;">
+    <h1>Промпт‑конструктор аналитика умного города</h1>
+    <div class="subtitle">
+      Соберите структурированный промпт, скопируйте и вставьте его в любую LLM (LM‑Studio, ChatGPT, GigaChat, YandexGPT и др.).
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <!-- LEFT: параметры промпта -->
+    <div class="pane">
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Роль и задача</div>
+          <span class="badge">Шаг 1 · Что делаем</span>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="role">Действуй как</label>
+            <select id="role">
+              <option value="Муниципальный аналитик данных">Муниципальный аналитик данных</option>
+              <option value="Эколог‑аналитик">Эколог‑аналитик</option>
+              <option value="Транспортный аналитик">Транспортный аналитик</option>
+              <option value="Аналитик ЖКХ">Аналитик ЖКХ</option>
+              <option value="Городской пресс‑секретарь">Городской пресс‑секретарь</option>
+              <option value="Data Engineer (DuckDB / text‑to‑SQL)">Data Engineer (DuckDB / text‑to‑SQL)</option>
+              <option value="Аналитик по строительству и emissions">Аналитик по строительству и emissions</option>
+            </select>
+          </div>
+          <div>
+            <label for="taskTemplate">Шаблон задачи</label>
+            <select id="taskTemplate">
+              <option value="">Выберите или задайте сами</option>
+              <option value="Суммаризируй и структурируй текст отчёта">Суммаризируй и структурируй текст отчёта</option>
+              <option value="Сравни показатели по районам и найди аутлаеры">Сравни показатели по районам и найди аутлаеры</option>
+              <option value="Найди закономерности и тренды по временным рядам">Найди закономерности и тренды по временным рядам</option>
+              <option value="Сгенерируй DuckDB‑совместимый SQL‑запрос по схеме">Сгенерируй DuckDB‑совместимый SQL‑запрос по схеме</option>
+              <option value="Подготовь публичную сводку для горожан в стиле дайджеста">Подготовь публичную сводку для горожан в стиле дайджеста</option>
+              <option value="Проверь данные на ошибки, дубликаты и аномалии">Проверь данные на ошибки, дубликаты и аномалии</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="task" style="margin-top: 8px;">Формулировка задачи (можно уточнить шаблон)</label>
+        <textarea id="task" placeholder="Например: "Сравни индекс трафика по районам за последние 7 дней и опиши ключевые аномалии"."></textarea>
+
+        <div class="row" style="margin-top: 8px;">
+          <div>
+            <label for="topic">Тема / объект анализа</label>
+            <input id="topic" type="text" placeholder="Индекс трафика, AQI, отключения ЖКХ, emissions, парковки..." />
+          </div>
+          <div>
+            <label for="audience">Контекст / аудитория</label>
+            <input id="audience" type="text" placeholder="Например: Мэр, зам по транспорту, широкая аудитория" />
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Источники и формат</div>
+          <span class="badge">Шаг 2 · Откуда и как</span>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="source">Источник данных</label>
+            <select id="source">
+              <option value="opendata.novo-sibirsk.ru">opendata.novo-sibirsk.ru (CSV‑реестры)</option>
+              <option value="051.novo-sibirsk.ru">051.novo-sibirsk.ru (ЖКХ‑отключения)</option>
+              <option value="Open-Meteo / CityAir API">Open‑Meteo / CityAir API (экология)</option>
+              <option value="DuckDB (локальное хранилище СИГМА)">DuckDB (локальное хранилище СИГМА)</option>
+              <option value="2GIS / OpenStreetMap">2GIS / OpenStreetMap (геоданные)</option>
+              <option value="Другие открытые данные">Другие открытые данные</option>
+            </select>
+          </div>
+          <div>
+            <label for="format">Формат вывода</label>
+            <select id="format">
+              <option value="Текст параграфами">Текст параграфами</option>
+              <option value="Таблица Markdown">Таблица Markdown</option>
+              <option value="DuckDB‑совместимый SQL">DuckDB‑совместимый SQL</option>
+              <option value="JSON c полями, готовыми для ETL">JSON c полями, готовыми для ETL</option>
+              <option value="GeoJSON для отображения на карте">GeoJSON для отображения на карте</option>
+              <option value="YAML для config/rules/datasets">YAML для config/rules/datasets</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="constraints" style="margin-top: 8px;">Ограничения</label>
+        <textarea id="constraints" placeholder="Например: Только проверенные открытые данные; не придумывай факты; указывай единицы измерения; не выходи за рамки города."></textarea>
+
+        <div class="chips">
+          <div class="chip" data-constraint="Только проверенные открытые источники, без домыслов.">Только проверенные источники</div>
+          <div class="chip" data-constraint="Не придумывай данные, если их нет в исходных таблицах.">Не придумывать данные</div>
+          <div class="chip" data-constraint="Отдельно помечай допущения и возможные ошибки данных.">Явно помечать допущения</div>
+          <div class="chip" data-constraint="Указывай ссылки на наборы данных или API, откуда взяты числа.">Ссылки на датасеты/API</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Схема / структура данных (опционально)</div>
+          <span class="badge">Text‑to‑SQL · DDL</span>
+        </div>
+        <label for="schema">Кратко опишите таблицы или вставьте схему (DDL, YAML, canonicalschemas.yaml)</label>
+        <textarea id="schema" placeholder="Таблица: parking (id str, name str, rayon str, lat float, lon float, capacity int)..."></textarea>
+        <div class="help-text">Этот блок попадёт в контекст промпта и сильно улучшит качество text‑to‑SQL и анализа структуры.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Параметры качества</div>
+          <span class="badge">Шаг 3 · Как именно отвечать</span>
+        </div>
+
+        <div>
+          <div class="slider-row">
+            <span>Уровень детализации</span>
+            <input type="range" id="detail" min="1" max="10" value="5" />
+            <div class="slider-value" id="detailValue">5</div>
+          </div>
+          <div class="slider-row">
+            <span>Структура</span>
+            <input type="range" id="structure" min="1" max="10" value="6" />
+            <div class="slider-value" id="structureValue">6</div>
+          </div>
+          <div class="slider-row">
+            <span>Формальность</span>
+            <input type="range" id="formality" min="1" max="10" value="6" />
+            <div class="slider-value" id="formalityValue">6</div>
+          </div>
+          <div class="slider-row">
+            <span>Креативность</span>
+            <input type="range" id="creativity" min="1" max="10" value="4" />
+            <div class="slider-value" id="creativityValue">4</div>
+          </div>
+          <div class="slider-row">
+            <span>Глубина анализа</span>
+            <input type="range" id="depth" min="1" max="10" value="7" />
+            <div class="slider-value" id="depthValue">7</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <label>Объём ответа (символы)</label>
+          <div class="radio-group">
+            <label class="radio-pill"><input type="radio" name="length" value="2000" /> 2000 · кратко</label>
+            <label class="radio-pill"><input type="radio" name="length" value="4000" checked /> 4000 · стандартно</label>
+            <label class="radio-pill"><input type="radio" name="length" value="6000" /> 6000 · подробно</label>
+            <label class="radio-pill"><input type="radio" name="length" value="8000" /> 8000 · очень подробно</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Пресеты аналитика</div>
+          <span class="badge">Шаг 4 · Повторное использование</span>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="presetName">Имя пресета</label>
+            <input id="presetName" type="text" placeholder="Например: AQI‑дайджест для мэра" />
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:6px;">
+            <button class="btn btn-small" id="savePresetBtn" type="button">Сохранить пресет</button>
+            <button class="btn btn-small btn-danger" id="clearPresetsBtn" type="button">Сбросить все</button>
+          </div>
+        </div>
+        <div class="help-text">Пресеты сохраняются в localStorage браузера и доступны только на этом устройстве.</div>
+        <div id="presetList" class="preset-list"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: предпросмотр и копирование -->
+    <div class="pane" style="background: radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,1));">
+      <div class="section" style="margin-bottom: 12px;">
+        <div class="section-header">
+          <div class="section-title">Выходной формат</div>
+          <span class="badge">Шаг 5 · Как выглядит промпт</span>
+        </div>
+        <div class="toolbar">
+          <div class="pill-select">
+            <span>Стиль промпта</span>
+            <select id="style">
+              <option value="triple-colon">::: (универсальный системный промпт)</option>
+              <option value="xml">XML‑структура (SYSTEM / USER)</option>
+              <option value="markdown">Markdown‑структура</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost btn-small" id="resetBtn" type="button">Сбросить всё к дефолту</button>
+        </div>
+      </div>
+
+      <div class="section" style="margin-bottom: 10px;">
+        <div class="section-header">
+          <div class="section-title">Скопировать</div>
+          <span class="badge">Шаг 6 · Вставьте в LLM</span>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-small" id="copyFull" type="button">Копировать весь промпт</button>
+          <button class="btn btn-small" id="copySystem" type="button">Копировать только SYSTEM</button>
+          <button class="btn btn-small" id="copyUser" type="button">Копировать только USER</button>
+        </div>
+        <div class="help-text">В LM‑Studio удобно вставлять SYSTEM и USER отдельно; в классических чат‑интерфейсах — использовать полный промпт.</div>
+      </div>
+
+      <div class="section" style="padding: 10px 10px 8px;">
+        <div class="section-header" style="margin-bottom: 6px;">
+          <div class="section-title">Сгенерированный промпт (только просмотр)</div>
+          <span class="section-caption" id="metaCaption"></span>
+        </div>
+        <textarea id="output" readonly></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- State helpers ---
+    const stateKey = 'smartcity-prompt-constructor-v1';
+
+    function getLengthValue() {
+      const radios = document.querySelectorAll('input[name="length"]');
+      for (const r of radios) {
+        if (r.checked) return r.value;
+      }
+      return '4000';
+    }
+
+    function setLengthValue(v) {
+      const radios = document.querySelectorAll('input[name="length"]');
+      for (const r of radios) {
+        r.checked = (r.value === String(v));
+      }
+    }
+
+    function readState() {
+      return {
+        role: document.getElementById('role').value,
+        taskTemplate: document.getElementById('taskTemplate').value,
+        task: document.getElementById('task').value,
+        topic: document.getElementById('topic').value,
+        audience: document.getElementById('audience').value,
+        source: document.getElementById('source').value,
+        format: document.getElementById('format').value,
+        constraints: document.getElementById('constraints').value,
+        schema: document.getElementById('schema').value,
+        detail: document.getElementById('detail').value,
+        structure: document.getElementById('structure').value,
+        formality: document.getElementById('formality').value,
+        creativity: document.getElementById('creativity').value,
+        depth: document.getElementById('depth').value,
+        length: getLengthValue(),
+        style: document.getElementById('style').value
+      };
+    }
+
+    function applyState(s) {
+      if (!s) return;
+      const ids = ['role','taskTemplate','task','topic','audience','source','format','constraints','schema','detail','structure','formality','creativity','depth','style'];
+      ids.forEach(id => {
+        if (s[id] !== undefined && document.getElementById(id)) {
+          document.getElementById(id).value = s[id];
+        }
+      });
+      if (s.length) setLengthValue(s.length);
+      updateSliderLabels();
+    }
+
+    function saveState() {
+      try {
+        const s = readState();
+        localStorage.setItem(stateKey, JSON.stringify(s));
+      } catch (e) {
+        console.warn('Не удалось сохранить состояние', e);
+      }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(stateKey);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) {
+        console.warn('Не удалось загрузить состояние', e);
+        return null;
+      }
+    }
+
+    // --- Presets ---
+    const presetKey = 'smartcity-prompt-presets-v1';
+
+    function loadPresets() {
+      try {
+        const raw = localStorage.getItem(presetKey);
+        if (!raw) return [];
+        return JSON.parse(raw) || [];
+      } catch (e) {
+        console.warn('Не удалось загрузить пресеты', e);
+        return [];
+      }
+    }
+
+    function savePresets(list) {
+      try {
+        localStorage.setItem(presetKey, JSON.stringify(list));
+      } catch (e) {
+        console.warn('Не удалось сохранить пресеты', e);
+      }
+    }
+
+    function renderPresets() {
+      const list = loadPresets();
+      const container = document.getElementById('presetList');
+      container.innerHTML = '';
+      list.forEach((p, idx) => {
+        const el = document.createElement('div');
+        el.className = 'preset-item';
+        el.textContent = p.name || ('Пресет #' + (idx + 1));
+        el.title = 'Кликните, чтобы загрузить пресет';
+        el.addEventListener('click', () => {
+          applyState(p.state);
+          updatePrompt();
+        });
+        container.appendChild(el);
+      });
+    }
+
+    function setupPresetsUI() {
+      document.getElementById('savePresetBtn').addEventListener('click', () => {
+        const name = document.getElementById('presetName').value.trim() || 'Без имени';
+        const state = readState();
+        const list = loadPresets();
+        list.unshift({ name, state });
+        if (list.length > 12) list.length = 12;
+        savePresets(list);
+        renderPresets();
+      });
+
+      document.getElementById('clearPresetsBtn').addEventListener('click', () => {
+        if (!confirm('Удалить все сохранённые пресеты на этом устройстве?')) return;
+        savePresets([]);
+        renderPresets();
+      });
+
+      renderPresets();
+    }
+
+    // --- Prompt builders ---
+    function buildMeta(s) {
+      return `Детализация ${s.detail}/10 · Структура ${s.structure}/10 · Формальность ${s.formality}/10 · Креативность ${s.creativity}/10 · Глубина ${s.depth}/10 · ~${s.length} симв.`;
+    }
+
+    function buildTripleColon(s) {
+      const parts = [];
+      parts.push('text');
+      parts.push(`::: Действуй как: ${s.role}`);
+      if (s.task || s.taskTemplate) {
+        const t = s.task && s.task.trim() ? s.task.trim() : s.taskTemplate;
+        parts.push(`::: Задача: ${t}`);
+      }
+      if (s.topic) parts.push(`::: Тема: ${s.topic}`);
+      if (s.audience) parts.push(`::: Контекст/Аудитория: ${s.audience}`);
+      if (s.source) parts.push(`::: Источник данных: ${s.source}`);
+      if (s.format) parts.push(`::: Формат вывода: ${s.format}`);
+      if (s.schema && s.schema.trim()) {
+        parts.push('::: Контекст базы данных / схемы:');
+        parts.push(s.schema.trim());
+      }
+      const quality = `::: Параметры качества: [Уровень детализации: ${s.detail}/10], [Структура: ${s.structure}/10], [Формальность: ${s.formality}/10], [Креативность: ${s.creativity}/10], [Глубина анализа: ${s.depth}/10], [Объём ответа: ~${s.length} символов]`;
+      parts.push(quality);
+      if (s.constraints && s.constraints.trim()) {
+        parts.push(`::: Ограничения: ${s.constraints.trim()}`);
+      }
+      parts.push('');
+      parts.push('Начни выполнение задачи:');
+      parts.push('```');
+      return parts.join('\n');
+    }
+
+    function buildXML(s) {
+      const sys = [];
+      sys.push('<SYSTEM>');
+      sys.push(`  <role>${s.role}</role>`);
+      if (s.source) sys.push(`  <dataSource>${s.source}</dataSource>`);
+      if (s.format) sys.push(`  <outputFormat>${s.format}</outputFormat>`);
+      if (s.constraints && s.constraints.trim()) sys.push(`  <constraints>${s.constraints.trim()}</constraints>`);
+      sys.push(`  <quality detail="${s.detail}" structure="${s.structure}" formality="${s.formality}" creativity="${s.creativity}" depth="${s.depth}" length="${s.length}" />`);
+      if (s.schema && s.schema.trim()) {
+        sys.push('  <schema><![CDATA[');
+        sys.push(s.schema.trim());
+        sys.push('  ]]></schema>');
+      }
+      sys.push('</SYSTEM>');
+
+      const user = [];
+      user.push('<USER>');
+      if (s.task || s.taskTemplate) {
+        const t = s.task && s.task.trim() ? s.task.trim() : s.taskTemplate;
+        user.push(`  <task>${t}</task>`);
+      }
+      if (s.topic) user.push(`  <topic>${s.topic}</topic>`);
+      if (s.audience) user.push(`  <audience>${s.audience}</audience>`);
+      user.push('</USER>');
+
+      return [...sys, '', ...user].join('\n');
+    }
+
+    function buildMarkdown(s) {
+      const lines = [];
+      lines.push('## Роль');
+      lines.push(s.role || '');
+      lines.push('');
+      lines.push('## Задача');
+      if (s.task || s.taskTemplate) {
+        const t = s.task && s.task.trim() ? s.task.trim() : s.taskTemplate;
+        lines.push(t);
+      }
+      lines.push('');
+      lines.push('## Тема и аудитория');
+      if (s.topic) lines.push(`Тема: ${s.topic}`);
+      if (s.audience) lines.push(`Аудитория: ${s.audience}`);
+      lines.push('');
+      lines.push('## Источники и формат');
+      if (s.source) lines.push(`Источник данных: ${s.source}`);
+      if (s.format) lines.push(`Формат вывода: ${s.format}`);
+      lines.push('');
+      lines.push('## Ограничения');
+      if (s.constraints && s.constraints.trim()) lines.push(s.constraints.trim());
+      else lines.push('—');
+      lines.push('');
+      lines.push('## Схема/структура данных (если есть)');
+      if (s.schema && s.schema.trim()) {
+        lines.push('```');
+        lines.push(s.schema.trim());
+        lines.push('```');
+      } else {
+        lines.push('—');
+      }
+      lines.push('');
+      lines.push('## Параметры качества');
+      lines.push(`- Уровень детализации: ${s.detail}/10`);
+      lines.push(`- Структура: ${s.structure}/10`);
+      lines.push(`- Формальность: ${s.formality}/10`);
+      lines.push(`- Креативность: ${s.creativity}/10`);
+      lines.push(`- Глубина анализа: ${s.depth}/10`);
+      lines.push(`- Объём ответа: ~${s.length} символов`);
+      lines.push('');
+      lines.push('---');
+      lines.push('Начни выполнение задачи, опираясь на параметры выше.');
+      return lines.join('\n');
+    }
+
+    function buildPrompts(s) {
+      const style = s.style || 'triple-colon';
+      let full = '';
+      let system = '';
+      let user = '';
+      if (style === 'xml') {
+        full = buildXML(s);
+        const splitIdx = full.indexOf('\n\n<USER>');
+        if (splitIdx !== -1) {
+          system = full.slice(0, splitIdx).trim();
+          user = full.slice(splitIdx + 2).trim();
+        } else {
+          system = full;
+          user = '';
+        }
+      } else if (style === 'markdown') {
+        full = buildMarkdown(s);
+        system = full;
+        user = '';
+      } else {
+        full = buildTripleColon(s);
+        const lines = full.split('\n');
+        const sysLines = [];
+        const userLines = [];
+        let inUser = false;
+        for (const line of lines) {
+          if (line.startsWith('Начни выполнение задачи')) {
+            inUser = true;
+          }
+          if (!inUser) sysLines.push(line);
+          else userLines.push(line);
+        }
+        system = sysLines.join('\n').trim();
+        user = userLines.join('\n').trim();
+      }
+      return { full, system, user };
+    }
+
+    function updatePrompt() {
+      const s = readState();
+      const { full } = buildPrompts(s);
+      const out = document.getElementById('output');
+      out.value = full;
+      document.getElementById('metaCaption').textContent = buildMeta(s);
+      saveState();
+    }
+
+    // --- UI wiring ---
+    function updateSliderLabels() {
+      const pairs = [
+        ['detail','detailValue'],
+        ['structure','structureValue'],
+        ['formality','formalityValue'],
+        ['creativity','creativityValue'],
+        ['depth','depthValue']
+      ];
+      pairs.forEach(([id, labelId]) => {
+        const el = document.getElementById(id);
+        const lab = document.getElementById(labelId);
+        if (el && lab) lab.textContent = el.value;
+      });
+    }
+
+    function setupChips() {
+      document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const add = chip.getAttribute('data-constraint');
+          const area = document.getElementById('constraints');
+          const cur = area.value.trim();
+          area.value = cur ? (cur + '\n' + add) : add;
+          updatePrompt();
+        });
+      });
+    }
+
+    function setupTaskTemplate() {
+      document.getElementById('taskTemplate').addEventListener('change', (e) => {
+        const val = e.target.value;
+        const task = document.getElementById('task');
+        if (!task.value.trim() && val) {
+          task.value = val;
+        }
+        updatePrompt();
+      });
+    }
+
+    function setupFormListeners() {
+      const ids = ['role','taskTemplate','task','topic','audience','source','format','constraints','schema','detail','structure','formality','creativity','depth','style'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const evt = el.tagName === 'SELECT' || el.type === 'range' ? 'change' : 'input';
+        el.addEventListener(evt, () => {
+          if (['detail','structure','formality','creativity','depth'].includes(id)) updateSliderLabels();
+          updatePrompt();
+        });
+      });
+
+      document.querySelectorAll('input[name="length"]').forEach(r => {
+        r.addEventListener('change', () => updatePrompt());
+      });
+    }
+
+    async function copyToClipboard(text) {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        return true;
+      } catch (e) {
+        console.warn('Не удалось скопировать в буфер обмена', e);
+        return false;
+      }
+    }
+
+    function setupCopyButtons() {
+      const fullBtn = document.getElementById('copyFull');
+      const sysBtn = document.getElementById('copySystem');
+      const userBtn = document.getElementById('copyUser');
+
+      fullBtn.addEventListener('click', async () => {
+        const s = readState();
+        const { full } = buildPrompts(s);
+        const ok = await copyToClipboard(full);
+        fullBtn.textContent = ok ? 'Скопировано ✓' : 'Ошибка копирования';
+        setTimeout(() => fullBtn.textContent = 'Копировать весь промпт', 1200);
+      });
+
+      sysBtn.addEventListener('click', async () => {
+        const s = readState();
+        const { system } = buildPrompts(s);
+        const ok = await copyToClipboard(system);
+        sysBtn.textContent = ok ? 'SYSTEM скопирован ✓' : 'Ошибка копирования';
+        setTimeout(() => sysBtn.textContent = 'Копировать только SYSTEM', 1200);
+      });
+
+      userBtn.addEventListener('click', async () => {
+        const s = readState();
+        const { user } = buildPrompts(s);
+        const ok = await copyToClipboard(user);
+        userBtn.textContent = ok ? 'USER скопирован ✓' : 'Ошибка копирования';
+        setTimeout(() => userBtn.textContent = 'Копировать только USER', 1200);
+      });
+    }
+
+    function setupReset() {
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        if (!confirm('Сбросить все поля к значениям по умолчанию?')) return;
+        localStorage.removeItem(stateKey);
+        // Простая перезагрузка вернёт дефолты.
+        window.location.reload();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = loadState();
+      if (saved) applyState(saved);
+      updateSliderLabels();
+      setupChips();
+      setupTaskTemplate();
+      setupFormListeners();
+      setupPresetsUI();
+      setupCopyButtons();
+      setupReset();
+      updatePrompt();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Конструктор промптов — ИИ в учебном процессе</title>
+<meta name="description" content="Промпт по формуле курса в двух слоях — задачном и системном — с проверкой ответа, оценкой длины и открытием нейросети рядом.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+<style>
+/* Конструктор промптов — только раскладка этой страницы. Цвета, радиусы и размеры —
+   токены из /assets/sajt.css; новых цветов нет. Проект — docs/SAIT-PROEKT.md, §4.7 и §5. */
+html { scroll-padding-top: 72px; }
+.k-page [hidden] { display: none !important; }
+
+.k-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
+.k-grid { display: grid; gap: 24px; margin-top: 24px; align-items: start; }
+.k-left, .k-form { display: grid; gap: 16px; min-width: 0; }
+.k-page .k-card { padding: 20px; min-width: 0; }
+.k-page .k-h { margin: 0; font-size: 20px; line-height: 1.25; letter-spacing: -0.005em; }
+
+/* Поля */
+.k-field { margin-top: 16px; }
+.k-page .k-label { display: block; margin: 0 0 6px; font-size: var(--t-small); font-weight: 600; color: var(--label); }
+.k-obyaz { font-weight: 400; color: var(--label-2); }
+.k-control {
+  display: block; width: 100%; min-height: var(--tap); margin: 0; padding: 10px 12px;
+  font: inherit; font-size: 16px; line-height: 1.4; color: var(--label);
+  background: var(--surface); border: 1px solid var(--separator); border-radius: var(--r-control);
+}
+textarea.k-control { min-height: 104px; resize: vertical; }
+.k-control::placeholder, .k-vyvod::placeholder { color: var(--label-2); opacity: 1; }
+.k-control[aria-invalid="true"] { border: 2px solid var(--label); padding: 9px 11px; }
+.k-selectbox { position: relative; }
+.k-selectbox::after {
+  content: ""; position: absolute; top: 50%; right: 18px; width: 8px; height: 8px; margin-top: -6px;
+  border-right: 2px solid var(--label-2); border-bottom: 2px solid var(--label-2);
+  transform: rotate(45deg); pointer-events: none;
+}
+.k-selectbox select { -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 44px; cursor: pointer; }
+.k-selectbox select:disabled { cursor: default; color: var(--label-2); }
+.k-page .k-hint { margin: 6px 0 0; font-size: var(--t-caption); line-height: 1.4; color: var(--label-2); }
+.k-page .k-oshibka { margin: 6px 0 0; font-size: var(--t-caption); line-height: 1.4; font-weight: 600; color: var(--label); }
+.k-page .k-oshibka:empty { display: none; }
+
+/* Флажки ограничений: вся строка — цель нажатия не меньше 44 px */
+.k-group { min-width: 0; margin: 8px 0 0; padding: 0; border: 0; }
+.k-check {
+  display: flex; align-items: flex-start; gap: 12px; min-height: var(--tap); padding: 11px 0;
+  border-top: 1px solid var(--separator); font-size: var(--t-small); line-height: 1.4; cursor: pointer;
+}
+.k-group .k-check:first-of-type { border-top: 0; }
+.k-check input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--accent-strong); cursor: pointer; }
+.k-check.is-off { color: var(--label-2); cursor: default; }
+.k-check.is-off input { cursor: default; }
+
+/* Переключатель «не знаю» */
+.k-nz { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--separator); }
+.k-switch {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: var(--tap); font-size: var(--t-small); font-weight: 600; cursor: pointer;
+}
+.k-switch__input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.k-switch__track {
+  position: relative; flex: none; width: 51px; height: 31px; border-radius: 16px;
+  background: var(--label-2); transition: background-color 0.2s ease;
+}
+.k-switch__track::before {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%;
+  background: var(--surface); transition: transform 0.2s ease;
+}
+.k-switch__input:checked + .k-switch__track { background: var(--accent-strong); }
+.k-switch__input:checked + .k-switch__track::before { transform: translateX(20px); }
+.k-switch__input:focus-visible + .k-switch__track { outline: 3px solid var(--accent-strong); outline-offset: 2px; }
+
+/* Ползунки */
+.k-range { margin-top: 16px; }
+.k-range__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; }
+.k-page .k-range__head .k-label { margin: 0; }
+.k-range output { font-size: var(--t-small); font-variant-numeric: tabular-nums; color: var(--label-2); }
+.k-range input[type="range"] { display: block; width: 100%; min-height: var(--tap); margin: 0; accent-color: var(--accent-strong); cursor: pointer; }
+.k-page .k-range .k-hint { margin-top: 0; }
+
+/* Заготовки */
+.k-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; margin-top: 16px; }
+.k-row > .k-grow { flex: 1 1 220px; min-width: 0; }
+
+/* Результат */
+.k-result { min-width: 0; }
+.k-seg { min-width: 0; margin: 16px 0 0; padding: 0; border: 0; }
+.k-page .k-seg legend { padding: 0; margin: 0 0 6px; font-size: var(--t-small); font-weight: 600; }
+.k-seg__row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; padding: 2px;
+  background: var(--surface-2); border-radius: var(--r-control);
+}
+.k-seg__opt { position: relative; display: block; min-width: 0; }
+.k-seg__opt input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.k-seg__opt > span {
+  display: flex; align-items: center; justify-content: center; min-height: var(--tap); padding: 0 6px;
+  border: 1px solid transparent; border-radius: 10px; font-size: var(--t-small); color: var(--label-2);
+  text-align: center; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease;
+}
+.k-seg__opt input:checked + span { background: var(--surface); border-color: var(--separator); color: var(--label); font-weight: 700; }
+.k-seg__opt input:focus-visible + span { outline: 3px solid var(--accent-strong); outline-offset: 1px; }
+@media (max-width: 359px) { .k-seg__opt > span { font-size: var(--t-caption); } }
+
+.k-tabs { display: flex; gap: 4px; margin-top: 20px; border-bottom: 1px solid var(--separator); }
+.k-tab {
+  flex: 1 1 0; min-width: 0; min-height: var(--tap); margin: 0 0 -1px; padding: 8px;
+  font: inherit; font-size: var(--t-small); font-weight: 600; line-height: 1.25; color: var(--label-2);
+  background: none; border: 0; border-bottom: 3px solid transparent; cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.k-tab:hover { color: var(--label); }
+.k-tab[aria-selected="true"] { color: var(--label); border-bottom-color: var(--accent-strong); }
+
+.k-panel { margin-top: 12px; }
+.k-panel__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; }
+.k-page .k-panel__bar .k-hint { flex: 1 1 180px; margin: 0; }
+.k-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.k-result .btn--small { min-height: var(--tap); }
+.k-vyvod {
+  display: block; width: 100%; min-height: 20rem; margin: 12px 0 0;
+  color: var(--label); border: 1px solid transparent; resize: vertical;
+}
+.k-page .k-meta { margin: 8px 0 0; font-size: var(--t-caption); line-height: 1.4; color: var(--label-2); }
+.k-meta strong { font-weight: 600; color: var(--label); font-variant-numeric: tabular-nums; }
+.k-page .k-pravka {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 12px 0 0; padding: 8px 12px;
+  font-size: var(--t-caption); color: var(--label); background: var(--accent-tint); border-radius: var(--r-control);
+}
+
+/* Широкий экран: слева настройки, справа результат — липкий */
+@media (min-width: 960px) {
+  .k-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .k-result {
+    position: sticky; top: 68px; display: flex; flex-direction: column;
+    height: calc(100vh - 84px); overflow-y: auto;
+  }
+  .k-panel:not([hidden]) { display: flex; flex: 1 1 auto; flex-direction: column; min-height: 0; }
+  .k-vyvod { flex: 1 1 auto; min-height: 14rem; resize: none; }
+  .k-to-result { display: none; }
+}
+</style>
+<script src="/konstruktor/konstruktor.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm" aria-current="page">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide k-page">
+<header class="page-head">
+  <p class="kicker">Инструмент курса</p>
+  <h1>Конструктор промптов</h1>
+  <p class="lead">Соберите промпт по формуле курса и откройте нейросеть рядом. Всё считается в вашем браузере — без входа, сервера и ключей.</p>
+</header>
+<noscript><p class="note">Конструктору нужен JavaScript — без него промпт не соберётся. Готовые промпты курса — в <a href="/promty/">библиотеке</a>.</p></noscript>
+
+<div class="k-top">
+  <button type="button" class="btn" id="k-primer-knopka">Пример</button>
+  <button type="button" class="btn btn--quiet" id="k-ochistit">Очистить</button>
+  <a class="btn btn--quiet k-to-result" href="#k-rezultat">К промпту <span aria-hidden="true">↓</span></a>
+</div>
+
+<div class="k-grid">
+<div class="k-left">
+<form class="k-form" id="k-forma" aria-label="Настройки промпта" autocomplete="off" novalidate>
+
+<section class="card k-card" aria-labelledby="k-h-rol">
+  <h2 class="k-h" id="k-h-rol">Роль и задача</h2>
+  <div class="k-field">
+    <label class="k-label" for="k-rol">Роль</label>
+    <div class="k-selectbox"><select class="k-control" id="k-rol" aria-describedby="k-rol-opis"></select></div>
+    <p class="k-hint" id="k-rol-opis"></p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-disc">Дисциплина</label>
+    <input class="k-control" id="k-disc" type="text" maxlength="120" placeholder="Например: истории России" aria-describedby="k-disc-opis">
+    <p class="k-hint" id="k-disc-opis"></p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-zad">Задача</label>
+    <div class="k-selectbox"><select class="k-control" id="k-zad"></select></div>
+  </div>
+  <div class="k-field" id="k-pole-adapt" hidden>
+    <label class="k-label" for="k-adapt">Направление адаптации</label>
+    <div class="k-selectbox"><select class="k-control" id="k-adapt" aria-describedby="k-adapt-opis"></select></div>
+    <p class="k-hint" id="k-adapt-opis">Исходный текст приложите к чату или вставьте в «Материалы». Для горизонтальной адаптации впишите новую специальность в разделе «Аудитория».</p>
+  </div>
+  <div class="k-field" id="k-pole-freim" hidden>
+    <label class="k-label" for="k-freim">Фреймворк</label>
+    <div class="k-selectbox"><select class="k-control" id="k-freim" aria-describedby="k-freim-opis"></select></div>
+    <p class="k-hint" id="k-freim-opis"></p>
+  </div>
+  <div class="k-field" id="k-pole-zhanr" hidden>
+    <label class="k-label" for="k-zhanr">Что пишем</label>
+    <div class="k-selectbox"><select class="k-control" id="k-zhanr"></select></div>
+  </div>
+  <div class="k-field" id="k-pole-krit" hidden>
+    <label class="k-label" for="k-krit">Критерии оценки</label>
+    <textarea class="k-control" id="k-krit" rows="4" maxlength="20000" placeholder="Например: 1) тема раскрыта; 2) есть опора на источники; 3) выводы следуют из текста" aria-describedby="k-krit-opis"></textarea>
+    <p class="k-hint" id="k-krit-opis">Саму работу приложите к чату или вставьте в «Материалы» — без ФИО студента.</p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-tema">Тема <span class="k-obyaz">(обязательно)</span></label>
+    <input class="k-control" id="k-tema" type="text" maxlength="300" aria-required="true" placeholder="Например: Закон Ома для участка цепи" aria-describedby="k-tema-opis k-tema-oshibka">
+    <p class="k-hint" id="k-tema-opis">Без темы промпт не собирается.</p>
+    <p class="k-oshibka" id="k-tema-oshibka"></p>
+  </div>
+</section>
+
+<section class="card k-card" aria-labelledby="k-h-aud">
+  <h2 class="k-h" id="k-h-aud">Аудитория</h2>
+  <div class="k-field">
+    <label class="k-label" for="k-aud">Курс или ступень</label>
+    <div class="k-selectbox"><select class="k-control" id="k-aud" aria-describedby="k-aud-opis"></select></div>
+    <p class="k-hint" id="k-aud-opis"></p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-spec">Специальность</label>
+    <input class="k-control" id="k-spec" type="text" maxlength="120" placeholder="Например: юриспруденция" aria-describedby="k-spec-opis">
+    <p class="k-hint" id="k-spec-opis">Необязательно. Для горизонтальной адаптации — та специальность, под которую переделываем материал.</p>
+  </div>
+</section>
+
+<section class="card k-card" aria-labelledby="k-h-fmt">
+  <h2 class="k-h" id="k-h-fmt">Формат и стиль</h2>
+  <div class="k-field">
+    <label class="k-label" for="k-fmt">Формат вывода</label>
+    <div class="k-selectbox"><select class="k-control" id="k-fmt" aria-describedby="k-fmt-opis"></select></div>
+    <p class="k-hint" id="k-fmt-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-detal">Детализация</label><output id="k-detal-znach" for="k-detal"></output></div>
+    <input type="range" id="k-detal" min="0" max="10" step="1" value="5">
+    <p class="k-hint" id="k-detal-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-struk">Структурность</label><output id="k-struk-znach" for="k-struk"></output></div>
+    <input type="range" id="k-struk" min="0" max="10" step="1" value="5">
+    <p class="k-hint" id="k-struk-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-form">Формальность</label><output id="k-form-znach" for="k-form"></output></div>
+    <input type="range" id="k-form" min="0" max="10" step="1" value="5">
+    <p class="k-hint" id="k-form-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-kreat">Креативность</label><output id="k-kreat-znach" for="k-kreat"></output></div>
+    <input type="range" id="k-kreat" min="0" max="10" step="1" value="5">
+    <p class="k-hint" id="k-kreat-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-glub">Глубина анализа</label><output id="k-glub-znach" for="k-glub"></output></div>
+    <input type="range" id="k-glub" min="0" max="10" step="1" value="5">
+    <p class="k-hint" id="k-glub-opis"></p>
+  </div>
+  <div class="k-range">
+    <div class="k-range__head"><label class="k-label" for="k-obem">Объём ответа</label><output id="k-obem-znach" for="k-obem"></output></div>
+    <input type="range" id="k-obem" min="1" max="5" step="1" value="2">
+    <p class="k-hint" id="k-obem-opis"></p>
+  </div>
+</section>
+
+<section class="card k-card" aria-labelledby="k-h-ogr">
+  <h2 class="k-h" id="k-h-ogr">Ограничения и проверка</h2>
+  <p class="k-hint">Каждое отмеченное ограничение попадёт в CONSTRAINTS и строкой «☐» в VERIFY: модель сверит с ним ответ перед выдачей.</p>
+  <fieldset class="k-group">
+    <legend class="visually-hidden">Ограничения</legend>
+    <label class="k-check"><input type="checkbox" name="ogr" value="istochniki"><span>не выдумывать источники; каждая ссылка — с DOI, URL или ISBN</span></label>
+    <label class="k-check"><input type="checkbox" name="ogr" value="chisla"><span>каждое число — с источником и годом</span></label>
+    <label class="k-check"><input type="checkbox" name="ogr" value="kancelyarit"><span>без канцелярита и штампов</span></label>
+    <label class="k-check"><input type="checkbox" name="ogr" value="yazyk"><span>язык по уровню аудитории</span></label>
+    <label class="k-check" id="k-ogr-dlina-stroka"><input type="checkbox" name="ogr" value="dlina" id="k-ogr-dlina"><span id="k-ogr-dlina-tekst">не длиннее 4000 знаков</span></label>
+    <label class="k-check"><input type="checkbox" name="ogr" value="klyuch"><span>ключ ответов и пояснения</span></label>
+    <label class="k-check"><input type="checkbox" name="ogr" value="pd"><span>без персональных данных студентов</span></label>
+  </fieldset>
+  <div class="k-nz">
+    <label class="k-switch" for="k-nz">
+      <span>Разрешить ответ «не знаю»</span>
+      <input class="k-switch__input" type="checkbox" role="switch" id="k-nz" checked aria-describedby="k-nz-opis">
+      <span class="k-switch__track" aria-hidden="true"></span>
+    </label>
+    <p class="k-hint" id="k-nz-opis">Почему: обычные оценки моделей ставят «не знаю» наравне с ошибкой, и модели выгодно угадывать (Kalai и др., <a class="ext" href="https://arxiv.org/abs/2509.04664" target="_blank" rel="noopener noreferrer">«Why Language Models Hallucinate», 2025, arXiv:2509.04664<span class="visually-hidden"> (откроется в новом окне)</span></a>).</p>
+  </div>
+</section>
+
+<section class="card k-card" aria-labelledby="k-h-mat">
+  <h2 class="k-h" id="k-h-mat">Материалы и примеры</h2>
+  <div class="k-field">
+    <label class="k-label" for="k-mat">Материалы и источники</label>
+    <textarea class="k-control" id="k-mat" rows="4" maxlength="20000" placeholder="Например: приложена глава учебника (PDF); статьи ищи в eLibrary и КиберЛенинке за последние пять лет" aria-describedby="k-mat-opis"></textarea>
+    <p class="k-hint" id="k-mat-opis">Что приложено к чату или где искать. Можно вставить сам текст.</p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-prim">Пример хорошего результата <span class="k-obyaz">(необязательно)</span></label>
+    <textarea class="k-control" id="k-prim" rows="4" maxlength="20000" aria-describedby="k-prim-opis"></textarea>
+    <p class="k-hint" id="k-prim-opis">Фрагмент, который показывает уровень и форму. Модель возьмёт образец, а не содержание.</p>
+  </div>
+  <div class="k-field">
+    <label class="k-label" for="k-hod">Пример с ходом решения <span class="k-obyaz">(необязательно)</span></label>
+    <textarea class="k-control" id="k-hod" rows="4" maxlength="20000" placeholder="Условие → шаги рассуждения → ответ" aria-describedby="k-hod-opis"></textarea>
+    <p class="k-hint" id="k-hod-opis">Одна задача, решённая по шагам: модель повторит ход рассуждения, а не только форму ответа.</p>
+  </div>
+</section>
+
+<section class="card k-card" aria-labelledby="k-h-sis">
+  <h2 class="k-h" id="k-h-sis">Для системного слоя</h2>
+  <p class="k-hint">Роль, аудитория и правило «не знаю» берутся из разделов выше; словарь попадает только во вкладку «Системный слой».</p>
+  <div class="k-field">
+    <label class="k-label" for="k-slov">Словарь дисциплины</label>
+    <textarea class="k-control" id="k-slov" rows="6" maxlength="20000" placeholder="Термин — определение" aria-describedby="k-slov-opis k-slov-schet"></textarea>
+    <p class="k-hint" id="k-slov-opis">5–15 ключевых терминов с определениями, по одному на строку: «термин — определение». Модель будет держаться этих значений.</p>
+    <p class="k-hint" id="k-slov-schet"></p>
+  </div>
+</section>
+
+</form>
+
+<section class="card k-card" aria-labelledby="k-h-zag">
+  <h2 class="k-h" id="k-h-zag">Заготовки</h2>
+  <p class="k-hint" id="k-zag-opis">Хранятся только в этом браузере. Передать настройки коллеге или на другой компьютер — «Поделиться ссылкой».</p>
+  <div class="k-row">
+    <div class="k-grow">
+      <label class="k-label" for="k-zag-imya">Название заготовки</label>
+      <input class="k-control" id="k-zag-imya" type="text" maxlength="80" autocomplete="off" placeholder="Например: тест для первокурсников">
+    </div>
+    <button type="button" class="btn" id="k-zag-sohranit">Сохранить</button>
+  </div>
+  <div class="k-row">
+    <div class="k-grow">
+      <label class="k-label" for="k-zag-spisok">Мои заготовки</label>
+      <div class="k-selectbox"><select class="k-control" id="k-zag-spisok"></select></div>
+    </div>
+    <button type="button" class="btn" id="k-zag-zagruzit">Загрузить</button>
+    <button type="button" class="btn btn--quiet" id="k-zag-udalit">Удалить</button>
+  </div>
+  <div class="btn-row">
+    <button type="button" class="btn" id="k-podelitsya">Поделиться ссылкой</button>
+  </div>
+  <p class="k-hint">Ссылка хранит все поля формы в адресе после «#» — на сервер сайта ничего не уходит.</p>
+</section>
+</div>
+
+<section class="card k-result" id="k-rezultat" aria-labelledby="k-h-rez">
+  <h2 class="k-h" id="k-h-rez">Промпт</h2>
+  <fieldset class="k-seg">
+    <legend>Вид записи</legend>
+    <div class="k-seg__row">
+      <label class="k-seg__opt"><input type="radio" name="vyvod" value="kolon" checked><span>:::<span class="visually-hidden"> — тройное двоеточие</span></span></label>
+      <label class="k-seg__opt"><input type="radio" name="vyvod" value="xml"><span>XML-теги</span></label>
+      <label class="k-seg__opt"><input type="radio" name="vyvod" value="md"><span>Markdown</span></label>
+    </div>
+  </fieldset>
+  <div class="k-tabs" role="tablist" aria-label="Слой промпта">
+    <button type="button" class="k-tab" role="tab" id="k-tab-zad" aria-selected="true" aria-controls="k-panel-zad">Задачный промпт</button>
+    <button type="button" class="k-tab" role="tab" id="k-tab-sis" aria-selected="false" aria-controls="k-panel-sis" tabindex="-1">Системный слой</button>
+  </div>
+  <p class="k-hint">Системный слой меняется раз в семестр, задачный — под каждую задачу.</p>
+
+  <div class="k-panel" role="tabpanel" id="k-panel-zad" aria-labelledby="k-tab-zad" tabindex="0">
+    <div class="k-panel__bar">
+      <p class="k-hint">Вставьте в чат нейросети отдельным сообщением.</p>
+      <div class="k-actions">
+        <button type="button" class="btn" id="k-kop-zad" data-kopirovat="#k-zadachnyi">Копировать</button>
+        <div class="svc" data-svc data-kopirovat-pered="#k-zadachnyi"><button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button><ul class="svc__menu" hidden data-svc-menu></ul></div>
+      </div>
+    </div>
+    <label class="visually-hidden" for="k-zadachnyi">Задачный промпт — текст можно править</label>
+    <textarea class="prompt__body k-vyvod" id="k-zadachnyi" spellcheck="false" autocomplete="off" placeholder="Впишите тему — промпт соберётся здесь."></textarea>
+    <p class="k-pravka" id="k-pravka-zad" hidden><span>Текст правлен вручную — изменения формы сюда не попадают.</span> <button type="button" class="btn btn--small" data-sobrat="zad">Собрать заново</button></p>
+    <p class="k-meta"><strong id="k-dlina-zad"></strong> — грубо, по замеру курса для токенизатора GPT-4o; у других моделей счёт иной.</p>
+    <p class="k-meta" id="k-zamenit-zad" hidden></p>
+  </div>
+
+  <div class="k-panel" role="tabpanel" id="k-panel-sis" aria-labelledby="k-tab-sis" tabindex="0" hidden>
+    <div class="k-panel__bar">
+      <p class="k-hint">Вставьте в профиль, в инструкции проекта (в Perplexity — на платном тарифе), в навык или первым сообщением в новый чат.</p>
+      <div class="k-actions">
+        <button type="button" class="btn" id="k-kop-sis" data-kopirovat="#k-sistemnyi" data-soobshchenie="Системный слой скопирован. Вставьте его в профиль, проект или первым сообщением в новый чат: ⌘V или Ctrl+V.">Копировать</button>
+        <div class="svc" data-svc data-kopirovat-pered="#k-sistemnyi"><button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button><ul class="svc__menu" hidden data-svc-menu></ul></div>
+      </div>
+    </div>
+    <label class="visually-hidden" for="k-sistemnyi">Системный слой — текст можно править</label>
+    <textarea class="prompt__body k-vyvod" id="k-sistemnyi" spellcheck="false" autocomplete="off"></textarea>
+    <p class="k-pravka" id="k-pravka-sis" hidden><span>Текст правлен вручную — изменения формы сюда не попадают.</span> <button type="button" class="btn btn--small" data-sobrat="sis">Собрать заново</button></p>
+    <p class="k-meta"><strong id="k-dlina-sis"></strong> — грубо, по замеру курса для токенизатора GPT-4o; у других моделей счёт иной.</p>
+    <p class="k-meta" id="k-zamenit-sis" hidden></p>
+  </div>
+</section>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-28</p>
+  </div>
+</footer>
+</body>
+</html>

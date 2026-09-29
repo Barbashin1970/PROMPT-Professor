@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Промпты курса — ИИ в учебном процессе</title>
+<meta name="description" content="Все промпты курса «ИИ в учебном процессе»: скопировать и открыть в нейросети рядом.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs" aria-current="page">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 40 промптов трёх лекций и бонусного урока. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
+<section class="section" id="lekciya-1"><h2>Лекция 1</h2>
+<section class="prompt" id="p-l1-test-po-formule" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Тест по формуле из восьми элементов</h3>
+      <p class="prompt__when">Когда: нужен тест с ключом по вашей теме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-test-po-formule">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-test-po-formule">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-test-po-formule">ROLE: Ты — методист по <mark class="ph">[ДИСЦИПЛИНА]</mark>.
+GOAL: Создай тест из 10 вопросов по теме «<mark class="ph">[ТЕМА]</mark>».
+INPUT: Аудитория — <mark class="ph">[КУРС И УРОВЕНЬ, например: первый курс, базовый уровень]</mark>.
+FORMAT:
+– 7 вопросов с выбором одного ответа из четырёх;
+– 2 задания на соответствие;
+– 1 вопрос с открытым ответом;
+– в конце — ключ ответов с кратким пояснением для проверяющего.
+STYLE: ясно и кратко, без канцелярита.
+CONSTRAINTS:
+– вопросы однозначны: у каждого ровно один верный ответ;
+– все вопросы строго в пределах темы;
+– без терминов, которых не было на занятиях.
+EXAMPLES:
+(Выбор) <mark class="ph">[ПРИМЕР ВОПРОСА С ЧЕТЫРЬМЯ ВАРИАНТАМИ]</mark>
+Ответ: <mark class="ph">[ВЕРНЫЙ ВАРИАНТ]</mark>
+VERIFY: перед выдачей проверь по списку: все вопросы по теме; у каждого один верный ответ; ключ совпадает с вопросами; формулировки понятны первокурснику. Если что-то не выполнено — исправь и проверь снова.</div>
+</section>
+<section class="prompt" id="p-l1-test-kievskaya-rus" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Пример: тест по истории «Крещение Руси»</h3>
+      <p class="prompt__when">Когда: посмотреть, как выглядит заполненная формула</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-test-kievskaya-rus">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-test-kievskaya-rus">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-test-kievskaya-rus">ROLE: Ты — методист по истории России.
+GOAL: Создай тест из 10 вопросов по теме «Крещение Руси и его последствия».
+INPUT: Аудитория — первокурсники, базовый уровень.
+FORMAT:
+– 7 вопросов с выбором одного ответа из четырёх;
+– 2 задания на соответствие;
+– 1 вопрос с открытым ответом;
+– в конце — ключ ответов с пояснением для проверяющего.
+STYLE: кратко, формулировки ясные, без двусмысленностей.
+CONSTRAINTS:
+– без сложных терминов;
+– все вопросы — в пределах IX–XI веков;
+– у каждого вопроса ровно один верный ответ.
+EXAMPLES:
+1. (Выбор) Какой князь крестил Русь в 988 году? а) Игорь; б) Владимир; в) Олег; г) Святослав.
+Ответ: б) Владимир.
+2. (Соответствие) Соотнесите событие и год: а) Крещение Руси; б) съезд князей в Любече.
+1) 988; 2) 1097.
+Ответ: а — 1; б — 2.
+3. (Открытый) Почему принятие христианства изменило положение Руси среди соседних государств?
+VERIFY: проверь, что все вопросы относятся к IX–XI векам, однозначны, а ключ указан для каждого вопроса.</div>
+</section>
+<section class="prompt" id="p-l1-plan-zanyatiya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">План занятия</h3>
+      <p class="prompt__when">Когда: нужен план семинара или лекции на одну пару</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-plan-zanyatiya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-plan-zanyatiya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-plan-zanyatiya">Ты — опытный преподаватель <mark class="ph">[ДИСЦИПЛИНА]</mark>. Составь план занятия по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[КУРС И НАПРАВЛЕНИЕ]</mark> на 90 минут.
+Структура:
+1. Цели занятия — 2–3 пункта.
+2. Ключевые понятия — 3–5 с определениями.
+3. Теория — кратко, по пунктам, с хронометражем.
+4. Пример с разбором.
+5. Практическое задание — что делают студенты и сколько минут.
+6. Контрольные вопросы — 3–4.
+7. Домашнее задание.
+Язык — понятный для <mark class="ph">[УРОВЕНЬ]</mark>, без воды: одно-два предложения на пункт.
+Если для какого-то пункта нужны сведения, которых у тебя нет, — отметь это, не придумывай.</div>
+</section>
+<section class="prompt" id="p-l1-konspekt" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Краткий конспект с мини-словарём</h3>
+      <p class="prompt__when">Когда: нужен короткий опорный конспект для студентов</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-konspekt">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-konspekt">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-konspekt">Сделай конспект по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[УРОВЕНЬ]</mark> объёмом 250–300 слов.
+Структура: что это — почему важно — как работает — 3 примера.
+Язык простой; если термин нужен — объясни его.
+В конце — мини-словарь: 5 терминов с пояснениями в одну строку.
+Проверь перед выдачей: каждое определение верно и соответствует уровню аудитории.</div>
+</section>
+<section class="prompt" id="p-l1-rezyume-fajla" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Резюме своего учебного файла</h3>
+      <p class="prompt__when">Когда: нужно быстро пересказать или разложить свой материал</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-rezyume-fajla">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-rezyume-fajla">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-rezyume-fajla">Прочитай приложенный файл «<mark class="ph">[НАЗВАНИЕ ФАЙЛА]</mark>».
+1. Сделай связное резюме до 2000 знаков, сохрани стиль и терминологию автора.
+2. Затем извлеки главные тезисы и оформи таблицей: «тезис — где в тексте — пример из текста».
+Опирайся только на файл. Если чего-то в файле нет — не добавляй от себя.</div>
+</section>
+<section class="prompt" id="p-l1-istochniki" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Подбор источников, которые можно проверить</h3>
+      <p class="prompt__when">Когда: нужна литература к занятию или статье</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-istochniki">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-istochniki">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-istochniki">Предложи 5 источников по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[АУДИТОРИЯ]</mark>.
+Для каждого: авторы, название, год, издание или журнал и проверяемый идентификатор —
+DOI, URL или ISBN.
+Предлагай только источники, в существовании которых уверен. Если не уверен — так и скажи и объясни, где искать самому. Выдуманные ссылки хуже, чем их отсутствие.</div>
+</section>
+<section class="prompt" id="p-l1-proverka-otveta" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Попросить модель проверить свой ответ</h3>
+      <p class="prompt__when">Когда: ответ нужен для занятия, и в нём есть факты</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-proverka-otveta">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-proverka-otveta">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-proverka-otveta">Разбери свой предыдущий ответ по утверждениям.
+Для каждого утверждения укажи: подтверждено ли оно источником (каким), или это твоё обобщение, или ты не уверен.
+Отдельно перечисли даты, имена, числа и формулы, которые мне стоит проверить самому, и подскажи, где их проверить.</div>
+</section>
+<section class="prompt" id="p-l1-sistemnyj-sloj" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Системный слой для профиля, проекта или навыка</h3>
+      <p class="prompt__when">Когда: хотите один раз настроить помощника под свою дисциплину</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-sistemnyj-sloj">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-sistemnyj-sloj">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-sistemnyj-sloj">Ты — ассистент преподавателя по дисциплине «<mark class="ph">[ДИСЦИПЛИНА]</mark>» для <mark class="ph">[КУРС, НАПРАВЛЕНИЕ]</mark>.
+
+Словарь дисциплины — используй термины строго в этих значениях:
+– <mark class="ph">[ТЕРМИН 1]</mark> — <mark class="ph">[ОПРЕДЕЛЕНИЕ]</mark>;
+– <mark class="ph">[ТЕРМИН 2]</mark> — <mark class="ph">[ОПРЕДЕЛЕНИЕ]</mark>.
+
+Правила:
+– язык и примеры — по уровню студентов <mark class="ph">[КУРС]</mark>;
+– факты, даты, формулы — только проверяемые; ссылки — с DOI, URL или ISBN;
+– никаких персональных данных студентов.
+
+Опора на материалы: отвечай прежде всего по приложенным файлам курса. Если ответа в них нет — скажи об этом прямо, а потом, если уместно, дай общий ответ с пометкой
+«не из материалов курса».
+
+Проверка: перед каждым ответом сверь его с правилами выше. Если не уверен — так и скажи, не угадывай.</div>
+</section>
+</section><section class="section" id="lekciya-2"><h2>Лекция 2</h2>
+<section class="prompt" id="p-l2-lekciya-ot-nyutona" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Лекция от Ньютона</h3>
+      <p class="prompt__when">Когда: нужно введение к лекции со строгой логикой и вдохновением</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-lekciya-ot-nyutona">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-lekciya-ot-nyutona">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-lekciya-ot-nyutona">Ты — профессор университета, лектор-визионер: умеешь объяснять сложное так, чтобы студенты понимали не только ЧТО, но и ПОЧЕМУ это важно.
+Задача — написать введение к лекции на тему «<mark class="ph">[ТЕМА]</mark>» по дисциплине «<mark class="ph">[ДИСЦИПЛИНА]</mark>».
+:: начни с актуального примера или исторического контекста;
+:: сформулируй цель лекции и главные вопросы;
+:: веди мысль от общих законов к частным следствиям, дай метафоры и аналогии там, где без них трудно;
+:: объём — 500–800 слов;
+:: стиль — математически строгий, дедуктивный, авторитетный, но дружелюбный;
+:: в конце — 2–3 вопроса для обсуждения в аудитории.
+Вдохновляйся манерой Исаака Ньютона.
+Проверь перед выдачей: факты и даты верны; нет ссылок, которых ты не можешь подтвердить.</div>
+</section>
+<section class="prompt" id="p-l2-seminar-ot-kyuri" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Семинар от Марии Кюри</h3>
+      <p class="prompt__when">Когда: нужны кейсы для практического занятия</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-seminar-ot-kyuri">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-seminar-ot-kyuri">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-seminar-ot-kyuri">Ты — преподаватель практических занятий, фасилитатор: превращаешь теорию в живые задачи.
+Задача — разработать 3 кейса для семинара по теме «<mark class="ph">[ТЕМА]</mark>», дисциплина «<mark class="ph">[ДИСЦИПЛИНА]</mark>», для <mark class="ph">[УРОВЕНЬ: бакалавры или магистры]</mark>.
+:: у каждого кейса — название, проблема, исходные данные, вопросы для анализа, компетенции, которые он развивает;
+:: первый кейс — вводный, второй — на синтез и критическое мышление, третий — интегрирующий, с элементами проекта;
+:: каждый кейс — на 50–100 минут; всего 1000–1500 слов;
+:: реальные примеры — только те, которые можно проверить; вымышленные помечай «учебный пример»;
+:: в конце — эталонные ответы или критерии оценки для преподавателя.
+Стиль — лаконичный, честный, экспериментальный. Вдохновляйся манерой Марии Кюри.</div>
+</section>
+<section class="prompt" id="p-l2-ogranicheniya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Блок проверяемых ограничений</h3>
+      <p class="prompt__when">Когда: добавить к любому промпту, где важна точность и живой язык</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-ogranicheniya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-ogranicheniya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-ogranicheniya">Ограничения:
+– не выдумывай источники; у каждой ссылки — DOI, URL или ISBN;
+– каждое число — с источником и годом;
+– без канцелярита: «является», «осуществляется», «следует отметить»;
+– решения привязывай к моей ситуации: <mark class="ph">[ОПИСАНИЕ СИТУАЦИИ]</mark>;
+– объём — не больше [N] знаков.
+Проверка: перед выдачей пройди по этому списку, отметь каждый пункт и исправь то, что не выполнено. Если какого-то сведения нет — так и скажи.</div>
+</section>
+<section class="prompt" id="p-l2-cepochka-kursa" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Цепочка промптов для нового курса (промпты 0–5)</h3>
+      <p class="prompt__when">Когда: проектируете курс или модуль с нуля</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-cepochka-kursa">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-cepochka-kursa">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-cepochka-kursa">Промпт 0 (материал). Изучи приложенный файл и перескажи его: концепция, аннотация, ключевые идеи по главам. Опирайся только на файл.
+
+Промпт 1 (цели). Как эксперт по теме «<mark class="ph">[ТЕМА КУРСА]</mark>» сформулируй цели и задачи курса и объясни, почему тема важна для современной профессиональной практики.
+
+Промпт 2 (роль специалиста). Опиши профессиональные роли, задачи и компетенции, которые курс формирует у студентов.
+
+Промпт 3 (работодатель). Теперь ты — работодатель. Перечисли реальные рабочие ситуации, где навыки курса необходимы. Вымышленные ситуации помечай «пример».
+
+Промпт 4 (методист). Разработай структуру одного занятия: этапы, методы, формы работы, обратная связь.
+
+Промпт 5 (дизайнер презентаций). По предыдущим шагам предложи структуру презентации на 5–7 слайдов: для каждого слайда — ключевой тезис и что на нём изображено.</div>
+</section>
+<section class="prompt" id="p-l2-obratnyj-promt" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Обратный промптинг</h3>
+      <p class="prompt__when">Когда: нравится чей-то текст, и нужен такой же для своей темы</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-obratnyj-promt">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-obratnyj-promt">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-obratnyj-promt">Вот образец текста, который мне нравится: <mark class="ph">[ВСТАВЬТЕ ОБРАЗЕЦ]</mark>.
+Восстанови промпт, который мог бы породить такой текст: роль, задача, аудитория, стиль, структура, приёмы, запреты. Оформи его так, чтобы тему можно было заменить.
+Затем примени этот промпт к теме «<mark class="ph">[МОЯ ТЕМА]</mark>».</div>
+</section>
+<section class="prompt" id="p-l2-zhivoj-tekst" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Живой научно-популярный текст</h3>
+      <p class="prompt__when">Когда: нужна статья для первокурсников, которая читается как речь увлечённого учёного</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-zhivoj-tekst">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-zhivoj-tekst">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-zhivoj-tekst">Напиши статью для студентов-первокурсников на тему «<mark class="ph">[ТЕМА]</mark>». Пиши как увлечённый преподаватель, который объясняет сложное через простые аналогии.
+Обязательно:
+– начни с вопроса, который задают сами студенты, или с трудного места темы: <mark class="ph">[ВОПРОС ИЛИ ТРУДНОЕ МЕСТО]</mark>;
+– исторический контекст: откуда взялась задача;
+– главная идея — через бытовую аналогию;
+– где это работает в жизни — на проверяемых примерах;
+– в конце — не вывод, а вопрос к читателю, над которым стоит подумать.
+Стиль: обращение к читателю на «вы», чередование длинных и коротких предложений, конкретные примеры вместо общих слов.
+Запрещено: «следует отметить», «таким образом», отглагольные существительные, кальки вроде «делает возможным»; разговорные вставки по шаблону («смотрите», «кстати», «знаете»); выдуманный личный опыт — если нужна история из практики, оставь место <mark class="ph">[ИСТОРИЯ ИЗ МОЕЙ ПРАКТИКИ]</mark>.
+Объём — около 600 слов.</div>
+</section>
+<section class="prompt" id="p-l2-dialog-proverka" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Диалог-проверка решения</h3>
+      <p class="prompt__when">Когда: модель решила задачу, и решение пойдёт студентам</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-dialog-proverka">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-dialog-proverka">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-dialog-proverka">Разбери своё решение по шагам и объясни каждый переход.
+Затем стань критиком этого решения: где слабые места, какие контрпримеры его опровергают?
+Покажи другой способ получить тот же результат.
+Как ты понимаешь ключевые термины: <mark class="ph">[ТЕРМИНЫ]</mark>?
+В конце — список того, что мне стоит проверить самому.</div>
+</section>
+<section class="prompt" id="p-l2-forest" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Обзор темы по FOREST</h3>
+      <p class="prompt__when">Когда: готовите лекцию по новой теме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-forest">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-forest">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-forest">Используй фреймворк FOREST, чтобы собрать материал для лекции «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[АУДИТОРИЯ]</mark>:
+F — факты: ключевые факты и данные — каждое число с источником и годом;
+O — возможности: направления развития и перспективы для студентов;
+R — риски: сложности и ограничения;
+E — примеры: 2–3 реальных, проверяемых примера;
+S — решения: как снять риски;
+T — тренды: куда движется тема.
+Если для пункта нет надёжных данных — так и напиши, не заполняй догадками.</div>
+</section>
+<section class="prompt" id="p-l2-shest-shlyap" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Шесть шляп: разбор решения</h3>
+      <p class="prompt__when">Когда: нужно взвесить нововведение в курсе или провести мозговой штурм</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-shest-shlyap">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-shest-shlyap">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-shest-shlyap">Проведи разбор темы «<mark class="ph">[ТЕМА ИЛИ РЕШЕНИЕ]</mark>» методом шести шляп мышления, по очереди:
+белая — только факты и данные, которые у нас есть (чего нет — отметь «нет данных»); красная — чувства и интуиция участников; чёрная — риски и слабые места; жёлтая — выгоды и возможности; зелёная — новые идеи и альтернативы; синяя — итог: выводы, противоречия, первые три шага.</div>
+</section>
+<section class="prompt" id="p-l2-slap" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Объявление о наборе на курс (SLAP)</h3>
+      <p class="prompt__when">Когда: нужен короткий анонс для сайта или канала</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-slap">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-slap">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-slap">Ты — преподаватель вуза, который запускает новый курс. Напиши объявление о наборе по формуле SLAP: остановить внимание — заинтересовать — побудить к действию — привести к записи.
+Курс: <mark class="ph">[НАЗВАНИЕ И СУТЬ]</mark>. Аудитория: <mark class="ph">[КТО]</mark>. Сильные стороны: <mark class="ph">[ЧТО ОСОБЕННОГО]</mark>.
+Формат: <mark class="ph">[ОЧНО / ОНЛАЙН / СМЕШАННО]</mark>.
+Объём — до 600 знаков, без канцелярита. В конце — как записаться: <mark class="ph">[КОНТАКТ]</mark>.</div>
+</section>
+<section class="prompt" id="p-l2-uproshchenie" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Упрощение текста для первого курса</h3>
+      <p class="prompt__when">Когда: материал слишком сложен для начинающих</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-uproshchenie">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-uproshchenie">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-uproshchenie">Ты — методист с опытом адаптации учебных материалов.
+Адаптируй текст ниже для студентов 1 курса направления «<mark class="ph">[НАПРАВЛЕНИЕ]</mark>».
+Требования:
+– предложения — 10–15 слов;
+– термины оставь, но дай определения в скобках;
+– 2–3 примера из повседневной жизни;
+– научная корректность сохраняется: упрощай язык, а не понятия;
+– объём — 70–80 % исходного; абзацы по 3–4 предложения.
+Проверь перед выдачей: ни одно определение не стало неверным.
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l2-uglublenie" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Углубление материала для магистрантов</h3>
+      <p class="prompt__when">Когда: нужна версия материала для сильных студентов</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-uglublenie">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-uglublenie">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-uglublenie">Ты — научный консультант кафедры «<mark class="ph">[КАФЕДРА]</mark>».
+Углуби материал ниже для магистрантов направления «<mark class="ph">[НАПРАВЛЕНИЕ]</mark>».
+Требования:
+– теоретические обоснования и доказательства там, где уместно;
+– ссылки на исследования — только с DOI, URL или ISBN; если не уверен в источнике, не ссылайся, а напиши, что искать;
+– междисциплинарные связи с <mark class="ph">[СМЕЖНЫЕ ОБЛАСТИ]</mark>;
+– открытые вопросы и конкурирующие подходы;
+– 2–3 исследовательские задачи;
+– объём — 150–170 % исходного.
+Материал: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l2-gorizontal" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Горизонтальная адаптация под другую специальность</h3>
+      <p class="prompt__when">Когда: читаете тот же курс студентам другого направления</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-gorizontal">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-gorizontal">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-gorizontal">Адаптируй материал ниже для студентов направления «<mark class="ph">[НАПРАВЛЕНИЕ]</mark>».
+Уровень сложности НЕ меняй. Замени примеры, задачи и аналогии на взятые из их будущей профессии; объясни, зачем тема нужна именно им.
+Для каждого нового примера отметь, из какой профессиональной ситуации он взят.
+Материал: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l2-smyslovik" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">ИИ-смысловик: карта смыслов учебного материала</h3>
+      <p class="prompt__when">Когда: проектируете лекцию или курс и хотите найти его смысловую опору</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-smyslovik">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-smyslovik">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-smyslovik">Вы — преподаватель и автор, который хочет, чтобы знания стали живыми и запомнились.
+Проведите смысловую распаковку текста ниже по шести уровням:
+1. Рациональный — что даёт материал на уровне фактов и действий, что студент должен уметь.
+2. Эмоциональный — какие чувства вызывает тема и как их использовать для вовлечения.
+3. Авторский — зачем эта тема мне как преподавателю, чему я учу «между строк».
+4. Студенческий — кто мой студент, где он спотыкается, что ему откликается.
+5. Контекстный — почему тема важна сейчас, где она пересекается с будущей профессией.
+6. Ценностный — какие компетенции и ценности формирует тема.
+По каждому уровню — 2–4 абзаца живого текста, затем краткие тезисы для плана лекции, учебных целей и вопросов к тесту.
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l2-lingvist" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">ИИ-лингвист: карта смыслов любого текста</h3>
+      <p class="prompt__when">Когда: нужно понять, на чём держится чужой текст, анонс или программа</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-lingvist">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-lingvist">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-lingvist">Ты — аналитик смыслового позиционирования. Проведи многомерный анализ текста ниже и извлеки карту смыслов по шести измерениям: рациональное (функциональное ядро), эмоциональное, авторское (интенция автора), клиентское (истинные мотивы аудитории), контекстуальное (почему сейчас), ценностное (базовые потребности).
+Задача — не пересказать, а выявить скрытые мотивы и основания. Не цитируй текст — синтезируй.
+Формат: раздел на каждое измерение, 3–5 ёмких абзацев; в конце — неочевидные связи между измерениями.
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l2-portret-auditorii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Портрет аудитории</h3>
+      <p class="prompt__when">Когда: нужно понять студентов курса перед картой смыслов или анонсом</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-portret-auditorii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-portret-auditorii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-portret-auditorii">Ты — исследователь аудитории. Составь таблицу-портрет студентов курса «<mark class="ph">[КУРС]</mark>»
+(<mark class="ph">[НАПРАВЛЕНИЕ, КУРС ОБУЧЕНИЯ]</mark>).
+Столбцы: признак — описание — как это учесть в курсе.
+Признаки: подготовка к курсу; трудности в теме; чего боятся; что их раздражает на занятиях; что радует и вовлекает; где берут информацию; какие темы им интересны; зачем курс в их будущей профессии; частые ошибки и путаница в понятиях; вопросы, которые они задают чаще всего.
+Где нужны сведения, которых у тебя нет, — пиши «уточнить у преподавателя», не придумывай.</div>
+</section>
+<section class="prompt" id="p-l2-tekst-po-karte" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Текст по карте смыслов</h3>
+      <p class="prompt__when">Когда: карта готова, нужен анонс, пост или вступление</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-tekst-po-karte">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-tekst-po-karte">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-tekst-po-karte">Ты — копирайтер. Напиши <mark class="ph">[ЧТО: пост для канала кафедры до 2000 знаков / вступление к лекции / анонс курса]</mark> на тему «<mark class="ph">[ТЕМА]</mark>».
+Опирайся на приложенную карту смыслов: используй 2–3 рациональных смысла, 2–3 эмоциональных и авторский акцент — мои любимые слова и обороты: <mark class="ph">[СЛОВА АВТОРА]</mark>.
+Стиль: <mark class="ph">[СТИЛЬ]</mark>. Без канцелярита и штампов.</div>
+</section>
+</section><section class="section" id="lekciya-3"><h2>Лекция 3</h2>
+<section class="prompt" id="p-l3-akademicheskij-assistent" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Академический ассистент — системный слой для проекта или первого сообщения</h3>
+      <p class="prompt__when">Когда: собираете своего помощника по курсу</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-akademicheskij-assistent">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-akademicheskij-assistent">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-akademicheskij-assistent">Ты — академический ассистент преподавателя дисциплины «<mark class="ph">[ДИСЦИПЛИНА]</mark>»: помогаешь с научными текстами, конспектами, методическими материалами и перепиской со студентами и коллегами.
+Стиль: вежливый, структурированный, научно-деловой; для студентов — проще, с пояснением терминов.
+Формат: инструкции — списком, пояснения — абзацами, сравнения — таблицей, к каждой теме — пример.
+Опора на материалы: отвечай по приложенным файлам курса; если ответа в них нет — скажи об этом прямо.
+Проверка: давай ссылки на первоисточники там, где это возможно, — с DOI или URL.
+Не уверен — так и скажи, не угадывай. Никаких персональных данных студентов.</div>
+</section>
+<section class="prompt" id="p-l3-samorefleksiya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Блок самопроверки для системного слоя</h3>
+      <p class="prompt__when">Когда: хотите, чтобы помощник сам проверял ответ перед выдачей</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-samorefleksiya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-samorefleksiya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-samorefleksiya">Перед каждым ответом:
+1. Составь для себя критерии хорошего ответа на этот запрос — 5–7 пунктов.
+2. Напиши черновик и сверь его с критериями.
+3. Исправь то, что не дотягивает, и проверь снова.
+4. Выдай только итог. Критерии и черновик не показывай.
+Если в материалах нет данных для ответа — скажи об этом, а не заполняй пробел догадкой.</div>
+</section>
+<section class="prompt" id="p-l3-slovar-discipliny" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Словарь дисциплины для системного слоя</h3>
+      <p class="prompt__when">Когда: нужно задать модели точные значения терминов вашего предмета</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-slovar-discipliny">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-slovar-discipliny">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-slovar-discipliny">Ты — эксперт в области «<mark class="ph">[ОБЛАСТЬ]</mark>». Составь словарь из 20 профессиональных терминов этой области для студентов <mark class="ph">[УРОВЕНЬ]</mark>.
+Для каждого: термин; определение в одно-два предложения; пример употребления; частая ошибка студентов в понимании термина.
+Упорядочи по алфавиту, очевидные термины пропусти.
+Если у термина в разных школах разные определения — укажи это.</div>
+</section>
+<section class="prompt" id="p-l3-proverka-esse" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверка эссе по критериям</h3>
+      <p class="prompt__when">Когда: нужен черновик разбора студенческого эссе</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-proverka-esse">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-proverka-esse">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-proverka-esse">Ты — преподаватель <mark class="ph">[ДИСЦИПЛИНА]</mark>. Оцени эссе студента <mark class="ph">[КУРС]</mark> на тему «<mark class="ph">[ТЕМА]</mark>».
+Критерии, 1–5 баллов с обоснованием:
+1. Соответствие теме: есть ли тезис и раскрыт ли он.
+2. Логика и аргументация.
+3. Примеры и доказательства: конкретны ли, уместны ли.
+4. Грамотность и стиль.
+5. Самостоятельность мысли: есть ли своя интерпретация.
+Затем: 2–3 сильные стороны, 2–3 слабых места, конкретные рекомендации.
+Тон — конструктивный и поддерживающий: цель — помочь студенту вырасти.
+Цитируй места из текста, на которые опираешься.
+Эссе: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-proverka-zadachi" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверка решения задачи</h3>
+      <p class="prompt__when">Когда: нужен разбор хода решения, а не только ответа</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-proverka-zadachi">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-proverka-zadachi">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-proverka-zadachi">Проверь решение студента <mark class="ph">[КУРС]</mark> по теме «<mark class="ph">[ТЕМА]</mark>».
+Задача: <mark class="ph">[УСЛОВИЕ]</mark>.
+Оцени: верна ли формула; верна ли подстановка; вычисления и округления; единицы измерения; обоснован ли каждый шаг.
+Если есть ошибки: укажи, где именно; объясни, почему это неверно; дай верное решение с пояснениями.
+Проверь своё решение дважды, прежде чем указывать на ошибку студента.
+Решение студента: <mark class="ph">[ВСТАВЬТЕ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-obratnaya-svyaz" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Поддерживающая обратная связь</h3>
+      <p class="prompt__when">Когда: разбор готов, нужен текст для студента</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-obratnaya-svyaz">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-obratnaya-svyaz">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-obratnaya-svyaz">По разбору ниже напиши обратную связь студенту — 120–180 слов.
+Начни с того, что получилось, затем 2–3 главные точки роста с конкретным советом, закончи следующим шагом. Без оценочных ярлыков, без канцелярита, обращение на «вы».
+Разбор: <mark class="ph">[ВСТАВЬТЕ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-priznaki-ii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Признаки участия ИИ — основа для беседы, не приговор</h3>
+      <p class="prompt__when">Когда: есть сомнение в самостоятельности работы</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-priznaki-ii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-priznaki-ii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-priznaki-ii">Проанализируй текст ниже на признаки участия ИИ. Это основа для беседы со студентом, а не приговор.
+Контекст: <mark class="ph">[КУРС]</mark>, <mark class="ph">[ТИП ЗАДАНИЯ]</mark>, <mark class="ph">[ДИСЦИПЛИНА]</mark>; правила курса об ИИ: <mark class="ph">[КАКИЕ]</mark>.
+Для каждой находки: точная цитата; что это за признак; насколько он сильный; чем он может объясняться БЕЗ ИИ.
+Отдельно: какие ссылки, даты и числа нужно проверить и как.
+Отдельно: признаки живого автора.
+В конце — 3–5 вопросов для беседы, привязанных к местам текста.
+Не ставь процент вероятности, не называй модель, не делай выводов о человеке.
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-voprosy-dlya-besedy" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Вопросы для беседы по работе</h3>
+      <p class="prompt__when">Когда: хотите убедиться, что студент владеет своим текстом</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-voprosy-dlya-besedy">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-voprosy-dlya-besedy">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-voprosy-dlya-besedy">По работе студента ниже подготовь 6 вопросов для короткой устной беседы (10 минут):
+– 2 вопроса «перескажите своими словами» к конкретным абзацам;
+– 1 вопрос о выборе примера или метода;
+– 1 вопрос «что изменится, если…» на понимание;
+– 1 вопрос об источнике;
+– 1 вопрос о том, как шла работа.
+Тон — доброжелательный, не допрос. К каждому вопросу — что должен показать хороший ответ.
+Работа: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ БЕЗ ФАМИЛИИ АВТОРА]</mark></div>
+</section>
+<section class="prompt" id="p-l3-pravila-kursa" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Правила использования ИИ для моего курса</h3>
+      <p class="prompt__when">Когда: готовите правила к началу семестра</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-pravila-kursa">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-pravila-kursa">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-pravila-kursa">Помоги составить правила использования ИИ для курса «<mark class="ph">[КУРС]</mark>» (<mark class="ph">[УРОВЕНЬ СТУДЕНТОВ]</mark>).
+Структура: разрешено (3–5 пунктов с примерами); запрещено (3–5 с примерами); по согласованию с преподавателем (2–3); как студент указывает использование ИИ (готовая формулировка для работы); как я проверяю соблюдение правил; что происходит при нарушении — обучающе, а не карательно.
+Язык — понятный студентам, без канцелярита, на одну страницу.</div>
+</section>
+<section class="prompt" id="p-l3-ustojchivoe-zadanie" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Задание, которое трудно «сдать нейросетью»</h3>
+      <p class="prompt__when">Когда: переделываете задание, которое легко сгенерировать</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-ustojchivoe-zadanie">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-ustojchivoe-zadanie">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-ustojchivoe-zadanie">Помоги переделать задание по <mark class="ph">[ДИСЦИПЛИНА]</mark> для <mark class="ph">[КУРС]</mark> так, чтобы выполнить его без понимания темы было трудно.
+Исходное задание: <mark class="ph">[ТЕКСТ ЗАДАНИЯ]</mark>. Длительность: <mark class="ph">[НЕДЕЛИ]</mark>.
+Используй: личный или местный контекст студента; промежуточные этапы с отчётами; часть работы на занятии; устную защиту.
+Предложи: формулировку задания; этапы и сроки; критерии оценки; 5 вопросов для устной защиты.</div>
+</section>
+</section><section class="section" id="bonus-navyki"><h2>Бонусный урок</h2>
+<section class="prompt" id="p-b-shablon-skill" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Шаблон SKILL.md</h3>
+      <p class="prompt__when">Когда: начинаете свой навык</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-shablon-skill">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-shablon-skill">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-shablon-skill">---
+name: <mark class="ph">[imya-navyka-latinicej]</mark>
+description: &quot;<mark class="ph">[Что делает навык, от третьего лица]</mark>. <mark class="ph">[Когда применять: какие задачи и какими словами о них просят]</mark>.&quot;
+---
+
+# <mark class="ph">[Название навыка по-русски]</mark>
+
+<mark class="ph">[Одна-две фразы: для кого навык и какой результат даёт.]</mark>
+
+## Порядок работы
+
+Скопируй чек-лист в ответ и отмечай шаги:
+
+- [ ] 1. <mark class="ph">[Уточнить контекст: …]</mark>
+- [ ] 2. <mark class="ph">[Основной шаг]</mark>
+- [ ] 3. <mark class="ph">[Проверка результата по правилам ниже]</mark>
+- [ ] 4. <mark class="ph">[Выдать результат в формате ниже]</mark>
+
+## Правила
+
+- <mark class="ph">[Правило]</mark> — <mark class="ph">[зачем оно]</mark>.
+- Если данных не хватает — скажи об этом, не придумывай.
+
+## Формат результата
+
+<mark class="ph">[Шаблон или описание.]</mark>
+
+## Пример
+
+<mark class="ph">[Короткий пример: вход → результат.]</mark>
+
+## Чего не делать
+
+- <mark class="ph">[Чего нельзя]</mark> — <mark class="ph">[почему]</mark>.
+
+## Файлы навыка
+
+- <mark class="ph">[references/файл.md]</mark> — <mark class="ph">[что в нём]</mark>.</div>
+</section>
+<section class="prompt" id="p-b-sobrat-navyk" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Собрать навык вместе с нейросетью</h3>
+      <p class="prompt__when">Когда: задача уже решена в разговоре, хотите превратить её в навык</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-sobrat-navyk">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-sobrat-navyk">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-sobrat-navyk">Мы только что вместе решили задачу: <mark class="ph">[КОРОТКО ЗАДАЧА]</mark>. Собери из этого навык в формате
+SKILL.md.
+Требования:
+– шапка: name — латиницей, строчные буквы и дефисы; description — что делает и когда применять, от третьего лица, не длиннее 450 знаков;
+– порядок работы — нумерованные шаги и чек-лист;
+– правила — с объяснением, зачем каждое;
+– формат результата и один пример;
+– раздел «Чего не делать»;
+– всё, что я объяснял тебе по ходу — критерии, термины, частые ошибки, — перенеси в навык; подробные списки и образцы — в отдельные справочные файлы.
+Затем предложи три сценария проверки: обычный, трудный и такой, где навык должен отказаться или ответить «не знаю».</div>
+</section>
+<section class="prompt" id="p-b-agent-navyk-iz-opisaniya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Агент собирает навык по описанию</h3>
+      <p class="prompt__when">Когда: VS Code с агентом, открыта папка «Мои навыки»</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-navyk-iz-opisaniya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-navyk-iz-opisaniya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-navyk-iz-opisaniya">Создай в этой папке новый навык по описанию ниже.
+
+Описание задачи: <mark class="ph">[ЧТО ДОЛЖЕН ДЕЛАТЬ НАВЫК, ДЛЯ КОГО И КАКОЙ РЕЗУЛЬТАТ]</mark>.
+
+Требования к формату:
+– папка навыка — <mark class="ph">[imya-latinicej]</mark>; внутри SKILL.md, справочники и примеры — в подпапке references;
+– шапка SKILL.md: name — латиницей, строчные буквы, цифры и дефисы; description — что делает навык и когда его применять, от третьего лица;
+– ссылки на справочники — обычные ссылки Markdown с путём от SKILL.md, например на файл references/kriterii.md;
+– в SKILL.md: порядок работы с чек-листом, правила с объяснением «зачем», формат результата, один пример, раздел «Чего не делать».
+
+Потом проверь сам и покажи результаты проверки:
+1. длина description в кодировке UTF-8 — не больше 1024 байт;
+2. в папке навыка нет служебных файлов (.DS_Store, .obsidian, __MACOSX) и не больше 100 файлов;
+3. каждая ссылка из SKILL.md ведёт на существующий файл.
+
+Работай только внутри этой папки. Перед каждой командой коротко объясни, что она делает.</div>
+</section>
+<section class="prompt" id="p-b-agent-navyk-proverki-dz" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Навык проверки ДЗ из вашей инструкции</h3>
+      <p class="prompt__when">Когда: есть своя инструкция или критерии проверки работ</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-navyk-proverki-dz">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-navyk-proverki-dz">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-navyk-proverki-dz">В файле instrukciya.md — моя инструкция по проверке домашней работы по дисциплине «<mark class="ph">[ДИСЦИПЛИНА]</mark>». Собери из неё навык <mark class="ph">[proverka-dz-...]</mark> в этой папке.
+– Критерии и шкалу перенеси в references/kriterii.md дословно, ничего не добавляя от себя.
+– Если для проверки чего-то не хватает — шкалы, образца хорошей работы, правила для спорных случаев, — не придумывай, а задай мне вопросы списком.
+– Результат навыка по одной работе: оценка по каждому критерию с цитатой из работы, замечания, вопросы к студенту. Итоговую оценку навык не ставит — её ставит преподаватель.
+– Выводов о списывании и участии ИИ навык не делает: где сомневается, пишет вопрос к студенту.
+Проверь формат так же, как при сборке навыка по описанию: description не длиннее 1024 байт, служебных файлов нет, ссылки работают.</div>
+</section>
+<section class="prompt" id="p-b-agent-proverit-papku" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Проверить папку работ по навыку</h3>
+      <p class="prompt__when">Когда: навык проверки готов, работы обезличены</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b-agent-proverit-papku">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b-agent-proverit-papku">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b-agent-proverit-papku">Возьми навык <mark class="ph">[proverka-dz-...]</mark> и проверь работы из папки raboty/.
+– На каждую работу создай в папке otzyvy/ файл с тем же именем: оценка по каждому критерию с цитатой из работы, замечания, вопросы к студенту.
+– В конце создай otzyvy/svodka.md — таблицу «работа — баллы по критериям — что проверить мне вручную».
+– Итоговых оценок не ставь и выводов о списывании или участии ИИ не делай: где сомневаешься, пиши вопрос к студенту.
+– Файлы в папке raboty/ не меняй.</div>
+</section>
+</section></div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>
