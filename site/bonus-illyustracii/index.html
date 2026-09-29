@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<title>Бонусный урок 2. Нейроиллюстрации — картинка к лекции словами — ИИ в учебном процессе</title>
+<meta name="description" content="Как бесплатно нарисовать иллюстрацию к слайду в Алисе AI или GigaChat, сделать своё изображение по найденному образцу и не нарушить условия сервисов.">
+<link rel="stylesheet" href="/assets/sajt.css">
+<link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
+<script src="/assets/servisy.js" defer></script>
+<script src="/assets/sajt.js" defer></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+<header class="nav">
+  <div class="wrap wrap--wide nav__row">
+    <a class="nav__brand" href="/">ИИ в учебном процессе</a>
+    <nav class="nav__links" aria-label="Разделы сайта">
+      <a href="/#lekcii" class="nav__hide-sm" aria-current="page">Лекции</a>
+      <a href="/promty/" class="nav__hide-xs">Промпты</a>
+      <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
+      <a href="/navyki/" class="nav__hide-sm">Навыки</a>
+      <a href="/test/" class="nav__hide-sm">Тест</a>
+    </nav>
+    <div class="svc" data-svc>
+      <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
+      <ul class="svc__menu" hidden data-svc-menu></ul>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap wrap--wide">
+<header class="page-head"><p class="kicker">Бонусный урок 2</p><h1>Нейроиллюстрации — картинка к лекции словами</h1><p class="lead">Картинку к слайду не обязательно искать в интернете и гадать, можно ли её брать. Её можно
+нарисовать словами — бесплатно, в Алисе AI или GigaChat, — а найденную картинку взять
+как образец и получить своё решение.</p></header>
+<div class="layout-toc">
+<nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-урока">Что вы унесёте с урока</a></li><li><a href="#gde-risovat">1. Где рисовать бесплатно</a></li><li><a href="#formula">2. Формула промпта картинки</a></li><li><a href="#k-slajdu">3. Картинка к слайду</a></li><li><a href="#po-obrazcu">4. Своё изображение по образцу</a></li><li><a href="#dorabotka">5. Доработка за несколько шагов</a></li><li><a href="#prava">6. Права и честность</a></li><li><a href="#navyk">7. Навык-иллюстратор</a></li><li><a href="#stili">8. Коллекция: 11 стилей</a></li><li><a href="#promty">Промпты урока</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
+<article class="prose">
+<div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>
+<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 27 КБ · сборка 2026-09-29</span><a class="btn btn--small" href="/files/konspekt-bonus-illyustracii.docx" download>Скачать</a></div></div>
+
+<h2 id="что-вы-унесёте-с-урока">Что вы унесёте с урока</h2>
+<ul>
+<li>где рисовать бесплатно и что можно делать с картинками по условиям сервисов;</li>
+<li>формулу промпта картинки из 11 блоков;</li>
+<li>как сделать своё изображение по найденному образцу и довести его до нужного;</li>
+<li>коллекцию из 11 стилей с готовыми промптами и навык-иллюстратор.</li>
+</ul>
+<h2 id="gde-risovat">1. Где рисовать бесплатно</h2>
+<p><code>[проверено 29.09.2026]</code></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Алиса AI</th>
+<th>GigaChat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Как попросить</td>
+<td>«Нарисуй…» или кнопка «Нарисовать картинку»</td>
+<td>«Нарисуй…»</td>
+</tr>
+<tr>
+<td>Бесплатно</td>
+<td>да; в часы нагрузки первыми рисуют подписчики «Алисы Плюс»</td>
+<td>да</td>
+</tr>
+<tr>
+<td>Формат</td>
+<td>соотношение сторон можно указать в запросе</td>
+<td>указывайте словами, например «горизонтальный формат 16:9»</td>
+</tr>
+<tr>
+<td>Картинка-образец</td>
+<td>как образец для рисунка — нельзя, но загруженную картинку Алиса опишет</td>
+<td>загруженную картинку опишет; рисовать после этого — в новом диалоге</td>
+</tr>
+<tr>
+<td>Правка своего фото</td>
+<td>режим редактирования: JPEG или PNG до 20 МБ, изменения описываются словами; сверх лимита — платно</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Сколько хранятся</td>
+<td>14 дней</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Источники: справка Алисы AI о <a href="https://alice.yandex.ru/support/ru/assistant/chat/picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>генерации<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+и <a href="https://alice.yandex.ru/support/ru/assistant/chat/edit-photos" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>редактировании<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, справка GigaChat
+о <a href="https://giga.chat/help/articles/how-to-generate-images" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>генерации<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и
+<a href="https://giga.chat/help/articles/gigachat-load-picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>загрузке изображений<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</p>
+<p>Автор курса рисовал примеры этого урока в Алисе AI — получается красиво; GigaChat по тем же
+промптам рисует тоже неплохо. Промпты можно писать по-русски, а английские промпты
+из коллекции ниже — вставлять как есть.</p>
+<h2 id="formula">2. Формула промпта картинки</h2>
+<p>У текстового промпта восемь элементов (лекция 1), у картинки — 11 блоков. Заполнять все
+не нужно: для слайда обычно хватает первых семи.</p>
+<table>
+<thead>
+<tr>
+<th>Блок</th>
+<th>Что написать</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Объект</td>
+<td>кто или что главное, сколько, какое</td>
+<td>«пожилой учёный с седой бородой», «три колбы»</td>
+</tr>
+<tr>
+<td>2. Действие, поза</td>
+<td>что делает, как расположен</td>
+<td>«склонился над микроскопом»</td>
+</tr>
+<tr>
+<td>3. Окружение</td>
+<td>где, когда, какая погода</td>
+<td>«лаборатория XIX века, вечер»</td>
+</tr>
+<tr>
+<td>4. Свет</td>
+<td>откуда, какой, тёплый или холодный</td>
+<td>«мягкий свет из окна слева», «золотой час»</td>
+</tr>
+<tr>
+<td>5. Цвет</td>
+<td>главные цвета, насыщенность</td>
+<td>«приглушённые сине-зелёные тона»</td>
+</tr>
+<tr>
+<td>6. Стиль, техника</td>
+<td>фото, акварель, масло, 3D, бумажная аппликация</td>
+<td>«акварель с мягкими переходами»</td>
+</tr>
+<tr>
+<td>7. Композиция и формат</td>
+<td>план, ракурс, место под текст, соотношение сторон</td>
+<td>«общий план, свободное место слева, 16:9»</td>
+</tr>
+<tr>
+<td>8. Камера</td>
+<td>для «фото»: объектив, глубина резкости</td>
+<td>«85 мм, размытый фон»</td>
+</tr>
+<tr>
+<td>9. Настроение</td>
+<td>какое чувство вызывает</td>
+<td>«спокойное, вдохновляющее»</td>
+</tr>
+<tr>
+<td>10. Качество</td>
+<td>уровень детализации</td>
+<td>«высокая детализация»</td>
+</tr>
+<tr>
+<td>11. Что исключить</td>
+<td>чего не должно быть</td>
+<td>«без текста и надписей»</td>
+</tr>
+</tbody>
+</table>
+<p>Формула одной строкой: <code>[стиль] — [объект], [действие], [окружение], [свет], [цвет],
+[композиция и формат], [камера], [настроение], [качество]. Без: [что исключить].</code></p>
+<p><strong>Шесть правил:</strong></p>
+<ul>
+<li><strong>Конкретно:</strong> «три колбы с зелёной жидкостью», а не «колбы».</li>
+<li><strong>Главное — в начале:</strong> стиль и объект ставьте первыми.</li>
+<li><strong>Что нужно, а не чего не нужно:</strong> «яркий солнечный день», а не «не тёмный»; исключения —
+  отдельным блоком «без».</li>
+<li><strong>Числа и формат:</strong> сколько объектов, какое соотношение сторон.</li>
+<li><strong>Короче — свободнее, длиннее — точнее:</strong> 30–50 слов для пробы, 80–150 — для точного
+  результата.</li>
+<li><strong>Без противоречий:</strong> «фотореализм» и «масляная живопись» в одном промпте спорят друг
+  с другом.</li>
+</ul>
+<h2 id="k-slajdu">3. Картинка к слайду</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Что указать в промпте</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Обложка лекции</td>
+<td>тема образом, свободное место под заголовок, 16:9</td>
+</tr>
+<tr>
+<td>Метафора понятия</td>
+<td>образ вместо схемы: «энтропия — рассыпающаяся башня из кубиков»</td>
+</tr>
+<tr>
+<td>Историческая сцена</td>
+<td>эпоха, место, одежда; на слайде — подпись «реконструкция нейросетью, не источник»</td>
+</tr>
+<tr>
+<td>Фон для слайда</td>
+<td>мягкий, без мелких деталей, большое свободное поле под текст</td>
+</tr>
+<tr>
+<td>Иконки разделов</td>
+<td>один стиль на все иконки — например, неоновые контуры (стиль 10)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Без надписей.</strong> Буквы нейросеть может исказить — текст добавьте в редакторе презентаций,
+  а в промпт допишите «без текста и надписей».</li>
+<li><strong>Одна презентация — один стиль.</strong> Блоки стиля, света и цвета держите одинаковыми, меняйте
+  объект (промпт «Серия в одном стиле»).</li>
+<li><strong>Проверьте содержание.</strong> Нейросеть рисует правдоподобно, а не точно: руки, приборы,
+  детали эпохи и анатомию сверяйте так же, как факты в тексте (лекция 1).</li>
+</ul>
+<h2 id="po-obrazcu">4. Своё изображение по образцу</h2>
+<p>Нашли картинку с нужной композицией, настроением или техникой — возьмите её как образец,
+а содержание сделайте своим.</p>
+<ol>
+<li>Загрузите образец в Алису AI или GigaChat и дайте промпт «Опиши образец по 11 блокам»
+   (ниже, среди промптов урока). Нейросеть разложит картинку по формуле и соберёт промпт.</li>
+<li>Поменяйте в промпте то, что делает картинку вашей: объект, эпоху, цвета, формат.
+   От образца остаются приёмы, а не содержание.</li>
+<li>Нарисуйте по новому промпту. В GigaChat после загрузки картинки рисовать можно только
+   в новом диалоге — перенесите промпт туда.</li>
+</ol>
+<p>Так автор курса собрал стиль «классическая морская живопись маслом» (стиль 11): загрузил
+фото картины с парусником, попросил описать, как написаны волны и солнечный свет,
+получил подробный промпт и нарисовал по нему в GigaChat.</p>
+<p>Образец — источник приёмов, а не копия: не воспроизводите чужую картину целиком и перед
+публикацией убедитесь, что результат не повторяет узнаваемое чужое произведение.</p>
+<h2 id="dorabotka">5. Доработка за несколько шагов</h2>
+<p>Первая картинка редко бывает окончательной. Правьте в том же чате: «перерисуй: …» — и меняйте
+<strong>одно за раз</strong>, иначе непонятно, что сработало. Так автор курса дорабатывал парусник
+в GigaChat:</p>
+<blockquote>
+<p>перерисуй, чтобы парусник был с 3 мачтами и по 2–3 паруса на мачтах, кливер впереди, ход
+корабля под 45 градусов на зрителя — нос вправо, солнце сделай круглым, детально прорисуй лучи</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Что не так</th>
+<th>Что поправить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>искажённые буквы</td>
+<td>убрать текст из картинки: «без надписей»</td>
+</tr>
+<tr>
+<td>странные руки, лишние пальцы</td>
+<td>спрятать руки или сменить позу: «руки за спиной», «вид со спины»</td>
+</tr>
+<tr>
+<td>перегружено деталями</td>
+<td>меньше объектов, «минималистично», «много свободного места»</td>
+</tr>
+<tr>
+<td>не тот стиль</td>
+<td>поставить стиль первым и убрать слова, которые ему противоречат</td>
+</tr>
+<tr>
+<td>плоско и скучно</td>
+<td>добавить свет: «контровой свет», «золотой час»</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prava">6. Права и честность</h2>
+<p><code>[проверено 29.09.2026]</code></p>
+<ul>
+<li><strong>Бесплатно — для личных некоммерческих целей.</strong> Так в условиях
+  <a href="https://yandex.ru/legal/alice_chat/ru/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Алисы AI<span class="visually-hidden"> (откроется в новой вкладке)</span></a> (п. 3.1, редакция 10.09.2026; с «Алисой Плюс»
+  картинки можно использовать и в иных целях) и
+  <a href="https://developers.sber.ru/docs/ru/policies/gigachat-agreement/individuals" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>GigaChat<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+  (п. 2.4, редакция 06.02.2026; права на результат — у автора запроса, п. 6.2). Для пособия
+  на продажу, рекламы или издания нужен платный доступ; относится ли слайд вашей лекции
+  к личным некоммерческим целям, уточните у юриста вуза.</li>
+<li><strong>Чужие права проверяете вы</strong> (Алиса AI, п. 3.2): картинка может случайно повторить чужое
+  произведение.</li>
+<li><strong>Без персональных данных.</strong> Не загружайте фотографии студентов и коллег: соглашение
+  GigaChat запрещает загружать чужие персональные данные (п. 8.7).</li>
+<li><strong>Подпишите</strong> «Изображение создано нейросетью» — так же, как с текстом (лекция 3).</li>
+<li><strong>Имя художника</strong> в промпте помогает поймать стиль; для публикаций надёжнее описать
+  приёмы словами, особенно у современных авторов.</li>
+</ul>
+<h2 id="navyk">7. Навык-иллюстратор</h2>
+<p>Системная инструкция агента ART PROMPT MASTER из курса 2025 года теперь — навык
+<code>illustrating-lessons</code>. По короткому запросу или загруженному образцу он раскладывает
+задачу по 11 блокам и выдаёт три промпта — краткий, стандартный и подробный — для Алисы AI
+и GigaChat, а по неудачному результату подсказывает, что поправить. Скачать — на странице
+<a href="/navyki/">«Навыки»</a>; как поставить — в <a href="/bonus-navyki/#kak-postavit">бонусном уроке 1</a>.</p>
+<p>Бесплатно: приложите <code>SKILL.md</code> и справочники к чату Алисы AI или GigaChat, попросите
+следовать инструкции — и нарисуйте по лучшему варианту.</p>
+<h2 id="stili">8. Коллекция: 11 стилей</h2>
+<p>Промпты — из материалов курса 2025 года. Они по-английски, так их и вставляйте; параметры
+Midjourney убраны, формат указан словами. Картинки — образцы стилей из тех же материалов.</p>
+<h3 id="stil-1">Стиль 1. 3D-рендер — футуристические киборги</h3>
+<p><img alt="Стиль 1: 3D-рендер, футуристические киборги" height="287" loading="lazy" src="/kartinki/illyustracii/stil-01.jpg" width="624" /></p>
+<p>Фотореалистичный 3D-рендер с глянцевыми пластиковыми поверхностями, хромированными деталями
+и футуристическими персонажами-киборгами; контраст органического (кожа) и синтетического
+(пластик, металл).</p>
+<p><strong>Приметы:</strong> оранжево-красные глянцевые шлемы и маски; хром с отражениями; идеальная кожа;
+визоры и импланты; холодный голубой градиентный фон; студийный свет с чёткими бликами.</p>
+<section class="prompt" id="p-b2-stil-01" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 1 — 3D-рендер, футуристические киборги</h3>
+      <p class="prompt__when">Когда: обложка про технологии, будущее, ИИ</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-01">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-01">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-01">Photorealistic 3D render of futuristic female cyborg, wearing glossy orange-red plastic helmet with chrome metallic details, perfect human skin visible on face, cybernetic implants, futuristic visor, studio lighting with sharp highlights and reflections, cold blue gradient background, contrast between organic and synthetic materials, shot in portrait orientation, rendered in Octane Render with ray tracing, ultra-detailed textures, hyperrealistic, vertical 9:16 format</div>
+</section>
+<h3 id="stil-2">Стиль 2. Деконструктивизм — архитектурный хаос</h3>
+<p><img alt="Стиль 2: деконструктивизм, архитектурный хаос" height="633" loading="lazy" src="/kartinki/illyustracii/stil-02.jpg" width="624" /></p>
+<p>Монохромная композиция из фрагментированных геометрических структур: архитектурный хаос,
+монументальность, несколько перспектив одновременно.</p>
+<p><strong>Приметы:</strong> строгая чёрно-белая палитра; фрагменты архитектуры; лучи света из центра;
+толпы тёмных силуэтов; колонны, ступени и платформы в хаотичном порядке; центральная
+симметрия; высокий контраст.</p>
+<section class="prompt" id="p-b2-stil-02" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 2 — деконструктивизм</h3>
+      <p class="prompt__when">Когда: архитектура, сложные системы, образ «хаоса» и структуры</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-02">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-02">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-02">Monochrome black and white deconstructivist architectural illustration, fragmented geometric structures, multiple perspectives simultaneously, dramatic rays of light radiating from center, crowds of people as dark silhouettes, architectural elements like columns steps platforms in chaotic arrangement, central symmetrical composition, high contrast chiaroscuro lighting, sense of monumentality and controlled chaos, inspired by M.C. Escher and Zaha Hadid, digital art, intricate details, square 1:1 format</div>
+</section>
+<h3 id="stil-3">Стиль 3. Нуар — драматичный чёрно-белый портрет</h3>
+<p><img alt="Стиль 3: нуар, чёрно-белый портрет" height="300" loading="lazy" src="/kartinki/illyustracii/stil-03.jpg" width="624" /></p>
+<p>Классический нуар-портрет с контрастным светом: таинственная, мрачная атмосфера, развевающаяся
+ткань добавляет движения.</p>
+<p><strong>Приметы:</strong> строгая чёрно-белая фотография; выразительный макияж; ткань или волосы
+на ветру; сильный контрастный свет сбоку или снизу; детальная фактура ткани.</p>
+<section class="prompt" id="p-b2-stil-03" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 3 — нуар, чёрно-белый портрет</h3>
+      <p class="prompt__when">Когда: драматичный акцент, история кино и фотографии</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-03">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-03">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-03">Film noir style black and white portrait photography, mysterious woman with dark lipstick, dramatic fabric or veil flowing dynamically around face as if blown by wind, strong chiaroscuro lighting from side, high contrast shadows, moody and mysterious atmosphere, detailed fabric textures, cinematic composition, inspired by classic 1940s film noir, fashion photography aesthetic, shot on medium format camera, sharp focus on face, 3:2 format</div>
+</section>
+<h3 id="stil-4">Стиль 4. Томас Кинкейд — романтический пейзаж</h3>
+<p><img alt="Стиль 4: романтический пейзаж" height="419" loading="lazy" src="/kartinki/illyustracii/stil-04.jpg" width="624" /></p>
+<p>Идиллический пейзаж с тёплым светом, уютными домиками и живописной природой — фирменный
+стиль художника Томаса Кинкейда с объёмным светом.</p>
+<p><strong>Приметы:</strong> фахверковый дом; горы или лес на заднем плане; золотой час; тёплый свет в окнах;
+извилистая тропинка; пышная зелень и цветы; водоём; облачное небо с просветами.</p>
+<section class="prompt" id="p-b2-stil-04" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 4 — романтический пейзаж</h3>
+      <p class="prompt__when">Когда: спокойный фон, литература, краеведение</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-04">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-04">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-04">Thomas Kinkade style romantic landscape painting, cozy cottage with half-timbered architecture, warm glowing lights from windows, winding stone path leading to house, lush green meadow with wildflowers, majestic mountains in background, serene lake reflecting scene, golden hour sunset lighting with volumetric light rays, soft clouds with sunlight breaking through, magical warm atmosphere, rich colors, oil painting texture, idyllic and peaceful mood, highly detailed foliage and architectural details, wide 16:9 format</div>
+</section>
+<h3 id="stil-5">Стиль 5. Бумажная аппликация — многослойный объём</h3>
+<p><img alt="Стиль 5: многослойная бумажная аппликация" height="372" loading="lazy" src="/kartinki/illyustracii/stil-05.jpg" width="624" /></p>
+<p>Вырезание из бумаги: несколько слоёв цветной бумаги и тени между ними дают объём.</p>
+<p><strong>Приметы:</strong> чёткие слои; тени между слоями; природная или морская тема; волнистые формы;
+силуэты животных и растений; 2–5 цветов без градиентов.</p>
+<section class="prompt" id="p-b2-stil-05" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 5 — бумажная аппликация</h3>
+      <p class="prompt__when">Когда: биология, география, детская и научно-популярная тема</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-05">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-05">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-05">Paper cut art, layered papercraft illustration, underwater ocean scene with whales and marine life, multiple layers of colored paper creating depth, wave patterns in turquoise and dark blue paper layers, coral reefs and seaweed in foreground, two whales swimming, small tropical fish, gold and yellow accent elements, visible shadows between layers creating 3D effect, paper texture visible, limited color palette of teal turquoise navy blue white gold, clean silhouettes, papercraft style, top view lighting, wide 16:9 format</div>
+</section>
+<h3 id="stil-6">Стиль 6. Карикатура — детальная характерная иллюстрация</h3>
+<p>Яркая иллюстрация с преувеличенными пропорциями и богатой детализацией; юмористический,
+праздничный характер, акцент на фактурах и атмосфере.</p>
+<p><strong>Приметы:</strong> большая голова и живот; выразительные глаза и усы; детально прописанная
+традиционная еда и напитки; тёплый свет свечей и фонарей; богатый интерьер; праздничное
+настроение. В промпте курса пивная кружка заменена чайной.</p>
+<section class="prompt" id="p-b2-stil-06" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 6 — карикатура</h3>
+      <p class="prompt__when">Когда: весёлый персонаж, разрядка в середине лекции</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-06">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-06">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-06">Detailed cartoon illustration, cheerful plump Bavarian chef character with exaggerated proportions, large head, big bushy moustache, holding huge steaming mug of tea, table full of traditional food (sausages, pretzels, sauerkraut), warm cozy lighting from lanterns and candles, traditional Bavarian restaurant interior with wooden barrels in background, people celebrating, rich detailed textures on food glass and wood, caricature style but highly detailed, festive joyful atmosphere, warm golden brown color palette, professional digital illustration, concept art quality, wide 16:9 format</div>
+</section>
+<h3 id="stil-7">Стиль 7. Кинопанорама — эпический древний город</h3>
+<p><img alt="Стиль 7: кинематографическая панорама древнего города" height="376" loading="lazy" src="/kartinki/illyustracii/stil-07.jpg" width="624" /></p>
+<p>Широкоформатная эпическая композиция в духе исторических фильмов: монументальная
+архитектура, массовые сцены, драматичный свет золотого часа.</p>
+<p><strong>Приметы:</strong> формат 21:9 или 16:9; античный город; войска и толпы; храмы, стены, башни;
+закатное небо; пыль и дымка; фигуры на переднем плане; тёплая цветокоррекция.</p>
+<section class="prompt" id="p-b2-stil-07" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 7 — кинопанорама древнего города</h3>
+      <p class="prompt__when">Когда: история, античность, масштаб события</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-07">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-07">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-07">Epic cinematic panoramic shot, ancient city at golden hour, massive armies and crowds, monumental classical architecture with temples walls towers, dramatic sunset sky with volumetric clouds, atmospheric dust and haze in air, silhouettes of warriors on foreground, wide-angle perspective, sense of epic scale and grandeur, warm color grading with golden ochre brown tones, cinematic lighting, inspired by films like Gladiator and 300, matte painting quality, photorealistic, ultra-wide 21:9 panorama</div>
+</section>
+<h3 id="stil-8">Стиль 8. Ультрареализм — как настоящая фотография</h3>
+<p><img alt="Стиль 8: ультрареалистичная фотография, туристы в горах" height="344" loading="lazy" src="/kartinki/illyustracii/stil-08.jpg" width="624" /></p>
+<p>Фотореалистичный снимок с естественным светом и параметрами профессиональной съёмки;
+документальный стиль.</p>
+<p><strong>Приметы:</strong> естественный солнечный свет; реалистичные фактуры ткани, кожи, природы;
+композиция как у настоящего фото; размытый фон; естественные цвета; люди в естественных
+позах.</p>
+<section class="prompt" id="p-b2-stil-08" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 8 — ультрареалистичная фотография</h3>
+      <p class="prompt__when">Когда: «живая» сцена вместо стоковой фотографии</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-08">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-08">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-08">Ultra realistic photography, three hikers with backpacks walking away on mountain trail, shot from behind, golden dry grass field, majestic mountains in background, clear blue sky with white clouds, natural sunlight, authentic outdoor adventure aesthetic, shot on Canon EOS R5 with 24-70mm lens at f/4, slight shallow depth of field with background softly blurred, realistic textures on clothing backpacks and landscape, warm natural color palette, professional outdoor photography, documentary style, wide 16:9 format</div>
+</section>
+<h3 id="stil-9">Стиль 9. Гротеск — сюрреалистическая иллюстрация</h3>
+<p>Детальная гротескная иллюстрация: искажённые фигуры, органические спирали,
+отталкивающе-завораживающая эстетика — смесь Босха, Гигера и лоубрау.</p>
+<p><strong>Приметы:</strong> искажённые фигуры и черты лица; спиральные формы; множество глаз и странных
+деталей; узорчатая фактура кожи; приглушённая винтажная палитра; предельная детализация.</p>
+<section class="prompt" id="p-b2-stil-09" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 9 — гротеск</h3>
+      <p class="prompt__when">Когда: искусствоведение, сюрреализм, образ тревоги</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-09">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-09">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-09">Grotesque surrealist illustration, distorted human figures with exaggerated features, spiral organic patterns throughout, multiple eyes and strange details, textured skin with intricate patterns, unsettling chubby baby-like creatures with wide grins, elderly man with elongated features covered in swirls, vintage muted color palette of beige sepia grey-green, extreme level of detail, style combining Hieronymus Bosch and HR Giger and Mark Ryden, lowbrow surrealism, simultaneously repulsive and mesmerizing, intricate pen and ink quality, square 1:1 format</div>
+</section>
+<h3 id="stil-10">Стиль 10. Неоновые контурные иконки</h3>
+<p>Минималистичные иконки из светящихся неоновых контуров на чёрном фоне — стиль логотипов,
+элементов интерфейса и иконок разделов.</p>
+<p><strong>Приметы:</strong> абсолютно чёрный фон; контуры без заливки; разноцветное неоновое свечение;
+отражения на глянцевой поверхности; векторная чёткость; тематический набор предметов.
+В промпте курса тема бара заменена учебной.</p>
+<section class="prompt" id="p-b2-stil-10" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 10 — неоновые контурные иконки</h3>
+      <p class="prompt__when">Когда: иконки разделов курса, обложка в «технологичном» стиле</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-10">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-10">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-10">Neon outline icon illustration on pure black background, science and education theme with flasks microscope books globe light bulb, glowing neon line art in multiple colors (pink cyan yellow green orange), no fill only outlines, neon tubes effect, reflections on glossy black surface below, minimalist clean design, vector art style, glowing edges, electric aesthetic, vibrant neon colors against darkness, modern icon design, square 1:1 format</div>
+</section>
+<h3 id="stil-11">Стиль 11. Масляная живопись — маяк и море</h3>
+<p><img alt="Стиль 11: масляная живопись, маяк и море" height="348" loading="lazy" src="/kartinki/illyustracii/stil-11.jpg" width="624" /></p>
+<p>Традиционная масляная живопись: видимые мазки, фактура импасто, классическая композиция
+морского пейзажа.</p>
+<p><strong>Приметы:</strong> маяк на скалах; бурное море; драматичное небо; видимые мазки и толстый слой
+краски; мольберт на переднем плане; контраст тёплого и холодного; свет сквозь облака.</p>
+<section class="prompt" id="p-b2-stil-11" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 11 — масляная живопись, маяк и море</h3>
+      <p class="prompt__when">Когда: литература, история искусства, образ «маяка» в теме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-11">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-11">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-11">Traditional oil painting on canvas, lighthouse on rocky cliff by stormy sea, dramatic cloudy sky with sunlight breaking through, rough ocean waves crashing, visible thick brushstrokes and impasto texture, rich oil paint quality, artist&#x27;s easel in foreground showing the painting (meta reference), warm oranges and cool blues in contrast, romantic maritime landscape, style of Ivan Aivazovsky or J.M.W. Turner, textured canvas visible, classical composition, museum quality artwork, 3:2 format</div>
+</section>
+<p>Вариант того же стиля, собранный по образцу (раздел 4), — «классическая морская живопись»:</p>
+<section class="prompt" id="p-b2-stil-11-parusnik" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Стиль 11, вариант по образцу — парусник на закате</h3>
+      <p class="prompt__when">Когда: подробный промпт, собранный по картине-образцу</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-stil-11-parusnik">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-stil-11-parusnik">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-stil-11-parusnik">Classical maritime oil painting on textured canvas, detailed tall ship sailing vessel with multiple masts and rigging clearly visible, wind-filled sails with realistic fabric folds and shadows showing volume, sails illuminated by warm golden-orange sunset light creating dramatic backlight effect, dark silhouette of ship hull with deck details, ship positioned against dramatic sky, highly detailed dynamic ocean with translucent multi-layered waves structure, each wave showing depth and three-dimensional form with pronounced crests and troughs, thick impasto paint application creating visible physical texture on wave surfaces, color gradient within waves from deep emerald-green in depths to light turquoise-cyan on illuminated surfaces, golden-yellow sunlight reflections painted with thick brushstrokes in diagonal patterns naturally following organic wave movement, white foaming wave crests with fine textural detail, light penetrating through water creating realistic luminosity effect, spectacular sunset sky with volumetric clouds and atmospheric depth, warm color palette dominated by golden orange pink and coral tones, dramatic sunlight breaking through clouds with volumetric rays creating atmospheric perspective, strong contrast between warm lighting (sky, water reflections) and cool tones (deep ocean shadows), visible expressive brushstrokes throughout showing passionate artist&#x27;s hand and technique, rich impasto texture especially pronounced on wave surfaces, romantic and dramatic maritime atmosphere evoking emotion and grandeur, inspired by Russian marine painter Ivan Aivazovsky&#x27;s mastery combined with J.M.W. Turner&#x27;s atmospheric effects and light philosophy, authentic 19th century classical academic painting technique, museum quality artwork, 3:2 format</div>
+</section>
+<h2 id="promty">Промпты урока</h2>
+<section class="prompt" id="p-b2-shablon" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Картинка к слайду по формуле</h3>
+      <p class="prompt__when">Когда: нужна иллюстрация к конкретному слайду</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-shablon">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-shablon">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-shablon">Нарисуй <mark class="ph">[СТИЛЬ, например: акварельную иллюстрацию]</mark>: <mark class="ph">[ОБЪЕКТ — кто или что главное]</mark>, <mark class="ph">[ДЕЙСТВИЕ ИЛИ ПОЗА]</mark>, <mark class="ph">[ОКРУЖЕНИЕ — где и когда]</mark>.
+Свет: <mark class="ph">[ОТКУДА И КАКОЙ]</mark>. Цвета: <mark class="ph">[ГЛАВНЫЕ ЦВЕТА]</mark>.
+Композиция: <mark class="ph">[ПЛАН И РАКУРС]</mark>, свободное место <mark class="ph">[ГДЕ]</mark> под заголовок слайда, горизонтальный формат 16:9.
+Настроение: <mark class="ph">[КАКОЕ]</mark>.
+Без текста и надписей, без водяных знаков.</div>
+</section>
+<section class="prompt" id="p-b2-tri-varianta" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Три промпта к слайду — краткий, стандартный, подробный</h3>
+      <p class="prompt__when">Когда: не знаете, что нарисовать, — пусть нейросеть предложит</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-tri-varianta">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-tri-varianta">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-tri-varianta">Ты — иллюстратор учебных презентаций. Вот текст слайда: <mark class="ph">[ТЕКСТ СЛАЙДА]</mark>. Аудитория: <mark class="ph">[КТО]</mark>.
+Предложи образ, который поможет понять слайд, а не просто украсит его, и напиши три промпта для генерации картинки:
+– краткий — 30–50 слов;
+– стандартный — 80–120 слов;
+– подробный — 150–250 слов.
+Каждый промпт строй по блокам: стиль, объект, действие, окружение, свет, цвет, композиция (свободное место под заголовок, формат 16:9), настроение, что исключить. Без текста и надписей на картинке.</div>
+</section>
+<section class="prompt" id="p-b2-po-obrazcu" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Опиши образец по 11 блокам</h3>
+      <p class="prompt__when">Когда: нашли картинку-образец и хотите своё изображение в том же приёме</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-po-obrazcu">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-po-obrazcu">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-po-obrazcu">Опиши приложенную картинку по 11 блокам: объект, действие или поза, окружение, свет, цвет, стиль и техника, композиция и формат, камера (если это фото), настроение, качество, чего на картинке нет.
+Отдельно — в чём особый приём автора (как написаны свет, фактура, линии).
+Затем составь промпт, который передаёт эти приёмы, но с моим содержанием: <mark class="ph">[ЧТО ДОЛЖНО БЫТЬ НА МОЕЙ КАРТИНКЕ]</mark>. Формат — <mark class="ph">[СООТНОШЕНИЕ СТОРОН]</mark>. Без текста и надписей.</div>
+</section>
+<section class="prompt" id="p-b2-seriya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Серия в одном стиле</h3>
+      <p class="prompt__when">Когда: несколько картинок для одной презентации</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-seriya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-b2-seriya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-seriya">Мне нужна серия из <mark class="ph">[ЧИСЛО]</mark> картинок для одной презентации на тему «<mark class="ph">[ТЕМА]</mark>».
+Сначала напиши общий блок стиля — техника, свет, цвет, композиция, формат 16:9, «без текста и надписей», — одинаковый для всех картинок.
+Затем для каждого слайда — <mark class="ph">[СПИСОК СЛАЙДОВ]</mark> — напиши промпт: общий блок стиля плюс свой объект и действие.</div>
+</section>
+<h2 id="samostoyatelno">Самостоятельная практика</h2>
+<p><strong>Время:</strong> около 2 часов. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
+<a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p>
+<ol>
+<li><strong>Обложка.</strong> Нарисуйте обложку к своей следующей лекции по одному промпту в Алисе AI
+   и в GigaChat — сравните.</li>
+<li><strong>Метафора.</strong> Выберите трудное понятие своего курса и нарисуйте его образом, без надписей.</li>
+<li><strong>По образцу.</strong> Найдите картинку, которая нравится, получите описание по 11 блокам
+   и нарисуйте своё: другое содержание — тот же приём.</li>
+<li><strong>Серия.</strong> Три картинки в одном стиле для одной презентации.</li>
+<li><strong>Проверка.</strong> Подпишите картинки и проверьте содержание: руки, приборы, детали эпохи.</li>
+</ol>
+<p><strong>Как понять, что получилось:</strong> картинка помогает понять слайд, а не только украшает его;
+на ней нет текста и ошибок по сути; серия выглядит одной; под картинкой стоит подпись.</p>
+<h2 id="proverte-sebya">Проверьте себя</h2>
+<details>
+<summary>Из каких блоков состоит промпт картинки?</summary>
+<p>Объект, действие или поза, окружение, свет, цвет, стиль и техника, композиция и формат,
+камера, настроение, качество, что исключить. Для слайда обычно хватает первых семи.</p>
+</details>
+<details>
+<summary>Почему на картинке для слайда лучше обойтись без надписей?</summary>
+<p>Нейросеть может исказить буквы. Текст надёжнее добавить в редакторе презентаций, а в промпт
+дописать «без текста и надписей».</p>
+</details>
+<details>
+<summary>Как получить своё изображение по найденной картинке?</summary>
+<p>Загрузить её в Алису AI или GigaChat, попросить описать по 11 блокам и составить промпт,
+заменить содержание своим и нарисовать. В GigaChat — в новом диалоге.</p>
+</details>
+<details>
+<summary>Можно ли картинку с бесплатного тарифа поставить в пособие на продажу?</summary>
+<p>Нет: бесплатно картинки можно использовать в личных некоммерческих целях (Алиса AI — п. 3.1,
+GigaChat — п. 2.4). Для иных целей нужны «Алиса Плюс» или платный доступ GigaChat.</p>
+</details>
+<details>
+<summary>Как сделать серию картинок в одном стиле?</summary>
+<p>Держать одинаковыми блоки стиля, света, цвета и формата и менять только объект и действие.</p>
+</details>
+<h2 id="istochniki">Источники</h2>
+<ul>
+<li>Алиса AI: генерация изображений — <a href="https://alice.yandex.ru/support/ru/assistant/chat/picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://alice.yandex.ru/support/ru/assistant/chat/picture<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; редактирование фото — <a href="https://alice.yandex.ru/support/ru/assistant/chat/edit-photos" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://alice.yandex.ru/support/ru/assistant/chat/edit-photos<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; условия использования, редакция 10.09.2026 — <a href="https://yandex.ru/legal/alice_chat/ru/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://yandex.ru/legal/alice_chat/ru/<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Яндекс. «В Алисе AI теперь можно редактировать изображения», 25.12.2025 — <a href="https://yandex.ru/company/news/25-12-2025-02" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://yandex.ru/company/news/25-12-2025-02<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>GigaChat: генерация изображений — <a href="https://giga.chat/help/articles/how-to-generate-images" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://giga.chat/help/articles/how-to-generate-images<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; загрузка изображений — <a href="https://giga.chat/help/articles/gigachat-load-picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://giga.chat/help/articles/gigachat-load-picture<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; соглашение для физических лиц, редакция 06.02.2026 — <a href="https://developers.sber.ru/docs/ru/policies/gigachat-agreement/individuals" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://developers.sber.ru/docs/ru/policies/gigachat-agreement/individuals<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Материалы автора курса 2025 года: универсальный фреймворк промпта для нейроиллюстраций, коллекция промптов, системная инструкция агента ART PROMPT MASTER.</li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap wrap--wide">
+    <p>Курс «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ · автор курса — Олег Барбашин</p>
+    <p><a href="/o-kurse/">О курсе, источниках и лицензиях</a> · сборка 2026-09-29</p>
+  </div>
+</footer>
+</body>
+</html>

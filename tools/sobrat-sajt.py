@@ -46,7 +46,8 @@ UROKI = [
     ("lekciya-1", "Лекция 1"),
     ("lekciya-2", "Лекция 2"),
     ("lekciya-3", "Лекция 3"),
-    ("bonus-navyki", "Бонусный урок"),
+    ("bonus-navyki", "Бонусный урок 1"),
+    ("bonus-illyustracii", "Бонусный урок 2"),
 ]
 
 NAVYKI_RU = {
@@ -55,10 +56,14 @@ NAVYKI_RU = {
     "researching-literature": "Исследователь литературы",
     "spotting-ai-writing": "Проверка текста на следы ИИ",
     "editing-ai-writing": "Редактор ИИ-штампов",
+    "illustrating-lessons": "Иллюстратор лекций",
 }
 
 # 01.09.2026 00:00 UTC — дата редакции курса для метаданных .docx (SOURCE_DATE_EPOCH)
 DATA_REDAKCII = int(datetime.datetime(2026, 9, 1, tzinfo=datetime.timezone.utc).timestamp())
+
+# Навыки в работе — на сайт не попадают, пока не проверены (niokr: обезличивание примеров, 29.09.2026)
+NAVYKI_V_RABOTE = {"niokr"}
 
 PREDEL_OPISANIYA = 1024   # байт — предел Perplexity, замер автора 19.09.2026
 PREDEL_FAJLOV = 100       # файлов в одном архиве навыка (5 — сколько навыков принимает одна загрузка)
@@ -307,7 +312,7 @@ def sobrat_uroki(vse_promty):
             p["podpis_uroka"] = podpis
         vse_promty.extend(promty_uroka)
 
-        zagolovok = re.sub(r"^(Лекция \d+|Бонусный урок)\.\s*", "", meta.get("title", slug))
+        zagolovok = re.sub(r"^(Лекция \d+|Бонусный урок(?: \d+)?)\.\s*", "", meta.get("title", slug))
 
         blok_video = blok_video_uroka(meta.get("video", ""))
 
@@ -432,7 +437,10 @@ def sobrat_navyki():
     kartochki = []
     # Порядок — как в NAVYKI_RU; новая папка в skills/ с SKILL.md попадает на сайт сама
     novye = sorted(p.parent.name for p in SKILLS.glob("*/SKILL.md") if p.parent.name not in NAVYKI_RU)
-    for imya in list(NAVYKI_RU) + novye:
+    # Навык в работе не публикуется: PROPUSTIT_NAVYKI=imya1,imya2 python3 tools/sobrat-sajt.py
+    propustit = {s.strip() for s in os.environ.get("PROPUSTIT_NAVYKI", "").split(",") if s.strip()}
+    propustit |= NAVYKI_V_RABOTE
+    for imya in [i for i in list(NAVYKI_RU) + novye if i not in propustit]:
         papka = SKILLS / imya
         skill = papka / "SKILL.md"
         if not skill.exists():
@@ -511,7 +519,7 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
 <header class="page-head">
   <p class="kicker">Курс повышения квалификации · Центр искусственного интеллекта НГУ</p>
   <h1>ИИ в учебном процессе</h1>
-  <p class="lead">Три лекции и бонусный урок: как готовить материалы, проверять работы
+  <p class="lead">Три лекции и два бонусных урока: как готовить материалы, проверять работы
   и собирать своих помощников — на бесплатных нейросетях.</p>
   <div class="btn-row"><a class="btn btn--primary" href="/lekciya-1/">Начать с лекции 1</a>
   <a class="btn" href="/promty/">Библиотека промптов</a><a class="btn" href="/konstruktor/">Конструктор промптов</a></div>
@@ -599,6 +607,12 @@ def main():
     if zamer.exists():
         (SITE / "files").mkdir(parents=True, exist_ok=True)
         shutil.copyfile(zamer, SITE / "files" / "zamer-tokenov.py")
+
+    # Картинки уроков: источник — content/kartinki/, на сайте — /kartinki/
+    kartinki = CONTENT / "kartinki"
+    if kartinki.exists():
+        shutil.copytree(kartinki, SITE / "kartinki", dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns(".*"))
 
     # Вопросы итогового теста: источник — content/test-voprosy.js, движок — site/test/test.js
     voprosy = CONTENT / "test-voprosy.js"

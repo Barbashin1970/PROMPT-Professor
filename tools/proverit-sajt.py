@@ -5,7 +5,7 @@
 
 Код выхода 0 — расхождений нет; иначе печатается каждое расхождение и код 1.
 Что проверяется (проект сайта — docs/SAIT-PROEKT.md, §6):
-  1. Внутренние ссылки ведут на существующие страницы и файлы; якоря — на существующие id.
+  1. Внутренние ссылки и картинки ведут на существующие страницы и файлы; якоря — на существующие id.
   2. Внешние ссылки открываются в новом окне: target="_blank" и rel="noopener noreferrer".
   3. На странице нет повторяющихся id; у каждой карточки промпта есть заголовок.
   4. В собранных страницах нет незаполненных подстановок {{…}}; у каждой есть <title> и lang="ru".
@@ -75,6 +75,12 @@ def proverit_stranicy():
         for kartochka in re.findall(r'<section class="prompt"[^>]*data-prompt>(.*?)</section>', html, re.S):
             if 'class="prompt__title"' not in kartochka:
                 oshibka(f"{imya}: карточка промпта без заголовка")
+        for src in re.findall(r'<img\s[^>]*src="([^"]+)"', html):
+            if src.startswith(("http://", "https://", "data:")):
+                continue
+            cel, _ = cel_ssylki(stranica, src)
+            if cel is not None and not cel.exists():
+                oshibka(f"{imya}: картинки нет: {src}")
         for teg in re.findall(r"<a\s[^>]*>", html):
             href = re.search(r'href="([^"]*)"', teg)
             if not href:
