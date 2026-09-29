@@ -22,8 +22,8 @@
 
 УДК № ___  СОГЛАСОВАНО УТВЕРЖДАЮ
  Индустриальный партнёр Ректор Исполнитель
- Директор Академик Р АН
-Инв. № ___ ____________ Ф. И. О. _______________ М. П. Фе дорук
+ Директор
+Инв. № ___ ____________ Ф. И. О. _______________ Ф. И. О.
  «__» _____________ 2025 г. «__» _________ 2025 г.
  м. п. м. п.
 
@@ -54,7 +54,7 @@
 Техник _______________ Ф. И. О.
  __________ 2025 г.
 
-Нормоконтролер _______________ А. Н. Р яскин
+Нормоконтролер _______________ Ф. И. О.
  __________ 2025 г.
 
  Исполнитель – Отчет о НИР “Разработка интеллектуального алгоритма для беспилотного летательного аппарата” 2
@@ -2801,7 +2801,7 @@ https://vision.in.tum.de/data/datasets/rgbd-dataset
 
 Bachrach, A., Prentice, S., He, R., Henry, P., Huang, A. S., Kraemer, M., ... & Roy, N. (2012).
 Estimation, planning, and mapping for autonomous flight using monocular vision and lidar.
-International Journal of Robotics Research, 31(11), 1320-1343. doi:10.1177/02(телефон снят)Rebecq, H., Gebhardt, D., Gehrig, D., & Scaramuzza, D. (2020). High quality monocular depth
+International Journal of Robotics Research, 31(11), 1320-1343. doi:10.1177/0278364912457469 Rebecq, H., Gebhardt, D., Gehrig, D., & Scaramuzza, D. (2020). High quality monocular depth
 estimation via transfer learning. arXiv preprint arXiv:1811.11721. URL:
 https://arxiv.org/abs/1811.11721
 

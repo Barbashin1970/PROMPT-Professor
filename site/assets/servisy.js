@@ -88,3 +88,31 @@ window.INSTRUMENTY = [
     "zachem": "бесплатный агент для VS Code от Сбера, без VPN"
   }
 ];
+window.SERVISY_NABORY = {
+  "risovanie": [
+    {
+      "id": "alisa",
+      "imya": "Алиса AI",
+      "url": "https://alice.yandex.ru",
+      "zachem": "бесплатно: «Нарисуй…», формат можно указать"
+    },
+    {
+      "id": "gigachat",
+      "imya": "GigaChat",
+      "url": "https://giga.chat",
+      "zachem": "бесплатно: «Нарисуй…», рисует Kandinsky"
+    },
+    {
+      "id": "shedevrum",
+      "imya": "Шедеврум",
+      "url": "https://shedevrum.ai",
+      "zachem": "Яндекс, бесплатно: до 70 картинок в день на сайте, вход по Яндекс ID"
+    },
+    {
+      "id": "qwen",
+      "imya": "Qwen Chat",
+      "url": "https://chat.qwen.ai",
+      "zachem": "бесплатно, режим Image Generation; вход по почте"
+    }
+  ]
+};

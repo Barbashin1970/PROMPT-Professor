@@ -3,6 +3,7 @@ title: Бонусный урок 2. Нейроиллюстрации — кар�
 description: Как бесплатно нарисовать иллюстрацию к слайду в Алисе AI или GigaChat, сделать своё изображение по найденному образцу и не нарушить условия сервисов.
 nomer: бонус 2
 slug: bonus-illyustracii
+servisy: risovanie
 slajdy:
 video:
 ---
@@ -35,6 +36,17 @@ video:
 и [редактировании](https://alice.yandex.ru/support/ru/assistant/chat/edit-photos), справка GigaChat
 о [генерации](https://giga.chat/help/articles/how-to-generate-images) и
 [загрузке изображений](https://giga.chat/help/articles/gigachat-load-picture).
+
+Ещё два бесплатных сервиса работают из России. **Шедеврум** Яндекса — сайт
+[shedevrum.ai](https://shedevrum.ai) и приложения: вход по Яндекс ID, на сайте до 70 картинок
+в день, в приложении без ограничений; без подписки Про — только для личных целей
+([Яндекс](https://b2b.yandex.ru/adv/edu/materials/kak-polzovatsya-shedevrumom-instrukciya)).
+**Qwen Chat** — [chat.qwen.ai](https://chat.qwen.ai), режим Image Generation: вход по почте,
+бесплатно с ограничениями, по данным
+[РБК Трендов](https://trends.rbc.ru/trends/innovation/69270dde9a7947adb7695fdc) работает
+без VPN. Кнопка «Открыть в…» у промптов этого урока предлагает все четыре сервиса.
+Midjourney в курсе нет: бесплатного доступа на сайте у него нет
+([справка Midjourney](https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials)).
 
 Автор курса рисовал примеры этого урока в Алисе AI — получается красиво; GigaChat по тем же
 промптам рисует тоже неплохо. Промпты можно писать по-русски, а английские промпты

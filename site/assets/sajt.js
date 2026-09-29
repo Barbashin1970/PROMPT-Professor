@@ -101,17 +101,22 @@
 
   /* ── Меню «Открыть в…» и «Нейросети» ───────────────────────────────────── */
 
-  function prochitatVybor() {
-    try { return window.localStorage.getItem(KLYUCH); } catch (e) { return null; }
+  // Набор сервисов для меню: data-svc-nabor="risovanie" — рисующие нейросети (бонусный урок 2);
+  // без атрибута — общий список. Последний выбор помнится для каждого набора отдельно.
+  function klyuchVybora(nabor) { return nabor ? KLYUCH + ':' + nabor : KLYUCH; }
+
+  function prochitatVybor(nabor) {
+    try { return window.localStorage.getItem(klyuchVybora(nabor)); } catch (e) { return null; }
   }
 
-  function zapomnitVybor(id) {
-    try { window.localStorage.setItem(KLYUCH, id); } catch (e) { /* не сохранилось — предложим выбрать снова */ }
+  function zapomnitVybor(id, nabor) {
+    try { window.localStorage.setItem(klyuchVybora(nabor), id); } catch (e) { /* не сохранилось — предложим выбрать снова */ }
   }
 
-  function spisokServisov() {
-    var vse = (window.SERVISY || []).slice();
-    var proshlyi = prochitatVybor();
+  function spisokServisov(nabor) {
+    var nabory = window.SERVISY_NABORY || {};
+    var vse = ((nabor && nabory[nabor]) || window.SERVISY || []).slice();
+    var proshlyi = prochitatVybor(nabor);
     vse.sort(function (a, b) { return (b.id === proshlyi) - (a.id === proshlyi); });
     return vse;
   }
@@ -120,8 +125,9 @@
     var menu = obertka.querySelector('[data-svc-menu]');
     if (!menu || menu.getAttribute('data-gotovo')) return;
     var dlyaKopii = obertka.getAttribute('data-kopirovat-pered');
+    var nabor = obertka.getAttribute('data-svc-nabor');
     menu.innerHTML = '';
-    spisokServisov().forEach(function (s) {
+    spisokServisov(nabor).forEach(function (s) {
       var li = document.createElement('li');
       var a = document.createElement('a');
       a.href = s.url;
@@ -203,7 +209,8 @@
       // Вкладку открывает сам браузер: у ссылки target="_blank", поэтому работают и щелчок
       // с ⌘ или Ctrl, и средняя кнопка. До перехода — запомнить сервис и скопировать промпт.
       var id = ssylka.getAttribute('data-servis');
-      if (id) zapomnitVybor(id);
+      var obertkaMenu = ssylka.closest('[data-svc]');
+      if (id) zapomnitVybor(id, obertkaMenu && obertkaMenu.getAttribute('data-svc-nabor'));
       var kopiya = tekstElementa(ssylka.getAttribute('data-kopirovat-pered'));
       if (kopiya) {
         // Копируем синхронно, пока вкладка курса в фокусе: новая вкладка заберёт фокус,
@@ -323,6 +330,22 @@
     window.addEventListener('scroll', poprosit, { passive: true });
     window.addEventListener('resize', poprosit, { passive: true });
     obnovit();
+  }
+
+  /* Высота закреплённой шапки — в --vysota-shapki: на неё опирается scroll-padding-top,
+     чтобы переход по якорю не прятал заголовок под шапку. Замеряется, а не угадывается:
+     шапка меняет высоту при переносе строк и масштабе. */
+  function otmeritShapku() {
+    var shapka = document.querySelector('.nav');
+    if (!shapka) return;
+    var vysota = Math.round(shapka.getBoundingClientRect().height);
+    if (vysota > 0) document.documentElement.style.setProperty('--vysota-shapki', vysota + 'px');
+  }
+  otmeritShapku();
+  if (window.ResizeObserver && document.querySelector('.nav')) {
+    new ResizeObserver(otmeritShapku).observe(document.querySelector('.nav'));
+  } else {
+    window.addEventListener('resize', otmeritShapku, { passive: true });
   }
 
   postavitPereklyuchatelTemy();

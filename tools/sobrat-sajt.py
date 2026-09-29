@@ -57,13 +57,14 @@ NAVYKI_RU = {
     "spotting-ai-writing": "Проверка текста на следы ИИ",
     "editing-ai-writing": "Редактор ИИ-штампов",
     "illustrating-lessons": "Иллюстратор лекций",
+    "niokr": "Отчёт о НИР по ГОСТ 7.32",
 }
 
 # 01.09.2026 00:00 UTC — дата редакции курса для метаданных .docx (SOURCE_DATE_EPOCH)
 DATA_REDAKCII = int(datetime.datetime(2026, 9, 1, tzinfo=datetime.timezone.utc).timestamp())
 
-# Навыки в работе — на сайт не попадают, пока не проверены (niokr: обезличивание примеров, 29.09.2026)
-NAVYKI_V_RABOTE = {"niokr"}
+# Навыки в работе — на сайт не попадают, пока не проверены (пример: {"niokr"} на время обезличивания)
+NAVYKI_V_RABOTE = set()
 
 PREDEL_OPISANIYA = 1024   # байт — предел Perplexity, замер автора 19.09.2026
 PREDEL_FAJLOV = 100       # файлов в одном архиве навыка (5 — сколько навыков принимает одна загрузка)
@@ -117,6 +118,7 @@ def podsvetit_podstanovki(tekst_html):
 
 def kartochka_prompta(p, uroven="h3"):
     tid = "t-" + p["id"]
+    nabor = f' data-svc-nabor="{html.escape(p["servisy"])}"' if p.get("servisy") else ""
     kogda = f'<p class="prompt__when">Когда: {html.escape(p["kogda"])}</p>' if p["kogda"] else ""
     telo = podsvetit_podstanovki(html.escape(p["telo"]))
     return (
@@ -128,7 +130,7 @@ def kartochka_prompta(p, uroven="h3"):
         f"    </div>\n"
         f'    <div class="prompt__actions">\n'
         f'      <button class="btn btn--small" type="button" data-kopirovat="#{tid}">Копировать</button>\n'
-        f'      <div class="svc" data-svc data-kopirovat-pered="#{tid}">\n'
+        f'      <div class="svc" data-svc{nabor} data-kopirovat-pered="#{tid}">\n'
         f'        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" '
         f'aria-expanded="false" data-svc-knopka>Открыть в…</button>\n'
         f'        <ul class="svc__menu" hidden data-svc-menu></ul>\n'
@@ -307,9 +309,15 @@ def sobrat_uroki(vse_promty):
         if m_lead:
             lead = f'<p class="lead">{m_lead.group(1)}</p>'
             telo = telo[m_lead.end():]
+        # Свой набор сервисов у урока (servisy: в шапке) — например, рисующие нейросети
+        if meta.get("servisy"):
+            telo = telo.replace('<div class="svc" data-svc data-kopirovat-pered=',
+                                f'<div class="svc" data-svc data-svc-nabor="{html.escape(meta["servisy"])}" data-kopirovat-pered=')
         for p in promty_uroka:
             p["urok"] = slug
             p["podpis_uroka"] = podpis
+            if meta.get("servisy"):
+                p["servisy"] = meta["servisy"]
         vse_promty.extend(promty_uroka)
 
         zagolovok = re.sub(r"^(Лекция \d+|Бонусный урок(?: \d+)?)\.\s*", "", meta.get("title", slug))
@@ -496,6 +504,7 @@ def sobrat_servisy(dannye):
         f"window.PROVERENO = {json.dumps(dannye['provereno'])};\n"
         f"window.SERVISY = {json.dumps(dannye['servisy'], ensure_ascii=False, indent=2)};\n"
         f"window.INSTRUMENTY = {json.dumps(dannye['instrumenty'], ensure_ascii=False, indent=2)};\n"
+        f"window.SERVISY_NABORY = {json.dumps(dannye.get('nabory', {}), ensure_ascii=False, indent=2)};\n"
     )
     zapisat("assets/servisy.js", js)
 

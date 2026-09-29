@@ -303,6 +303,10 @@ LMArena (https://lmarena.ai), LM Studio (https://lmstudio.ai), Overleaf
   вовсе — никаких исключений-с-возвратом в `.vercelignore` (урок
   `vercelignore-negation-leaks-readme`).
 * **Без cookies и персональных данных.** Браузер помнит только последний выбранный сервис.
+* **Якоря не прячут заголовок под шапку.** `html { scroll-padding-top }` берёт высоту
+  закреплённой шапки из `--vysota-shapki`, которую замеряет `sajt.js` (урок
+  `accordion-scroll-lands-on-wrong-section`: отступ числом не угадать). Проверять — на разделе
+  из середины страницы, не на первом.
 * **Проверки-сторожа** (шаг 6 цикла) в `tools/proverit-sajt.py`: каждая внутренняя ссылка
   ведёт на существующую страницу; у каждого промпта есть `id` и `title`, и `id` не
   повторяются; каждая внешняя ссылка — с `target="_blank"` и `rel="noopener noreferrer"`;

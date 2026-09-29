@@ -14,7 +14,7 @@
 - Методология «Сигма» (Goncharov / Nechesov / Sviridenko, Sobolev
   Institute) изначально сформулирована для Java/JVM. Оригинальные
   правила — в [`../docs/METHODOLOGY.md`](../docs/METHODOLOGY.md).
-  Правило 4 (контролируемая рекурсия) уточнено Нечесовым в апреле
+  Правило 4 (контролируемая рекурсия) уточнено одним из авторов в апреле
   2026: структурный спуск + ограниченный рост `|f(a)| ≤ |a| + c`
   достаточны для класса FP (Cobham / Bellantoni–Cook).
 - Python-редакция [`../docs/METHODOLOGY-PYTHON.md`](../docs/METHODOLOGY-PYTHON.md)
