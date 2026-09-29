@@ -281,10 +281,71 @@ html { scroll-padding-top: calc(var(--vysota-shapki, 53px) + 16px); }
   font-size: var(--t-small); font-weight: 600;
 }
 .nav__nazad:hover { text-decoration: none; }
-@media (max-width: 480px) {
+.nav__nazad-korotko { display: none; }
+/* Кнопки шапки не сжимаются: на узком экране уступает только название сайта */
+.nav__row > .svc, .nav__nazad, .nav__menu-knopka { flex: none; }
+@media (max-width: 734px) {
   .nav__row--nazad .nav__brand { display: none; }
   .nav__nazad { margin-right: auto; }
 }
+@media (max-width: 400px) {
+  .nav__nazad-polno { display: none; }
+  .nav__nazad-korotko { display: inline; }
+}
+
+/* Меню на узком экране — ставит sajt.js (навык apple-design-web, рецепт 1b). Ссылки шапки
+   на ≤ 734 px не прячутся без замены: их место занимает кнопка «Меню». Значок — две линии,
+   при открытии — крестик, как в глобальной навигации apple.com. */
+.nav__menu-knopka { display: none; }
+@media (max-width: 734px) {
+  .nav__row--menu .nav__links { display: none; }
+  .nav__menu-knopka {
+    display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+    width: var(--tap); height: var(--tap); margin-right: -10px; padding: 0;
+    background: none; border: 0; border-radius: var(--r-control); color: var(--label); cursor: pointer;
+  }
+}
+.nav__menu-liniya {
+  display: block; width: 18px; height: 1.5px; border-radius: 1px; background: currentColor;
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.6, 1);
+}
+.nav__menu-knopka[aria-expanded="true"] .nav__menu-liniya:first-child { transform: translateY(3.75px) rotate(45deg); }
+.nav__menu-knopka[aria-expanded="true"] .nav__menu-liniya:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+/* Панель — на всю высоту под шапкой, непрозрачная: под ней страница не прокручивается */
+.menu-sajta {
+  position: fixed; z-index: 49; left: 0; right: 0; bottom: 0;
+  top: var(--vysota-shapki, 53px);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 12px var(--gutter) 48px;
+  background: var(--bg);
+}
+.menu-sajta ul { list-style: none; margin: 0; padding: 0; }
+.menu-sajta a { display: flex; align-items: center; color: var(--label); }
+.menu-sajta a:hover { text-decoration: none; color: var(--accent); }
+.menu-sajta a[aria-current="page"] { color: var(--accent); }
+.menu-sajta__glavnye a {
+  min-height: 52px;
+  font-size: 28px; line-height: 1.14; font-weight: 600; letter-spacing: 0.007em;
+}
+.menu-sajta__eshche { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--separator); }
+.menu-sajta__eshche a { min-height: var(--tap); font-size: var(--t-body); color: var(--label-2); }
+/* На самых узких экранах переключатель темы уезжает из шапки сюда — sajt.js переносит кнопку */
+.menu-sajta__tema { display: none; }
+@media (max-width: 480px) {
+  .menu-sajta__tema {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--separator);
+    font-size: var(--t-body); color: var(--label-2);
+  }
+}
+html.menu-otkryto, html.menu-otkryto body { overflow: hidden; }
+html.menu-otkryto .naverh { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .menu-sajta li { animation: menu-punkt 0.24s cubic-bezier(0.4, 0, 0.6, 1) both; animation-delay: calc(40ms + var(--n, 0) * 20ms); }
+}
+@keyframes menu-punkt { from { opacity: 0; transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .nav__menu-liniya { transition: none; } }
 
 /* ── 6. Кнопки ─────────────────────────────────────────────────────────────── */
 
@@ -512,7 +573,7 @@ html { scroll-padding-top: calc(var(--vysota-shapki, 53px) + 16px); }
 
 @media print {
   .nav, .foot, .prompt__actions, .btn-row, .toc, .skip-link, .toast, .naverh,
-  .oblozhka__fon, .oblozhka__podpis { display: none !important; }
+  .oblozhka__fon, .oblozhka__podpis, .menu-sajta { display: none !important; }
   .oblozhka { min-height: 0; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .card, .prompt, .note { border-color: #999; break-inside: avoid; }

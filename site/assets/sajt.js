@@ -372,7 +372,8 @@
     a.href = urok.put + (urok.yakor ? '#' + urok.yakor : '');
     a.title = urok.podpis;
     a.setAttribute('aria-label', 'Назад к уроку: ' + urok.podpis);
-    a.innerHTML = '<span aria-hidden="true">←</span> Назад к уроку';
+    a.innerHTML = '<span aria-hidden="true">←</span> <span class="nav__nazad-polno">Назад к уроку</span>' +
+      '<span class="nav__nazad-korotko">К уроку</span>';
     a.addEventListener('click', function (e) {
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (typeof urok.y !== 'number') return;   // места нет — хватит якоря в адресе ссылки
@@ -429,8 +430,143 @@
     window.addEventListener('resize', otmeritShapku, { passive: true });
   }
 
+  /* Меню на узком экране. На ширине ≤ 734 px ссылки шапки не помещаются — их заменяет
+     кнопка «Меню» (навык apple-design-web, рецепт 1b, по глобальной навигации apple.com):
+     значок из двух линий становится крестиком; панель — на всю высоту под шапкой, крупные
+     пункты разделов, ниже черты — остальные страницы (подвал на телефоне далеко).
+     Под открытым меню страница не прокручивается и выведена из порядка Tab (inert).
+     Закрывается кнопкой, Esc (фокус — на кнопку), выбором пункта, щелчком мимо
+     и при расширении окна. Панель стоит после шапки, а не внутри неё: backdrop-filter
+     шапки стал бы опорой для position: fixed и зажал бы панель в свою высоту. */
+  var UZKII_EKRAN = '(max-width: 734px)';
+  var ESHCHE_STRANICY = [
+    ['/praktika/', 'Практика и зачёт'],
+    ['/obrazcy/', 'Образцы текстов'],
+    ['/slovar/', 'Словарь'],
+    ['/o-kurse/', 'О курсе']
+  ];
+
+  function spisokMenu(klass, punkty, sdvig) {
+    var ul = document.createElement('ul');
+    ul.className = klass;
+    punkty.forEach(function (p, i) {
+      var li = document.createElement('li');
+      li.style.setProperty('--n', String(sdvig + i));   // лесенка появления
+      var a = document.createElement('a');
+      a.href = p.href;
+      a.textContent = p.tekst;
+      if (p.tekushchaya) a.setAttribute('aria-current', 'page');
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function postavitMenu() {
+    var shapka = document.querySelector('.nav');
+    var ryad = document.querySelector('.nav__row');
+    var ssylki = document.querySelector('.nav__links');
+    if (!shapka || !ryad || !ssylki || document.getElementById('menu-sajta')) return;
+
+    var glavnye = Array.prototype.map.call(ssylki.querySelectorAll('a'), function (a) {
+      return { href: a.getAttribute('href'), tekst: a.textContent.trim(), tekushchaya: a.hasAttribute('aria-current') };
+    });
+    var eshche = ESHCHE_STRANICY.map(function (p) {
+      return { href: p[0], tekst: p[1], tekushchaya: window.location.pathname === p[0] };
+    });
+
+    var panel = document.createElement('nav');
+    panel.id = 'menu-sajta';
+    panel.className = 'menu-sajta';
+    panel.setAttribute('aria-label', 'Меню сайта');
+    panel.hidden = true;
+    panel.appendChild(spisokMenu('menu-sajta__glavnye', glavnye, 0));
+    panel.appendChild(spisokMenu('menu-sajta__eshche', eshche, glavnye.length));
+    var strokaTemy = document.createElement('div');
+    strokaTemy.className = 'menu-sajta__tema';
+    strokaTemy.innerHTML = '<span>Тема оформления</span>';
+    panel.appendChild(strokaTemy);
+    shapka.parentNode.insertBefore(panel, shapka.nextSibling);
+
+    // На ≤ 480 px переключатель темы переезжает из шапки в меню: иначе шапка не помещается
+    var ochenUzko = window.matchMedia ? window.matchMedia('(max-width: 480px)') : null;
+    function razmestitTemu() {
+      var tema = document.getElementById('tema');
+      if (!tema) return;
+      if (ochenUzko && ochenUzko.matches) {
+        if (tema.parentNode !== strokaTemy) strokaTemy.appendChild(tema);
+      } else if (tema.parentNode !== ryad) {
+        ryad.insertBefore(tema, ryad.querySelector('.svc'));
+      }
+    }
+    razmestitTemu();
+    if (ochenUzko && ochenUzko.addEventListener) ochenUzko.addEventListener('change', razmestitTemu);
+    else if (ochenUzko && ochenUzko.addListener) ochenUzko.addListener(razmestitTemu);
+
+    var knopka = document.createElement('button');
+    knopka.type = 'button';
+    knopka.className = 'nav__menu-knopka';
+    knopka.setAttribute('aria-controls', 'menu-sajta');
+    knopka.setAttribute('aria-expanded', 'false');
+    knopka.setAttribute('aria-label', 'Меню');
+    knopka.innerHTML = '<span class="nav__menu-liniya" aria-hidden="true"></span>' +
+      '<span class="nav__menu-liniya" aria-hidden="true"></span>';
+    ryad.appendChild(knopka);
+    ryad.classList.add('nav__row--menu');
+
+    function podlozhka(vyklyuchit) {
+      ['main', '.foot'].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (!el) return;
+        if (vyklyuchit) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+      });
+    }
+    function otkryt() {
+      panel.hidden = false;
+      knopka.setAttribute('aria-expanded', 'true');
+      knopka.setAttribute('aria-label', 'Закрыть меню');
+      document.documentElement.classList.add('menu-otkryto');
+      podlozhka(true);
+      var pervaya = panel.querySelector('a');
+      if (pervaya) pervaya.focus({ preventScroll: true });
+    }
+    function zakryt(fokusNaKnopku) {
+      if (panel.hidden) return;
+      panel.hidden = true;
+      knopka.setAttribute('aria-expanded', 'false');
+      knopka.setAttribute('aria-label', 'Меню');
+      document.documentElement.classList.remove('menu-otkryto');
+      podlozhka(false);
+      if (fokusNaKnopku) knopka.focus();
+    }
+
+    knopka.addEventListener('click', function () {
+      if (panel.hidden) otkryt(); else zakryt(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) { e.preventDefault(); zakryt(true); }
+    });
+    panel.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('a')) zakryt(false);
+    });
+    // Путь события, а не e.target: переключатель темы перерисовывает свой значок по щелчку,
+    // и к этому моменту цель щелчка уже оторвана от документа — contains() сказал бы «мимо».
+    document.addEventListener('click', function (e) {
+      if (panel.hidden) return;
+      var put = e.composedPath ? e.composedPath() : [e.target];
+      if (put.indexOf(panel) === -1 && put.indexOf(knopka) === -1) zakryt(false);
+    });
+    var uzko = window.matchMedia ? window.matchMedia(UZKII_EKRAN) : null;
+    function priSmeneShiriny() { if (uzko && !uzko.matches) zakryt(false); }
+    if (uzko && uzko.addEventListener) uzko.addEventListener('change', priSmeneShiriny);
+    else if (uzko && uzko.addListener) uzko.addListener(priSmeneShiriny);
+    // вернулись кнопкой «Назад» браузера на страницу из кэша — меню закрыто
+    window.addEventListener('pageshow', function () { zakryt(false); });
+  }
+
   postavitPereklyuchatelTemy();
   postavitNaverh();
+  postavitMenu();
 
   // Для страниц со своими скриптами (конструктор, итоговый тест).
   window.KursII = {
