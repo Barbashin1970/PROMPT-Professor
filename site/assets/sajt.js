@@ -341,6 +341,87 @@
     var vysota = Math.round(shapka.getBoundingClientRect().height);
     if (vysota > 0) document.documentElement.style.setProperty('--vysota-shapki', vysota + 'px');
   }
+  /* «Назад к уроку». Урок запоминает себя в sessionStorage, а при уходе по ссылке — и место
+     (прокрутку и ближайший заголовок). Страница, открытая из урока, ставит слева
+     в закреплённой шапке ссылку назад: её видно, даже если страница открылась на середине —
+     например, «Образцы» на тексте про Луну. Возврат приводит на то же место урока.
+     На главной ссылки нет; хранилище вкладки очищается при её закрытии. */
+  var KLYUCH_UROKA = 'kurs-ii:urok';
+  var KLYUCH_VOZVRATA = 'kurs-ii:vozvrat';
+
+  function prochitat(klyuch) {
+    try { return JSON.parse(sessionStorage.getItem(klyuch) || 'null'); } catch (e) { return null; }
+  }
+  function zapomnit(klyuch, znachenie) {
+    try { sessionStorage.setItem(klyuch, JSON.stringify(znachenie)); } catch (e) { /* без хранилища — без ссылки */ }
+  }
+
+  function yakorPered(ssylka) {
+    var yakor = '';
+    document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach(function (z) {
+      if (z.compareDocumentPosition(ssylka) & Node.DOCUMENT_POSITION_FOLLOWING) yakor = z.id;
+    });
+    return yakor;
+  }
+
+  function postavitNazad(urok) {
+    var ryad = document.querySelector('.nav__row');
+    if (!ryad || ryad.querySelector('.nav__nazad')) return;
+    var a = document.createElement('a');
+    a.className = 'nav__nazad';
+    a.href = urok.put + (urok.yakor ? '#' + urok.yakor : '');
+    a.title = urok.podpis;
+    a.setAttribute('aria-label', 'Назад к уроку: ' + urok.podpis);
+    a.innerHTML = '<span aria-hidden="true">←</span> Назад к уроку';
+    a.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (typeof urok.y !== 'number') return;   // места нет — хватит якоря в адресе ссылки
+      e.preventDefault();
+      zapomnit(KLYUCH_VOZVRATA, { put: urok.put, y: urok.y });
+      window.location.href = urok.put;
+    });
+    ryad.insertBefore(a, ryad.firstChild);
+    ryad.classList.add('nav__row--nazad');
+  }
+
+  function vozvratKUroku() {
+    var put = window.location.pathname;
+    var bylUrok = prochitat(KLYUCH_UROKA);
+    var izSajta = document.referrer.indexOf(window.location.origin + '/') === 0;
+    if (bylUrok && bylUrok.put !== put && izSajta && put !== '/') postavitNazad(bylUrok);
+
+    var urok = document.querySelector('[data-urok]');
+    if (!urok) return;
+
+    // Этот урок — теперь тот, к которому возвращаться.
+    var etot = { put: put, podpis: urok.getAttribute('data-urok-podpis') || 'Урок' };
+    zapomnit(KLYUCH_UROKA, etot);
+    document.addEventListener('click', function (e) {
+      var ssylka = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!ssylka || ssylka.target === '_blank') return;
+      var adres;
+      try { adres = new URL(ssylka.href, window.location.href); } catch (er) { return; }
+      if (adres.origin !== window.location.origin || adres.pathname === put) return;
+      etot.y = Math.round(window.pageYOffset);
+      etot.yakor = yakorPered(ssylka);
+      zapomnit(KLYUCH_UROKA, etot);
+    }, true);
+
+    // Вернулись по «Назад к уроку» — на то же место. Картинки дорисовываются и сдвигают
+    // страницу, поэтому после загрузки место ставится ещё раз, если читатель не начал листать сам.
+    var vozvrat = prochitat(KLYUCH_VOZVRATA);
+    if (vozvrat && vozvrat.put === put) {
+      try { sessionStorage.removeItem(KLYUCH_VOZVRATA); } catch (e) { /* не страшно */ }
+      var trogali = false;
+      ['wheel', 'touchstart', 'keydown'].forEach(function (sobytie) {
+        window.addEventListener(sobytie, function () { trogali = true; }, { once: true, passive: true });
+      });
+      window.scrollTo(0, vozvrat.y);
+      window.addEventListener('load', function () { if (!trogali) window.scrollTo(0, vozvrat.y); });
+    }
+  }
+
+  vozvratKUroku();
   otmeritShapku();
   if (window.ResizeObserver && document.querySelector('.nav')) {
     new ResizeObserver(otmeritShapku).observe(document.querySelector('.nav'));

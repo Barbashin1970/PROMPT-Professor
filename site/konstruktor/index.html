@@ -144,7 +144,8 @@ textarea.k-control { min-height: 104px; resize: vertical; }
   .k-to-result { display: none; }
 }
 </style>
-<script src="/konstruktor/konstruktor.js" defer></script>
+<!-- Путь относительный: работает и на сайте (адрес без слеша Vercel сам переводит на /konstruktor/ — trailingSlash в vercel.json), и со страницей, открытой с диска. -->
+<script src="konstruktor.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -370,12 +371,13 @@ textarea.k-control { min-height: 104px; resize: vertical; }
     </div>
   </fieldset>
   <div class="k-tabs" role="tablist" aria-label="Слой промпта">
-    <button type="button" class="k-tab" role="tab" id="k-tab-zad" aria-selected="true" aria-controls="k-panel-zad">Задачный промпт</button>
-    <button type="button" class="k-tab" role="tab" id="k-tab-sis" aria-selected="false" aria-controls="k-panel-sis" tabindex="-1">Системный слой</button>
+    <button type="button" class="k-tab" role="tab" id="k-tab-zad" aria-selected="false" aria-controls="k-panel-zad" tabindex="-1">Задачный промпт</button>
+    <button type="button" class="k-tab" role="tab" id="k-tab-sis" aria-selected="true" aria-controls="k-panel-sis">Системный слой</button>
   </div>
   <p class="k-hint">Системный слой меняется раз в семестр, задачный — под каждую задачу.</p>
+  <p class="k-pravka" id="k-nuzhna-tema"><span>Задачный промпт соберётся, когда впишете тему: поле «Тема» в разделе «Роль и задача». Пока темы нет, здесь виден системный слой.</span> <button type="button" class="btn btn--small" id="k-k-teme">Вписать тему</button></p>
 
-  <div class="k-panel" role="tabpanel" id="k-panel-zad" aria-labelledby="k-tab-zad" tabindex="0">
+  <div class="k-panel" role="tabpanel" id="k-panel-zad" aria-labelledby="k-tab-zad" tabindex="0" hidden>
     <div class="k-panel__bar">
       <p class="k-hint">Вставьте в чат нейросети отдельным сообщением.</p>
       <div class="k-actions">
@@ -390,7 +392,7 @@ textarea.k-control { min-height: 104px; resize: vertical; }
     <p class="k-meta" id="k-zamenit-zad" hidden></p>
   </div>
 
-  <div class="k-panel" role="tabpanel" id="k-panel-sis" aria-labelledby="k-tab-sis" tabindex="0" hidden>
+  <div class="k-panel" role="tabpanel" id="k-panel-sis" aria-labelledby="k-tab-sis" tabindex="0">
     <div class="k-panel__bar">
       <p class="k-hint">Вставьте в профиль, в инструкции проекта (в Perplexity — на платном тарифе), в навык или первым сообщением в новый чат.</p>
       <div class="k-actions">

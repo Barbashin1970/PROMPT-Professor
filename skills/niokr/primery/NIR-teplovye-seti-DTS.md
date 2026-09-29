@@ -1034,7 +1034,7 @@ DTS-интеррогатор вычисляет абсолютную темпе�
  13. Wu, S., et al. Research on Leak Detection and Localization Algorithm for Long-Distance
  Pipelines // Sensors. – 2024. – Vol. 24(16). URL:
  https://pmc.ncbi.nlm.nih.gov/articles/PMC12030892/
- 14. Сидельников О. С., Редюк А. А., Ф. И. О. Методы машинного обучения для
+ 14. Сидельников О. С., Редюк А. А. [и др.] Методы машинного обучения для
  компенсации искажений сигналов в волоконно-оптических линиях связи //
 
  36

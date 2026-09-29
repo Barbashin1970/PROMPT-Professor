@@ -342,8 +342,9 @@ def sobrat_uroki(vse_promty):
                            f'<a class="btn btn--small" href="/files/{docx.name}" download>Скачать</a></div>')
 
         toc = "".join(f'<li><a href="#{i}">{html.escape(n)}</a></li>' for i, n in oglavlenie)
+        # data-urok: по нему sajt.js узнаёт урок и ставит «Назад к уроку» на страницах, открытых из него
         soderzhimoe = (
-            f'<div class="wrap wrap--wide">\n'
+            f'<div class="wrap wrap--wide" data-urok="{slug}" data-urok-podpis="{html.escape(podpis)}">\n'
             f'<header class="page-head"><p class="kicker">{podpis}</p><h1>{html.escape(zagolovok)}</h1>{lead}</header>\n'
             f'<div class="layout-toc">\n'
             f'<nav class="toc" aria-label="Содержание"><ol>{toc}</ol></nav>\n'
@@ -358,9 +359,12 @@ def sobrat_uroki(vse_promty):
 
 # ── Библиотека промптов ───────────────────────────────────────────────────────
 
+RAZDEL_PRAKTIKI = ("praktika", "Практика")
+
+
 def sobrat_biblioteku(vse_promty):
     razdely = []
-    for slug, podpis in UROKI:
+    for slug, podpis in UROKI + [RAZDEL_PRAKTIKI]:
         svoi = [p for p in vse_promty if p.get("urok") == slug]
         if not svoi:
             continue
@@ -376,13 +380,15 @@ def sobrat_biblioteku(vse_promty):
         "document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;"
         "k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>"
     )
-    navigaciya = " · ".join(f'<a href="#{s}">{p}</a>' for s, p in UROKI
+    navigaciya = " · ".join(f'<a href="#{s}">{p}</a>' for s, p in UROKI + [RAZDEL_PRAKTIKI]
                             if any(x.get("urok") == s for x in vse_promty))
     soderzhimoe = (
         '<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p>'
-        f'<h1>Промпты курса</h1><p class="lead">Все {len(vse_promty)} промптов трёх лекций и бонусного урока. '
+        f'<h1>Промпты курса</h1><p class="lead">Все {len(vse_promty)} промптов курса — из трёх лекций, '
+        'двух бонусных уроков и практики. '
         'Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. '
-        'Подсвеченные места в квадратных скобках замените своими данными.</p></header>'
+        'Подсвеченные места в квадратных скобках замените своими данными. '
+        'Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header>'
         f'<p>{navigaciya}</p>{filtr}\n{"".join(razdely)}</div>'
     )
     zapisat("promty/index.html", stranica("Промпты курса",
@@ -485,11 +491,17 @@ def sobrat_navyki():
 
 # ── Служебные страницы из md ──────────────────────────────────────────────────
 
-def sobrat_prostuyu(slug, podstanovki=None, tekushchij=""):
+def sobrat_prostuyu(slug, podstanovki=None, tekushchij="", promty_sbor=None, podpis=""):
     meta, tekst = razobrat(CONTENT / f"{slug}.md")
     for klyuch, znachenie in (podstanovki or {}).items():
         tekst = tekst.replace(klyuch, znachenie)
-    telo, _, _ = md_v_html(tekst)
+    promty = []
+    telo, _, _ = md_v_html(tekst, promty)
+    # промпты простой страницы (например, практики) тоже идут в библиотеку — своим разделом
+    if promty_sbor is not None:
+        for p in promty:
+            p["urok"], p["podpis_uroka"] = slug, podpis
+        promty_sbor.extend(promty)
     soderzhimoe = (f'<div class="wrap"><header class="page-head"><h1>{html.escape(meta.get("title", slug))}</h1></header>'
                    f'<article class="prose">{telo}</article></div>')
     zapisat(f"{slug}/index.html", stranica(meta.get("title", slug), meta.get("description", ""),
@@ -524,14 +536,23 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
     servisy = "\n".join(ssylka_ryadom(s) for s in dannye["servisy"])
     instrumenty = "\n".join(ssylka_ryadom(s) for s in dannye["instrumenty"])
     primer = kartochka_prompta(primer_prompta, "h3") if primer_prompta else ""
+    # Обложка: картинка автора (Qwen Chat, промпт стиля 1 бонусного урока 2) — фоном справа,
+    # на телефоне баннером над текстом; раскладка — в sajt.css, раздел «Обложка главной».
     soderzhimoe = f"""<div class="wrap wrap--wide">
-<header class="page-head">
+<header class="page-head oblozhka">
+  <img class="oblozhka__fon" src="/kartinki/glavnaya/oblozhka-1664.jpg"
+    srcset="/kartinki/glavnaya/oblozhka-832.jpg 832w, /kartinki/glavnaya/oblozhka-1664.jpg 1664w"
+    sizes="(max-width: 734px) 100vw, 680px" width="1664" height="928" alt="" fetchpriority="high">
+  <div class="oblozhka__tekst">
   <p class="kicker">Курс повышения квалификации · Центр искусственного интеллекта НГУ</p>
   <h1>ИИ в учебном процессе</h1>
   <p class="lead">Три лекции и два бонусных урока: как готовить материалы, проверять работы
   и собирать своих помощников — на бесплатных нейросетях.</p>
   <div class="btn-row"><a class="btn btn--primary" href="/lekciya-1/">Начать с лекции 1</a>
   <a class="btn" href="/promty/">Библиотека промптов</a><a class="btn" href="/konstruktor/">Конструктор промптов</a></div>
+  </div>
+  <p class="oblozhka__podpis">Картинку автор курса нарисовал в Qwen Chat по
+  <a href="/bonus-illyustracii/#stil-1">промпту стиля 1</a> из бонусного урока 2.</p>
 </header>
 
 <section class="section">
@@ -595,6 +616,7 @@ def main():
 
     vse_promty = []
     uroki = sobrat_uroki(vse_promty)
+    sobrat_prostuyu("praktika", promty_sbor=vse_promty, podpis=RAZDEL_PRAKTIKI[1])
     print(f"  уроков: {len(uroki)}, промптов: {len(vse_promty)}")
 
     idy = [p["id"] for p in vse_promty]
@@ -607,7 +629,6 @@ def main():
     sobrat_biblioteku(vse_promty)
     sobrat_obrazcy()
 
-    sobrat_prostuyu("praktika")
     sobrat_prostuyu("slovar")
     sobrat_prostuyu("o-kurse")
     sobrat_prostuyu("navyki", {"{{katalog_navykov}}": sobrat_navyki()}, "navyki")

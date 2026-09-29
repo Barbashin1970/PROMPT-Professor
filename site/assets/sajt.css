@@ -138,6 +138,23 @@ h4 { font-size: 20px; line-height: 1.25; margin-top: 24px; }
 .prose p, .prose ul, .prose ol, .prose table, .prose blockquote { margin: 16px 0 0; }
 .prose li + li { margin-top: 6px; }
 .prose img { display: block; margin: 16px 0 0; border-radius: var(--r-card); }
+.prose figure { margin: 24px 0 0; }
+.prose figure img { margin: 0; width: 100%; }
+.prose figcaption { margin-top: 8px; font-size: var(--t-caption); color: var(--label-2); }
+
+/* Логотип НГУ со строкой © в конце «О курсе». Буквы логотипа тёмно-серые на прозрачном:
+   в тёмной теме их переворачиваем в светлые, а поворот оттенка на 180° возвращает
+   зелёной звёздочке её цвет. */
+.podpis-ngu {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px;
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--separator);
+}
+.prose .podpis-ngu img { width: 200px; height: auto; margin: 0; border-radius: 0; }
+.prose .podpis-ngu p { margin: 0; font-size: var(--t-small); color: var(--label-2); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .podpis-ngu img { filter: invert(1) hue-rotate(180deg); }
+}
+:root[data-theme="dark"] .podpis-ngu img { filter: invert(1) hue-rotate(180deg); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose blockquote {
   margin-left: 0; padding: 12px 16px;
@@ -183,6 +200,42 @@ main { padding-bottom: 96px; }
   .page-head { padding-top: 32px; }
 }
 
+/* Обложка главной. Картинка стоит справа и к краям растворяется в фоне страницы (маска
+   до прозрачного), поэтому текст слева лежит на чистом фоне и читается в обеих темах
+   без затемняющей плашки. На телефоне картинка — баннер над текстом. */
+.oblozhka {
+  position: relative; isolation: isolate;
+  min-height: 420px; padding-bottom: 48px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.oblozhka__tekst { max-width: 38rem; }
+.oblozhka h1, .oblozhka .lead { max-width: 30rem; }
+.oblozhka__fon {
+  position: absolute; z-index: -1; top: 0; right: 0;
+  width: 56%; height: 100%;
+  object-fit: cover; object-position: 50% 30%;
+  -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent);
+          mask-image: radial-gradient(closest-side, #000 58%, transparent);
+  pointer-events: none;
+}
+.oblozhka__podpis {
+  position: absolute; right: 0; bottom: 8px; max-width: 24rem;
+  margin: 0; text-align: right;
+  font-size: var(--t-caption); color: var(--label-2);
+}
+@media (max-width: 734px) {
+  .oblozhka { display: block; min-height: 0; padding-top: 0; padding-bottom: 8px; }
+  .oblozhka__tekst { max-width: none; }
+  .oblozhka__fon {
+    position: static; display: block;
+    width: calc(100% + 2 * var(--gutter)); max-width: none; height: auto;
+    aspect-ratio: 16 / 9; margin: 0 calc(-1 * var(--gutter)) 4px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+            mask-image: linear-gradient(to bottom, #000 62%, transparent);
+  }
+  .oblozhka__podpis { position: static; max-width: none; margin-top: 16px; text-align: left; }
+}
+
 /* ── 5. Шапка: стекло только здесь ─────────────────────────────────────────── */
 
 /* Переход по якорю не прячет заголовок под закреплённой шапкой. Высоту шапки замеряет
@@ -216,6 +269,21 @@ html { scroll-padding-top: calc(var(--vysota-shapki, 53px) + 16px); }
 @media (max-width: 480px) {
   .nav__links .nav__hide-xs { display: none; }
   .nav__brand { font-size: 14px; }
+}
+
+/* «Назад к уроку» — ставит sajt.js слева в шапке на страницах, открытых из урока.
+   На узком экране встаёт на место названия сайта. */
+.nav__nazad {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 36px; padding: 0 14px 0 10px; margin-right: 12px;
+  border-radius: 999px; white-space: nowrap;
+  background: var(--accent-tint); color: var(--accent);
+  font-size: var(--t-small); font-weight: 600;
+}
+.nav__nazad:hover { text-decoration: none; }
+@media (max-width: 480px) {
+  .nav__row--nazad .nav__brand { display: none; }
+  .nav__nazad { margin-right: auto; }
 }
 
 /* ── 6. Кнопки ─────────────────────────────────────────────────────────────── */
@@ -443,7 +511,9 @@ html { scroll-padding-top: calc(var(--vysota-shapki, 53px) + 16px); }
 /* ── 15. Печать (конспекты, карточка результата теста) ─────────────────────── */
 
 @media print {
-  .nav, .foot, .prompt__actions, .btn-row, .toc, .skip-link, .toast, .naverh { display: none !important; }
+  .nav, .foot, .prompt__actions, .btn-row, .toc, .skip-link, .toast, .naverh,
+  .oblozhka__fon, .oblozhka__podpis { display: none !important; }
+  .oblozhka { min-height: 0; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .card, .prompt, .note { border-color: #999; break-inside: avoid; }
   a { color: #000; text-decoration: underline; }

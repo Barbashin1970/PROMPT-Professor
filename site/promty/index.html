@@ -31,7 +31,7 @@
   </div>
 </header>
 <main id="main">
-<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 56 промптов трёх лекций и бонусного урока. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
+<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 57 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
 <section class="section" id="lekciya-1"><h2>Лекция 1</h2>
 <section class="prompt" id="p-l1-test-po-formule" data-prompt>
   <div class="prompt__head">
@@ -1233,6 +1233,35 @@ SKILL.md.
   <div class="prompt__body" id="t-b2-seriya">Мне нужна серия из <mark class="ph">[ЧИСЛО]</mark> картинок для одной презентации на тему «<mark class="ph">[ТЕМА]</mark>».
 Сначала напиши общий блок стиля — техника, свет, цвет, композиция, формат 16:9, «без текста и надписей», — одинаковый для всех картинок.
 Затем для каждого слайда — <mark class="ph">[СПИСОК СЛАЙДОВ]</mark> — напиши промпт: общий блок стиля плюс свой объект и действие.</div>
+</section>
+</section><section class="section" id="praktika"><h2>Практика</h2>
+<section class="prompt" id="p-pr-otchet-nir" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Свой отчёт о НИР по заготовкам</h3>
+      <p class="prompt__when">Когда: подключён навык «Отчёт о НИР по ГОСТ 7.32», заготовки приложены к чату</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-pr-otchet-nir">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-pr-otchet-nir">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-pr-otchet-nir">Используй навык «Отчёт о НИР по ГОСТ 7.32» (niokr). Помоги составить отчёт о НИР по ГОСТ 7.32-2017 из моих заготовок — они приложены к сообщению.
+
+О работе:
+– тема: <mark class="ph">[ТЕМА РАБОТЫ]</mark>;
+– отчёт: <mark class="ph">[ИТОГОВЫЙ или ПРОМЕЖУТОЧНЫЙ ПО ЭТАПУ]</mark>;
+– что приложено: <mark class="ph">[ЧЕРНОВИКИ, СТАТЬИ, ДАННЫЕ ЗАМЕРОВ, ТЕХНИЧЕСКОЕ ЗАДАНИЕ]</mark>.
+
+Порядок работы:
+1. Прочитай заготовки и составь план отчёта по разделам ГОСТ 7.32: что для каждого раздела уже есть и чего не хватает. О недостающем спрашивай меня по одному вопросу за раз.
+2. Когда план согласуем, пиши по одному разделу и после каждого жди моего «дальше».
+3. Новизну формулируй в четырёх частях: что предложено — в отличие от чего — как проверено — в чём ограничение. Не шире того, что проверено.
+4. Опирайся только на мои заготовки и ответы. Чего в них нет — помечай «нужны данные: …» и не придумывай; источники — только из заготовок.
+5. Реферат пиши последним: объём отчёта (страницы, иллюстрации, таблицы, источники), ключевые слова, объект, цель, метод, результаты, область применения.</div>
 </section>
 </section></div>
 </main>

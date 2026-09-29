@@ -714,6 +714,8 @@
     if (!pravka.sis) pokazatTekst(vyvod.sis, gotovo.sistemnyi);
     SLOI.forEach(obnovitMetu);
     obnovitOshibku(s);
+    // тема обязательна, а поле её — не первое в форме: пока темы нет, говорим об этом у результата
+    $('k-nuzhna-tema').hidden = !!s.tema.trim();
   }
 
   // Заменить всю форму (пример, очистка, заготовка, ссылка); ручную правку не затираем
@@ -721,6 +723,7 @@
     zapolnitFormu(s);
     tronuto = false;
     obnovit();
+    podobratVkladku();
     const zamok = pravka.zad || pravka.sis;
     soobshchit(tekstSoobshcheniya + (zamok ? ' Текст промпта правлен вручную — чтобы собрать его по форме, нажмите «Собрать заново».' : ''));
   }
@@ -753,8 +756,20 @@
     if (fokus) tab.focus();
   }
 
+  /* Какая вкладка видна, пока читатель не выбрал её сам. Без темы задачного промпта ещё нет —
+     виден системный слой, и правка роли или аудитории сразу видна справа; с темой — задачный
+     промпт, в нём отражаются почти все поля; правят словарь — системный слой (словарь есть
+     только там). Щелчок или стрелки по вкладке — выбор читателя: дальше вкладку не трогаем. */
+  let vkladkaVybrana = false;
+
+  function podobratVkladku(pole) {
+    if (vkladkaVybrana) return;
+    const nuzhna = (pole === 'k-slov' || !prochitatFormu().tema.trim()) ? $('k-tab-sis') : $('k-tab-zad');
+    if (nuzhna.getAttribute('aria-selected') !== 'true') vybratTab(nuzhna, false);
+  }
+
   taby.forEach((t, i) => {
-    t.addEventListener('click', () => vybratTab(t, false));
+    t.addEventListener('click', () => { vkladkaVybrana = true; vybratTab(t, false); });
     t.addEventListener('keydown', (e) => {
       let j = -1;
       if (e.key === 'ArrowRight') j = (i + 1) % taby.length;
@@ -763,6 +778,7 @@
       else if (e.key === 'End') j = taby.length - 1;
       if (j === -1) return;
       e.preventDefault();
+      vkladkaVybrana = true;
       vybratTab(taby[j], true);
     });
   });
@@ -916,8 +932,12 @@
   forma.addEventListener('input', (e) => {
     if (e.target && e.target.id === 'k-tema') tronuto = true;
     obnovit();
+    podobratVkladku(e.target && e.target.id);
   });
-  forma.addEventListener('change', obnovit);
+  forma.addEventListener('change', (e) => {
+    obnovit();
+    podobratVkladku(e.target && e.target.id);
+  });
   document.querySelectorAll('input[name="vyvod"]').forEach((r) => r.addEventListener('change', obnovit));
 
   SLOI.forEach((sloi) => {
@@ -953,6 +973,8 @@
     });
   });
 
+  $('k-k-teme').addEventListener('click', () => { $('k-tema').focus(); });
+
   $('k-primer-knopka').addEventListener('click', () => {
     zamenitFormu(primer(), 'Заменить введённое примером?', 'Форма заполнена примером.');
   });
@@ -974,4 +996,5 @@
   zapolnitFormu(defoltnoe());
   obnovitSpisokZagotovok();
   if (!izAdresa()) obnovit();
+  podobratVkladku();
 })();
