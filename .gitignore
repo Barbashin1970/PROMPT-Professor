@@ -1,1 +1,12 @@
-/.DS_Store
+# Служебное macOS и Python
+.DS_Store
+__pycache__/
+*.pyc
+
+# Локальная привязка Vercel CLI
+.vercel/
+
+# Архивы навыков собирает сборщик в site/files/navyki/; копии рядом с исходниками лишние
+skills/*.zip
+
+# site/ НЕ исключается: это готовая сборка, её и публикует Vercel

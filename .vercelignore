@@ -1,0 +1,14 @@
+# Публикуется только site/ — готовая сборка (outputDirectory в vercel.json).
+# Остальное — исходники и внутренние документы: на хостинг их не выгружаем вовсе.
+# Отрицаний «!…» здесь нет намеренно: всё, что уехало на хостинг, может оказаться
+# доступно по адресу (урок vault vercelignore-negation-leaks-readme).
+docs/
+vhod/
+content/
+skills/
+tools/
+art-master/
+*.md
+.DS_Store
+.vercel
+.gitignore

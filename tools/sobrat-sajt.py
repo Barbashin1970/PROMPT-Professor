@@ -22,6 +22,7 @@
 import datetime
 import html
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -55,6 +56,9 @@ NAVYKI_RU = {
     "spotting-ai-writing": "Проверка текста на следы ИИ",
     "editing-ai-writing": "Редактор ИИ-штампов",
 }
+
+# 01.09.2026 00:00 UTC — дата редакции курса для метаданных .docx (SOURCE_DATE_EPOCH)
+DATA_REDAKCII = int(datetime.datetime(2026, 9, 1, tzinfo=datetime.timezone.utc).timestamp())
 
 PREDEL_OPISANIYA = 1024   # байт — предел Perplexity, замер автора 19.09.2026
 PREDEL_FAJLOV = 100       # файлов в одном архиве навыка (5 — сколько навыков принимает одна загрузка)
@@ -228,8 +232,11 @@ def sobrat_docx(title, tekst, vyhod):
     with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
         f.write(f"---\ntitle: \"{title}\"\nlang: ru\n---\n\n" + md_dlya_docx(tekst))
         vremennyj = f.name
+    # Дата внутри .docx — одна на редакцию курса: иначе pandoc вписывает время сборки,
+    # и каждая пересборка меняет все .docx в git, даже если текст тот же.
+    okruzhenie = dict(os.environ, SOURCE_DATE_EPOCH=str(DATA_REDAKCII))
     rezultat = subprocess.run(["pandoc", "-f", "markdown", "-t", "docx", "-o", str(vyhod), vremennyj],
-                              capture_output=True, text=True)
+                              capture_output=True, text=True, env=okruzhenie)
     Path(vremennyj).unlink(missing_ok=True)
     if rezultat.returncode != 0:
         zamechanie(f"pandoc: {vyhod.name}: {rezultat.stderr.strip()[:200]}")
@@ -557,7 +564,9 @@ def sobrat_404():
     soderzhimoe = ('<div class="wrap"><header class="page-head"><p class="kicker">Ошибка 404</p><h1>Такой страницы нет</h1>'
                    '<p class="lead">Возможно, адрес изменился. Начните с <a href="/">главной</a> '
                    'или откройте <a href="/promty/">библиотеку промптов</a>.</p></header></div>')
-    zapisat("404.html", stranica("Страница не найдена", "Такой страницы на сайте курса нет.", soderzhimoe))
+    # noindex и без canonical: настоящей страницы по этому адресу нет (урок spa-catchall-rewrite-is-a-soft-404)
+    zapisat("404.html", stranica("Страница не найдена", "Такой страницы на сайте курса нет.", soderzhimoe,
+                                 head_extra='<meta name="robots" content="noindex">'))
 
 
 # ── Сборка ────────────────────────────────────────────────────────────────────
