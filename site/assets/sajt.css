@@ -209,6 +209,8 @@ main { padding-bottom: 96px; }
   display: flex; flex-direction: column; justify-content: center;
 }
 .oblozhka__tekst { max-width: 38rem; }
+/* Строка о потоке — как «New» над названием у apple.com: мелко, цветом акцента */
+.oblozhka__potok { margin: 0 0 8px; font-size: var(--t-small); font-weight: 600; color: var(--accent); }
 .oblozhka h1, .oblozhka .lead { max-width: 30rem; }
 .oblozhka__fon {
   position: absolute; z-index: -1; top: 0; right: 0;

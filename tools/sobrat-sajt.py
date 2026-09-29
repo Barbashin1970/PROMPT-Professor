@@ -79,9 +79,18 @@ def zamechanie(tekst):
 
 # ── Разбор md ─────────────────────────────────────────────────────────────────
 
+# Зачёт — в форме с ведомостью (tools/google-forma/), тест на сайте — тренировка. Адрес формы
+# и поток задаются здесь одной строкой; в текстах — подстановки {{forma_zacheta}} и {{potok}}.
+FORMA_ZACHETA = "https://forms.gle/Bk8ebKwGt6zH9FJh8"
+POTOK = "1-й поток — с 15 октября 2026 года"
+PODSTANOVKI_TEKSTA = {"{{forma_zacheta}}": FORMA_ZACHETA, "{{potok}}": POTOK}
+
+
 def razobrat(put):
     """Шапка между строками --- и тело."""
     tekst = put.read_text(encoding="utf-8")
+    for klyuch, znachenie in PODSTANOVKI_TEKSTA.items():
+        tekst = tekst.replace(klyuch, znachenie)
     meta = {}
     m = re.match(r"^---\n(.*?)\n---\n", tekst, re.S)
     if m:
@@ -204,7 +213,7 @@ KARTA_SAJTA = [
                      ("/navyki/", "Навыки для нейросетей"), ("/obrazcy/", "Образцы текстов"),
                      ("/slovar/", "Словарь терминов")]),
     ("Практика и зачёт", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
-                          ("/test/", "Итоговый тест")]),
+                          ("/test/", "Тренировочный тест"), (FORMA_ZACHETA, "Сдать зачёт в ведомость")]),
     ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
                  ("/o-kurse/#licenzii", "Заимствования и лицензии")]),
 ]
@@ -223,7 +232,8 @@ def karta_sajta():
         punkty = "".join(f'<li><a href="{href}">{html.escape(tekst)}</a></li>' for href, tekst in ssylki)
         kolonki.append(f'<div class="foot__kolonka"><p class="foot__zag" id="podval-{i}">{html.escape(zagolovok)}</p>'
                        f'<ul aria-labelledby="podval-{i}">{punkty}</ul></div>')
-    return '<nav class="foot__karta" aria-label="Карта сайта">' + "".join(kolonki) + "</nav>"
+    # внешние ссылки (форма зачёта) — новой вкладкой, как везде на сайте
+    return oformit_ssylki('<nav class="foot__karta" aria-label="Карта сайта">' + "".join(kolonki) + "</nav>")
 
 
 def stranica(title, description, soderzhimoe, tekushchij="", head_extra=""):
@@ -583,6 +593,7 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
     sizes="(max-width: 734px) 100vw, 680px" width="1664" height="928" alt="" fetchpriority="high">
   <div class="oblozhka__tekst">
   <p class="kicker">Курс повышения квалификации · Центр искусственного интеллекта НГУ</p>
+  <p class="oblozhka__potok">{POTOK} · всё уже открыто</p>
   <h1>ИИ в учебном процессе</h1>
   <p class="lead">Три лекции и два бонусных урока: как готовить материалы, проверять работы
   и собирать своих помощников — на бесплатных нейросетях.</p>
@@ -598,7 +609,7 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
   <div class="card-grid">
     <div class="card"><p class="num">Шаг 1</p><h3>Смотрите лекцию</h3><p>Видео и слайды — на странице лекции; конспект повторяет видео и углубляет его.</p></div>
     <div class="card"><p class="num">Шаг 2</p><h3>Пробуйте промпты</h3><p>«Открыть в…» копирует промпт и открывает нейросеть в новой вкладке — вкладка курса остаётся открытой.</p></div>
-    <div class="card"><p class="num">Шаг 3</p><h3>Практика и зачёт</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Зачёт — <a href="/test/">итоговый тест</a>, от 44 баллов из 72 (60 %).</p></div>
+    <div class="card"><p class="num">Шаг 3</p><h3>Практика и зачёт</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Потренируйтесь в <a href="/test/">тесте на сайте</a>, а зачёт сдайте <a href="{FORMA_ZACHETA}">в форме</a> — результат попадёт в ведомость. «Сдано» — от 44 баллов из 72 (60 %).</p></div>
   </div>
 </section>
 
@@ -632,8 +643,8 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
 </section>
 </div>"""
     zapisat("index.html", stranica("Главная",
-            "Курс «ИИ в учебном процессе» ЦИИ НГУ: лекции, промпты, конструктор, навыки и итоговый тест.",
-            soderzhimoe))
+            "Курс «ИИ в учебном процессе» ЦИИ НГУ: лекции, промпты, конструктор, навыки, тренировочный тест и зачёт.",
+            oformit_ssylki(soderzhimoe)))
 
 
 def sobrat_404():
@@ -703,6 +714,9 @@ def main():
             continue
         staryj = put.read_text(encoding="utf-8")
         novyj, n = re.subn(r'<footer class="foot">.*?</footer>', lambda m: podval, staryj, flags=re.S)
+        # поток и адрес зачётной формы — из тех же констант, что в текстах сайта
+        novyj = re.sub(r"(<span data-potok>).*?(</span>)", lambda m: m.group(1) + POTOK + m.group(2), novyj)
+        novyj = re.sub(r'(<a data-forma-zacheta href=")[^"]*(")', lambda m: m.group(1) + FORMA_ZACHETA + m.group(2), novyj)
         if n != 1:
             zamechanie(f"{ruchnaya}: подвал не найден — не подставлен")
         elif novyj != staryj:

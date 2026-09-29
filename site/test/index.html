@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-<title>Итоговый тест — ИИ в учебном процессе</title>
-<meta name="description" content="Итоговый тест курса: шесть модулей по пять вопросов, «сдано» — от 60 %: 44 балла из 72. Результаты хранятся только в вашем браузере.">
+<title>Тренировочный тест — ИИ в учебном процессе</title>
+<meta name="description" content="Тренировочный тест курса: те же вопросы, что в зачёте, — шесть модулей по пять вопросов, «сдано» — от 44 баллов из 72. Проходить можно сколько угодно; зачёт сдаётся в форме с ведомостью.">
 <link rel="stylesheet" href="/assets/sajt.css">
 <link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
 <script src="/assets/servisy.js" defer></script>
@@ -131,6 +131,9 @@
   .test-net-pechati { display: none !important; }
   .test-itog { margin-top: 16px; }
 }
+/* Зачёт сдаётся в форме — плашка под заголовком и кнопка в итоге тренировки */
+.test-zachet p { margin: 0; }
+.test-zachet p + p { margin-top: 12px; }
 </style>
 <script src="/test/voprosy.js" defer></script><script src="/test/test.js" defer></script>
 </head>
@@ -155,10 +158,15 @@
 <main id="main">
 <div class="wrap test-stranica" id="test-koren">
   <header class="page-head">
-    <p class="kicker">Курс «ИИ в учебном процессе» · НГУ, 2026</p>
-    <h1>Итоговый тест</h1>
-    <p class="lead test-net-pechati">Шесть модулей по пять вопросов — по два модуля на каждую лекцию. Сдано — от 60&nbsp;%: 44&nbsp;балла из&nbsp;72.</p>
+    <p class="kicker">Курс «ИИ в учебном процессе» · <span data-potok>1-й поток — с 15 октября 2026 года</span></p>
+    <h1>Тренировочный тест</h1>
+    <p class="lead test-net-pechati">Те же вопросы, что в зачёте: шесть модулей по пять вопросов — по два модуля на каждую лекцию. Проходите сколько угодно — баллы видны только вам.</p>
   </header>
+
+  <div class="note test-zachet test-net-pechati">
+    <p><strong>Зачёт — в форме, результат попадёт в ведомость курса.</strong> Те же вопросы; «сдано» — от 44&nbsp;баллов из&nbsp;72 (60&nbsp;%). Сдать можно ещё раз — в ведомость идёт лучший результат. Форма уже открыта.</p>
+    <p><a data-forma-zacheta href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="btn btn--primary ext" target="_blank" rel="noopener noreferrer">Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
+  </div>
 
   <div id="test-plashki" class="test-net-pechati" aria-live="polite"></div>
   <noscript><p class="note">Для прохождения теста нужен JavaScript — включите его в настройках браузера и обновите страницу.</p></noscript>
@@ -171,9 +179,9 @@
       <ul class="test-pravila">
         <li>Вопрос с одним верным ответом — 2&nbsp;балла. Сопоставление трёх пар — 3&nbsp;балла: по баллу за каждую верную пару. В модуле 12&nbsp;баллов, во всём тесте —&nbsp;72.</li>
         <li>Модули проходятся в любом порядке. Внутри модуля можно возвращаться к прошлым вопросам; завершить модуль можно, когда отвечены все вопросы.</li>
-        <li>После модуля показывается только его балл, без разбора ответов: тест аттестационный. Модуль можно пройти заново — засчитывается последняя попытка.</li>
-        <li>Когда пройдены все шесть модулей, появится итог: от 44 до 72&nbsp;баллов — сдано. Итог можно скопировать или распечатать.</li>
-        <li>Баллы и подпись хранятся только в этом браузере — сайт их не собирает. Отправлять результат автору курса не нужно.</li>
+        <li>После модуля показывается только его балл, без разбора ответов — так же, как в зачёте. Модуль можно пройти заново — засчитывается последняя попытка.</li>
+        <li>Когда пройдены все шесть модулей, появится итог: от 44 до 72&nbsp;баллов — вы готовы к зачёту. Итог можно скопировать или распечатать.</li>
+        <li>Это тренировка: баллы и подпись хранятся только в этом браузере и никуда не отправляются. Зачёт сдаётся в форме — кнопка выше.</li>
         <li>Тест можно проходить сколько угодно раз: модуль — кнопкой «Пройти заново», весь тест — после кнопки «Очистить результаты…» внизу страницы. Повторный проход закрепляет урок в памяти.</li>
       </ul>
     </section>
@@ -228,7 +236,7 @@
     <p id="test-rezultat-kicker" class="test-kicker"></p>
     <h2 id="test-rezultat-zag" tabindex="-1">Модуль пройден</h2>
     <p id="test-rezultat-ball" class="test-rezultat__ball"></p>
-    <p class="test-poyasnenie">Правильные ответы не показываются: тест аттестационный. Модуль можно пройти заново — засчитается последняя попытка.</p>
+    <p class="test-poyasnenie">Правильные ответы не показываются — так же, как в зачёте. Модуль можно пройти заново — засчитается последняя попытка.</p>
     <div id="test-rezultat-dop"></div>
     <div id="test-rezultat-knopki" class="btn-row"></div>
   </section>
@@ -247,7 +255,7 @@
 </main>
 <footer class="foot">
   <div class="wrap wrap--wide">
-    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и зачёт</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Итоговый тест</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
+    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и зачёт</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Тренировочный тест</a></li><li><a href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ</p>
       <p>Автор курса — Олег Барбашин · © 2025–2026 · сборка 2026-09-29</p>

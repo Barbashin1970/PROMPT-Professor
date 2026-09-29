@@ -138,7 +138,7 @@
     });
     itog.porog = porogBallov(itog.maks);
     itog.protsent = protsent(itog.vsego, itog.maks);
-    // «Сдано» или «Пока не сдано» — только когда тест готов и пройдены все модули.
+    // «Готово к зачёту» или «Пока не хватает» — только когда тест готов и пройдены все модули.
     itog.vseProideny = itog.gotov && itog.proideno === vse.length;
     if (itog.vseProideny) itog.zachet = dostatochno(itog.vsego, itog.maks);
     return itog;
@@ -207,12 +207,12 @@
   function tekstRezultata(moduli, itog, p) {
     var nabrano = itog.vsego + ' из ' + itog.maks + ' (' + itog.protsent + ' %)';
     var stroki = [
-      'Итоговый тест «ИИ в учебном процессе», НГУ, 2026',
+      'Тренировочный тест «ИИ в учебном процессе», НГУ, 2026',
       'Слушатель: ' + (strokaSlushatelya(p) || 'не указан'),
       'Дата прохождения: ' + (dataRu(itog.data) || 'тест не завершён'),
       itog.zachet === null
         ? 'Набрано: ' + nabrano
-        : 'Итог: ' + (itog.zachet ? 'сдано' : 'пока не сдано') + ' — ' + nabrano + ', сдано от ' + itog.porog,
+        : 'Итог тренировки: ' + (itog.zachet ? 'готово к зачёту' : 'пока не хватает до зачёта') + ' — ' + nabrano + ', зачёт от ' + itog.porog,
       ''
     ];
     spisok(moduli).forEach(function (m, i) {
@@ -618,7 +618,7 @@
     var kto = strokaSlushatelya(podpis);
     var tekst = tekstRezultata(MODULI, itog, podpis);
 
-    karta.appendChild(el('h2', { id: 'test-itog-zag', tabindex: '-1', text: 'Итог теста' }));
+    karta.appendChild(el('h2', { id: 'test-itog-zag', tabindex: '-1', text: 'Итог тренировки' }));
     karta.appendChild(el('dl', { class: 'test-itog__svedeniya' }, [
       el('dt', { text: 'Слушатель' }),
       el('dd', { text: kto || 'не указан — впишите фамилию и имя в разделе «Как подписать результат»' }),
@@ -647,13 +647,23 @@
 
     karta.appendChild(el('p', {
       class: 'test-itog__verdikt' + (itog.zachet ? ' is-zachet' : ''),
-      text: itog.zachet ? 'Сдано' : 'Пока не сдано'
+      text: itog.zachet ? 'Готово к зачёту' : 'Пока не хватает до зачёта'
     }));
     karta.appendChild(el('p', {
-      text: '«Сдано» — от ' + itog.porog + ' из ' + itog.maks + ' ' + izBallov(itog.maks) +
+      text: 'Зачёт — от ' + itog.porog + ' из ' + itog.maks + ' ' + izBallov(itog.maks) +
         ' (' + PROCENT_ZACHETA + ' %).' +
         (itog.zachet ? '' : ' Модули ниже ' + PROCENT_ZACHETA + ' % отмечены ссылками на разделы конспекта; их можно пройти заново.')
     }));
+
+    // Зачёт сдаётся в форме: кнопка берёт адрес со страницы (data-forma-zacheta), он живёт в одном месте
+    var forma = document.querySelector('[data-forma-zacheta]');
+    if (forma) {
+      karta.appendChild(el('p', { class: 'test-net-pechati' }, [
+        el('a', { class: 'btn ' + (itog.zachet ? 'btn--primary ' : '') + 'ext', href: forma.getAttribute('href'),
+          target: '_blank', rel: 'noopener noreferrer',
+          text: itog.zachet ? 'Сдать зачёт в ведомость' : 'Зачёт — в форме, когда будете готовы' })
+      ]));
+    }
 
     var detali = el('details', { id: 'test-itog-detali', class: 'test-itog__detali test-net-pechati' }, [
       el('summary', { text: 'Текст результата' }),
@@ -668,7 +678,7 @@
     ]));
     karta.appendChild(el('p', {
       class: 'caption test-net-pechati',
-      text: 'Баллы хранятся только в этом браузере. Сохраните итог: скопируйте или распечатайте.'
+      text: 'Это тренировка: баллы хранятся только в этом браузере. Зачёт — в форме, результат попадёт в ведомость.'
     }));
   }
 

@@ -184,6 +184,13 @@ def proverit_test():
         oshibka(f"тест: «сдано» от {porog.stdout.strip() or '?'} из 72, решено — от 44 (60 %)")
     if re.search(r"mailto:|@yandex\.ru|Отправить автору", dvizhok.read_text(encoding="utf-8") + (SITE / "test" / "index.html").read_text(encoding="utf-8")):
         oshibka("тест: остался адрес или кнопка для писем автору — решено без писем")
+    # Тест на сайте — тренировка, зачёт — в форме с ведомостью: кнопка на странице теста
+    # и та же ссылка на «Практике»
+    forma = re.search(r'<a data-forma-zacheta href="(https://[^"]+)"', (SITE / "test" / "index.html").read_text(encoding="utf-8"))
+    if not forma:
+        oshibka("тест: нет кнопки «Сдать зачёт в ведомость» (data-forma-zacheta)")
+    elif forma.group(1) not in (SITE / "praktika" / "index.html").read_text(encoding="utf-8"):
+        oshibka("практика: нет ссылки на зачётную форму — той же, что на странице теста")
 
 
 def main():
