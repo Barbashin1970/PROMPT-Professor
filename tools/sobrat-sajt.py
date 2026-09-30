@@ -711,10 +711,8 @@ def main():
     sobrat_prostuyu("o-kurse")
     sobrat_prostuyu("navyki", {"{{katalog_navykov}}": sobrat_navyki()}, "navyki")
 
-    zamer = KOREN / "tools" / "zamer-tokenov.py"
-    if zamer.exists():
-        (SITE / "files").mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(zamer, SITE / "files" / "zamer-tokenov.py")
+    # Сценарий замера токенов (tools/zamer-tokenov.py) на сайт не выкладывается: 30.09.2026
+    # автор убрал ссылку из лекции 1 — файл по ссылке «зависал», слушателям он лишний.
 
     # Картинки уроков: источник — content/kartinki/, на сайте — /kartinki/
     kartinki = CONTENT / "kartinki"
