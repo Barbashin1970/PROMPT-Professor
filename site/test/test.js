@@ -1,5 +1,8 @@
-/* Итоговый тест курса «ИИ в учебном процессе» — движок страницы /test/.
-   Проект — docs/SAIT-PROEKT.md, §4.8; основа — тест stroyka-test-main. Вопросы — voprosy.js.
+/* Тесты курса «ИИ в учебном процессе» — движок страниц /test/ (тренировочный тест) и
+   /test/prodvinutyj/ (продвинутый). Проект — docs/SAIT-PROEKT.md, §4.8; основа — тест
+   stroyka-test-main. Вопросы — voprosy.js рядом со страницей; настройки страницы —
+   window.TEST_NASTROJKI (ключ хранения, название, слова итога). Имени и других данных
+   слушателя тест не спрашивает и не хранит: это тренировка, баллы — только в браузере.
    Ядро (подсчёт баллов) — чистые функции раздела 1: в Node они доступны через require,
    в браузере их прогоняет служебная самопроверка window.__proverkaTesta(). */
 (function () {
@@ -12,6 +15,12 @@
   var VOPROSOV_V_MODULE = 5;    // пока в каком-то модуле меньше — плашка «Тест готовится»
   var MODULEI_V_TESTE = 6;      // сверяет самопроверка
   var BALLOV_V_MODULE = 12;     // 3 × 2 + 2 × 3; сверяет самопроверка
+
+  // Настройки страницы — до движка: window.TEST_NASTROJKI = { klyuch, nazvanie, modulei, itog,
+  // zagolovokItoga, knopkaZacheta, podpisItoga }. Без них — тренировочный тест.
+  var NASTROJKI = (typeof window !== 'undefined' && window.TEST_NASTROJKI) || {};
+  var NAZVANIE_TESTA = NASTROJKI.nazvanie || 'Тренировочный тест «ИИ в учебном процессе»';
+  var SLOVA_ITOGA = NASTROJKI.itog || { da: 'Готово к зачёту', net: 'Пока не хватает до зачёта', porog: 'Зачёт' };
 
   /* ── 1. Ядро: баллы, зачёт, итог. Без DOM и хранилища ────────────────────── */
 
@@ -159,15 +168,6 @@
     return chistye;
   }
 
-  function razobratPodpis(syroe) {
-    var p = syroe && typeof syroe === 'object' ? syroe : {};
-    return {
-      familiya: stroka(p.familiya).slice(0, 80),
-      imya: stroka(p.imya).slice(0, 80),
-      potok: stroka(p.potok).slice(0, 40)
-    };
-  }
-
   /* Слова и строки результата */
 
   function formaChisla(n, formy) {       // 1 балл, 2 балла, 5 баллов
@@ -187,32 +187,22 @@
 
   function podpisLekcii(l) {
     if (l === 'bonus') return 'бонусный урок';
+    var b = /^bonus-([12])$/.exec(stroka(l));
+    if (b) return 'бонусный урок ' + b[1];
     var n = Number(l);
     return l !== '' && l != null && n >= 1 && n <= 3 && Math.floor(n) === n ? 'лекция ' + n : '';
   }
 
-  function slushatel(p) {
-    var imya = chisto(stroka(p && p.familiya) + ' ' + stroka(p && p.imya));
-    var potok = chisto(p && p.potok);
-    if (potok && !/^поток/i.test(potok)) potok = 'поток ' + potok;
-    return { imya: imya, potok: imya ? potok : '' };
-  }
-
-  function strokaSlushatelya(p) {
-    var s = slushatel(p);
-    return s.imya + (s.potok ? ', ' + s.potok : '');
-  }
-
   // Итог — в начале текста: в заметке и на распечатке вердикт виден сразу.
-  function tekstRezultata(moduli, itog, p) {
+  function tekstRezultata(moduli, itog) {
     var nabrano = itog.vsego + ' из ' + itog.maks + ' (' + itog.protsent + ' %)';
     var stroki = [
-      'Тренировочный тест «ИИ в учебном процессе», НГУ, 2026',
-      'Слушатель: ' + (strokaSlushatelya(p) || 'не указан'),
+      NAZVANIE_TESTA + ', НГУ, 2026',
       'Дата прохождения: ' + (dataRu(itog.data) || 'тест не завершён'),
       itog.zachet === null
         ? 'Набрано: ' + nabrano
-        : 'Итог тренировки: ' + (itog.zachet ? 'готово к зачёту' : 'пока не хватает до зачёта') + ' — ' + nabrano + ', зачёт от ' + itog.porog,
+        : 'Итог: ' + (itog.zachet ? SLOVA_ITOGA.da : SLOVA_ITOGA.net).toLowerCase() + ' — ' + nabrano + ', ' +
+          SLOVA_ITOGA.porog.toLowerCase() + ' — от ' + itog.porog,
       ''
     ];
     spisok(moduli).forEach(function (m, i) {
@@ -314,18 +304,19 @@
 
   // Проходит все модули верными ответами (как runAutomatedTest исходника) и сверяет
   // данные с правилами теста. Сохранённых результатов не трогает.
-  function proverkaTesta(moduli, uzhe) {
+  function proverkaTesta(moduli, uzhe, modulei) {
     var vse = spisok(moduli);
+    var nuzhnoModulei = modulei || NASTROJKI.modulei || MODULEI_V_TESTE;
     var zam = spisok(uzhe).slice();
     var otchet = { gotov: testGotov(vse), moduli: [], vsego: 0, maks: 0, porog: 0, zachet: false, zamechaniya: zam };
     var vstrechen = {};
-    if (vse.length !== MODULEI_V_TESTE) zam.push('Модулей ' + vse.length + ', а в тесте их ' + MODULEI_V_TESTE + '.');
+    if (vse.length !== nuzhnoModulei) zam.push('Модулей ' + vse.length + ', а в тесте их ' + nuzhnoModulei + '.');
     vse.forEach(function (m) {
       var imya = 'Модуль ' + stroka(m.id);
       if (stroka(m.id) === '') zam.push('У модуля «' + m.nazvanie + '» нет id.');
       if (vstrechen[stroka(m.id)]) zam.push(imya + ': такой id уже есть — результаты модулей смешаются.');
       vstrechen[stroka(m.id)] = true;
-      if (!podpisLekcii(m.lekciya)) zam.push(imya + ': lekciya «' + stroka(m.lekciya) + '» — нужен номер 1–3 или \'bonus\'.');
+      if (!podpisLekcii(m.lekciya)) zam.push(imya + ': lekciya «' + stroka(m.lekciya) + '» — нужен номер 1–3, \'bonus\', \'bonus-1\' или \'bonus-2\'.');
       if (!razdelNaSaite(m.razdel)) zam.push(imya + ': razdel «' + stroka(m.razdel) + '» — нужен адрес раздела на сайте, от «/».');
       var voprosy = voprosyModulya(m);
       if (voprosy.length !== VOPROSOV_V_MODULE) zam.push(imya + ': вопросов ' + voprosy.length + ' из ' + VOPROSOV_V_MODULE + '.');
@@ -368,7 +359,6 @@
     testGotov: testGotov,
     itogTesta: itogTesta,
     razobratRezultaty: razobratRezultaty,
-    razobratPodpis: razobratPodpis,
     tekstRezultata: tekstRezultata,
     pravilnyiOtvet: pravilnyiOtvet,
     prigotovitModuli: prigotovitModuli,
@@ -380,19 +370,13 @@
 
   /* ── 2. Страница ─────────────────────────────────────────────────────────── */
 
-  var KLYUCH_REZULTATOV = 'kurs-ii:test:rezultaty';
-  var KLYUCH_PODPISI = 'kurs-ii:test:podpis';
-  var POLYA = [
-    { id: 'test-familiya', klyuch: 'familiya', nuzhno: 'Впишите фамилию — без неё результат не подписан.' },
-    { id: 'test-imya', klyuch: 'imya', nuzhno: 'Впишите имя.' },
-    { id: 'test-potok', klyuch: 'potok', nuzhno: '' }
-  ];
+  var KLYUCH_REZULTATOV = (NASTROJKI.klyuch || 'kurs-ii:test') + ':rezultaty';
+  var KLYUCH_STAROJ_PODPISI = 'kurs-ii:test:podpis';   // прежние версии хранили имя — стираем
   var VIDY = ['test-panel', 'test-modul', 'test-rezultat'];
 
   var podgotovka = { moduli: [], zagruzheny: false, zamechaniya: [] };
   var MODULI = [];
   var rezultaty = {};
-  var podpis = razobratPodpis(null);
   var tekushchii = null;        // { modul, nomer, otvety, pokazatPropuski }
   var pamyat = {};              // запасное хранилище: память вкладки
   var tolkoPamyat = false;
@@ -615,13 +599,10 @@
     if (!itog.vseProideny) { karta.hidden = true; return; }
     karta.hidden = false;
 
-    var kto = strokaSlushatelya(podpis);
-    var tekst = tekstRezultata(MODULI, itog, podpis);
+    var tekst = tekstRezultata(MODULI, itog);
 
-    karta.appendChild(el('h2', { id: 'test-itog-zag', tabindex: '-1', text: 'Итог тренировки' }));
+    karta.appendChild(el('h2', { id: 'test-itog-zag', tabindex: '-1', text: NASTROJKI.zagolovokItoga || 'Итог тренировки' }));
     karta.appendChild(el('dl', { class: 'test-itog__svedeniya' }, [
-      el('dt', { text: 'Слушатель' }),
-      el('dd', { text: kto || 'не указан — впишите фамилию и имя в разделе «Как подписать результат»' }),
       el('dt', { text: 'Дата прохождения' }),
       el('dd', { text: dataRu(itog.data) })
     ]));
@@ -647,16 +628,16 @@
 
     karta.appendChild(el('p', {
       class: 'test-itog__verdikt' + (itog.zachet ? ' is-zachet' : ''),
-      text: itog.zachet ? 'Готово к зачёту' : 'Пока не хватает до зачёта'
+      text: itog.zachet ? SLOVA_ITOGA.da : SLOVA_ITOGA.net
     }));
     karta.appendChild(el('p', {
-      text: 'Зачёт — от ' + itog.porog + ' из ' + itog.maks + ' ' + izBallov(itog.maks) +
+      text: SLOVA_ITOGA.porog + ' — от ' + itog.porog + ' из ' + itog.maks + ' ' + izBallov(itog.maks) +
         ' (' + PROCENT_ZACHETA + ' %).' +
         (itog.zachet ? '' : ' Модули ниже ' + PROCENT_ZACHETA + ' % отмечены ссылками на разделы конспекта; их можно пройти заново.')
     }));
 
     // Зачёт сдаётся в форме: кнопка берёт адрес со страницы (data-forma-zacheta), он живёт в одном месте
-    var forma = document.querySelector('[data-forma-zacheta]');
+    var forma = NASTROJKI.knopkaZacheta === false ? null : document.querySelector('[data-forma-zacheta]');
     if (forma) {
       karta.appendChild(el('p', { class: 'test-net-pechati' }, [
         el('a', { class: 'btn ' + (itog.zachet ? 'btn--primary ' : '') + 'ext', href: forma.getAttribute('href'),
@@ -678,41 +659,8 @@
     ]));
     karta.appendChild(el('p', {
       class: 'caption test-net-pechati',
-      text: 'Это тренировка: баллы хранятся только в этом браузере. Зачёт — в форме, результат попадёт в ведомость.'
+      text: NASTROJKI.podpisItoga || 'Это тренировка: баллы хранятся только в этом браузере. Зачёт — в форме, результат попадёт в ведомость.'
     }));
-  }
-
-  /* Подпись: фамилия, имя, поток */
-
-  function zapolnitPolya() {
-    POLYA.forEach(function (p) { uzel(p.id).value = podpis[p.klyuch] || ''; });
-  }
-
-  function pokazatOshibkuPolya(pole, tekst) {
-    var z = uzel(pole.id + '-oshibka');
-    if (z) z.textContent = tekst;
-    pole.setAttribute('aria-invalid', 'true');
-  }
-
-  function snyatOshibkuPolya(pole) {
-    var z = uzel(pole.id + '-oshibka');
-    if (z) z.textContent = '';
-    pole.removeAttribute('aria-invalid');
-  }
-
-  function proveritPodpis() {
-    var pervoe = null;
-    POLYA.forEach(function (p) {
-      if (!p.nuzhno) return;
-      var pole = uzel(p.id);
-      if (chisto(podpis[p.klyuch])) { snyatOshibkuPolya(pole); return; }
-      pokazatOshibkuPolya(pole, p.nuzhno);
-      if (!pervoe) pervoe = pole;
-    });
-    if (!pervoe) return true;
-    podvesti(pervoe.closest('.test-pole') || pervoe);
-    fokus(pervoe);
-    return false;
   }
 
   /* Модуль: вопросы по одному, «Назад» и «Далее» */
@@ -1006,8 +954,7 @@
   }
 
   function kopirovatItog(knopka) {
-    if (!proveritPodpis()) return;
-    var tekst = tekstRezultata(MODULI, itogTesta(MODULI, rezultaty), podpis);
+    var tekst = tekstRezultata(MODULI, itogTesta(MODULI, rezultaty));
     var gotovo = function (vyshlo) {
       if (vyshlo) {
         otmetitKnopku(knopka);
@@ -1030,7 +977,7 @@
   function sprositOchistku(knopka) {
     var okno = uzel('test-ochistka-dialog');
     if (!okno || typeof okno.showModal !== 'function') {
-      if (window.confirm('Очистить результаты? Баллы всех модулей и подпись удалятся из этого браузера.')) ochistitVse();
+      if (window.confirm('Очистить результаты? Баллы всех модулей удалятся из этого браузера.')) ochistitVse();
       return;
     }
     otkryvshaya = knopka;
@@ -1040,21 +987,17 @@
 
   function ochistitVse() {
     rezultaty = {};
-    podpis = razobratPodpis(null);
     udalit(KLYUCH_REZULTATOV);
-    udalit(KLYUCH_PODPISI);
-    zapolnitPolya();
-    POLYA.forEach(function (p) { snyatOshibkuPolya(uzel(p.id)); });
     tekushchii = null;
     pokazatVid('test-panel');
     risovatPanel();
-    soobshchenie('Результаты и подпись очищены.');
+    soobshchenie('Результаты очищены.');
   }
 
   /* Служебная самопроверка — только из консоли: __proverkaTesta() */
 
   function samoproverka() {
-    var otchet = proverkaTesta(MODULI, podgotovka.zamechaniya);
+    var otchet = proverkaTesta(MODULI, podgotovka.zamechaniya, NASTROJKI.modulei);
     // Второй проход — через форму: верный ответ рисуется в вопросе и читается обратно
     // тем же кодом, что и ответы слушателя.
     MODULI.forEach(function (m, mi) {
@@ -1099,7 +1042,7 @@
       else if (d === 'k-spisku') kSpisku();
       else if (d === 'k-itogu') kItogu();
       else if (d === 'kopirovat') kopirovatItog(u);
-      else if (d === 'pechat') { if (proveritPodpis()) window.print(); }
+      else if (d === 'pechat') window.print();
       else if (d === 'ochistit') sprositOchistku(u);
       else if (d === 'ochistit-da') ochistitVse();   // окно затем закроет сама форма method="dialog"
     });
@@ -1110,16 +1053,6 @@
       zapomnitOtvet();
       otmetitPropuski();
       obnovitSvodkuPropuskov(false);
-    });
-
-    POLYA.forEach(function (p) {
-      var pole = uzel(p.id);
-      pole.addEventListener('input', function () {
-        podpis[p.klyuch] = pole.value.slice(0, 80);
-        zapisat(KLYUCH_PODPISI, podpis);
-        if (chisto(pole.value)) snyatOshibkuPolya(pole);
-        risovatItog(itogTesta(MODULI, rezultaty));
-      });
     });
 
     var okno = uzel('test-ochistka-dialog');
@@ -1134,14 +1067,12 @@
   function zapusk() {
     podgotovka = prigotovitModuli(window.TEST_MODULI);
     MODULI = podgotovka.moduli;
-    podgotovka.zamechaniya.forEach(function (z) { console.warn('Итоговый тест: ' + z); });
+    podgotovka.zamechaniya.forEach(function (z) { console.warn(NAZVANIE_TESTA + ': ' + z); });
     tolkoPamyat = !hranilishcheDostupno();
     rezultaty = razobratRezultaty(prochitat(KLYUCH_REZULTATOV));
-    podpis = razobratPodpis(prochitat(KLYUCH_PODPISI));
+    udalit(KLYUCH_STAROJ_PODPISI);
     risovatPlashki();
-    uzel('test-podpis').hidden = false;
     uzel('test-moduli-razdel').hidden = false;
-    zapolnitPolya();
     pokazatVid('test-panel');
     risovatPanel();
     podklyuchit();

@@ -404,6 +404,7 @@ html.menu-otkryto .naverh { display: none; }
 .prompt__head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 16px; }
 .prompt__title { font-size: 18px; font-weight: 700; margin: 0; flex: 1 1 260px; }
 .prompt__when { font-size: var(--t-small); color: var(--label-2); margin: 4px 0 0; }
+.prompt__avtor { font-size: var(--t-small); color: var(--label-2); margin: 2px 0 0; }
 .prompt__actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .prompt__body {
   margin: 16px 0 0; padding: 16px;

@@ -85,6 +85,15 @@ FORMA_ZACHETA = "https://forms.gle/Bk8ebKwGt6zH9FJh8"
 POTOK = "1-й поток — с 15 октября 2026 года"
 PODSTANOVKI_TEKSTA = {"{{forma_zacheta}}": FORMA_ZACHETA, "{{potok}}": POTOK}
 
+# Адрес сайта — для ссылок из скачанных .docx: в файле относительная ссылка никуда не ведёт
+ADRES_SAJTA = "https://ai-in-the-education.vercel.app"
+
+# Авторы заимствованных промптов: поле «avtor:» в шапке промпта → подпись на карточке
+# и в .docx. Каждый автор назван и на «О курсе», в «Заимствованиях» — это сверяет сторож.
+AVTORY_PROMPTOV = {
+    "halilov": ("По материалам Дамира Халилова", "https://t.me/ai2smm", "канал «Промт дня»"),
+}
+
 
 def razobrat(put):
     """Шапка между строками --- и тело."""
@@ -106,7 +115,7 @@ BLOK_PROMPTA = re.compile(r"^```prompt\n(.*?)\n```[ \t]*$", re.S | re.M)
 
 
 def razobrat_prompt(syroe):
-    """Шапка промпта до первой строки --- (id, title, kogda), дальше — текст."""
+    """Шапка промпта до первой строки --- (id, title, kogda, avtor), дальше — текст."""
     shapka, _, telo = syroe.partition("\n---\n")
     polya = {}
     for stroka in shapka.splitlines():
@@ -116,8 +125,19 @@ def razobrat_prompt(syroe):
         "id": polya.get("id", ""),
         "title": polya.get("title", "Промпт"),
         "kogda": polya.get("kogda", ""),
+        "avtor": polya.get("avtor", ""),
         "telo": telo.strip("\n"),
     }
+
+
+def podpis_avtora(p):
+    """(подпись, адрес, название ссылки) автора промпта или None."""
+    if not p.get("avtor"):
+        return None
+    if p["avtor"] not in AVTORY_PROMPTOV:
+        zamechanie(f"промпт {p['id']}: автор «{p['avtor']}» не описан в AVTORY_PROMPTOV")
+        return None
+    return AVTORY_PROMPTOV[p["avtor"]]
 
 
 def podsvetit_podstanovki(tekst_html):
@@ -129,6 +149,10 @@ def kartochka_prompta(p, uroven="h3"):
     tid = "t-" + p["id"]
     nabor = f' data-svc-nabor="{html.escape(p["servisy"])}"' if p.get("servisy") else ""
     kogda = f'<p class="prompt__when">Когда: {html.escape(p["kogda"])}</p>' if p["kogda"] else ""
+    avtor = podpis_avtora(p)
+    if avtor:
+        kogda += (f'\n      <p class="prompt__avtor">{html.escape(avtor[0])} — '
+                  f'<a href="{html.escape(avtor[1])}">{html.escape(avtor[2])}</a></p>')
     telo = podsvetit_podstanovki(html.escape(p["telo"]))
     return (
         f'<section class="prompt" id="p-{p["id"]}" data-prompt>\n'
@@ -213,7 +237,8 @@ KARTA_SAJTA = [
                      ("/navyki/", "Навыки для нейросетей"), ("/obrazcy/", "Образцы текстов"),
                      ("/slovar/", "Словарь терминов")]),
     ("Практика и зачёт", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
-                          ("/test/", "Тренировочный тест"), (FORMA_ZACHETA, "Сдать зачёт в ведомость")]),
+                          ("/test/", "Тренировочный тест"), ("/test/prodvinutyj/", "Продвинутый тест"),
+                          (FORMA_ZACHETA, "Сдать зачёт в ведомость")]),
     ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
                  ("/o-kurse/#licenzii", "Заимствования и лицензии")]),
 ]
@@ -270,12 +295,15 @@ def md_dlya_docx(tekst):
     def zamena(m):
         p = razobrat_prompt(m.group(1))
         kogda = f" Когда: {p['kogda']}." if p["kogda"] else ""
+        avtor = podpis_avtora(p)
+        if avtor:
+            kogda += f" {avtor[0]} — [{avtor[2]}]({avtor[1]})."
         return f"**Промпт: {p['title']}.**{kogda}\n\n```\n{p['telo']}\n```"
     tekst = BLOK_PROMPTA.sub(zamena, tekst)
     tekst = re.sub(r"<details>\s*<summary>(.*?)</summary>", r"**\1**\n", tekst, flags=re.S)
     tekst = tekst.replace("</details>", "")
     tekst = re.sub(r"<!--.*?-->", "", tekst, flags=re.S)
-    tekst = re.sub(r"\]\((/[^)]*)\)", lambda m: "](https://ТУТ-БУДЕТ-АДРЕС-САЙТА" + m.group(1) + ")", tekst)
+    tekst = re.sub(r"\]\((/[^)]*)\)", lambda m: "](" + ADRES_SAJTA + m.group(1) + ")", tekst)
     return tekst
 
 
@@ -416,7 +444,8 @@ def sobrat_biblioteku(vse_promty):
         svoi = [p for p in vse_promty if p.get("urok") == slug]
         if not svoi:
             continue
-        kartochki = "\n".join(kartochka_prompta(p, "h3") for p in svoi)
+        # через oformit_ssylki — ссылка на автора промпта открывается в новой вкладке, как в уроке
+        kartochki = oformit_ssylki("\n".join(kartochka_prompta(p, "h3") for p in svoi))
         razdely.append(f'<section class="section" id="{slug}"><h2>{podpis}</h2>\n{kartochki}\n</section>')
     filtr = (
         '<div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label>'
@@ -693,13 +722,14 @@ def main():
         shutil.copytree(kartinki, SITE / "kartinki", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns(".*"))
 
-    # Вопросы итогового теста: источник — content/test-voprosy.js, движок — site/test/test.js
-    voprosy = CONTENT / "test-voprosy.js"
-    if voprosy.exists():
-        (SITE / "test").mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(voprosy, SITE / "test" / "voprosy.js")
-    else:
-        zamechanie("нет content/test-voprosy.js — тест без вопросов")
+    # Вопросы тестов: тренировочный и продвинутый; движок у обоих один — site/test/test.js
+    for istochnik, kuda in (("test-voprosy.js", "test"), ("test-prodvinutyj.js", "test/prodvinutyj")):
+        voprosy = CONTENT / istochnik
+        if voprosy.exists():
+            (SITE / kuda).mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(voprosy, SITE / kuda / "voprosy.js")
+        else:
+            zamechanie(f"нет content/{istochnik} — тест без вопросов")
 
     primer = next((p for p in vse_promty if p["id"] == "l1-test-po-formule"), None)
     sobrat_glavnuyu(uroki, dannye, primer)
@@ -708,7 +738,7 @@ def main():
     # Рукописные страницы (тест, конструктор) получают тот же подвал, что и собранные:
     # карта сайта и дата сборки не расходятся, править подвал нужно только в шаблоне.
     podval = re.search(r'<footer class="foot">.*?</footer>', stranica("", "", ""), re.S).group(0)
-    for ruchnaya in ("test/index.html", "konstruktor/index.html"):
+    for ruchnaya in ("test/index.html", "test/prodvinutyj/index.html", "konstruktor/index.html"):
         put = SITE / ruchnaya
         if not put.exists():
             continue

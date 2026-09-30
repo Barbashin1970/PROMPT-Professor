@@ -11,19 +11,19 @@
 
 | Папка | Что внутри |
 |---|---|
-| `content/` | тексты сайта в Markdown: конспекты лекций и бонусных уроков, словарь, «О курсе», «Самостоятельная практика и зачёт», образцы; `servisy.json` — нейросети и инструменты; `test-voprosy.js` — вопросы итогового теста; `kartinki/` — картинки уроков, обложка главной, фото и логотип НГУ для «О курсе» |
+| `content/` | тексты сайта в Markdown: конспекты лекций и бонусных уроков, словарь, «О курсе», «Самостоятельная практика и зачёт», образцы; `servisy.json` — нейросети и инструменты; `test-voprosy.js` — вопросы тренировочного теста (они же — в зачётной форме), `test-prodvinutyj.js` — продвинутого; `kartinki/` — картинки уроков, обложка главной, фото и логотип НГУ для «О курсе» |
 | `skills/` | исходники навыков: `SKILL.md` и справочники; сборщик пакует каждый навык в zip |
-| `tools/` | `sobrat-sajt.py` — сборка сайта; `proverit-sajt.py` — проверка перед публикацией; `proverit-publikaciyu.py` — проверка опубликованного сайта; `shablon-stranicy.html` — шаблон страницы; `zamer-tokenov.py` — замер токенов для лекции 1; `sobrat-google-formu.js` → `google-forma/Kod.gs` — итоговый тест в форме Google с ведомостью (инструкция — `google-forma/README.md`) |
+| `tools/` | `sobrat-sajt.py` — сборка сайта; `proverit-sajt.py` — проверка перед публикацией; `proverit-publikaciyu.py` — проверка опубликованного сайта; `shablon-stranicy.html` — шаблон страницы; `zamer-tokenov.py` — замер токенов для лекции 1; `sobrat-google-formu.js` → `google-forma/Kod.gs` — итоговый тест в форме Google с ведомостью (инструкция — `google-forma/README.md`); `vygruzit-test.js` → `docs/TEST-ZACHET-VOPROSY-I-OTVETY.md` — вопросы зачёта с ответами для системы НГУ (и продвинутый тест — для проверки) |
 | `site/` | готовый сайт — его и публикует Vercel |
 | `docs/` | разбор курса, проект сайта, фактчек, бэклог, чек-лист слайдов, программа на 16 ч, материалы 2025 года |
 | `vhod/`, `art-master/` | переданные автором исходные материалы; на сайт не публикуются |
 
 В `site/` большая часть файлов собирается из `content/` и `skills/` — их правят
 в исходниках. Написаны вручную и правятся прямо в `site/`: `assets/sajt.css`,
-`assets/sajt.js`, `assets/ikonka.svg`, `test/index.html`, `test/test.js`,
-`konstruktor/index.html`, `konstruktor/konstruktor.js`. Подвал в `test/index.html`
-и `konstruktor/index.html` сборщик заменяет подвалом из шаблона — править его нужно
-в `tools/shablon-stranicy.html`.
+`assets/sajt.js`, `assets/ikonka.svg`, `test/index.html`, `test/prodvinutyj/index.html`,
+`test/test.js` (движок обоих тестов), `konstruktor/index.html`, `konstruktor/konstruktor.js`.
+Подвал, поток и адрес зачётной формы в рукописных страницах сборщик заменяет из шаблона
+и констант `tools/sobrat-sajt.py` — править их нужно там.
 
 ## Сборка и проверка
 
@@ -34,6 +34,14 @@ pandoc — для конспектов `.docx`.
 python3 tools/sobrat-sajt.py      # собрать site/
 python3 tools/proverit-sajt.py    # ссылки, якоря, навыки, тест — «Расхождений нет»
 python3 -m http.server 8080 --directory site   # посмотреть: http://127.0.0.1:8080/
+```
+
+Поправили вопросы теста (`content/test-voprosy.js`) — пересоберите и то, что собирается
+из них вне сайта; сторож напомнит, если забыли:
+
+```bash
+node tools/vygruzit-test.js          # вопросы с ответами для системы НГУ → docs/
+node tools/sobrat-google-formu.js    # сценарий формы; затем в Apps Script — sobratTest
 ```
 
 ## Публикация: GitHub → Vercel

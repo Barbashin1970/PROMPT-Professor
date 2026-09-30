@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-<title>Тренировочный тест — ИИ в учебном процессе</title>
-<meta name="description" content="Тренировочный тест курса: те же вопросы, что в зачёте, — шесть модулей по пять вопросов, «сдано» — от 44 баллов из 72. Проходить можно сколько угодно; зачёт сдаётся в форме с ведомостью.">
+<title>Продвинутый тест — ИИ в учебном процессе</title>
+<meta name="description" content="Продвинутый тест курса для самооценки: десять модулей, по два на каждый урок, вопросы на применение и разбор ситуаций. Баллы видны только вам.">
 <link rel="stylesheet" href="/assets/sajt.css">
 <link rel="icon" href="/assets/ikonka.svg" type="image/svg+xml">
 <script src="/assets/servisy.js" defer></script>
@@ -138,7 +138,8 @@
 .test-vybor .card p:last-child { margin-top: auto; padding-top: 16px; }
 .test-vybor__zag { margin: 4px 0 0; font-size: 22px; line-height: 1.27; }
 </style>
-<script src="/test/voprosy.js" defer></script><script src="/test/test.js" defer></script>
+<script>window.TEST_NASTROJKI = { klyuch: 'kurs-ii:test-prodvinutyj', nazvanie: 'Продвинутый тест «ИИ в учебном процессе»', modulei: 10, zagolovokItoga: 'Итог самооценки', knopkaZacheta: false, itog: { da: 'Продвинутый уровень', net: 'Пока ниже продвинутого уровня', porog: 'Продвинутый уровень' }, podpisItoga: 'Это самооценка: баллы хранятся только в этом браузере и никуда не отправляются.' };</script>
+<script src="/test/prodvinutyj/voprosy.js" defer></script><script src="/test/test.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -161,23 +162,23 @@
 <main id="main">
 <div class="wrap test-stranica" id="test-koren">
   <header class="page-head">
-    <p class="kicker">Курс «ИИ в учебном процессе» · <span data-potok>1-й поток — с 15 октября 2026 года</span></p>
-    <h1>Тренировочный тест</h1>
-    <p class="lead test-net-pechati">Те же вопросы, что в зачёте: шесть модулей по пять вопросов — по два модуля на каждую лекцию. Проходите сколько угодно — баллы видны только вам.</p>
+    <p class="kicker">Курс «ИИ в учебном процессе» · самооценка · <span data-potok>1-й поток — с 15 октября 2026 года</span></p>
+    <h1>Продвинутый тест</h1>
+    <p class="lead test-net-pechati">Десять модулей, по два на каждый урок — от лекции 1 до бонуса про нейроиллюстрации. Вопросы на применение и разбор ситуаций, другие, чем в тренировочном тесте. Для себя: баллы видны только вам.</p>
   </header>
 
   <div class="card-grid test-vybor test-net-pechati">
+    <section class="card" aria-labelledby="test-trenirovka-zag">
+      <p class="num">Тренировка</p>
+      <h2 id="test-trenirovka-zag" class="test-vybor__zag">Тренировочный тест</h2>
+      <p>Шесть модулей с вопросами зачёта — чтобы подготовиться к нему. Баллы тоже видны только вам.</p>
+      <p><a href="/test/" class="btn">Открыть тренировочный тест</a></p>
+    </section>
     <section class="card" aria-labelledby="test-zachet-zag">
       <p class="num">Зачёт</p>
       <h2 id="test-zachet-zag" class="test-vybor__zag">Тест в форме — результат в ведомость</h2>
-      <p>Те же вопросы, что здесь; «сдано» — от 44&nbsp;баллов из&nbsp;72 (60&nbsp;%). Сдать можно ещё раз — в ведомость идёт лучший результат. Форма уже открыта.</p>
-      <p><a data-forma-zacheta href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="btn btn--primary ext" target="_blank" rel="noopener noreferrer">Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
-    </section>
-    <section class="card" aria-labelledby="test-prodv-zag">
-      <p class="num">Самооценка</p>
-      <h2 id="test-prodv-zag" class="test-vybor__zag">Продвинутый тест</h2>
-      <p>Другие вопросы — на применение и разбор ситуаций: 10&nbsp;модулей, по два на каждый урок, включая бонусные. Для себя: баллы видны только вам.</p>
-      <p><a href="/test/prodvinutyj/" class="btn">Пройти продвинутый тест</a></p>
+      <p>Зачёт сдаётся по вопросам тренировочного теста; «сдано» — от 44&nbsp;баллов из&nbsp;72 (60&nbsp;%).</p>
+      <p><a data-forma-zacheta href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="btn ext" target="_blank" rel="noopener noreferrer">Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
     </section>
   </div>
 
@@ -190,12 +191,12 @@
     <section class="test-razdel test-net-pechati" aria-labelledby="test-pravila-zag">
       <h2 id="test-pravila-zag">Как устроен тест</h2>
       <ul class="test-pravila">
-        <li>Вопрос с одним верным ответом — 2&nbsp;балла. Сопоставление трёх пар — 3&nbsp;балла: по баллу за каждую верную пару. В модуле 12&nbsp;баллов, во всём тесте —&nbsp;72.</li>
+        <li>Вопрос с одним верным ответом — 2&nbsp;балла. Сопоставление трёх пар — 3&nbsp;балла: по баллу за каждую верную пару. В модуле 12&nbsp;баллов, во всём тесте —&nbsp;120.</li>
         <li>Модули проходятся в любом порядке. Внутри модуля можно возвращаться к прошлым вопросам; завершить модуль можно, когда отвечены все вопросы.</li>
-        <li>После модуля показывается только его балл, без разбора ответов — так же, как в зачёте. Модуль можно пройти заново — засчитывается последняя попытка.</li>
-        <li>Когда пройдены все шесть модулей, появится итог: от 44 до 72&nbsp;баллов — вы готовы к зачёту. Итог можно скопировать или распечатать.</li>
-        <li>Это тренировка: баллы хранятся только в этом браузере и никуда не отправляются. Зачёт сдаётся в форме — кнопка выше.</li>
-        <li>Тест можно проходить сколько угодно раз: модуль — кнопкой «Пройти заново», весь тест — после кнопки «Очистить результаты…» внизу страницы. Повторный проход закрепляет урок в памяти.</li>
+        <li>После модуля показывается только его балл, без разбора ответов. Модуль можно пройти заново — засчитывается последняя попытка.</li>
+        <li>Когда пройдены все десять модулей, появится итог: от 72 до 120&nbsp;баллов — продвинутый уровень. Модули ниже 60&nbsp;% отмечены ссылками на разделы конспекта.</li>
+        <li>Это самооценка: баллы хранятся только в этом браузере и никуда не отправляются; с тренировочным тестом они не смешиваются.</li>
+        <li>Проходить можно сколько угодно раз: модуль — кнопкой «Пройти заново», весь тест — после «Очистить результаты…» внизу страницы.</li>
       </ul>
     </section>
 

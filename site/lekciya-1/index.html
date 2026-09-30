@@ -38,7 +38,7 @@
 <nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-лекции">Что вы унесёте с лекции</a></li><li><a href="#chto-takoe">1. Что такое ИИ и что он умеет</a></li><li><a href="#ierarhiya">2. Иерархия ИИ: от общего к языковым моделям</a></li><li><a href="#kak-ustroen">3. Как устроена языковая модель</a></li><li><a href="#gallyucinacii">4. Галлюцинации: почему модель уверенно ошибается</a></li><li><a href="#rychagi">5. Четыре рычага управления ответом</a></li><li><a href="#formula">6. Формула промпта из восьми элементов</a></li><li><a href="#instrumenty">7. Инструменты преподавателя</a></li><li><a href="#proverka">8. Проверка ответов и источников</a></li><li><a href="#vajb-koding">9. Вайб-кодинг: программа на человеческом языке</a></li><li><a href="#bezopasnost">10. Минимум безопасности</a></li><li><a href="#promty">Промпты лекции</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
 <article class="prose">
 <div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>
-<div class="downloads"><div class="dl"><span class="dl__name">Слайды лекции</span><span class="dl__meta">PDF появится после записи видео</span></div><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 30 КБ · сборка 2026-09-29</span><a class="btn btn--small" href="/files/konspekt-lekciya-1.docx" download>Скачать</a></div></div>
+<div class="downloads"><div class="dl"><span class="dl__name">Слайды лекции</span><span class="dl__meta">PDF появится после записи видео</span></div><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 32 КБ · сборка 2026-09-30</span><a class="btn btn--small" href="/files/konspekt-lekciya-1.docx" download>Скачать</a></div></div>
 
 <h2 id="что-вы-унесёте-с-лекции">Что вы унесёте с лекции</h2>
 <ul>
@@ -461,6 +461,11 @@ PersonQA — вопросы о фактах из жизни людей — до�
 </ol>
 <p>Ссылка вида «Иванов и др., 2024» без названия и журнала — не источник, пока вы его
 не нашли.</p>
+<p>Отдельное утверждение — из статьи, новости, работы студента или ответа модели — удобно
+проверять промптом <a href="#p-l1-faktcheker">«Фактчекер»</a> — он сделан по материалам Дамира
+Халилова: модель поясняет, что утверждается,
+приводит источники и выносит вердикт. Источники из её ответа всё равно откройте сами —
+шаги 1–2. Потренироваться — <a href="#samostoyatelno">задание 5 самостоятельной практики</a>.</p>
 <h2 id="vajb-koding">9. Вайб-кодинг: программа на человеческом языке</h2>
 <p><strong>Вайб-кодинг</strong> — вы описываете задачу словами, модель пишет код: страницу сайта, анкету,
 тренажёр, небольшую программу. Так сделаны конструктор промптов курса,
@@ -681,6 +686,35 @@ DOI, URL или ISBN.
 Для каждого утверждения укажи: подтверждено ли оно источником (каким), или это твоё обобщение, или ты не уверен.
 Отдельно перечисли даты, имена, числа и формулы, которые мне стоит проверить самому, и подскажи, где их проверить.</div>
 </section>
+<section class="prompt" id="p-l1-faktcheker" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Фактчекер: проверить утверждение</h3>
+      <p class="prompt__when">Когда: нужно проверить утверждение из статьи, новости, работы студента или ответа модели; поиск в сервисе включён</p>
+      <p class="prompt__avtor">По материалам Дамира Халилова — <a href="https://t.me/ai2smm" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>канал «Промт дня»<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-faktcheker">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-faktcheker">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-faktcheker">Ты — профессиональный фактчекер. Работаешь по канонам фактчекинга: проверяешь утверждение на достоверность по открытым данным, первоисточникам, официальной статистике, научным исследованиям и мнениям экспертов.
+
+Утверждение: «<mark class="ph">[УТВЕРЖДЕНИЕ]</mark>».
+
+1. Поясни, что именно утверждается и почему это нужно проверить.
+2. Укажи:
+– соответствует ли утверждение фактам;
+– какие источники его подтверждают или опровергают — с проверяемым адресом: DOI, URL или ISBN;
+– каков научный консенсус или официальная позиция.
+3. Ссылайся только на источники, которые нашёл сейчас в поиске. Если поиска нет или источников не нашлось — так и скажи; не угадывай и не выдумывай ссылки.
+4. Итоговый вердикт — один из шести: «истинно», «частично истинно», «неоднозначно», «ложно», «манипуляция», «недостаточно данных». Истинное отметь ✅, ложное — ❌.
+
+Без эмоций, оценочных суждений и политических интерпретаций. Будь беспристрастен и конкретен, опирайся только на проверенные данные.</div>
+</section>
 <section class="prompt" id="p-l1-sistemnyj-sloj" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -712,7 +746,7 @@ DOI, URL или ISBN.
 Проверка: перед каждым ответом сверь его с правилами выше. Если не уверен — так и скажи, не угадывай.</div>
 </section>
 <h2 id="samostoyatelno">Самостоятельная практика</h2>
-<p><strong>Время:</strong> около 3 часов. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
+<p><strong>Время:</strong> около 3,5 часа. Практика — для вас: ничего отправлять не нужно. Зачёт по курсу —
 <a href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>тест в форме<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — результат попадёт в ведомость; «сдано» — от 44 баллов
 из 72 (60 %). Потренироваться — <a href="/test/">тест на сайте</a>.</p>
 <ol>
@@ -725,15 +759,22 @@ DOI, URL или ISBN.
 <li><strong>Резюме своего файла.</strong> Загрузите свой учебный материал на 2–10 страниц без
    персональных данных, получите резюме и тезисы (промпт «Резюме своего учебного файла»).
    Сверьте с исходником три факта из резюме.</li>
+<li><strong>Фактчек трёх утверждений.</strong> Включите в сервисе поиск и проверьте промптом
+   «Фактчекер» три утверждения: из своей дисциплины; популярное в педагогике — например,
+   «студенты лучше усваивают материал, поданный в их ведущем стиле: визуал, аудиал,
+   кинестетик»; одно из этой лекции. Каждую ссылку из ответа откройте (раздел 8): есть ли
+   такой источник и говорит ли он то, что ему приписано. Отметьте, где вы согласны
+   с вердиктом модели, а где нет и почему.</li>
 <li><strong>Выводы</strong> — 5–7 предложений: какие формулировки улучшили ответ, где модель ошиблась,
    что и как вы проверили.</li>
 </ol>
-<p><strong>Сохраните для себя</strong> промпт, таблицу сравнения, лучший результат после своей правки
-и выводы — они пригодятся на следующих лекциях.</p>
+<p><strong>Сохраните для себя</strong> промпт, таблицу сравнения, лучший результат после своей правки,
+три фактчека и выводы — они пригодятся на следующих лекциях.</p>
 <p><strong>По желанию:</strong> цепочка из трёх сервисов — тест в одном, текст лекции по тесту во втором,
 презентация по лекции в третьем.</p>
 <p><strong>Как понять, что получилось:</strong> в промпте есть все восемь элементов (или понятно, почему
-какого-то нет); сравнение конкретное; найдена и исправлена хотя бы одна ошибка модели.</p>
+какого-то нет); сравнение конкретное; найдена и исправлена хотя бы одна ошибка модели;
+в фактчеке открыта каждая ссылка, а вердикт вы подтвердили или оспорили по источникам.</p>
 <h2 id="proverte-sebya">Проверьте себя</h2>
 <details>
 <summary>Почему модель уверенно ошибается?</summary>
@@ -789,10 +830,10 @@ DOI, URL или ISBN.
 </main>
 <footer class="foot">
   <div class="wrap wrap--wide">
-    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и зачёт</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Тренировочный тест</a></li><li><a href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
+    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и зачёт</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Тренировочный тест</a></li><li><a href="/test/prodvinutyj/">Продвинутый тест</a></li><li><a href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ</p>
-      <p>Автор курса — Олег Барбашин · © 2025–2026 · сборка 2026-09-29</p>
+      <p>Автор курса — Олег Барбашин · © 2025–2026 · сборка 2026-09-30</p>
     </div>
   </div>
 </footer>

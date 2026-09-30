@@ -26,6 +26,8 @@ LISHNEE = [
     "/content/lekciya-1.md", "/content/servisy.json", "/docs/LEKCII-RAZBOR.md",
     "/tools/sobrat-sajt.py", "/skills/editing-ai-writing/SKILL.md",
     "/vhod/", "/art-master/", "/site/index.html", "/dz/",
+    # ключ ответов зачёта: выгрузка для системы НГУ и сценарий формы
+    "/docs/TEST-ZACHET-VOPROSY-I-OTVETY.md", "/tools/google-forma/Kod.gs",
 ]
 
 

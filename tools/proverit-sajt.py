@@ -15,6 +15,8 @@
   7. Итоговый тест: 6 модулей по 5 вопросов, 72 балла; ключ каждого вопроса есть среди
      вариантов; разделы конспекта, на которые ссылается тест, существуют; «сдано» — от 44
      из 72 (60 %); в тесте нет адреса для писем — результаты автору не отправляются.
+  8. Авторы промптов с пометкой на карточке названы в «Заимствованиях» на «О курсе».
+  9. В скачиваемых .docx нет заглушек адреса и ссылок от корня сайта — в файле они никуда не ведут.
 """
 
 import json
@@ -139,51 +141,82 @@ def proverit_navyki():
     return len(arhivy)
 
 
-def proverit_test():
-    istochnik = CONTENT / "test-voprosy.js"
+# Тесты сайта: (файл вопросов, модулей, всего баллов, порог 60 %). Движок у обоих один.
+TESTY = [("test-voprosy.js", 6, 72, 44), ("test-prodvinutyj.js", 10, 120, 72)]
+
+
+def proverit_nabor(imya_faila, modulei, ballov):
+    istochnik = CONTENT / imya_faila
+    gde = f"тест {imya_faila}"
     if not istochnik.exists():
-        oshibka("нет content/test-voprosy.js")
-        return
+        oshibka(f"нет content/{imya_faila}")
+        return []
     kod = ("const vm=require('vm');const c={window:{}};"
            f"vm.runInNewContext(require('fs').readFileSync({json.dumps(str(istochnik))},'utf8'),c);"
            "process.stdout.write(JSON.stringify(c.window.TEST_MODULI));")
     rezultat = subprocess.run(["node", "-e", kod], capture_output=True, text=True)
     if rezultat.returncode != 0:
-        oshibka(f"test-voprosy.js не читается: {rezultat.stderr.strip()[:200]}")
-        return
+        oshibka(f"{imya_faila} не читается: {rezultat.stderr.strip()[:200]}")
+        return []
     moduli = json.loads(rezultat.stdout)
-    if len(moduli) != 6:
-        oshibka(f"тест: модулей {len(moduli)}, нужно 6")
+    if len(moduli) != modulei:
+        oshibka(f"{gde}: модулей {len(moduli)}, нужно {modulei}")
     vsego = 0
     for modul in moduli:
         voprosy = modul.get("voprosy", [])
         if len(voprosy) != 5:
-            oshibka(f"тест, модуль {modul.get('id')}: вопросов {len(voprosy)}, нужно 5")
+            oshibka(f"{gde}, модуль {modul.get('id')}: вопросов {len(voprosy)}, нужно 5")
         for v in voprosy:
             vsego += v.get("points", 0)
             if v["type"] == "multiple_choice":
                 bukvy = {o["letter"] for o in v["options"]}
                 if v["correctAnswer"] not in bukvy:
-                    oshibka(f"тест, вопрос {v['id']}: ключ {v['correctAnswer']} не среди вариантов")
+                    oshibka(f"{gde}, вопрос {v['id']}: ключ {v['correctAnswer']} не среди вариантов")
             elif v["type"] == "matching":
                 bukvy = {o["letter"] for o in v["rightOptions"]}
                 kluchi = [i["correct"] for i in v["items"]]
                 if not set(kluchi) <= bukvy or len(set(kluchi)) != len(kluchi):
-                    oshibka(f"тест, вопрос {v['id']}: ключи сопоставления не совпадают с вариантами")
+                    oshibka(f"{gde}, вопрос {v['id']}: ключи сопоставления не совпадают с вариантами")
         razdel = modul.get("razdel", "")
         stranica, _, yakor = razdel.partition("#")
         cel = SITE / stranica.strip("/") / "index.html"
         if not cel.exists() or (yakor and yakor not in idy_stranicy(cel)):
-            oshibka(f"тест, модуль {modul.get('id')}: раздел для повторения не найден: {razdel}")
-    if vsego != 72:
-        oshibka(f"тест: всего баллов {vsego}, нужно 72")
+            oshibka(f"{gde}, модуль {modul.get('id')}: раздел для повторения не найден: {razdel}")
+    if vsego != ballov:
+        oshibka(f"{gde}: всего баллов {vsego}, нужно {ballov}")
+    # ядро движка проходит набор верными ответами и сверяет его с правилами теста
     dvizhok = SITE / "test" / "test.js"
-    porog = subprocess.run(["node", "-e", f"process.stdout.write(String(require({json.dumps(str(dvizhok))}).porogBallov(72)))"],
-                           capture_output=True, text=True)
-    if porog.stdout.strip() != "44":
-        oshibka(f"тест: «сдано» от {porog.stdout.strip() or '?'} из 72, решено — от 44 (60 %)")
-    if re.search(r"mailto:|@yandex\.ru|Отправить автору", dvizhok.read_text(encoding="utf-8") + (SITE / "test" / "index.html").read_text(encoding="utf-8")):
+    kod = ("const vm=require('vm'),fs=require('fs');const c={window:{}};"
+           f"vm.runInNewContext(fs.readFileSync({json.dumps(str(istochnik))},'utf8'),c);"
+           f"const Y=require({json.dumps(str(dvizhok))});const p=Y.prigotovitModuli(c.window.TEST_MODULI);"
+           f"process.stdout.write(JSON.stringify(Y.proverkaTesta(p.moduli,p.zamechaniya,{modulei}).zamechaniya));")
+    zam = subprocess.run(["node", "-e", kod], capture_output=True, text=True)
+    for z in (json.loads(zam.stdout) if zam.returncode == 0 else [zam.stderr.strip()[:200]]):
+        oshibka(f"{gde}: {z}")
+    return moduli
+
+
+def proverit_test():
+    teksty = {}
+    for imya_faila, modulei, ballov, porog_nuzhen in TESTY:
+        moduli = proverit_nabor(imya_faila, modulei, ballov)
+        teksty[imya_faila] = {v.get("text") for m in moduli for v in m.get("voprosy", [])}
+        dvizhok = SITE / "test" / "test.js"
+        porog = subprocess.run(["node", "-e", f"process.stdout.write(String(require({json.dumps(str(dvizhok))}).porogBallov({ballov})))"],
+                               capture_output=True, text=True)
+        if porog.stdout.strip() != str(porog_nuzhen):
+            oshibka(f"тест {imya_faila}: порог {porog.stdout.strip() or '?'} из {ballov}, решено — от {porog_nuzhen} (60 %)")
+    obshchie = teksty.get("test-voprosy.js", set()) & teksty.get("test-prodvinutyj.js", set())
+    if obshchie:
+        oshibka(f"продвинутый тест повторяет вопросы тренировочного: {len(obshchie)}")
+    dvizhok = SITE / "test" / "test.js"
+    stranicy_testov = [SITE / "test" / "index.html", SITE / "test" / "prodvinutyj" / "index.html"]
+    kod_stranic = "".join(s.read_text(encoding="utf-8") for s in stranicy_testov if s.exists())
+    if re.search(r"mailto:|@yandex\.ru|Отправить автору", dvizhok.read_text(encoding="utf-8") + kod_stranic):
         oshibka("тест: остался адрес или кнопка для писем автору — решено без писем")
+    # На сайте результаты не собираются: полей имени и потока на страницах тестов нет
+    if re.search(r'id="test-(familiya|imya|potok)"', kod_stranic):
+        oshibka("тест: на странице остались поля имени или потока — решено без сбора результатов")
     # Тест на сайте — тренировка, зачёт — в форме с ведомостью: кнопка на странице теста
     # и та же ссылка на «Практике»
     forma = re.search(r'<a data-forma-zacheta href="(https://[^"]+)"', (SITE / "test" / "index.html").read_text(encoding="utf-8"))
@@ -191,6 +224,39 @@ def proverit_test():
         oshibka("тест: нет кнопки «Сдать зачёт в ведомость» (data-forma-zacheta)")
     elif forma.group(1) not in (SITE / "praktika" / "index.html").read_text(encoding="utf-8"):
         oshibka("практика: нет ссылки на зачётную форму — той же, что на странице теста")
+    # Сценарий зачётной формы и выгрузка для системы НГУ собираются из тех же вопросов
+    # и не должны от них отставать
+    for skript, chto in (("sobrat-google-formu.js", "форма зачёта"), ("vygruzit-test.js", "выгрузка теста")):
+        sverka = subprocess.run(["node", str(KOREN / "tools" / skript), "--proverka"],
+                                capture_output=True, text=True)
+        if sverka.returncode != 0:
+            for stroka in (sverka.stdout + sverka.stderr).strip().splitlines() or ["ошибка сверки"]:
+                oshibka(f"{chto}: {stroka}")
+
+
+def proverit_avtorov():
+    """Автор с карточки промпта назван в «Заимствованиях» — той же ссылкой."""
+    zaimstvovaniya = (SITE / "o-kurse" / "index.html").read_text(encoding="utf-8")
+    zaimstvovaniya = zaimstvovaniya.split('id="licenzii"', 1)[-1]
+    ssylki = set()
+    for stranica in SITE.rglob("*.html"):
+        ssylki |= set(re.findall(r'<p class="prompt__avtor">.*?<a href="([^"]+)"',
+                                 stranica.read_text(encoding="utf-8")))
+    for adres in sorted(ssylki):
+        if f'href="{adres}"' not in zaimstvovaniya:
+            oshibka(f"автор промптов {adres} не назван в «Заимствованиях» на «О курсе»")
+
+
+def proverit_docx():
+    """Ссылки в скачиваемых .docx — полные адреса: от корня сайта в файле ничего не открывается."""
+    for fajl in sorted(SITE.rglob("*.docx")):
+        with zipfile.ZipFile(fajl) as arhiv:
+            tekst = "".join(arhiv.read(imya).decode("utf-8", "replace") for imya in arhiv.namelist()
+                            if imya.startswith("word/") and imya.endswith((".xml", ".rels")))
+        if "ТУТ-БУДЕТ" in tekst:
+            oshibka(f"{fajl.relative_to(SITE)}: заглушка адреса сайта вместо адреса")
+        if re.search(r'Target="/', tekst):
+            oshibka(f"{fajl.relative_to(SITE)}: ссылка от корня сайта — в файле никуда не ведёт")
 
 
 def main():
@@ -198,6 +264,8 @@ def main():
     proverit_konspekty()
     k = proverit_navyki()
     proverit_test()
+    proverit_avtorov()
+    proverit_docx()
     print(f"Проверено страниц: {n}, архивов навыков: {k}.")
     if oshibki:
         print(f"Расхождений: {len(oshibki)}")

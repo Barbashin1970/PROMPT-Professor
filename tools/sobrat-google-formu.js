@@ -1,6 +1,7 @@
 // Сборка сценария Google Apps Script, который превращает форму Google в итоговый тест курса
 // и заводит ведомость. Источник вопросов — content/test-voprosy.js (тот же, что у теста на сайте).
 // Запуск: node tools/sobrat-google-formu.js  →  tools/google-forma/Kod.gs
+// С ключом --proverka только сверяет Kod.gs с вопросами.
 // Как вставить сценарий в форму — tools/google-forma/README.md.
 'use strict';
 const fs = require('fs');
@@ -239,6 +240,15 @@ function obnovitVedomost() {
 `;
 
 const vyhod = path.join(__dirname, 'google-forma', 'Kod.gs');
+// --proverka: ничего не пишет, сверяет Kod.gs с вопросами (так зовёт proverit-sajt.py)
+if (process.argv.includes('--proverka')) {
+  const byl = fs.existsSync(vyhod) ? fs.readFileSync(vyhod, 'utf-8') : '';
+  if (byl !== kod) {
+    console.log(`${path.relative(KOREN, vyhod)} отстал от content/test-voprosy.js: node tools/sobrat-google-formu.js, затем в Apps Script — sobratTest`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
 fs.mkdirSync(path.dirname(vyhod), { recursive: true });
 fs.writeFileSync(vyhod, kod, 'utf-8');
 const voprosovFormy = moduli.reduce((s, m) => s + m.voprosy.reduce((t, v) => t + (v.tip === 'vybor' ? 1 : v.pary.length), 0), 0);
