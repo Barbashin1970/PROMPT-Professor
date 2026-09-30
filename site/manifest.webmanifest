@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "ИИ в учебном процессе — курс ЦИИ НГУ",
+  "short_name": "ИИ в учёбе",
+  "description": "Курс для преподавателей: лекции, промпты, практика и тест — и без связи.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    {
+      "src": "/assets/ikonka-192.png?v=04be3146",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/ikonka-512.png?v=9e6bfab5",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/ikonka-maskable-512.png?v=b4604543",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

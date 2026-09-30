@@ -13,7 +13,7 @@
 |---|---|
 | `content/` | тексты сайта в Markdown: конспекты лекций и бонусных уроков, словарь, «О курсе», «Самостоятельная практика и зачёт», образцы; `servisy.json` — нейросети и инструменты; `test-voprosy.js` — вопросы тренировочного теста (они же — в зачётной форме), `test-prodvinutyj.js` — продвинутого; `kartinki/` — картинки уроков, обложка главной, фото и логотип НГУ для «О курсе» |
 | `skills/` | исходники навыков: `SKILL.md` и справочники; сборщик пакует каждый навык в zip |
-| `tools/` | `sobrat-sajt.py` — сборка сайта; `proverit-sajt.py` — проверка перед публикацией; `proverit-publikaciyu.py` — проверка опубликованного сайта; `shablon-stranicy.html` — шаблон страницы; `zamer-tokenov.py` — замер токенов для лекции 1; `sobrat-google-formu.js` → `google-forma/Kod.gs` — итоговый тест в форме Google с ведомостью (инструкция — `google-forma/README.md`); `vygruzit-test.js` → `docs/TEST-ZACHET-VOPROSY-I-OTVETY.md` — вопросы зачёта с ответами для системы НГУ (и продвинутый тест — для проверки) |
+| `tools/` | `sobrat-sajt.py` — сборка сайта; `proverit-sajt.py` — проверка перед публикацией; `proverit-publikaciyu.py` — проверка опубликованного сайта; `shablon-stranicy.html` — шаблон страницы; `zamer-tokenov.py` — замер токенов для лекции 1; `sobrat-google-formu.js` → `google-forma/Kod.gs` — итоговый тест в форме Google с ведомостью (инструкция — `google-forma/README.md`); `vygruzit-test.js` → `docs/TEST-ZACHET-VOPROSY-I-OTVETY.md` — вопросы зачёта с ответами для системы НГУ (и продвинутый тест — для проверки); `shablon-sw.js` — service worker (PWA), сборщик подставляет версию и список сохранения; `sobrat-ikonki.js` — иконки PWA из значка |
 | `site/` | готовый сайт — его и публикует Vercel |
 | `docs/` | разбор курса, проект сайта, фактчек, бэклог, чек-лист слайдов, программа на 16 ч, материалы 2025 года |
 | `vhod/`, `art-master/` | переданные автором исходные материалы; на сайт не публикуются |
@@ -24,6 +24,12 @@
 `test/test.js` (движок обоих тестов), `konstruktor/index.html`, `konstruktor/konstruktor.js`.
 Подвал, поток и адрес зачётной формы в рукописных страницах сборщик заменяет из шаблона
 и констант `tools/sobrat-sajt.py` — править их нужно там.
+
+Сборщик сам пишет `sw.js` (из `tools/shablon-sw.js`) и `manifest.webmanifest` — руками
+их не правят. Иконки `assets/ikonka-*.png` делает `node tools/sobrat-ikonki.js` из
+`ikonka.svg` — только при смене значка. Стили, скрипты и картинки подключаются с отпечатком
+`?v=…` и кэшируются на год: **после правки `sajt.css`, `sajt.js` или картинки — пересборка**,
+иначе у слушателей останется старый файл. Сторож напомнит.
 
 ## Сборка и проверка
 

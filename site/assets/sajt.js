@@ -564,9 +564,27 @@
     window.addEventListener('pageshow', function () { zakryt(false); });
   }
 
+  /* Сохранение курса на устройстве (PWA): service worker /sw.js держит страницы, стили
+     и скрипты, а картинки и файлы — после первого открытия; видео не сохраняет. Страница
+     открывается из сохранённого сразу — и без связи. С диска (file:) не работает — и не нужно. */
+  function postavitSohranenie() {
+    if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+      // установленный курс просит не стирать сохранённое при нехватке места; во вкладке
+      // не просим — Firefox показал бы лишний вопрос
+      var ustanovlen = navigator.standalone === true ||
+        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+      if (ustanovlen && navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().catch(function () {});
+      }
+    });
+  }
+
   postavitPereklyuchatelTemy();
   postavitNaverh();
   postavitMenu();
+  postavitSohranenie();
 
   // Для страниц со своими скриптами (конструктор, итоговый тест).
   window.KursII = {

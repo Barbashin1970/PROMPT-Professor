@@ -13,6 +13,8 @@ vercelignore-negation-leaks-readme и spa-catchall-rewrite-is-a-soft-404):
 Код выхода 0 — всё сходится; иначе печатается каждое расхождение и код 1.
 """
 
+import re
+import ssl
 import sys
 import urllib.error
 import urllib.request
@@ -37,7 +39,22 @@ class BezPerehodov(urllib.request.HTTPRedirectHandler):
         return None
 
 
-OTKRYVATEL = urllib.request.build_opener(BezPerehodov)
+def ssl_kontekst():
+    """Корневые сертификаты: certifi, если стоит, иначе системный набор. У Python с python.org
+    на Mac своего набора нет — без этого каждый запрос падал «certificate verify failed»,
+    и проверка показывала «ответ None» вместо настоящих ответов сайта."""
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        pass
+    for put in ("/etc/ssl/cert.pem", "/etc/ssl/certs/ca-certificates.crt"):
+        if Path(put).exists():
+            return ssl.create_default_context(cafile=put)
+    return ssl.create_default_context()
+
+
+OTKRYVATEL = urllib.request.build_opener(BezPerehodov, urllib.request.HTTPSHandler(context=ssl_kontekst()))
 
 
 def zapros(url):
@@ -77,7 +94,11 @@ def main(argv):
             oshibki.append(f"{adres}: ответ {kod}, нужно 200")
 
     for adres in LISHNEE:
-        kod, _, _ = zapros(osnova + adres)
+        kod, zagolovki, _ = zapros(osnova + adres)
+        if kod in (301, 308):
+            # адрес без расширения Vercel сначала дополняет слэшем (trailingSlash) — смотрим, куда
+            kuda = (zagolovki.get("Location") or zagolovki.get("location") or "") if zagolovki else ""
+            kod, _, _ = zapros(kuda if kuda.startswith("http") else osnova + kuda)
         if kod != 404:
             oshibki.append(f"{adres}: ответ {kod}, нужно 404 — лишнее на хостинге")
 
@@ -93,11 +114,25 @@ def main(argv):
     if kod != 308 or not kuda.endswith("/lekciya-1/"):
         oshibki.append(f"/lekciya-1 без слэша: ответ {kod} → «{kuda}», нужно 308 → /lekciya-1/")
 
-    kod, zagolovki, _ = zapros(osnova + "/")
+    kod, zagolovki, telo = zapros(osnova + "/")
     if not zagolovki or not zagolovki.get("X-Kurs-Konfig"):
         oshibki.append("на главной нет заголовка X-Kurs-Konfig — vercel.json не прочитан")
 
-    print(f"Проверено: {len(zhivye)} адресов сайта, {len(LISHNEE)} лишних, 404, 308, заголовок конфига.")
+    # Кэш: стили с отпечатком — на год (иначе каждый переход переспрашивает их у сервера),
+    # страница и sw.js — без долгого кэша (иначе не придут правки и новая версия PWA)
+    def kesh(adres):
+        _, z, _ = zapros(osnova + adres)
+        return (z.get("Cache-Control") or z.get("cache-control") or "") if z else ""
+    stil = re.search(r'href="(/assets/sajt\.css\?v=[0-9a-f]{8})"', telo.decode("utf-8", "replace"))
+    if not stil:
+        oshibki.append("на главной нет sajt.css с отпечатком ?v= — сайт собран старым сборщиком")
+    elif "immutable" not in kesh(stil.group(1)):
+        oshibki.append(f"{stil.group(1)}: нет кэша на год (immutable) — правило vercel.json не сработало")
+    for adres in ("/", "/sw.js"):
+        if "immutable" in kesh(adres) or "max-age=0" not in kesh(adres):
+            oshibki.append(f"{adres}: кэш «{kesh(adres)}», нужен max-age=0 — иначе правки не дойдут")
+
+    print(f"Проверено: {len(zhivye)} адресов сайта, {len(LISHNEE)} лишних, 404, 308, заголовок конфига, кэш.")
     if oshibki:
         print(f"Расхождений: {len(oshibki)}")
         for stroka in oshibki:

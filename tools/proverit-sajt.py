@@ -17,6 +17,10 @@
      из 72 (60 %); в тесте нет адреса для писем — результаты автору не отправляются.
   8. Авторы промптов с пометкой на карточке названы в «Заимствованиях» на «О курсе».
   9. В скачиваемых .docx нет заглушек адреса и ссылок от корня сайта — в файле они никуда не ведут.
+ 10. Стили, скрипты и картинки с кэшем на год (vercel.json) подключены с отпечатком ?v=,
+     и отпечаток совпадает с файлом — иначе правка не дойдёт до тех, у кого файл в кэше.
+ 11. PWA: на каждой странице — manifest и иконка для iPhone; иконки manifest и список
+     сохранения sw.js ведут на существующие файлы со свежими отпечатками; видео sw.js не сохраняет.
 """
 
 import json
@@ -259,6 +263,93 @@ def proverit_docx():
             oshibka(f"{fajl.relative_to(SITE)}: ссылка от корня сайта — в файле никуда не ведёт")
 
 
+def proverit_versii():
+    """У файлов с годовым кэшем в адресе отпечаток содержимого, и он свежий."""
+    import hashlib
+    konfig = json.loads((KOREN / "vercel.json").read_text(encoding="utf-8"))
+    na_god = [p["source"] for p in konfig.get("headers", [])
+              if any(h["key"].lower() == "cache-control" and "immutable" in h["value"] for h in p["headers"])]
+    if not na_god:
+        oshibka("vercel.json: нет правил кэша на год — каждый переход переспрашивает стили и скрипты")
+
+    def pod_kesh_na_god(put):
+        return any(put == s or (s.endswith("(.*)") and put.startswith(s[:-4])) for s in na_god)
+
+    for stranica in SITE.rglob("*.html"):
+        tekst = stranica.read_text(encoding="utf-8")
+        for znachenie in re.findall(r'\b(?:src|href|srcset)="([^"]*)"', tekst):
+            for kusok in re.split(r",\s*", znachenie):
+                adres = kusok.strip().split(" ")[0]
+                chasti = urlsplit(adres)
+                if chasti.scheme or not chasti.path.startswith("/"):
+                    continue
+                # под кэшем на год отпечаток обязателен; у остальных (/files/) — если есть, свежий
+                if not pod_kesh_na_god(chasti.path) and not chasti.query.startswith("v="):
+                    continue
+                fajl = SITE / unquote(chasti.path).lstrip("/")
+                if not fajl.is_file():
+                    continue  # битую ссылку ловит проверка ссылок
+                nuzhen = hashlib.sha256(fajl.read_bytes()).hexdigest()[:8]
+                if chasti.query != f"v={nuzhen}":
+                    oshibka(f"{stranica.relative_to(SITE)}: {adres} — нужен отпечаток ?v={nuzhen}, "
+                            "иначе после правки браузер покажет старый файл из кэша")
+
+
+def proverit_pwa():
+    """Manifest, иконки и список сохранения service worker — живые и свежие."""
+    import hashlib
+
+    def fajl_i_svezhest(adres, gde):
+        chasti = urlsplit(adres)
+        put = unquote(chasti.path)
+        fajl = SITE / (put.lstrip("/") + "index.html" if put.endswith("/") else put.lstrip("/"))
+        if not fajl.is_file():
+            oshibka(f"{gde}: нет файла для {adres}")
+        elif chasti.query.startswith("v="):
+            nuzhen = hashlib.sha256(fajl.read_bytes()).hexdigest()[:8]
+            if chasti.query != f"v={nuzhen}":
+                oshibka(f"{gde}: {adres} — отпечаток устарел, нужен ?v={nuzhen}")
+
+    manifest = SITE / "manifest.webmanifest"
+    if not manifest.is_file():
+        oshibka("PWA: нет manifest.webmanifest")
+    else:
+        dannye = json.loads(manifest.read_text(encoding="utf-8"))
+        for pole in ("name", "short_name", "start_url", "display", "icons"):
+            if not dannye.get(pole):
+                oshibka(f"manifest.webmanifest: нет поля {pole}")
+        razmery = {i.get("sizes") for i in dannye.get("icons", [])}
+        if not {"192x192", "512x512"} <= razmery:
+            oshibka("manifest.webmanifest: нужны иконки 192x192 и 512x512 — без них курс не поставить на экран")
+        for ikonka in dannye.get("icons", []):
+            fajl_i_svezhest(ikonka["src"], "manifest.webmanifest")
+
+    sw = SITE / "sw.js"
+    if not sw.is_file():
+        oshibka("PWA: нет sw.js")
+    else:
+        kod = sw.read_text(encoding="utf-8")
+        spisok = re.search(r"const PREDZAGRUZKA = (\[.*?\]);", kod, re.S)
+        if "__VERSIYA__" in kod or not spisok:
+            oshibka("sw.js: сборщик не подставил версию или список сохранения")
+        else:
+            for adres in json.loads(spisok.group(1)):
+                fajl_i_svezhest(adres, "sw.js")
+                if re.search(r"\.(mp4|m4v|webm|mov|mp3|m4a|wav)(\?|$)", adres, re.I):
+                    oshibka(f"sw.js: в списке сохранения видео или аудио — {adres}; решено видео не сохранять")
+        if "function etoVideo" not in kod:
+            oshibka("sw.js: пропало исключение для видео — решено видео не сохранять")
+
+    for stranica in SITE.rglob("*.html"):
+        if stranica.name == "404.html" and stranica.parent != SITE:
+            continue
+        tekst = stranica.read_text(encoding="utf-8")
+        for priznak, chto in (('rel="manifest" href="/manifest.webmanifest"', "ссылки на manifest"),
+                              ('rel="apple-touch-icon"', "иконки для iPhone")):
+            if priznak not in tekst:
+                oshibka(f"{stranica.relative_to(SITE)}: нет {chto} — курс не поставить на экран «Домой»")
+
+
 def main():
     n = proverit_stranicy()
     proverit_konspekty()
@@ -266,6 +357,8 @@ def main():
     proverit_test()
     proverit_avtorov()
     proverit_docx()
+    proverit_versii()
+    proverit_pwa()
     print(f"Проверено страниц: {n}, архивов навыков: {k}.")
     if oshibki:
         print(f"Расхождений: {len(oshibki)}")

@@ -20,6 +20,7 @@
 """
 
 import datetime
+import hashlib
 import html
 import json
 import os
@@ -239,7 +240,8 @@ KARTA_SAJTA = [
     ("Практика и зачёт", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
                           ("/test/", "Тренировочный тест"), ("/test/prodvinutyj/", "Продвинутый тест"),
                           (FORMA_ZACHETA, "Сдать зачёт в ведомость")]),
-    ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
+    ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#ustanovit", "Курс на телефоне и ноутбуке"),
+                 ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
                  ("/o-kurse/#licenzii", "Заимствования и лицензии")]),
 ]
 
@@ -328,6 +330,9 @@ def sobrat_docx(title, tekst, vyhod):
 
 
 # ── Видео ─────────────────────────────────────────────────────────────────────
+# С 30.09.2026 видео и слайды на сайт не выкладываются — по запросу у автора (решение
+# автора): поле video: и slajdy: в шапке пустые, на странице — строка «по запросу».
+# Встраивание оставлено на случай, если автор решит иначе.
 # В шапке конспекта: video: <ссылка> — или несколько ссылок через « | » (части лекции).
 # Яндекс Диск кода для встраивания не даёт и на чужих страницах показывает проверку
 # «не робот», поэтому его ссылка — кнопка, видео открывается рядом с сайтом.
@@ -346,7 +351,7 @@ def vstraivanie(url):
 def blok_video_uroka(pole):
     ssylki = [s.strip() for s in pole.split("|") if s.strip()]
     if not ssylki:
-        return '<div class="video video--empty" role="note">Видео лекции появится здесь после записи.</div>'
+        return ""
     bloki = []
     for nomer, url in enumerate(ssylki, 1):
         chast = f"Часть {nomer}" if len(ssylki) > 1 else "Видео лекции"
@@ -402,20 +407,20 @@ def sobrat_uroki(vse_promty):
 
         skachat = []
         slajdy = meta.get("slajdy", "")
-        if slajdy:
-            fajl = SITE / slajdy.lstrip("/")
-            if fajl.exists():
-                skachat.append(f'<div class="dl"><span class="dl__name">Слайды лекции</span>'
-                               f'<span class="dl__meta">PDF, {razmer_faila(fajl)}</span>'
-                               f'<a class="btn btn--small" href="{slajdy}" download>Скачать</a></div>')
-            else:
-                skachat.append('<div class="dl"><span class="dl__name">Слайды лекции</span>'
-                               '<span class="dl__meta">PDF появится после записи видео</span></div>')
+        est_slajdy = bool(slajdy) and (SITE / slajdy.lstrip("/")).exists()
+        if est_slajdy:
+            skachat.append(f'<div class="dl"><span class="dl__name">Слайды лекции</span>'
+                           f'<span class="dl__meta">PDF, {razmer_faila(SITE / slajdy.lstrip("/"))}</span>'
+                           f'<a class="btn btn--small" href="{slajdy}" download>Скачать</a></div>')
         docx = SITE / "files" / f"konspekt-{slug}.docx"
         if sobrat_docx(meta.get("title", slug), tekst, docx):
             skachat.append(f'<div class="dl"><span class="dl__name">Конспект с промптами и практикой</span>'
                            f'<span class="dl__meta">DOCX, {razmer_faila(docx)} · сборка {SEGODNYA}</span>'
                            f'<a class="btn btn--small" href="/files/{docx.name}" download>Скачать</a></div>')
+        if not blok_video and not est_slajdy:
+            chego = "лекции" if slug.startswith("lekciya") else "урока"
+            skachat.append(f'<p class="caption">Видео {chego} и слайды — по запросу: '
+                           f'<a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p>')
 
         toc = "".join(f'<li><a href="#{i}">{html.escape(n)}</a></li>' for i, n in oglavlenie)
         # data-urok: по нему sajt.js узнаёт урок и ставит «Назад к уроку» на страницах, открытых из него
@@ -636,7 +641,7 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
 <section class="section">
   <h2>Как проходить курс</h2>
   <div class="card-grid">
-    <div class="card"><p class="num">Шаг 1</p><h3>Смотрите лекцию</h3><p>Видео и слайды — на странице лекции; конспект повторяет видео и углубляет его.</p></div>
+    <div class="card"><p class="num">Шаг 1</p><h3>Читайте лекцию</h3><p>Конспект с примерами, промптами и источниками — на странице лекции, его можно скачать в DOCX. Видео и слайды — по запросу.</p></div>
     <div class="card"><p class="num">Шаг 2</p><h3>Пробуйте промпты</h3><p>«Открыть в…» копирует промпт и открывает нейросеть в новой вкладке — вкладка курса остаётся открытой.</p></div>
     <div class="card"><p class="num">Шаг 3</p><h3>Практика и зачёт</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Потренируйтесь в <a href="/test/">тесте на сайте</a>, а зачёт сдайте <a href="{FORMA_ZACHETA}">в форме</a> — результат попадёт в ведомость. «Сдано» — от 44 баллов из 72 (60 %).</p></div>
   </div>
@@ -686,6 +691,114 @@ def sobrat_404():
 
 
 # ── Сборка ────────────────────────────────────────────────────────────────────
+
+# ── Версии общих файлов ───────────────────────────────────────────────────────
+# Стили, скрипты и картинки отдаются с кэшем на год (vercel.json, immutable), и браузер
+# не переспрашивает о них на каждом переходе — на медленном канале это лишний круг до
+# сервера перед отрисовкой. Чтобы правка всё же доходила, к адресу приписывается отпечаток
+# содержимого ?v=<8 знаков sha256>: изменился файл — изменился адрес. Проставляется во всех
+# страницах, и в рукописных тоже; сторож сверяет отпечатки с файлами.
+
+ATRIBUT_S_ADRESOM = re.compile(r'\b(src|href|srcset)="([^"]*)"')
+# /files/ — тоже с отпечатком: service worker хранит скачиваемые файлы и по нему видит,
+# что файл не менялся (кэш на год для /files/ не ставится — на них бывают прямые ссылки).
+VERSIONIRUEMYJ_PUT = re.compile(
+    r"(/(?:assets|kartinki|files)/[^\s?#,\"]+|/test/(?:prodvinutyj/)?(?:test|voprosy)\.js)(?:\?v=[0-9a-f]{8})?")
+
+
+def otpechatok(put, kesh={}):
+    """Первые 8 знаков sha256 файла сайта по его адресу; None — файла нет."""
+    if put not in kesh:
+        fajl = SITE / put.lstrip("/")
+        kesh[put] = hashlib.sha256(fajl.read_bytes()).hexdigest()[:8] if fajl.is_file() else None
+    return kesh[put]
+
+
+def prostavit_versii():
+    def v_znachenii(m):
+        put = m.group(1)
+        v = otpechatok(put)
+        return f"{put}?v={v}" if v else m.group(0)
+
+    def v_atribute(m):
+        return f'{m.group(1)}="{VERSIONIRUEMYJ_PUT.sub(v_znachenii, m.group(2))}"'
+
+    for stranica in SITE.rglob("*.html"):
+        staryj = stranica.read_text(encoding="utf-8")
+        novyj = ATRIBUT_S_ADRESOM.sub(v_atribute, staryj)
+        if novyj != staryj:
+            stranica.write_text(novyj, encoding="utf-8")
+
+
+# ── PWA: manifest и service worker ────────────────────────────────────────────
+# Курс можно поставить на экран «Домой», а страницы открываются из сохранённого на
+# устройстве — сразу и без связи. Service worker собирается из tools/shablon-sw.js: версия
+# меняется с любой правкой страниц и файлов, и устройства сохраняют курс заново. Видео он
+# не сохраняет. Иконки — tools/sobrat-ikonki.js.
+
+IKONKI_PWA = [("/assets/ikonka-192.png", "192x192", None),
+              ("/assets/ikonka-512.png", "512x512", None),
+              ("/assets/ikonka-maskable-512.png", "512x512", "maskable")]
+
+
+def s_otpechatkom(put):
+    v = otpechatok(put)
+    if v is None:
+        zamechanie(f"PWA: нет файла {put}")
+        return put
+    return f"{put}?v={v}"
+
+
+def fajl_po_adresu(adres):
+    put = adres.split("?", 1)[0]
+    return SITE / (put.lstrip("/") + "index.html" if put.endswith("/") else put.lstrip("/"))
+
+
+def sobrat_pwa():
+    manifest = {
+        "id": "/",
+        "name": "ИИ в учебном процессе — курс ЦИИ НГУ",
+        "short_name": "ИИ в учёбе",
+        "description": "Курс для преподавателей: лекции, промпты, практика и тест — и без связи.",
+        "lang": "ru",
+        "start_url": "/",
+        "scope": "/",
+        "display": "standalone",
+        "background_color": "#f5f5f7",
+        "theme_color": "#f5f5f7",
+        "icons": [{"src": s_otpechatkom(p), "sizes": r, "type": "image/png", **({"purpose": c} if c else {})}
+                  for p, r, c in IKONKI_PWA],
+    }
+    zapisat("manifest.webmanifest", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+
+    # Сохраняется сразу всё своё, кроме видео и аудио: страницы, стили, скрипты, картинки,
+    # скачиваемые файлы, manifest и иконки — после первого визита курс работает и без связи.
+    # Адреса с отпечатком — те же, что на страницах: по ним service worker находит файл.
+    stranicy, fajly = [], []
+    for p in sorted(SITE.rglob("*")):
+        otn = p.relative_to(SITE).as_posix()
+        if (not p.is_file() or any(ch.startswith(".") for ch in otn.split("/"))
+                or otn in ("sw.js", "404.html") or re.search(r"\.(mp4|m4v|webm|mov|mkv|avi|mp3|m4a|aac|ogg|oga|wav|flac)$", otn, re.I)):
+            continue
+        if p.name == "index.html":
+            papka = p.parent.relative_to(SITE).as_posix()
+            stranicy.append("/" if papka == "." else f"/{papka}/")
+        elif VERSIONIRUEMYJ_PUT.fullmatch("/" + otn):
+            fajly.append(s_otpechatkom("/" + otn))
+        else:
+            fajly.append("/" + otn)
+    predzagruzka = stranicy + fajly
+    for adres in predzagruzka:
+        if not fajl_po_adresu(adres).is_file():
+            zamechanie(f"PWA: в списке сохранения нет файла для {adres}")
+    otpechatki = "\n".join(f"{a} {hashlib.sha256(fajl_po_adresu(a).read_bytes()).hexdigest()}"
+                           for a in predzagruzka if fajl_po_adresu(a).is_file())
+    versiya = hashlib.sha256(otpechatki.encode("utf-8")).hexdigest()[:12]
+    shablon = (KOREN / "tools" / "shablon-sw.js").read_text(encoding="utf-8")
+    zapisat("sw.js", shablon.replace("__VERSIYA__", versiya)
+            .replace("__PREDZAGRUZKA__", json.dumps(predzagruzka, ensure_ascii=False, indent=2)))
+    print(f"  PWA: версия {versiya}, сохраняется сразу {len(predzagruzka)} адресов")
+
 
 def main():
     print(f"Сборка сайта → {SITE}")
@@ -749,6 +862,9 @@ def main():
             zamechanie(f"{ruchnaya}: подвал не найден — не подставлен")
         elif novyj != staryj:
             put.write_text(novyj, encoding="utf-8")
+
+    prostavit_versii()
+    sobrat_pwa()
 
     print(f"Готово. Замечаний: {len(zamechaniya)}.")
     return 1 if zamechaniya else 0
