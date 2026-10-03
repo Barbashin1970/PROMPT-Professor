@@ -98,7 +98,7 @@
 | Алиса | https://alice.yandex.ru | русский язык, рассуждения, изображения |
 | DeepSeek | https://chat.deepseek.com | рассуждения, код, LaTeX |
 | Perplexity | https://www.perplexity.ai | ответы со ссылками, пространства, навыки |
-| Kimi | https://www.kimi.com | длинные документы, рассуждения, код (добавлен по просьбе автора 28.09.2026) |
+| Kimi | https://www.kimi.ai/ | длинные документы, рассуждения, код (добавлен по просьбе автора 28.09.2026) |
 | ChatGPT | https://chatgpt.com | если есть доступ |
 
 Инструменты — отдельной строкой: конструктор промптов (https://prompt-zeta-one.vercel.app),

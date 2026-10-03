@@ -28,7 +28,7 @@ window.SERVISY = [
   {
     "id": "kimi",
     "imya": "Kimi",
-    "url": "https://www.kimi.com",
+    "url": "https://www.kimi.ai/",
     "zachem": "длинные документы, рассуждения, код"
   },
   {

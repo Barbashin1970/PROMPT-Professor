@@ -221,7 +221,7 @@ PersonQA — вопросы о фактах из жизни людей — до�
 | [Алиса AI](https://alice.yandex.ru) (Яндекс) | [бесплатная](https://alice.yandex.ru/support/ru/assistant/chat-alice); при высокой нагрузке без подписки [«Алиса Плюс»](https://alice.yandex.ru/support/ru/assistant/alice-plus) (199 ₽ в месяц) рассуждения, картинки и разбор файлов могут быть недоступны | русский язык; рассуждения — кнопка [«Интеллект» → «Эксперт»](https://alice.yandex.ru/support/ru/assistant/chat/intellect); картинки; файл до 100 МБ |
 | [DeepSeek](https://chat.deepseek.com) | бесплатный; в [условиях использования](https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html) Россия среди запрещённых стран не названа, работу из России мы не проверяли | рассуждения, код, LaTeX, длинные документы |
 | [Perplexity](https://www.perplexity.ai) | бесплатный тариф с [недельными лимитами](https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you); **проекты (бывшие «пространства») и навыки — только в платных тарифах**; Pro — 20 $ в месяц | ответы со ссылками на источники |
-| [Kimi](https://www.kimi.com) (Moonshot AI) | модель K3 вышла в июле 2026 года с открытыми весами; есть ли бесплатный тариф — не выяснено | длинные документы, рассуждения, код |
+| [Kimi](https://www.kimi.ai/) (Moonshot AI) | модель K3 вышла в июле 2026 года с открытыми весами; есть ли бесплатный тариф — не выяснено | длинные документы, рассуждения, код |
 | [ChatGPT](https://chatgpt.com) | Россия не входит в [официальный список стран OpenAI](https://developers.openai.com/api/docs/supported-countries); за доступ из других стран учётную запись могут заблокировать | — |
 
 **Дешёвого Perplexity Pro больше нет.** В 2025 году годовой Pro продавали за 200–900 ₽ —
