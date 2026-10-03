@@ -1,5 +1,5 @@
-/* Тесты курса «ИИ в учебном процессе» — движок страниц /test/ (тренировочный тест) и
-   /test/prodvinutyj/ (продвинутый). Проект — docs/SAIT-PROEKT.md, §4.8; основа — тест
+/* Тесты курса «ИИ в учебном процессе» для самопроверки — движок страниц /test/ (среднего
+   уровня) и /test/prodvinutyj/ (повышенной сложности). Проект — docs/SAIT-PROEKT.md, §4.8; основа — тест
    stroyka-test-main. Вопросы — voprosy.js рядом со страницей; настройки страницы —
    window.TEST_NASTROJKI (ключ хранения, название, слова итога). Имени и других данных
    слушателя тест не спрашивает и не хранит: это тренировка, баллы — только в браузере.
@@ -17,10 +17,10 @@
   var BALLOV_V_MODULE = 12;     // 3 × 2 + 2 × 3; сверяет самопроверка
 
   // Настройки страницы — до движка: window.TEST_NASTROJKI = { klyuch, nazvanie, modulei, itog,
-  // zagolovokItoga, knopkaZacheta, podpisItoga }. Без них — тренировочный тест.
+  // zagolovokItoga, podpisItoga }. Оба теста — для самопроверки: зачёт сдаётся на сайте НГУ.
   var NASTROJKI = (typeof window !== 'undefined' && window.TEST_NASTROJKI) || {};
-  var NAZVANIE_TESTA = NASTROJKI.nazvanie || 'Тренировочный тест «ИИ в учебном процессе»';
-  var SLOVA_ITOGA = NASTROJKI.itog || { da: 'Готово к зачёту', net: 'Пока не хватает до зачёта', porog: 'Зачёт' };
+  var NAZVANIE_TESTA = NASTROJKI.nazvanie || 'Тест «ИИ в учебном процессе»';
+  var SLOVA_ITOGA = NASTROJKI.itog || { da: 'Уровень пройден', net: 'Уровень пока не пройден', porog: 'Уровень пройден' };
 
   /* ── 1. Ядро: баллы, зачёт, итог. Без DOM и хранилища ────────────────────── */
 
@@ -636,16 +636,6 @@
         (itog.zachet ? '' : ' Модули ниже ' + PROCENT_ZACHETA + ' % отмечены ссылками на разделы конспекта; их можно пройти заново.')
     }));
 
-    // Зачёт сдаётся в форме: кнопка берёт адрес со страницы (data-forma-zacheta), он живёт в одном месте
-    var forma = NASTROJKI.knopkaZacheta === false ? null : document.querySelector('[data-forma-zacheta]');
-    if (forma) {
-      karta.appendChild(el('p', { class: 'test-net-pechati' }, [
-        el('a', { class: 'btn ' + (itog.zachet ? 'btn--primary ' : '') + 'ext', href: forma.getAttribute('href'),
-          target: '_blank', rel: 'noopener noreferrer',
-          text: itog.zachet ? 'Сдать зачёт в ведомость' : 'Зачёт — в форме, когда будете готовы' })
-      ]));
-    }
-
     var detali = el('details', { id: 'test-itog-detali', class: 'test-itog__detali test-net-pechati' }, [
       el('summary', { text: 'Текст результата' }),
       el('pre', { id: 'test-itog-tekst', class: 'test-itog__tekst', text: tekst })
@@ -659,7 +649,7 @@
     ]));
     karta.appendChild(el('p', {
       class: 'caption test-net-pechati',
-      text: NASTROJKI.podpisItoga || 'Это тренировка: баллы хранятся только в этом браузере. Зачёт — в форме, результат попадёт в ведомость.'
+      text: NASTROJKI.podpisItoga || 'Это самопроверка: баллы хранятся только в этом браузере и никуда не отправляются.'
     }));
   }
 
@@ -1019,7 +1009,7 @@
       }));
     }
     var svodka = 'Самопроверка: верные ответы дают ' + balliIz(otchet.vsego, otchet.maks) + ' ' + izBallov(otchet.maks) +
-      ', порог зачёта — ' + otchet.porog + '.';
+      ', порог — ' + otchet.porog + '.';
     if (!otchet.gotov) console.info('Тест готовится: вопросов пока меньше, чем нужно. ' + svodka);
     if (otchet.zamechaniya.length) {
       console.warn(svodka + ' Замечаний: ' + otchet.zamechaniya.length + '\n— ' + otchet.zamechaniya.join('\n— '));

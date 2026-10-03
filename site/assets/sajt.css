@@ -405,6 +405,13 @@ html.menu-otkryto .naverh { display: none; }
 .prompt__title { font-size: 18px; font-weight: 700; margin: 0; flex: 1 1 260px; }
 .prompt__when { font-size: var(--t-small); color: var(--label-2); margin: 4px 0 0; }
 .prompt__avtor { font-size: var(--t-small); color: var(--label-2); margin: 2px 0 0; }
+.prompt__razvernut { margin: 16px 0 0; }
+.prompt__razvernut > summary {
+  display: inline-flex; align-items: center; min-height: 44px; cursor: pointer;
+  color: var(--accent); font-size: var(--t-small); font-weight: 600;
+}
+.prompt__razvernut > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.prompt__razvernut > .prompt__body { margin-top: 8px; }
 .prompt__actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .prompt__body {
   margin: 16px 0 0; padding: 16px;
@@ -527,6 +534,15 @@ html.menu-otkryto .naverh { display: none; }
 }
 .foot__niz p { margin: 0; }
 .foot a { color: var(--label-2); }
+/* QR-код адреса сайта — только в подвале главной: показать в видео, отсканировать с экрана.
+   Тёмные модули на белом поле и в тёмной теме: так код берут все камеры. */
+.foot__qr {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
+  padding: 24px 0; border-bottom: 1px solid var(--separator);
+}
+.foot__qr img { flex: none; width: 164px; height: 164px; border-radius: 10px; background: #fff; }
+.foot__qr p { margin: 0; display: grid; gap: 4px; }
+.foot__qr-adres { font-size: var(--t-body); font-weight: 600; color: var(--label); overflow-wrap: anywhere; }
 @media (max-width: 734px) {
   .foot__karta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

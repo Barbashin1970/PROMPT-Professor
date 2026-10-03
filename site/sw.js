@@ -11,7 +11,7 @@
    удаляется, страницы сохраняются заново. */
 'use strict';
 
-const VERSIYA = 'f45ccc5fe111';
+const VERSIYA = '5810908857bc';
 const KESH = 'kurs-ii-' + VERSIYA;
 const PREDZAGRUZKA = [
   "/bonus-illyustracii/",
@@ -34,14 +34,15 @@ const PREDZAGRUZKA = [
   "/assets/ikonka-512.png?v=9e6bfab5",
   "/assets/ikonka-maskable-512.png?v=b4604543",
   "/assets/ikonka.svg?v=ea0e63b8",
-  "/assets/sajt.css?v=64e65721",
-  "/assets/sajt.js?v=452a7670",
+  "/assets/qr-sajt.svg?v=654d759f",
+  "/assets/sajt.css?v=9c68bb3d",
+  "/assets/sajt.js?v=b289be79",
   "/assets/servisy.js?v=23986d10",
-  "/files/konspekt-bonus-illyustracii.docx?v=9c3f2544",
-  "/files/konspekt-bonus-navyki.docx?v=06676b62",
-  "/files/konspekt-lekciya-1.docx?v=5b0d8dc5",
-  "/files/konspekt-lekciya-2.docx?v=9d761acf",
-  "/files/konspekt-lekciya-3.docx?v=ddbb4680",
+  "/files/konspekt-bonus-illyustracii.docx?v=16fe350f",
+  "/files/konspekt-bonus-navyki.docx?v=7977bdf3",
+  "/files/konspekt-lekciya-1.docx?v=1824ea44",
+  "/files/konspekt-lekciya-2.docx?v=8f35be93",
+  "/files/konspekt-lekciya-3.docx?v=fc83d637",
   "/files/navyki/editing-ai-writing.zip?v=f8fcc256",
   "/files/navyki/illustrating-lessons.zip?v=4762f66f",
   "/files/navyki/niokr.zip?v=8a048e34",
@@ -71,7 +72,7 @@ const PREDZAGRUZKA = [
   "/konstruktor/konstruktor.js",
   "/manifest.webmanifest",
   "/test/prodvinutyj/voprosy.js?v=5a619567",
-  "/test/test.js?v=ea882030",
+  "/test/test.js?v=2dfca5b4",
   "/test/voprosy.js?v=375bd660"
 ];
 

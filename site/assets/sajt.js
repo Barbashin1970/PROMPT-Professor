@@ -440,7 +440,7 @@
      шапки стал бы опорой для position: fixed и зажал бы панель в свою высоту. */
   var UZKII_EKRAN = '(max-width: 734px)';
   var ESHCHE_STRANICY = [
-    ['/praktika/', 'Практика и зачёт'],
+    ['/praktika/', 'Практика и самопроверка'],
     ['/obrazcy/', 'Образцы текстов'],
     ['/slovar/', 'Словарь'],
     ['/o-kurse/', 'О курсе']

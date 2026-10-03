@@ -80,11 +80,12 @@ def zamechanie(tekst):
 
 # ── Разбор md ─────────────────────────────────────────────────────────────────
 
-# Зачёт — в форме с ведомостью (tools/google-forma/), тест на сайте — тренировка. Адрес формы
-# и поток задаются здесь одной строкой; в текстах — подстановки {{forma_zacheta}} и {{potok}}.
-FORMA_ZACHETA = "https://forms.gle/Bk8ebKwGt6zH9FJh8"
+# Зачёт — на сайте НГУ: видео лекций и итоговый тест из 10 вопросов. Тесты этого сайта —
+# для самопроверки: среднего уровня (/test/) и повышенной сложности (/test/prodvinutyj/).
+# Форма Google с ведомостью (tools/google-forma/) с 03.10.2026 не используется — ссылок на
+# неё на сайте нет, чтобы не путать слушателей. Поток задаётся здесь; в текстах — {{potok}}.
 POTOK = "1-й поток — с 15 октября 2026 года"
-PODSTANOVKI_TEKSTA = {"{{forma_zacheta}}": FORMA_ZACHETA, "{{potok}}": POTOK}
+PODSTANOVKI_TEKSTA = {"{{potok}}": POTOK}
 
 # Адрес сайта — для ссылок из скачанных .docx: в файле относительная ссылка никуда не ведёт
 ADRES_SAJTA = "https://ai-in-the-education.vercel.app"
@@ -141,6 +142,9 @@ def podpis_avtora(p):
     return AVTORY_PROMPTOV[p["avtor"]]
 
 
+DLINNYJ_PROMPT = 60   # строк; длиннее — текст промпта на странице свёрнут
+
+
 def podsvetit_podstanovki(tekst_html):
     """[ТЕМА] → <mark class="ph">[ТЕМА]</mark>; «[ ]» из чек-листов не трогаем."""
     return re.sub(r"\[([^\[\]\n]{2,120})\]", r'<mark class="ph">[\1]</mark>', tekst_html)
@@ -155,6 +159,17 @@ def kartochka_prompta(p, uroven="h3"):
         kogda += (f'\n      <p class="prompt__avtor">{html.escape(avtor[0])} — '
                   f'<a href="{html.escape(avtor[1])}">{html.escape(avtor[2])}</a></p>')
     telo = podsvetit_podstanovki(html.escape(p["telo"]))
+    # Длинный промпт (самодиагностика — около 200 строк) свёрнут: на странице — заголовок,
+    # кнопки и «Показать весь промпт». Кнопки копируют весь текст и из свёрнутого.
+    strok = p["telo"].count("\n") + 1
+    svernut = strok > DLINNYJ_PROMPT
+    if svernut:
+        slovo = "строка" if strok % 10 == 1 and strok % 100 != 11 else (
+            "строки" if 2 <= strok % 10 <= 4 and not 12 <= strok % 100 <= 14 else "строк")
+        nachalo = f'  <details class="prompt__razvernut"><summary>Показать весь промпт — {strok} {slovo}</summary>\n'
+        konec = "  </details>\n"
+    else:
+        nachalo = konec = ""
     return (
         f'<section class="prompt" id="p-{p["id"]}" data-prompt>\n'
         f'  <div class="prompt__head">\n'
@@ -171,7 +186,7 @@ def kartochka_prompta(p, uroven="h3"):
         f"      </div>\n"
         f"    </div>\n"
         f"  </div>\n"
-        f'  <div class="prompt__body" id="{tid}">{telo}</div>\n'
+        f'{nachalo}  <div class="prompt__body" id="{tid}">{telo}</div>\n{konec}'
         f"</section>"
     )
 
@@ -237,9 +252,10 @@ KARTA_SAJTA = [
     ("Инструменты", [("/promty/", "Библиотека промптов"), ("/konstruktor/", "Конструктор промптов"),
                      ("/navyki/", "Навыки для нейросетей"), ("/obrazcy/", "Образцы текстов"),
                      ("/slovar/", "Словарь терминов")]),
-    ("Практика и зачёт", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
-                          ("/test/", "Тренировочный тест"), ("/test/prodvinutyj/", "Продвинутый тест"),
-                          (FORMA_ZACHETA, "Сдать зачёт в ведомость")]),
+    ("Практика и самопроверка", [("/praktika/", "Самостоятельная практика"), ("/praktika/#nir", "Свой отчёт о НИР"),
+                                 ("/test/", "Тест среднего уровня"), ("/test/prodvinutyj/", "Тест повышенной сложности"),
+                                 ("/lekciya-1/#samodiagnostika", "Самодиагностика по Адизесу"),
+                                 ("/praktika/#zachet", "Как сдать зачёт")]),
     ("О курсе", [("/o-kurse/", "Автор и программа"), ("/o-kurse/#ustanovit", "Курс на телефоне и ноутбуке"),
                  ("/o-kurse/#obratnaya-svyaz", "Обратная связь"),
                  ("/o-kurse/#licenzii", "Заимствования и лицензии")]),
@@ -259,11 +275,11 @@ def karta_sajta():
         punkty = "".join(f'<li><a href="{href}">{html.escape(tekst)}</a></li>' for href, tekst in ssylki)
         kolonki.append(f'<div class="foot__kolonka"><p class="foot__zag" id="podval-{i}">{html.escape(zagolovok)}</p>'
                        f'<ul aria-labelledby="podval-{i}">{punkty}</ul></div>')
-    # внешние ссылки (форма зачёта) — новой вкладкой, как везде на сайте
+    # внешние ссылки — новой вкладкой, как везде на сайте
     return oformit_ssylki('<nav class="foot__karta" aria-label="Карта сайта">' + "".join(kolonki) + "</nav>")
 
 
-def stranica(title, description, soderzhimoe, tekushchij="", head_extra=""):
+def stranica(title, description, soderzhimoe, tekushchij="", head_extra="", podval_dop=""):
     zamenitel = {
         "{{title}}": html.escape(title),
         "{{description}}": html.escape(description),
@@ -271,6 +287,7 @@ def stranica(title, description, soderzhimoe, tekushchij="", head_extra=""):
         "{{date}}": SEGODNYA,
         "{{head_extra}}": head_extra,
         "{{karta_sajta}}": karta_sajta(),
+        "{{podval_dop}}": podval_dop,
     }
     for razdel in ("lekcii", "promty", "konstruktor", "navyki", "test"):
         zamenitel["{{cur_" + razdel + "}}"] = ' aria-current="page"' if razdel == tekushchij else ""
@@ -418,9 +435,8 @@ def sobrat_uroki(vse_promty):
                            f'<span class="dl__meta">DOCX, {razmer_faila(docx)} · сборка {SEGODNYA}</span>'
                            f'<a class="btn btn--small" href="/files/{docx.name}" download>Скачать</a></div>')
         if not blok_video and not est_slajdy:
-            chego = "лекции" if slug.startswith("lekciya") else "урока"
-            skachat.append(f'<p class="caption">Видео {chego} и слайды — по запросу: '
-                           f'<a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p>')
+            skachat.append('<p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — '
+                           'по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p>')
 
         toc = "".join(f'<li><a href="#{i}">{html.escape(n)}</a></li>' for i, n in oglavlenie)
         # data-urok: по нему sajt.js узнаёт урок и ставит «Назад к уроку» на страницах, открытых из него
@@ -626,7 +642,7 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
     srcset="/kartinki/glavnaya/oblozhka-832.jpg 832w, /kartinki/glavnaya/oblozhka-1664.jpg 1664w"
     sizes="(max-width: 734px) 100vw, 680px" width="1664" height="928" alt="" fetchpriority="high">
   <div class="oblozhka__tekst">
-  <p class="kicker">Курс повышения квалификации · Центр искусственного интеллекта НГУ</p>
+  <p class="kicker">Курс повышения квалификации · Новосибирский государственный университет</p>
   <p class="oblozhka__potok">{POTOK} · всё уже открыто</p>
   <h1>ИИ в учебном процессе</h1>
   <p class="lead">Три лекции и два бонусных урока: как готовить материалы, проверять работы
@@ -641,9 +657,9 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
 <section class="section">
   <h2>Как проходить курс</h2>
   <div class="card-grid">
-    <div class="card"><p class="num">Шаг 1</p><h3>Читайте лекцию</h3><p>Конспект с примерами, промптами и источниками — на странице лекции, его можно скачать в DOCX. Видео и слайды — по запросу.</p></div>
+    <div class="card"><p class="num">Шаг 1</p><h3>Читайте лекцию</h3><p>Конспект с примерами, промптами и источниками — на странице лекции, его можно скачать в DOCX. Видео лекций — на сайте НГУ, слайды — по запросу.</p></div>
     <div class="card"><p class="num">Шаг 2</p><h3>Пробуйте промпты</h3><p>«Открыть в…» копирует промпт и открывает нейросеть в новой вкладке — вкладка курса остаётся открытой.</p></div>
-    <div class="card"><p class="num">Шаг 3</p><h3>Практика и зачёт</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Потренируйтесь в <a href="/test/">тесте на сайте</a>, а зачёт сдайте <a href="{FORMA_ZACHETA}">в форме</a> — результат попадёт в ведомость. «Сдано» — от 44 баллов из 72 (60 %).</p></div>
+    <div class="card"><p class="num">Шаг 3</p><h3>Практика и самопроверка</h3><p>После лекции — <a href="/praktika/">самостоятельная практика</a> для себя, сдавать ничего не нужно. Проверьте себя в тестах <a href="/test/">среднего уровня</a> и <a href="/test/prodvinutyj/">повышенной сложности</a> и в <a href="/lekciya-1/#samodiagnostika">самодиагностике по Адизесу</a>. Зачёт — на сайте НГУ: итоговый тест из 10 вопросов.</p></div>
   </div>
 </section>
 
@@ -676,9 +692,16 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
   </div>
 </section>
 </div>"""
+    # QR-код адреса сайта — только в подвале главной: автор показывает его в видео,
+    # слушатели сканируют с экрана. Картинку делает tools/sobrat-qr.py из ADRES_SAJTA.
+    adres = ADRES_SAJTA.split("://", 1)[-1]
+    qr = (f'<div class="foot__qr"><img src="/assets/qr-sajt.svg" width="164" height="164" '
+          f'alt="QR-код адреса сайта курса: {adres}" loading="lazy" decoding="async">'
+          f'<p><span class="foot__qr-zag">Сайт курса — наведите камеру телефона на код</span>'
+          f'<span class="foot__qr-adres">{adres}</span></p></div>')
     zapisat("index.html", stranica("Главная",
-            "Курс «ИИ в учебном процессе» ЦИИ НГУ: лекции, промпты, конструктор, навыки, тренировочный тест и зачёт.",
-            oformit_ssylki(soderzhimoe)))
+            "Курс Новосибирского государственного университета «ИИ в учебном процессе»: лекции, промпты, конструктор, навыки и тесты для самопроверки.",
+            oformit_ssylki(soderzhimoe), podval_dop=qr))
 
 
 def sobrat_404():
@@ -757,7 +780,7 @@ def fajl_po_adresu(adres):
 def sobrat_pwa():
     manifest = {
         "id": "/",
-        "name": "ИИ в учебном процессе — курс ЦИИ НГУ",
+        "name": "ИИ в учебном процессе — курс НГУ",
         "short_name": "ИИ в учёбе",
         "description": "Курс для преподавателей: лекции, промпты, практика и тест — и без связи.",
         "lang": "ru",
@@ -833,7 +856,7 @@ def main():
         shutil.copytree(kartinki, SITE / "kartinki", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns(".*"))
 
-    # Вопросы тестов: тренировочный и продвинутый; движок у обоих один — site/test/test.js
+    # Вопросы тестов: среднего уровня и повышенной сложности; движок у обоих один — site/test/test.js
     for istochnik, kuda in (("test-voprosy.js", "test"), ("test-prodvinutyj.js", "test/prodvinutyj")):
         voprosy = CONTENT / istochnik
         if voprosy.exists():
@@ -855,9 +878,8 @@ def main():
             continue
         staryj = put.read_text(encoding="utf-8")
         novyj, n = re.subn(r'<footer class="foot">.*?</footer>', lambda m: podval, staryj, flags=re.S)
-        # поток и адрес зачётной формы — из тех же констант, что в текстах сайта
+        # поток — из той же константы, что в текстах сайта
         novyj = re.sub(r"(<span data-potok>).*?(</span>)", lambda m: m.group(1) + POTOK + m.group(2), novyj)
-        novyj = re.sub(r'(<a data-forma-zacheta href=")[^"]*(")', lambda m: m.group(1) + FORMA_ZACHETA + m.group(2), novyj)
         if n != 1:
             zamechanie(f"{ruchnaya}: подвал не найден — не подставлен")
         elif novyj != staryj:

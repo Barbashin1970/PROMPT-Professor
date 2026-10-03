@@ -194,8 +194,8 @@ Playwright из `~/SILL`.
 
 Адрес для слайдов, видео и QR — свой домен или поддомен НГУ: он переживёт смену хостинга.
 Адрес зашит в `ADRES_SAJTA` (`tools/sobrat-sajt.py`), `SAJT` (`tools/vygruzit-test.js`),
-`tools/sobrat-google-formu.js` → `Kod.gs` (ссылки на разделы в форме зачёта — после смены
-пересобрать и запустить `sobratTest`), `docs/CHEKLIST-SLAJDOV.md`. Проверка
+`site/assets/qr-sajt.svg` (QR-код в подвале главной и на слайдах — `python3 tools/sobrat-qr.py`),
+`docs/CHEKLIST-SLAJDOV.md`. Форма Google с 03.10.2026 не используется. Проверка
 `tools/proverit-publikaciyu.py` рассчитана на Vercel: заголовок `X-Kurs-Konfig`, 308 без слэша.
 
 **Почему не сейчас.** Хостинг и домен выбирает автор; аккаунт и оплата — его.

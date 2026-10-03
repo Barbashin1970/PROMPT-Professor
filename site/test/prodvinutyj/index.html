@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-<title>Продвинутый тест — ИИ в учебном процессе</title>
-<meta name="description" content="Продвинутый тест курса для самооценки: десять модулей, по два на каждый урок, вопросы на применение и разбор ситуаций. Баллы видны только вам.">
-<link rel="stylesheet" href="/assets/sajt.css?v=64e65721">
+<title>Тест повышенной сложности — ИИ в учебном процессе</title>
+<meta name="description" content="Тест повышенной сложности для самопроверки: десять модулей, по два на каждый урок, вопросы на применение и разбор ситуаций, 120 баллов. Баллы видны только вам; зачёт сдаётся на сайте НГУ.">
+<link rel="stylesheet" href="/assets/sajt.css?v=9c68bb3d">
 <link rel="icon" href="/assets/ikonka.svg?v=ea0e63b8" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/ikonka-180.png?v=f817687b">
@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-title" content="ИИ в учёбе">
 <script src="/assets/servisy.js?v=23986d10" defer></script>
-<script src="/assets/sajt.js?v=452a7670" defer></script>
+<script src="/assets/sajt.js?v=b289be79" defer></script>
 <style>
 /* Итоговый тест — только раскладка. Цвета, скругления и размер нажимаемой цели —
    общие переменные sajt.css; своих цветов нет. */
@@ -136,15 +136,15 @@
   .test-net-pechati { display: none !important; }
   .test-itog { margin-top: 16px; }
 }
-/* Зачёт и продвинутый тест — две карточки рядом под заголовком */
+/* Соседний тест, самодиагностика и зачёт — карточки под заголовком */
 .test-vybor { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); margin-top: 24px; }
 .test-vybor .card { display: flex; flex-direction: column; }
 .test-vybor .card p { margin: 8px 0 0; }
 .test-vybor .card p:last-child { margin-top: auto; padding-top: 16px; }
 .test-vybor__zag { margin: 4px 0 0; font-size: 22px; line-height: 1.27; }
 </style>
-<script>window.TEST_NASTROJKI = { klyuch: 'kurs-ii:test-prodvinutyj', nazvanie: 'Продвинутый тест «ИИ в учебном процессе»', modulei: 10, zagolovokItoga: 'Итог самооценки', knopkaZacheta: false, itog: { da: 'Продвинутый уровень', net: 'Пока ниже продвинутого уровня', porog: 'Продвинутый уровень' }, podpisItoga: 'Это самооценка: баллы хранятся только в этом браузере и никуда не отправляются.' };</script>
-<script src="/test/prodvinutyj/voprosy.js?v=5a619567" defer></script><script src="/test/test.js?v=ea882030" defer></script>
+<script>window.TEST_NASTROJKI = { klyuch: 'kurs-ii:test-prodvinutyj', nazvanie: 'Тест повышенной сложности «ИИ в учебном процессе»', modulei: 10, zagolovokItoga: 'Итог самопроверки', knopkaZacheta: false, itog: { da: 'Повышенная сложность пройдена', net: 'Повышенная сложность пока не пройдена', porog: 'Уровень пройден' }, podpisItoga: 'Это самопроверка: баллы хранятся только в этом браузере и никуда не отправляются.' };</script>
+<script src="/test/prodvinutyj/voprosy.js?v=5a619567" defer></script><script src="/test/test.js?v=2dfca5b4" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -156,7 +156,7 @@
       <a href="/promty/" class="nav__hide-xs">Промпты</a>
       <a href="/konstruktor/" class="nav__hide-sm">Конструктор</a>
       <a href="/navyki/" class="nav__hide-sm">Навыки</a>
-      <a href="/test/" class="nav__hide-sm" aria-current="page">Тест</a>
+      <a href="/test/" class="nav__hide-sm" aria-current="page">Тесты</a>
     </nav>
     <div class="svc" data-svc>
       <button class="btn btn--small" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Нейросети <span aria-hidden="true">↗</span></button>
@@ -167,23 +167,28 @@
 <main id="main">
 <div class="wrap test-stranica" id="test-koren">
   <header class="page-head">
-    <p class="kicker">Курс «ИИ в учебном процессе» · самооценка · <span data-potok>1-й поток — с 15 октября 2026 года</span></p>
-    <h1>Продвинутый тест</h1>
-    <p class="lead test-net-pechati">Десять модулей, по два на каждый урок — от лекции 1 до бонуса про нейроиллюстрации. Вопросы на применение и разбор ситуаций, другие, чем в тренировочном тесте. Для себя: баллы видны только вам.</p>
+    <p class="kicker">Курс «ИИ в учебном процессе» · самопроверка · <span data-potok>1-й поток — с 15 октября 2026 года</span></p>
+    <h1>Тест повышенной сложности</h1>
+    <p class="lead test-net-pechati">Десять модулей, по два на каждый урок — от лекции 1 до бонуса про нейроиллюстрации. Вопросы на применение и разбор ситуаций, другие, чем в тесте среднего уровня. Для себя: баллы видны только вам.</p>
   </header>
 
   <div class="card-grid test-vybor test-net-pechati">
-    <section class="card" aria-labelledby="test-trenirovka-zag">
-      <p class="num">Тренировка</p>
-      <h2 id="test-trenirovka-zag" class="test-vybor__zag">Тренировочный тест</h2>
-      <p>Шесть модулей с вопросами зачёта — чтобы подготовиться к нему. Баллы тоже видны только вам.</p>
-      <p><a href="/test/" class="btn">Открыть тренировочный тест</a></p>
+    <section class="card" aria-labelledby="test-sredn-zag">
+      <p class="num">Проще</p>
+      <h2 id="test-sredn-zag" class="test-vybor__zag">Тест среднего уровня</h2>
+      <p>Шесть модулей по трём лекциям: основы, промпты, проверка работ. Баллы тоже видны только вам.</p>
+      <p><a href="/test/" class="btn">Открыть тест среднего уровня</a></p>
+    </section>
+    <section class="card" aria-labelledby="test-adizes-zag">
+      <p class="num">Самодиагностика</p>
+      <h2 id="test-adizes-zag" class="test-vybor__zag">Профиль преподавателя по Адизесу</h2>
+      <p>Двенадцать вопросов в любой бесплатной нейросети: какие из четырёх ролей у вас сильнее, что поручить ИИ и план на две недели.</p>
+      <p><a href="/lekciya-1/#samodiagnostika" class="btn">Открыть самодиагностику</a></p>
     </section>
     <section class="card" aria-labelledby="test-zachet-zag">
       <p class="num">Зачёт</p>
-      <h2 id="test-zachet-zag" class="test-vybor__zag">Тест в форме — результат в ведомость</h2>
-      <p>Зачёт сдаётся по вопросам тренировочного теста; «сдано» — от 44&nbsp;баллов из&nbsp;72 (60&nbsp;%).</p>
-      <p><a data-forma-zacheta href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="btn ext" target="_blank" rel="noopener noreferrer">Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></p>
+      <h2 id="test-zachet-zag" class="test-vybor__zag">На сайте НГУ</h2>
+      <p>Зачёт сдаётся на сайте НГУ: там видео лекций и итоговый тест из 10&nbsp;вопросов. Тесты на этом сайте — для самопроверки.</p>
     </section>
   </div>
 
@@ -199,8 +204,8 @@
         <li>Вопрос с одним верным ответом — 2&nbsp;балла. Сопоставление трёх пар — 3&nbsp;балла: по баллу за каждую верную пару. В модуле 12&nbsp;баллов, во всём тесте —&nbsp;120.</li>
         <li>Модули проходятся в любом порядке. Внутри модуля можно возвращаться к прошлым вопросам; завершить модуль можно, когда отвечены все вопросы.</li>
         <li>После модуля показывается только его балл, без разбора ответов. Модуль можно пройти заново — засчитывается последняя попытка.</li>
-        <li>Когда пройдены все десять модулей, появится итог: от 72 до 120&nbsp;баллов — продвинутый уровень. Модули ниже 60&nbsp;% отмечены ссылками на разделы конспекта.</li>
-        <li>Это самооценка: баллы хранятся только в этом браузере и никуда не отправляются; с тренировочным тестом они не смешиваются.</li>
+        <li>Когда пройдены все десять модулей, появится итог: от 72 до 120&nbsp;баллов — повышенная сложность пройдена. Модули ниже 60&nbsp;% отмечены ссылками на разделы конспекта.</li>
+        <li>Это самопроверка: баллы хранятся только в этом браузере и никуда не отправляются; с тестом среднего уровня они не смешиваются.</li>
         <li>Проходить можно сколько угодно раз: модуль — кнопкой «Пройти заново», весь тест — после «Очистить результаты…» внизу страницы.</li>
       </ul>
     </section>
@@ -234,7 +239,7 @@
     <p id="test-rezultat-kicker" class="test-kicker"></p>
     <h2 id="test-rezultat-zag" tabindex="-1">Модуль пройден</h2>
     <p id="test-rezultat-ball" class="test-rezultat__ball"></p>
-    <p class="test-poyasnenie">Правильные ответы не показываются — так же, как в зачёте. Модуль можно пройти заново — засчитается последняя попытка.</p>
+    <p class="test-poyasnenie">Правильные ответы не показываются: вернитесь к разделу конспекта и пройдите модуль заново — засчитается последняя попытка.</p>
     <div id="test-rezultat-dop"></div>
     <div id="test-rezultat-knopki" class="btn-row"></div>
   </section>
@@ -253,10 +258,11 @@
 </main>
 <footer class="foot">
   <div class="wrap wrap--wide">
-    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и зачёт</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Тренировочный тест</a></li><li><a href="/test/prodvinutyj/">Продвинутый тест</a></li><li><a href="https://forms.gle/Bk8ebKwGt6zH9FJh8" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>Сдать зачёт в ведомость<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#ustanovit">Курс на телефоне и ноутбуке</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
+    <nav class="foot__karta" aria-label="Карта сайта"><div class="foot__kolonka"><p class="foot__zag" id="podval-0">Уроки</p><ul aria-labelledby="podval-0"><li><a href="/lekciya-1/">Лекция 1. Как устроен ИИ</a></li><li><a href="/lekciya-2/">Лекция 2. Промпты и адаптация</a></li><li><a href="/lekciya-3/">Лекция 3. Агенты и проверка работ</a></li><li><a href="/bonus-navyki/">Бонус 1. Навыки</a></li><li><a href="/bonus-illyustracii/">Бонус 2. Нейроиллюстрации</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-1">Инструменты</p><ul aria-labelledby="podval-1"><li><a href="/promty/">Библиотека промптов</a></li><li><a href="/konstruktor/">Конструктор промптов</a></li><li><a href="/navyki/">Навыки для нейросетей</a></li><li><a href="/obrazcy/">Образцы текстов</a></li><li><a href="/slovar/">Словарь терминов</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-2">Практика и самопроверка</p><ul aria-labelledby="podval-2"><li><a href="/praktika/">Самостоятельная практика</a></li><li><a href="/praktika/#nir">Свой отчёт о НИР</a></li><li><a href="/test/">Тест среднего уровня</a></li><li><a href="/test/prodvinutyj/">Тест повышенной сложности</a></li><li><a href="/lekciya-1/#samodiagnostika">Самодиагностика по Адизесу</a></li><li><a href="/praktika/#zachet">Как сдать зачёт</a></li></ul></div><div class="foot__kolonka"><p class="foot__zag" id="podval-3">О курсе</p><ul aria-labelledby="podval-3"><li><a href="/o-kurse/">Автор и программа</a></li><li><a href="/o-kurse/#ustanovit">Курс на телефоне и ноутбуке</a></li><li><a href="/o-kurse/#obratnaya-svyaz">Обратная связь</a></li><li><a href="/o-kurse/#licenzii">Заимствования и лицензии</a></li></ul></div></nav>
+    
     <div class="foot__niz">
-      <p>Курс повышения квалификации «ИИ в учебном процессе» · Центр искусственного интеллекта НГУ</p>
-      <p>Автор курса — Олег Барбашин · © 2025–2026 · сборка 2026-09-30</p>
+      <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-03</p>
     </div>
   </div>
 </footer>

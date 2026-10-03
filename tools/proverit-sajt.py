@@ -12,9 +12,11 @@
   5. В конспектах нет пометок «ПРОВЕРИТЬ» — непроверенное не публикуется.
   6. Навыки: описание не длиннее 1024 байт, в архиве не больше 100 файлов, без PDF
      и без служебного: скрытых файлов и папок (.obsidian, .DS_Store), __MACOSX, __pycache__.
-  7. Итоговый тест: 6 модулей по 5 вопросов, 72 балла; ключ каждого вопроса есть среди
-     вариантов; разделы конспекта, на которые ссылается тест, существуют; «сдано» — от 44
-     из 72 (60 %); в тесте нет адреса для писем — результаты автору не отправляются.
+  7. Тесты для самопроверки: среднего уровня — 6 модулей по 5 вопросов, 72 балла, порог 44;
+     повышенной сложности — 10 модулей, 120 баллов, порог 72; ключ каждого вопроса есть
+     среди вариантов; разделы конспекта, на которые ссылается тест, существуют; вопросы
+     не повторяются; в тестах нет адреса для писем и полей имени; на сайте нет ссылок
+     на прежнюю форму зачёта — зачёт сдаётся на сайте НГУ.
   8. Авторы промптов с пометкой на карточке названы в «Заимствованиях» на «О курсе».
   9. В скачиваемых .docx нет заглушек адреса и ссылок от корня сайта — в файле они никуда не ведут.
  10. Стили, скрипты и картинки с кэшем на год (vercel.json) подключены с отпечатком ?v=,
@@ -221,16 +223,13 @@ def proverit_test():
     # На сайте результаты не собираются: полей имени и потока на страницах тестов нет
     if re.search(r'id="test-(familiya|imya|potok)"', kod_stranic):
         oshibka("тест: на странице остались поля имени или потока — решено без сбора результатов")
-    # Тест на сайте — тренировка, зачёт — в форме с ведомостью: кнопка на странице теста
-    # и та же ссылка на «Практике»
-    forma = re.search(r'<a data-forma-zacheta href="(https://[^"]+)"', (SITE / "test" / "index.html").read_text(encoding="utf-8"))
-    if not forma:
-        oshibka("тест: нет кнопки «Сдать зачёт в ведомость» (data-forma-zacheta)")
-    elif forma.group(1) not in (SITE / "praktika" / "index.html").read_text(encoding="utf-8"):
-        oshibka("практика: нет ссылки на зачётную форму — той же, что на странице теста")
-    # Сценарий зачётной формы и выгрузка для системы НГУ собираются из тех же вопросов
-    # и не должны от них отставать
-    for skript, chto in (("sobrat-google-formu.js", "форма зачёта"), ("vygruzit-test.js", "выгрузка теста")):
+    # Зачёт сдаётся на сайте НГУ, тесты здесь — для самопроверки: ссылок на прежнюю форму
+    # Google с ведомостью на сайте нет, чтобы не путать слушателей (решение 03.10.2026)
+    for stranica in SITE.rglob("*.html"):
+        if re.search(r"forms\.gle/|docs\.google\.com/forms|data-forma-zacheta|ведомост", stranica.read_text(encoding="utf-8")):
+            oshibka(f"{stranica.relative_to(SITE)}: ссылка на форму зачёта или «ведомость» — зачёт сдаётся на сайте НГУ")
+    # Выгрузка вопросов для системы НГУ собирается из тех же вопросов и не должна от них отставать
+    for skript, chto in (("vygruzit-test.js", "выгрузка теста"),):
         sverka = subprocess.run(["node", str(KOREN / "tools" / skript), "--proverka"],
                                 capture_output=True, text=True)
         if sverka.returncode != 0:
@@ -350,6 +349,21 @@ def proverit_pwa():
                 oshibka(f"{stranica.relative_to(SITE)}: нет {chto} — курс не поставить на экран «Домой»")
 
 
+def proverit_qr():
+    """QR-код в подвале главной ведёт на тот же адрес, что ADRES_SAJTA сборщика."""
+    adres = re.search(r'^ADRES_SAJTA = "([^"]+)"', (KOREN / "tools" / "sobrat-sajt.py").read_text(encoding="utf-8"), re.M)
+    qr = SITE / "assets" / "qr-sajt.svg"
+    if not qr.is_file():
+        oshibka("нет site/assets/qr-sajt.svg — python3 tools/sobrat-qr.py")
+        return
+    v_qr = re.search(r"<title>([^<]+)</title>", qr.read_text(encoding="utf-8"))
+    if not adres or not v_qr or v_qr.group(1) != adres.group(1):
+        oshibka(f"QR-код ведёт на {v_qr.group(1) if v_qr else '?'}, а адрес сайта — "
+                f"{adres.group(1) if adres else '?'}: python3 tools/sobrat-qr.py")
+    if 'class="foot__qr"' not in (SITE / "index.html").read_text(encoding="utf-8"):
+        oshibka("главная: в подвале нет QR-кода адреса сайта")
+
+
 def main():
     n = proverit_stranicy()
     proverit_konspekty()
@@ -359,6 +373,7 @@ def main():
     proverit_docx()
     proverit_versii()
     proverit_pwa()
+    proverit_qr()
     print(f"Проверено страниц: {n}, архивов навыков: {k}.")
     if oshibki:
         print(f"Расхождений: {len(oshibki)}")
