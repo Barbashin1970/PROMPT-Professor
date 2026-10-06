@@ -69,6 +69,25 @@ node tools/sobrat-google-formu.js    # сценарий формы; затем �
 На хостинг уходит только `site/`: `vercel.json` задаёт папку вывода, `.vercelignore`
 не выгружает исходники и внутренние документы.
 
+## Дубль на GitHub Pages
+
+Репозиторий публичный — его можно брать за образец своего курса. Дубль сайта:
+**https://barbashin1970.github.io/PROMPT-Professor/** (путь различает регистр).
+
+Pages раздаёт репозиторий в подпапке, а сайт ссылается от корня (`/lekciya-1/`), поэтому
+workflow `.github/workflows/pages.yml` на каждый `push` с изменениями `site/` собирает копию
+с адресами под `/PROMPT-Professor/` — `tools/dlya-pages.py` — и публикует её. Сам `site/`
+не меняется. Включить один раз: **Settings → Pages → Build and deployment → Source:
+GitHub Actions**. Проверить локально:
+
+```bash
+python3 tools/dlya-pages.py --osnova /PROMPT-Professor --vyhod /tmp/pages/PROMPT-Professor
+python3 -m http.server 8093 --directory /tmp/pages   # http://127.0.0.1:8093/PROMPT-Professor/
+```
+
+В репозиторий не попадает `vhod/` (переданные исходники и непубличные материалы — только
+локально, `.gitignore`).
+
 ## Как работаем
 
 - Порядок — ски-кодинг: сначала разбор (`docs/LEKCII-RAZBOR.md`), потом правка, потом
