@@ -2,6 +2,8 @@
 # Основной сайт — Vercel (публикует site/ как есть). Pages раздаёт репозиторий в подпапке,
 # поэтому сюда идёт копия site/ с адресами под /<имя репозитория> — tools/dlya-pages.py.
 # Включить один раз: Settings → Pages → Build and deployment → Source: GitHub Actions.
+# Версии действий — текущие на 06.10.2026: deploy-pages@v4 (2024) не находил артефакт,
+# выгруженный новым upload-artifact, — «No artifacts named github-pages».
 name: Дубль сайта на GitHub Pages
 
 on:
@@ -29,12 +31,12 @@ jobs:
       name: github-pages
       url: ${{ steps.publikaciya.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Копия site/ с адресами под подпапку репозитория
         run: python3 tools/dlya-pages.py --osnova "/${{ github.event.repository.name }}" --vyhod _pages
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _pages
       - id: publikaciya
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
