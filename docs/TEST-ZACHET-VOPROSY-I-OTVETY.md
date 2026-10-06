@@ -11,7 +11,7 @@
 
 ## Модуль 1. Как устроен ИИ
 
-Лекция 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-1/#kak-ustroen
+Лекция 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-1/#kak-ustroen
 
 ### Вопрос 1. Выбор одного ответа · 2 балла
 
@@ -105,7 +105,7 @@
 
 ## Модуль 2. Формула промпта и инструменты
 
-Лекция 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-1/#formula
+Лекция 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-1/#formula
 
 ### Вопрос 6. Выбор одного ответа · 2 балла
 
@@ -199,7 +199,7 @@
 
 ## Модуль 3. Техники промптинга
 
-Лекция 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-2/#tehniki
+Лекция 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-2/#tehniki
 
 ### Вопрос 11. Выбор одного ответа · 2 балла
 
@@ -293,7 +293,7 @@
 
 ## Модуль 4. Адаптация и карта смыслов
 
-Лекция 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-2/#adaptaciya
+Лекция 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-2/#adaptaciya
 
 ### Вопрос 16. Выбор одного ответа · 2 балла
 
@@ -387,7 +387,7 @@
 
 ## Модуль 5. Агенты и проверка работ
 
-Лекция 3; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-3/#agenty
+Лекция 3; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-3/#agenty
 
 ### Вопрос 21. Выбор одного ответа · 2 балла
 
@@ -481,7 +481,7 @@
 
 ## Модуль 6. Этика и навыки
 
-Лекция 3; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-3/#etika
+Лекция 3; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-3/#etika
 
 ### Вопрос 26. Выбор одного ответа · 2 балла
 

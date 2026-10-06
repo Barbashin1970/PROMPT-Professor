@@ -85,10 +85,15 @@ def zamechanie(tekst):
 # Форма Google с ведомостью (tools/google-forma/) с 03.10.2026 не используется — ссылок на
 # неё на сайте нет, чтобы не путать слушателей. Поток задаётся здесь; в текстах — {{potok}}.
 POTOK = "1-й поток — с 15 октября 2026 года"
-PODSTANOVKI_TEKSTA = {"{{potok}}": POTOK}
 
-# Адрес сайта — для ссылок из скачанных .docx: в файле относительная ссылка никуда не ведёт
-ADRES_SAJTA = "https://ai-in-the-education.vercel.app"
+# Адреса сайта (решение автора 06.10.2026): основной — GitHub Pages, второй — Vercel; содержимое
+# одно. Основной идёт в QR-код главной (tools/sobrat-qr.py), в ссылки скачанных .docx
+# (в файле относительная ссылка никуда не ведёт) и в выгрузку вопросов; оба — рядом в подвале
+# главной и на «О курсе» (подстановки {{adres_osnovnoj}} и {{adres_vtoroj}}).
+ADRES_SAJTA = "https://barbashin1970.github.io/PROMPT-Professor"
+ADRES_VTOROJ = "https://ai-in-the-education.vercel.app"
+PODSTANOVKI_TEKSTA = {"{{potok}}": POTOK, "{{adres_osnovnoj}}": ADRES_SAJTA + "/",
+                      "{{adres_vtoroj}}": ADRES_VTOROJ + "/"}
 
 # Авторы заимствованных промптов: поле «avtor:» в шапке промпта → подпись на карточке
 # и в .docx. Каждый автор назван и на «О курсе», в «Заимствованиях» — это сверяет сторож.
@@ -692,13 +697,22 @@ def sobrat_glavnuyu(uroki, dannye, primer_prompta):
   </div>
 </section>
 </div>"""
-    # QR-код адреса сайта — только в подвале главной: автор показывает его в видео,
-    # слушатели сканируют с экрана. Картинку делает tools/sobrat-qr.py из ADRES_SAJTA.
-    adres = ADRES_SAJTA.split("://", 1)[-1]
-    qr = (f'<div class="foot__qr"><img src="/assets/qr-sajt.svg" width="164" height="164" '
-          f'alt="QR-код адреса сайта курса: {adres}" loading="lazy" decoding="async">'
-          f'<p><span class="foot__qr-zag">Сайт курса — наведите камеру телефона на код</span>'
-          f'<span class="foot__qr-adres">{adres}</span></p></div>')
+    # Два QR-кода — только в подвале главной, по краям, чтобы камера не путала соседние:
+    # слева основной адрес (GitHub Pages), справа второй (Vercel). Автор показывает их
+    # в видео, слушатели сканируют с экрана. Картинки делает tools/sobrat-qr.py.
+    def karta_qr(adres, kartinka, metka, klass):
+        tekst = adres.split("://", 1)[-1]
+        return (f'<figure class="foot__qr-karta {klass}">'
+                f'<img src="/assets/{kartinka}" width="164" height="164" alt="QR-код: {metka.lower()} сайта курса, {tekst}" '
+                f'loading="lazy" decoding="async"><figcaption><span class="foot__qr-metka">{metka}</span>'
+                f'<a class="foot__qr-adres ext" href="{adres}/" target="_blank" rel="noopener noreferrer" data-ryadom>'
+                f'{tekst}<span class="visually-hidden"> (откроется в новой вкладке)</span></a></figcaption></figure>')
+    qr = ('<div class="foot__qr">'
+          + karta_qr(ADRES_SAJTA, "qr-sajt.svg", "Основной адрес", "foot__qr-karta--osnovnoj")
+          + '<p class="foot__qr-zag">Сайт курса — наведите камеру телефона на любой из кодов. '
+            'Содержимое одно: если один адрес открывается медленно, откройте другой.</p>'
+          + karta_qr(ADRES_VTOROJ, "qr-sajt-vtoroj.svg", "Второй адрес", "foot__qr-karta--vtoroj")
+          + '</div>')
     zapisat("index.html", stranica("Главная",
             "Курс Новосибирского государственного университета «ИИ в учебном процессе»: лекции, промпты, конструктор, навыки и тесты для самопроверки.",
             oformit_ssylki(soderzhimoe), podval_dop=qr))

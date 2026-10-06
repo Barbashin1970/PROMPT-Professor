@@ -534,15 +534,28 @@ html.menu-otkryto .naverh { display: none; }
 }
 .foot__niz p { margin: 0; }
 .foot a { color: var(--label-2); }
-/* QR-код адреса сайта — только в подвале главной: показать в видео, отсканировать с экрана.
-   Тёмные модули на белом поле и в тёмной теме: так код берут все камеры. */
+/* Два QR-кода — только в подвале главной: основной адрес слева, второй справа, подпись между
+   ними. Разнесены по краям, чтобы камера не путала соседние коды. Тёмные модули на белом
+   поле и в тёмной теме: так код берут все камеры. На телефоне — столбиком, с отступами. */
 .foot__qr {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
-  padding: 24px 0; border-bottom: 1px solid var(--separator);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+  gap: 24px 40px; padding: 28px 0; border-bottom: 1px solid var(--separator);
 }
-.foot__qr img { flex: none; width: 164px; height: 164px; border-radius: 10px; background: #fff; }
-.foot__qr p { margin: 0; display: grid; gap: 4px; }
-.foot__qr-adres { font-size: var(--t-body); font-weight: 600; color: var(--label); overflow-wrap: anywhere; }
+.foot__qr-zag { margin: 0; max-width: 34ch; justify-self: center; text-align: center; }
+.foot__qr-karta { margin: 0; display: grid; gap: 10px; justify-items: start; }
+.foot__qr-karta img { width: 164px; height: 164px; border-radius: 10px; background: #fff; }
+.foot__qr-karta figcaption { display: grid; gap: 2px; }
+.foot__qr-metka { font-size: var(--t-caption); color: var(--label-2); }
+.foot .foot__qr-adres {
+  font-size: var(--t-small); font-weight: 600; color: var(--label);
+  text-decoration: none; overflow-wrap: anywhere;
+}
+.foot .foot__qr-adres:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+.foot__qr-karta--vtoroj .foot__qr-adres { font-weight: 500; }
+@media (max-width: 734px) {
+  .foot__qr { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .foot__qr-zag { justify-self: start; text-align: left; }   /* подпись — между кодами */
+}
 @media (max-width: 734px) {
   .foot__karta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

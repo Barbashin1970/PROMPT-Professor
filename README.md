@@ -69,10 +69,13 @@ node tools/sobrat-google-formu.js    # сценарий формы; затем �
 На хостинг уходит только `site/`: `vercel.json` задаёт папку вывода, `.vercelignore`
 не выгружает исходники и внутренние документы.
 
-## Дубль на GitHub Pages
+## Два адреса: GitHub Pages и Vercel
 
-Репозиторий публичный — его можно брать за образец своего курса. Дубль сайта:
-**https://barbashin1970.github.io/PROMPT-Professor/** (путь различает регистр).
+Репозиторий публичный — его можно брать за образец своего курса. Основной адрес сайта —
+**https://barbashin1970.github.io/PROMPT-Professor/** (путь различает регистр), второй —
+**https://ai-in-the-education.vercel.app/**; содержимое одно. Адреса — константы
+`ADRES_SAJTA` и `ADRES_VTOROJ` в `tools/sobrat-sajt.py`; два QR-кода для подвала главной —
+`python3 tools/sobrat-qr.py`.
 
 Pages раздаёт репозиторий в подпапке, а сайт ссылается от корня (`/lekciya-1/`), поэтому
 workflow `.github/workflows/pages.yml` на каждый `push` с изменениями `site/` собирает копию

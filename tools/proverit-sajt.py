@@ -350,18 +350,21 @@ def proverit_pwa():
 
 
 def proverit_qr():
-    """QR-код в подвале главной ведёт на тот же адрес, что ADRES_SAJTA сборщика."""
-    adres = re.search(r'^ADRES_SAJTA = "([^"]+)"', (KOREN / "tools" / "sobrat-sajt.py").read_text(encoding="utf-8"), re.M)
-    qr = SITE / "assets" / "qr-sajt.svg"
-    if not qr.is_file():
-        oshibka("нет site/assets/qr-sajt.svg — python3 tools/sobrat-qr.py")
-        return
-    v_qr = re.search(r"<title>([^<]+)</title>", qr.read_text(encoding="utf-8"))
-    if not adres or not v_qr or v_qr.group(1) != adres.group(1):
-        oshibka(f"QR-код ведёт на {v_qr.group(1) if v_qr else '?'}, а адрес сайта — "
-                f"{adres.group(1) if adres else '?'}: python3 tools/sobrat-qr.py")
-    if 'class="foot__qr"' not in (SITE / "index.html").read_text(encoding="utf-8"):
-        oshibka("главная: в подвале нет QR-кода адреса сайта")
+    """Два QR-кода в подвале главной ведут на ADRES_SAJTA и ADRES_VTOROJ сборщика."""
+    sborshchik = (KOREN / "tools" / "sobrat-sajt.py").read_text(encoding="utf-8")
+    glavnaya = (SITE / "index.html").read_text(encoding="utf-8")
+    for konstanta, imya in (("ADRES_SAJTA", "qr-sajt.svg"), ("ADRES_VTOROJ", "qr-sajt-vtoroj.svg")):
+        adres = re.search(rf'^{konstanta} = "([^"]+)"', sborshchik, re.M)
+        qr = SITE / "assets" / imya
+        if not qr.is_file():
+            oshibka(f"нет site/assets/{imya} — python3 tools/sobrat-qr.py")
+            continue
+        v_qr = re.search(r"<title>([^<]+)</title>", qr.read_text(encoding="utf-8"))
+        if not adres or not v_qr or v_qr.group(1).rstrip("/") != adres.group(1).rstrip("/"):
+            oshibka(f"{imya} ведёт на {v_qr.group(1) if v_qr else '?'}, а {konstanta} — "
+                    f"{adres.group(1) if adres else '?'}: python3 tools/sobrat-qr.py")
+        if f"/assets/{imya}" not in glavnaya:
+            oshibka(f"главная: в подвале нет QR-кода {imya}")
 
 
 def main():

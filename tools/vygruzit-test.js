@@ -13,7 +13,7 @@ const vm = require('vm');
 
 const KOREN = path.join(__dirname, '..');
 const PROVERKA = process.argv.includes('--proverka');
-const SAJT = 'https://ai-in-the-education.vercel.app';
+const SAJT = 'https://barbashin1970.github.io/PROMPT-Professor';  // основной адрес, как ADRES_SAJTA
 const BUKVY = ['А', 'Б', 'В', 'Г', 'Д', 'Е'];   // варианты по порядку: первый — А, второй — Б…
 
 function prochitat(fajl) {

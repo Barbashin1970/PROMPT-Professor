@@ -11,7 +11,7 @@
 
 ## Модуль 1. Пределы модели и галлюцинации
 
-Лекция 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-1/#gallyucinacii
+Лекция 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-1/#gallyucinacii
 
 ### Вопрос 1. Выбор одного ответа · 2 балла
 
@@ -105,7 +105,7 @@
 
 ## Модуль 2. Рычаги, формула и выбор сервиса
 
-Лекция 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-1/#rychagi
+Лекция 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-1/#rychagi
 
 ### Вопрос 6. Выбор одного ответа · 2 балла
 
@@ -199,7 +199,7 @@
 
 ## Модуль 3. Техники промптинга в деле
 
-Лекция 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-2/#tehniki
+Лекция 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-2/#tehniki
 
 ### Вопрос 11. Выбор одного ответа · 2 балла
 
@@ -293,7 +293,7 @@
 
 ## Модуль 4. Адаптация без ошибок и карта смыслов
 
-Лекция 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-2/#adaptaciya
+Лекция 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-2/#adaptaciya
 
 ### Вопрос 16. Выбор одного ответа · 2 балла
 
@@ -387,7 +387,7 @@
 
 ## Модуль 5. Агенты и проверка работ
 
-Лекция 3; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-3/#agenty
+Лекция 3; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-3/#agenty
 
 ### Вопрос 21. Выбор одного ответа · 2 балла
 
@@ -481,7 +481,7 @@
 
 ## Модуль 6. Признаки ИИ и честная проверка
 
-Лекция 3; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/lekciya-3/#vyyavlenie
+Лекция 3; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/lekciya-3/#vyyavlenie
 
 ### Вопрос 26. Выбор одного ответа · 2 балла
 
@@ -575,7 +575,7 @@
 
 ## Модуль 7. Устройство навыка
 
-Бонусный урок 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/bonus-navyki/#chto-takoe-navyk
+Бонусный урок 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/bonus-navyki/#chto-takoe-navyk
 
 ### Вопрос 31. Выбор одного ответа · 2 балла
 
@@ -669,7 +669,7 @@
 
 ## Модуль 8. Поставить, собрать и поручить агенту
 
-Бонусный урок 1; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/bonus-navyki/#kak-postavit
+Бонусный урок 1; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/bonus-navyki/#kak-postavit
 
 ### Вопрос 36. Выбор одного ответа · 2 балла
 
@@ -763,7 +763,7 @@
 
 ## Модуль 9. Формула картинки и слайд
 
-Бонусный урок 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/bonus-illyustracii/#formula
+Бонусный урок 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/bonus-illyustracii/#formula
 
 ### Вопрос 41. Выбор одного ответа · 2 балла
 
@@ -857,7 +857,7 @@
 
 ## Модуль 10. Образец, доработка и права
 
-Бонусный урок 2; раздел конспекта для повторения: https://ai-in-the-education.vercel.app/bonus-illyustracii/#po-obrazcu
+Бонусный урок 2; раздел конспекта для повторения: https://barbashin1970.github.io/PROMPT-Professor/bonus-illyustracii/#po-obrazcu
 
 ### Вопрос 46. Выбор одного ответа · 2 балла
 
