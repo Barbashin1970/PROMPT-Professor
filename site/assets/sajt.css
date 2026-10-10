@@ -178,6 +178,9 @@ h4 { font-size: 20px; line-height: 1.25; margin-top: 24px; }
 .prose table {
   width: 100%; border-collapse: collapse; font-size: var(--t-small);
   display: block; overflow-x: auto;
+  /* Скрытые подписи для экранного чтеца (.visually-hidden, position: absolute) иначе
+     выходят из-под прокрутки таблицы и раздвигают страницу на телефоне */
+  position: relative;
 }
 .prose th, .prose td {
   text-align: left; vertical-align: top;

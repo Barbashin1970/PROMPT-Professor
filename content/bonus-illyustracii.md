@@ -47,8 +47,8 @@ video:
 ([Яндекс](https://b2b.yandex.ru/adv/edu/materials/kak-polzovatsya-shedevrumom-instrukciya)).
 **Qwen Chat** — [chat.qwen.ai](https://chat.qwen.ai), режим Image Generation: вход по почте,
 бесплатно с ограничениями, по данным
-[РБК Трендов](https://trends.rbc.ru/trends/innovation/69270dde9a7947adb7695fdc) работает
-без VPN. Кнопка «Открыть в…» у промптов этого урока предлагает все четыре сервиса.
+[РБК Трендов](https://trends.rbc.ru/trends/innovation/69270dde9a7947adb7695fdc) открывается
+из России. Кнопка «Открыть в…» у промптов этого урока предлагает все четыре сервиса.
 Midjourney в курсе нет: бесплатного доступа на сайте у него нет
 ([справка Midjourney](https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials)).
 

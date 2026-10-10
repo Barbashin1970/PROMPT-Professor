@@ -6,14 +6,14 @@
 <script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>Бонусный урок 1. Навыки — помощник, упакованный в папку — ИИ в учебном процессе</title>
 <meta name="description" content="Что такое навык ИИ-агента, как поставить навыки курса в Perplexity, Claude или бесплатно в любой нейросети и как собрать навык по своей дисциплине.">
-<link rel="stylesheet" href="/assets/sajt.css?v=86943bb5">
+<link rel="stylesheet" href="/assets/sajt.css?v=908f5b24">
 <link rel="icon" href="/assets/ikonka.svg?v=ea0e63b8" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/ikonka-180.png?v=f817687b">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-title" content="ИИ в учёбе">
-<script src="/assets/servisy.js?v=3029219e" defer></script>
+<script src="/assets/servisy.js?v=7eafbabb" defer></script>
 <script src="/assets/sajt.js?v=b289be79" defer></script>
 
 </head>
@@ -44,7 +44,7 @@
 <nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-урока">Что вы унесёте с урока</a></li><li><a href="#chto-takoe-navyk">1. Что такое навык</a></li><li><a href="#navyki-kursa">2. Навыки курса</a></li><li><a href="#obsidian">3. Чем открыть и править навык</a></li><li><a href="#kak-postavit">4. Как поставить</a></li><li><a href="#svoj-navyk">5. Как собрать свой навык</a></li><li><a href="#agent">6. Агент на своём компьютере</a></li><li><a href="#promty">Промпты урока</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
 <article class="prose">
 
-<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 29 КБ · сборка 2026-10-06</span><a class="btn btn--small" href="/files/konspekt-bonus-navyki.docx?v=2c158bd0" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
+<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 32 КБ · сборка 2026-10-10</span><a class="btn btn--small" href="/files/konspekt-bonus-navyki.docx?v=2d9fce43" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
 
 <h2 id="что-вы-унесёте-с-урока">Что вы унесёте с урока</h2>
 <ul>
@@ -52,7 +52,8 @@
 <li>чем открыть и править навык — бесплатный Obsidian и две его настройки;</li>
 <li>как поставить навыки курса — в Perplexity, в Claude или бесплатно в любой нейросети;</li>
 <li>как собрать навык по своей дисциплине и проверить, что он работает;</li>
-<li>как поручить сборку навыка агенту на своём компьютере — VS Code и бесплатные агенты без VPN.</li>
+<li>как поручить сборку навыка агенту на своём компьютере — VS Code и бесплатные агенты, доступные из России;</li>
+<li>почему «готово ✅» от агента — ещё не готово: испытание GigaCode на инженерном калькуляторе.</li>
 </ul>
 <h2 id="chto-takoe-navyk">1. Что такое навык</h2>
 <p><strong>Навык</strong> (skill) — папка с файлом <code>SKILL.md</code>. В начале файла — шапка из двух полей:</p>
@@ -133,6 +134,11 @@
 <td><code>illustrating-lessons</code></td>
 <td>раскладывает задачу картинки по 11 блокам и даёт три промпта для Алисы AI и GigaChat</td>
 <td>иллюстрация к слайду, обложка — бонусный урок 2</td>
+</tr>
+<tr>
+<td><code>mapping-course-meanings</code></td>
+<td>собирает карту смыслов курса из ваших материалов и интервью по одному вопросу, а по ней — новый курс, тест с ключом и тексты</td>
+<td>обновить старый курс, сделать курс для другой аудитории или тест по главному — лекция 3</td>
 </tr>
 <tr>
 <td><code>spotting-ai-writing</code></td>
@@ -317,7 +323,7 @@ Kimi Code входит через аккаунт Kimi, GigaCode — через G
 <tr>
 <th>Агент</th>
 <th>Сколько стоит</th>
-<th>Из России без VPN</th>
+<th>Работает ли из России</th>
 <th>Навыки <code>SKILL.md</code></th>
 </tr>
 </thead>
@@ -350,8 +356,9 @@ Kimi Code входит через аккаунт Kimi, GigaCode — через G
 </table>
 <p><strong>GigaCode бесплатен, но слабее.</strong> По опыту автора курса простой код на Python он пишет,
 но с ошибками, которые приходится править. Навык или отзыв на работу, собранные
-GigaCode, перечитывайте особенно внимательно.</p>
-<p><strong>Что не подойдёт без VPN и подписки:</strong></p>
+GigaCode, перечитывайте особенно внимательно — почему, показывает
+<a href="#ispytanie-gigacode">испытание в конце раздела</a>.</p>
+<p><strong>Что из России недоступно или только по подписке:</strong></p>
 <ul>
 <li><strong>GitHub Copilot</strong>, встроенный в VS Code, сам понимает навыки
   (<a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>справка VS Code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>),
@@ -441,6 +448,42 @@ GigaCode, перечитывайте особенно внимательно.</p
    для чужих файлов не включайте.</li>
 <li><strong>Решение — за преподавателем.</strong> Агент готовит черновик отзыва; оценку и выводы
    о самостоятельности работы делаете вы после беседы со студентом (лекция 3).</li>
+</ol>
+<h3 id="ispytanie-gigacode">Испытание GigaCode: инженерный калькулятор</h3>
+<p>6 октября 2026 года автор курса дал GigaCode в VS Code задачу из трёх фраз: проект
+на Python — сайт с инженерным калькулятором, <code>.gitignore</code> и README для публикации
+на GitVerse. Весь проект открыт: <a href="https://github.com/Barbashin1970/ENGINEER" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>репозиторий ENGINEER<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+с README и подробным <a href="https://github.com/Barbashin1970/ENGINEER/blob/main/docs/OTCHET-GIGACODE.md" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>отчётом об оценке модели<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</p>
+<p><strong>Что получилось.</strong> Пять файлов за четыре минуты и аккуратный интерфейс. Но сданная версия
+не работала вообще: одна незакрытая скобка в регулярном выражении — и браузер отбросил
+весь скрипт. Из 48 сценариев пользователя проходили 2, и оба случайно.</p>
+<p><strong>Как модель отлаживала.</strong> За 17 шагов она ни разу не запустила код и не попросила показать
+консоль браузера, но дважды доложила об успехе: «Проект создан! ✅» и «калькулятор полностью
+функционален! 🎉». Согласилась с неверной догадкой пользователя, что «бэк не запускается»,
+и написала ненужный сервер; без спроса остановила чужой процесс на порту 8080. README вышел
+витриной: десяток неверных обещаний и инструкция для GitHub вместо GitVerse. Оценка
+в отчёте — 1,7 из 5.</p>
+<p><strong>Что было дальше.</strong> Проверку и исправление автор поручил Claude Code: после правок проходят
+48 сценариев из 48, 12 групп проверок счёта и 5 проверок запуска. Готовый калькулятор —
+<a href="https://barbashin1970.github.io/ENGINEER/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>barbashin1970.github.io/ENGINEER<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, рядом лежит
+<a href="https://barbashin1970.github.io/ENGINEER/docs/gigacode-original/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>исходная версия от GigaCode<span class="visually-hidden"> (откроется в новой вкладке)</span></a>: откройте обе и сравните.
+Claude Code — платный, а России нет в <a href="https://www.anthropic.com/supported-countries" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>списке стран Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>,
+поэтому в таблицу агентов курса он не входит.</p>
+<p>Модели не хватило не умения писать код, а умения проверять написанное. Отсюда правила для
+работы с любым агентом — и для навыков, и для отзывов на работы:</p>
+<ol>
+<li><strong>«Готово ✅» — не доказательство.</strong> Просите вывод команды, которая выполняет результат:
+   проверку синтаксиса, тесты, снимок экрана. «Файл создан» и «сервер отвечает» —
+   не доказательства.</li>
+<li><strong>Критерий приёмки — заранее:</strong> список «нажал → увидел» или три сценария для навыка.
+   Тогда «проверить работоспособность» становится прогоном, а не галочкой.</li>
+<li><strong>Ошибка в браузере — первым делом консоль.</strong> Красная строка указала бы на ошибку
+   калькулятора за секунду. Агент не просит консоль сам — скопируйте ему красные строки.</li>
+<li><strong>Свою догадку — только вопросом.</strong> «Может, бэк не запускается?» агент примет как приказ;
+   спросите: «что показывает консоль и почему?»</li>
+<li><strong>Опасные команды — только с подтверждением.</strong> Удаление файлов и остановку процессов
+   запретите в настройках разрешений агента.</li>
+<li><strong>README и отчёт агента — список утверждений.</strong> Каждое сверяйте с тем, что работает.</li>
 </ol>
 <h2 id="promty">Промпты урока</h2>
 <section class="prompt" id="p-b-shablon-skill" data-prompt>
@@ -606,6 +649,11 @@ SKILL.md.
    пришлось поправить после проверки.</li>
 <li>По желанию — соберите навык агентом в VS Code (раздел 6) и отметьте, что агент
    сделал сам и что вы поправили.</li>
+<li>По желанию — найдите ошибку GigaCode сами. Откройте
+   <a href="https://barbashin1970.github.io/ENGINEER/docs/gigacode-original/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>исходную версию калькулятора<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и нажмите 7 × 8: табло
+   останется на нуле. Откройте консоль браузера — в Chrome, Edge и Яндекс Браузере клавиша
+   F12 или на Mac ⌥⌘J, вкладка Console — и прочитайте красную строку. Сравните
+   с <a href="https://barbashin1970.github.io/ENGINEER/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>исправленной версией<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и запишите: с какой просьбой вы бы вернули работу агенту.</li>
 </ol>
 <p><strong>Как понять, что получилось:</strong> описание понятно и говорит, когда применять навык; навык работает
 на трёх сценариях; на сценарий отказа он не выдумывает ответ.</p>
@@ -642,6 +690,12 @@ SKILL.md.
 локальной моделью. Итоговую оценку ставит преподаватель.</p>
 </details>
 <details>
+<summary>Агент написал «Готово ✅». Что нужно, чтобы этому поверить?</summary>
+<p>Вывод команды, которая выполнила результат, — проверка синтаксиса, тесты, сценарии
+«нажал → увидел» — или свой прогон. «Файл создан» и «сервер отвечает» доказательством
+не считаются: в испытании GigaCode калькулятор с такими отчётами не работал вообще.</p>
+</details>
+<details>
 <summary>Почему русское описание навыка для Perplexity должно быть короче английского?</summary>
 <p>Предел — 1024 байта, а кириллица в UTF-8 весит два байта на букву: русское описание
 упирается в предел примерно на 500 знаках.</p>
@@ -655,6 +709,8 @@ SKILL.md.
 <li>Perplexity. Agent API — Skills. <a href="https://docs.perplexity.ai/docs/agent-api/skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://docs.perplexity.ai/docs/agent-api/skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
 <li>Агент в VS Code: навыки в VS Code — <a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://code.visualstudio.com/docs/copilot/customization/agent-skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; стандарт навыков и список агентов — <a href="https://agentskills.io" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://agentskills.io<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Kimi Code — <a href="https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, подписка — <a href="https://www.kimi.com/code/docs/en/kimi-code/membership.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.kimi.com/code/docs/en/kimi-code/membership.html<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, навыки — <a href="https://www.kimi.com/code/docs/en/kimi-code-cli/customization/skills.html" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.kimi.com/code/docs/en/kimi-code-cli/customization/skills.html<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; GigaCode — <a href="https://gitverse.ru/features/gigacode/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://gitverse.ru/features/gigacode/<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и навыки GigaCode — <a href="https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode/skills" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://gitverse.ru/docs/ai/ai-assistant-gigacode/gigacode-for-vscode/skills<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; тарифы SourceCraft — <a href="https://sourcecraft.dev/portal/docs/ru/sourcecraft/pricing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://sourcecraft.dev/portal/docs/ru/sourcecraft/pricing<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; вход в Qwen Code — <a href="https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Roo Code и LM Studio — <a href="https://roocodeinc.github.io/Roo-Code/providers/lmstudio" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://roocodeinc.github.io/Roo-Code/providers/lmstudio<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; Copilot из России — <a href="https://github.com/orgs/community/discussions/182386" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/orgs/community/discussions/182386<span class="visually-hidden"> (откроется в новой вкладке)</span></a>. Проверено 29.09.2026.</li>
 <li>Навык humanizer (blader, лицензия MIT) — образец порядка работы для навыка-редактора. <a href="https://github.com/blader/humanizer" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/blader/humanizer<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Барбашин О. Инженерный калькулятор: проверка GigaCode. Репозиторий <a href="https://github.com/Barbashin1970/ENGINEER" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/Barbashin1970/ENGINEER<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; отчёт об оценке модели (06.10.2026) — <a href="https://github.com/Barbashin1970/ENGINEER/blob/main/docs/OTCHET-GIGACODE.md" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/Barbashin1970/ENGINEER/blob/main/docs/OTCHET-GIGACODE.md<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; разбор 25 дефектов — <a href="https://github.com/Barbashin1970/ENGINEER/blob/main/docs/KALKULYATOR-RAZBOR.md" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://github.com/Barbashin1970/ENGINEER/blob/main/docs/KALKULYATOR-RAZBOR.md<span class="visually-hidden"> (откроется в новой вкладке)</span></a>; калькулятор — <a href="https://barbashin1970.github.io/ENGINEER/" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://barbashin1970.github.io/ENGINEER/<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
+<li>Anthropic. Supported countries and regions. <a href="https://www.anthropic.com/supported-countries" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://www.anthropic.com/supported-countries<span class="visually-hidden"> (откроется в новой вкладке)</span></a> — России в списке нет, проверено 10.10.2026.</li>
 <li>Wikipedia: Signs of AI writing — основа каталога признаков. <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing<span class="visually-hidden"> (откроется в новой вкладке)</span></a></li>
 </ul>
 </article>
@@ -667,7 +723,7 @@ SKILL.md.
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-06</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-10</p>
     </div>
   </div>
 </footer>

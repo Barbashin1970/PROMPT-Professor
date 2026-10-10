@@ -85,7 +85,7 @@ window.INSTRUMENTY = [
     "id": "gigacode",
     "imya": "GigaCode",
     "url": "https://gitverse.ru/features/gigacode/",
-    "zachem": "бесплатный агент для VS Code от Сбера, без VPN"
+    "zachem": "бесплатный агент для VS Code от Сбера, работает из России"
   }
 ];
 window.SERVISY_NABORY = {

@@ -11,7 +11,7 @@
    удаляется, страницы сохраняются заново. */
 'use strict';
 
-const VERSIYA = '6539f1cbd188';
+const VERSIYA = 'b76efdc4022d';
 const KESH = 'kurs-ii-' + VERSIYA;
 const PREDZAGRUZKA = [
   "/bonus-illyustracii/",
@@ -36,16 +36,17 @@ const PREDZAGRUZKA = [
   "/assets/ikonka.svg?v=ea0e63b8",
   "/assets/qr-sajt-vtoroj.svg?v=bf7b664d",
   "/assets/qr-sajt.svg?v=27f0ac38",
-  "/assets/sajt.css?v=86943bb5",
+  "/assets/sajt.css?v=908f5b24",
   "/assets/sajt.js?v=b289be79",
-  "/assets/servisy.js?v=3029219e",
-  "/files/konspekt-bonus-illyustracii.docx?v=40c4907b",
-  "/files/konspekt-bonus-navyki.docx?v=2c158bd0",
-  "/files/konspekt-lekciya-1.docx?v=eeaf4f8a",
-  "/files/konspekt-lekciya-2.docx?v=daee71c7",
-  "/files/konspekt-lekciya-3.docx?v=ec1b5d21",
+  "/assets/servisy.js?v=7eafbabb",
+  "/files/konspekt-bonus-illyustracii.docx?v=6c3ca12d",
+  "/files/konspekt-bonus-navyki.docx?v=2d9fce43",
+  "/files/konspekt-lekciya-1.docx?v=7fbb6605",
+  "/files/konspekt-lekciya-2.docx?v=1a226faa",
+  "/files/konspekt-lekciya-3.docx?v=95c0605c",
   "/files/navyki/editing-ai-writing.zip?v=f8fcc256",
   "/files/navyki/illustrating-lessons.zip?v=4762f66f",
+  "/files/navyki/mapping-course-meanings.zip?v=51718cc6",
   "/files/navyki/niokr.zip?v=3c7337f9",
   "/files/navyki/researching-literature.zip?v=bd6809aa",
   "/files/navyki/spotting-ai-writing.zip?v=fff82931",
@@ -72,9 +73,9 @@ const PREDZAGRUZKA = [
   "/kartinki/o-kurse/ngu-800.jpg?v=5f7ad227",
   "/konstruktor/konstruktor.js",
   "/manifest.webmanifest",
-  "/test/prodvinutyj/voprosy.js?v=5a619567",
+  "/test/prodvinutyj/voprosy.js?v=eaf0a0f7",
   "/test/test.js?v=2dfca5b4",
-  "/test/voprosy.js?v=375bd660"
+  "/test/voprosy.js?v=8b2b3469"
 ];
 
 self.addEventListener('install', (sobytie) => {

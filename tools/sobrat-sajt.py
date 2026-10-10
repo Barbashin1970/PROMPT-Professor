@@ -58,6 +58,7 @@ NAVYKI_RU = {
     "spotting-ai-writing": "Проверка текста на следы ИИ",
     "editing-ai-writing": "Редактор ИИ-штампов",
     "illustrating-lessons": "Иллюстратор лекций",
+    "mapping-course-meanings": "Карта смыслов курса",
     "niokr": "Отчёт о НИР по ГОСТ 7.32",
 }
 

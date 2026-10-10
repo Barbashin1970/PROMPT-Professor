@@ -226,8 +226,14 @@ def proverit_test():
     # Зачёт сдаётся на сайте НГУ, тесты здесь — для самопроверки: ссылок на прежнюю форму
     # Google с ведомостью на сайте нет, чтобы не путать слушателей (решение 03.10.2026)
     for stranica in SITE.rglob("*.html"):
-        if re.search(r"forms\.gle/|docs\.google\.com/forms|data-forma-zacheta|ведомост", stranica.read_text(encoding="utf-8")):
+        tekst_stranicy = stranica.read_text(encoding="utf-8")
+        if re.search(r"forms\.gle/|docs\.google\.com/forms|data-forma-zacheta|ведомост", tekst_stranicy):
             oshibka(f"{stranica.relative_to(SITE)}: ссылка на форму зачёта или «ведомость» — зачёт сдаётся на сайте НГУ")
+    # О VPN на сайте не пишем (406-ФЗ; решение 30.09.2026): о доступе — «работает из России».
+    # Подписи сервисов и конструктора приходят на страницу из скриптов — их смотрим тоже
+    for fajl in [*SITE.rglob("*.html"), *SITE.rglob("*.js")]:
+        if re.search(r"\bVPN\b|\bВПН\b", fajl.read_text(encoding="utf-8", errors="ignore"), re.I):
+            oshibka(f"{fajl.relative_to(SITE)}: упомянут VPN — пишем «работает из России» или «недоступен из России»")
     # Выгрузка вопросов для системы НГУ собирается из тех же вопросов и не должна от них отставать
     for skript, chto in (("vygruzit-test.js", "выгрузка теста"),):
         sverka = subprocess.run(["node", str(KOREN / "tools" / skript), "--proverka"],

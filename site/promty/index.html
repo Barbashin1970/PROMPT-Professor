@@ -6,14 +6,14 @@
 <script>try{var t=localStorage.getItem('kurs-ii-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>Промпты курса — ИИ в учебном процессе</title>
 <meta name="description" content="Все промпты курса «ИИ в учебном процессе»: скопировать и открыть в нейросети рядом.">
-<link rel="stylesheet" href="/assets/sajt.css?v=86943bb5">
+<link rel="stylesheet" href="/assets/sajt.css?v=908f5b24">
 <link rel="icon" href="/assets/ikonka.svg?v=ea0e63b8" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/assets/ikonka-180.png?v=f817687b">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-title" content="ИИ в учёбе">
-<script src="/assets/servisy.js?v=3029219e" defer></script>
+<script src="/assets/servisy.js?v=7eafbabb" defer></script>
 <script src="/assets/sajt.js?v=b289be79" defer></script>
 
 </head>
@@ -36,7 +36,7 @@
   </div>
 </header>
 <main id="main">
-<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 59 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
+<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 74 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
 <section class="section" id="lekciya-1"><h2>Лекция 1</h2>
 <section class="prompt" id="p-l1-test-po-formule" data-prompt>
   <div class="prompt__head">
@@ -189,6 +189,26 @@ VERIFY: проверь, что все вопросы относятся к IX–
 Для каждого: авторы, название, год, издание или журнал и проверяемый идентификатор —
 DOI, URL или ISBN.
 Предлагай только источники, в существовании которых уверен. Если не уверен — так и скажи и объясни, где искать самому. Выдуманные ссылки хуже, чем их отсутствие.</div>
+</section>
+<section class="prompt" id="p-l1-programma-po-obrazcam" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Программа курса по образцам онлайн-курсов</h3>
+      <p class="prompt__when">Когда: проектируете курс и хотите увидеть, как похожие курсы устроены у других; включите поиск</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l1-programma-po-obrazcam">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l1-programma-po-obrazcam">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l1-programma-po-obrazcam">Составь программу учебного курса «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[АУДИТОРИЯ]</mark> по образцам открытых онлайн-курсов российских вузов и платформ — например, «Открытое образование», Stepik, «Лекториум».
+1. Найди поиском 3–5 похожих курсов. Для каждого: название, вуз или платформа, ссылка (URL), чему учит, чем полезен как образец.
+2. Составь программу: темы по неделям, результаты обучения, практика и задания.
+3. У каждой темы отметь, из какого курса-образца взята идея.
+Ссылки — только те, что ты нашёл поиском; если не уверен, что курс существует, так и скажи, не придумывай.</div>
 </section>
 <section class="prompt" id="p-l1-proverka-otveta" data-prompt>
   <div class="prompt__head">
@@ -612,6 +632,72 @@ DOI, URL или ISBN.
 – объём — не больше [N] знаков.
 Проверка: перед выдачей пройди по этому списку, отметь каждый пункт и исправь то, что не выполнено. Если какого-то сведения нет — так и скажи.</div>
 </section>
+<section class="prompt" id="p-l2-uchebnyj-plan" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Учебный план нового курса</h3>
+      <p class="prompt__when">Когда: готовите новый курс и нужен план по неделям</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-uchebnyj-plan">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-uchebnyj-plan">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-uchebnyj-plan">Ты — преподаватель вуза, специализирующийся на <mark class="ph">[ДИСЦИПЛИНА, например: «управление проектами»]</mark>.
+Подготовь подробный план нового учебного курса для студентов <mark class="ph">[ФАКУЛЬТЕТ, НАПРАВЛЕНИЕ, УРОВЕНЬ, например: «бакалавриат, направление экономика»]</mark>.
+План должен включать цели курса, ожидаемые образовательные результаты, структуру занятий (лекции, семинары, практические работы), оценочные мероприятия.
+Для каждой темы курса укажи краткое описание, ключевые вопросы и рекомендуемую литературу — только существующие издания с ISBN, DOI или URL; не уверен — так и напиши.
+Используй разнообразные формы учебной активности: групповые обсуждения, индивидуальные задания, проекты, кейсы, презентации.
+Приведи основные акценты курса, например: развитие критического мышления, практическое применение теории, междисциплинарные связи.
+Пиши в стиле <mark class="ph">[ТОН, например: «увлечённого наставника»]</mark>. Избегай банальных и формальных формулировок, делай акцент на актуальности и пользе курса.
+Итоговый план — таблицей: неделя — тема — формат занятия — ключевые задачи — краткое описание.</div>
+</section>
+<section class="prompt" id="p-l2-post-telegram" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Пост для Telegram-канала группы</h3>
+      <p class="prompt__when">Когда: анонс спецкурса или события для студентов</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-post-telegram">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-post-telegram">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-post-telegram">Ты — преподаватель, куратор учебной группы, специализирующийся на <mark class="ph">[НАПРАВЛЕНИЕ, например: «информационные технологии»]</mark>.
+Напиши пост для Telegram-канала группы — до 4000 знаков с пробелами — на тему <mark class="ph">[ТЕМА, например: «Запускаем новый спецкурс: почему это важно и как принять участие»]</mark>.
+Аудитория: <mark class="ph">[ОПИСАНИЕ, например: «студенты старших курсов, которые ищут новые навыки и возможности для роста»]</mark>.
+Структура: мотивационное вступление, краткое описание спецкурса, важность темы для будущей карьеры, форматы занятий и ожидаемые результаты, приглашение к участию.
+Пиши живо и дружелюбно, конкретно, без канцеляризмов, банальных фраз и шаблонов.
+В конце — вопрос для вовлечения (например: «Какой формат вам интереснее — проекты или мастер-классы?») или предложение сохранить пост и поделиться им с одногруппниками.</div>
+</section>
+<section class="prompt" id="p-l2-kp-vuzu" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Коммерческое предложение партнёрскому вузу</h3>
+      <p class="prompt__when">Когда: предлагаете вузу-партнёру совместный курс</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-kp-vuzu">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-kp-vuzu">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-kp-vuzu">Ты — преподаватель вуза, который развивает межвузовское сотрудничество.
+Подготовь коммерческое предложение партнёрскому вузу о совместном проведении нового образовательного курса на его площадке.
+Описание курса: <mark class="ph">[НАПРАВЛЕНИЕ И ПРЕИМУЩЕСТВА, например: «инновационные методы управления проектами»]</mark>.
+Ключевые акценты: [ВЫГОДЫ ДЛЯ ПАРТНЁРА, например: совместная разработка программы, привлечение экспертов, обмен опытом, конкурентоспособность студентов].
+Предложение должно включать: основные условия сотрудничества; варианты организации курса (очно или онлайн, совместные занятия, гостевые лекции); целевую аудиторию (студенты, аспиранты, преподаватели); формат сертификации или зачёта.
+Пропиши возможную гибкость в работе, встраивание в инфраструктуру партнёра, особенности преподавания.
+Отдельным пунктом — чего точно не должно быть в совместном проекте (например: дублирование контента, конфликты по расписанию, нарушения академических стандартов).</div>
+</section>
 <section class="prompt" id="p-l2-cepochka-kursa" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -637,6 +723,59 @@ DOI, URL или ISBN.
 Промпт 4 (методист). Разработай структуру одного занятия: этапы, методы, формы работы, обратная связь.
 
 Промпт 5 (дизайнер презентаций). По предыдущим шагам предложи структуру презентации на 5–7 слайдов: для каждого слайда — ключевой тезис и что на нём изображено.</div>
+</section>
+<section class="prompt" id="p-l2-koncepciya-lekcii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Концепция лекции по вашим материалам</h3>
+      <p class="prompt__when">Когда: в цепочке промптов, когда ваши материалы уже приложены к чату</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-koncepciya-lekcii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-koncepciya-lekcii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-koncepciya-lekcii">Ты — преподаватель вуза с опытом внедрения цифровых технологий в образовательный процесс.
+На основе материалов, которые я приложил раньше, разработай общую концепцию лекции на тему «<mark class="ph">[ТЕМА, например: ИИ в образовании]</mark>».
+Укажи цель лекции, структуру и продолжительность; выдели ключевые темы (например: виды применения ИИ, этические вопросы, методы интеграции ИИ в учебные программы, инструменты индивидуализации обучения).
+Обозначь задачи для студентов на лекции (критический анализ, групповые обсуждения, самостоятельные мини-кейсы) и предложи материалы для самообразования — статьи, платформы, исследования — только существующие, с DOI или URL; не уверен — так и напиши.
+Пиши структурно, лаконично и профессионально.</div>
+</section>
+<section class="prompt" id="p-l2-priglashenie-delegacii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Приглашение делегации и план визита</h3>
+      <p class="prompt__when">Когда: готовите визит зарубежных коллег; образец промпта с точными условиями</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-priglashenie-delegacii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-priglashenie-delegacii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-priglashenie-delegacii">Ты — ректор ведущего российского университета, который приглашает делегацию преподавателей из <mark class="ph">[СТРАНА, например: Китая]</mark> на научно-образовательный визит и совместные мероприятия.
+Разработай текст приглашения и подробный план встречи с учётом международного сотрудничества, академических целей и культурных различий.
+Условия:
+— бюджет не больше <mark class="ph">[СУММА]</mark>;
+— без банальных сценариев: никаких формальных обедов и протокольных экскурсий без научного или образовательного содержания;
+— состав смешанный: профессора, ассистенты, представители администрации с разными научными интересами;
+— площадка для основных мероприятий легко доступна, лучше рядом с кампусом;
+— официальная часть — без алкоголя, с соблюдением академической этики и дипломатических норм;
+— без сложных в реализации идей: учитывай визы, трансфер, языковую поддержку, помощь в адаптации.
+Результат:
+1. Концепция приглашения: цели и ожидаемые результаты визита.
+2. Основная идея и тематика сотрудничества.
+3. Этапы: встреча, конференция, семинар, неформальные обсуждения, экскурсия по кампусу, подведение итогов.
+4. Не больше пяти активностей с подробностями: научный обмен, совместная лекция, культурная программа, работа в группах, круглый стол.
+5. Тайминг всех мероприятий.
+6. Смета по статьям: трансфер, проживание, питание, организация.
+7. Оформление и атмосфера: протокол, приветственные речи, двуязычные материалы, сувениры.
+Будь креативен, избегай шаблонов, опирайся на лучшие практики международного академического сотрудничества. Пиши структурно.</div>
 </section>
 <section class="prompt" id="p-l2-obratnyj-promt" data-prompt>
   <div class="prompt__head">
@@ -702,6 +841,26 @@ DOI, URL или ISBN.
 Как ты понимаешь ключевые термины: <mark class="ph">[ТЕРМИНЫ]</mark>?
 В конце — список того, что мне стоит проверить самому.</div>
 </section>
+<section class="prompt" id="p-l2-poisk-protivorechij" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Поиск противоречий в структуре курса</h3>
+      <p class="prompt__when">Когда: программа готова — проверить, сходятся ли цели, темы, задания и оценка</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-poisk-protivorechij">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-poisk-protivorechij">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-poisk-protivorechij">Ты — научный рецензент и эксперт. Перед тобой структура документа курса по предмету «<mark class="ph">[НАЗВАНИЕ]</mark>»: цели, темы, структура занятий, критерии оценки, список литературы и итоговые задания (файл приложен). Проведи подробный анализ:
+— найди противоречия, несогласованности и логические несостыковки между разделами (например, цели не соответствуют итоговым заданиям, структура занятий не покрывает темы, критерии оценки противоречат формату занятий); сравни разделы попарно;
+— укажи конкретные места для доработки: где не хватает важных деталей, какие темы раскрыты недостаточно, где рвётся последовательность;
+— дай рекомендации, как согласовать разделы между собой, чтобы курс был целостным.
+Для каждой находки — цитата из документа и раздел, где она стоит.</div>
+</section>
 <section class="prompt" id="p-l2-forest" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -761,6 +920,43 @@ T — тренды: куда движется тема.
 Курс: <mark class="ph">[НАЗВАНИЕ И СУТЬ]</mark>. Аудитория: <mark class="ph">[КТО]</mark>. Сильные стороны: <mark class="ph">[ЧТО ОСОБЕННОГО]</mark>.
 Формат: <mark class="ph">[ОЧНО / ОНЛАЙН / СМЕШАННО]</mark>.
 Объём — до 600 знаков, без канцелярита. В конце — как записаться: <mark class="ph">[КОНТАКТ]</mark>.</div>
+</section>
+<section class="prompt" id="p-l2-oda" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Заголовки статьи: 10 формул, в том числе ODA</h3>
+      <p class="prompt__when">Когда: нужен заголовок для статьи, поста или анонса</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-oda">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-oda">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-oda">Ты — журналист мирового уровня с эталонным чувством вкуса и тонким чувством юмора.
+Придумай 10 заголовков для статьи — текст приложен. Используй разные формулы: интрига, вопрос «как…», прямой заголовок, задача + выгода, минимум усилий + максимум результата, ODA, заголовок со списком.
+ODA: O (Offer) — предложение, от которого трудно отказаться; D (Deadline) — ограничение по времени или числу мест, только настоящее, например срок записи; A (Action) — призыв к действию: записаться, прийти, присоединиться.
+Избегай тавтологий и шаблонных выражений.</div>
+</section>
+<section class="prompt" id="p-l2-latex" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">План семинара и презентация в LaTeX</h3>
+      <p class="prompt__when">Когда: нужны план занятия и слайды с формулами; соберёте в Overleaf</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-latex">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l2-latex">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l2-latex">Промпт 1. План семинара по теме «<mark class="ph">[ТЕМА, например: Производная и дифференциал функции одной переменной]</mark>» для <mark class="ph">[АУДИТОРИЯ, например: студентов-физиков первого курса]</mark>. Оформи его в LaTeX.
+
+Промпт 2. Оформи теперь презентацию для этого урока в LaTeX (например, класс beamer).</div>
 </section>
 <section class="prompt" id="p-l2-uproshchenie" data-prompt>
   <div class="prompt__head">
@@ -831,88 +1027,6 @@ T — тренды: куда движется тема.
 Для каждого нового примера отметь, из какой профессиональной ситуации он взят.
 Материал: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
 </section>
-<section class="prompt" id="p-l2-smyslovik" data-prompt>
-  <div class="prompt__head">
-    <div class="prompt__titles">
-      <h3 class="prompt__title">ИИ-смысловик: карта смыслов учебного материала</h3>
-      <p class="prompt__when">Когда: проектируете лекцию или курс и хотите найти его смысловую опору</p>
-    </div>
-    <div class="prompt__actions">
-      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-smyslovik">Копировать</button>
-      <div class="svc" data-svc data-kopirovat-pered="#t-l2-smyslovik">
-        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
-        <ul class="svc__menu" hidden data-svc-menu></ul>
-      </div>
-    </div>
-  </div>
-  <div class="prompt__body" id="t-l2-smyslovik">Вы — преподаватель и автор, который хочет, чтобы знания стали живыми и запомнились.
-Проведите смысловую распаковку текста ниже по шести уровням:
-1. Рациональный — что даёт материал на уровне фактов и действий, что студент должен уметь.
-2. Эмоциональный — какие чувства вызывает тема и как их использовать для вовлечения.
-3. Авторский — зачем эта тема мне как преподавателю, чему я учу «между строк».
-4. Студенческий — кто мой студент, где он спотыкается, что ему откликается.
-5. Контекстный — почему тема важна сейчас, где она пересекается с будущей профессией.
-6. Ценностный — какие компетенции и ценности формирует тема.
-По каждому уровню — 2–4 абзаца живого текста, затем краткие тезисы для плана лекции, учебных целей и вопросов к тесту.
-Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
-</section>
-<section class="prompt" id="p-l2-lingvist" data-prompt>
-  <div class="prompt__head">
-    <div class="prompt__titles">
-      <h3 class="prompt__title">ИИ-лингвист: карта смыслов любого текста</h3>
-      <p class="prompt__when">Когда: нужно понять, на чём держится чужой текст, анонс или программа</p>
-    </div>
-    <div class="prompt__actions">
-      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-lingvist">Копировать</button>
-      <div class="svc" data-svc data-kopirovat-pered="#t-l2-lingvist">
-        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
-        <ul class="svc__menu" hidden data-svc-menu></ul>
-      </div>
-    </div>
-  </div>
-  <div class="prompt__body" id="t-l2-lingvist">Ты — аналитик смыслового позиционирования. Проведи многомерный анализ текста ниже и извлеки карту смыслов по шести измерениям: рациональное (функциональное ядро), эмоциональное, авторское (интенция автора), клиентское (истинные мотивы аудитории), контекстуальное (почему сейчас), ценностное (базовые потребности).
-Задача — не пересказать, а выявить скрытые мотивы и основания. Не цитируй текст — синтезируй.
-Формат: раздел на каждое измерение, 3–5 ёмких абзацев; в конце — неочевидные связи между измерениями.
-Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
-</section>
-<section class="prompt" id="p-l2-portret-auditorii" data-prompt>
-  <div class="prompt__head">
-    <div class="prompt__titles">
-      <h3 class="prompt__title">Портрет аудитории</h3>
-      <p class="prompt__when">Когда: нужно понять студентов курса перед картой смыслов или анонсом</p>
-    </div>
-    <div class="prompt__actions">
-      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-portret-auditorii">Копировать</button>
-      <div class="svc" data-svc data-kopirovat-pered="#t-l2-portret-auditorii">
-        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
-        <ul class="svc__menu" hidden data-svc-menu></ul>
-      </div>
-    </div>
-  </div>
-  <div class="prompt__body" id="t-l2-portret-auditorii">Ты — исследователь аудитории. Составь таблицу-портрет студентов курса «<mark class="ph">[КУРС]</mark>»
-(<mark class="ph">[НАПРАВЛЕНИЕ, КУРС ОБУЧЕНИЯ]</mark>).
-Столбцы: признак — описание — как это учесть в курсе.
-Признаки: подготовка к курсу; трудности в теме; чего боятся; что их раздражает на занятиях; что радует и вовлекает; где берут информацию; какие темы им интересны; зачем курс в их будущей профессии; частые ошибки и путаница в понятиях; вопросы, которые они задают чаще всего.
-Где нужны сведения, которых у тебя нет, — пиши «уточнить у преподавателя», не придумывай.</div>
-</section>
-<section class="prompt" id="p-l2-tekst-po-karte" data-prompt>
-  <div class="prompt__head">
-    <div class="prompt__titles">
-      <h3 class="prompt__title">Текст по карте смыслов</h3>
-      <p class="prompt__when">Когда: карта готова, нужен анонс, пост или вступление</p>
-    </div>
-    <div class="prompt__actions">
-      <button class="btn btn--small" type="button" data-kopirovat="#t-l2-tekst-po-karte">Копировать</button>
-      <div class="svc" data-svc data-kopirovat-pered="#t-l2-tekst-po-karte">
-        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
-        <ul class="svc__menu" hidden data-svc-menu></ul>
-      </div>
-    </div>
-  </div>
-  <div class="prompt__body" id="t-l2-tekst-po-karte">Ты — копирайтер. Напиши <mark class="ph">[ЧТО: пост для канала кафедры до 2000 знаков / вступление к лекции / анонс курса]</mark> на тему «<mark class="ph">[ТЕМА]</mark>».
-Опирайся на приложенную карту смыслов: используй 2–3 рациональных смысла, 2–3 эмоциональных и авторский акцент — мои любимые слова и обороты: <mark class="ph">[СЛОВА АВТОРА]</mark>.
-Стиль: <mark class="ph">[СТИЛЬ]</mark>. Без канцелярита и штампов.</div>
-</section>
 </section><section class="section" id="lekciya-3"><h2>Лекция 3</h2>
 <section class="prompt" id="p-l3-akademicheskij-assistent" data-prompt>
   <div class="prompt__head">
@@ -928,7 +1042,7 @@ T — тренды: куда движется тема.
       </div>
     </div>
   </div>
-  <div class="prompt__body" id="t-l3-akademicheskij-assistent">Ты — академический ассистент преподавателя дисциплины «<mark class="ph">[ДИСЦИПЛИНА]</mark>»: помогаешь с научными текстами, конспектами, методическими материалами и перепиской со студентами и коллегами.
+  <div class="prompt__body" id="t-l3-akademicheskij-assistent">Ты — академический ассистент преподавателя дисциплины «<mark class="ph">[ДИСЦИПЛИНА]</mark>»: помогаешь с научными текстами, образовательным дизайном, конспектами, методическими материалами и перепиской со студентами и коллегами, проверяешь логику рассуждений.
 Стиль: вежливый, структурированный, научно-деловой; для студентов — проще, с пояснением терминов.
 Формат: инструкции — списком, пояснения — абзацами, сравнения — таблицей, к каждой теме — пример.
 Опора на материалы: отвечай по приложенным файлам курса; если ответа в них нет — скажи об этом прямо.
@@ -973,7 +1087,8 @@ T — тренды: куда движется тема.
   <div class="prompt__body" id="t-l3-slovar-discipliny">Ты — эксперт в области «<mark class="ph">[ОБЛАСТЬ]</mark>». Составь словарь из 20 профессиональных терминов этой области для студентов <mark class="ph">[УРОВЕНЬ]</mark>.
 Для каждого: термин; определение в одно-два предложения; пример употребления; частая ошибка студентов в понимании термина.
 Упорядочи по алфавиту, очевидные термины пропусти.
-Если у термина в разных школах разные определения — укажи это.</div>
+Если у термина в разных школах разные определения — укажи это.
+Для иноязычной области (например, китайской чайной посуды) — название в русской транскрипции, оригинальное написание и русский перевод.</div>
 </section>
 <section class="prompt" id="p-l3-proverka-esse" data-prompt>
   <div class="prompt__head">
@@ -1122,6 +1237,248 @@ T — тренды: куда движется тема.
 Исходное задание: <mark class="ph">[ТЕКСТ ЗАДАНИЯ]</mark>. Длительность: <mark class="ph">[НЕДЕЛИ]</mark>.
 Используй: личный или местный контекст студента; промежуточные этапы с отчётами; часть работы на занятии; устную защиту.
 Предложи: формулировку задания; этапы и сроки; критерии оценки; 5 вопросов для устной защиты.</div>
+</section>
+<section class="prompt" id="p-l3-smyslovik" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">ИИ-смысловик: карта смыслов учебного материала</h3>
+      <p class="prompt__when">Когда: проектируете лекцию или курс и хотите найти его смысловую опору</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-smyslovik">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-smyslovik">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-smyslovik">Вы — преподаватель и автор, который хочет, чтобы знания стали живыми и запомнились.
+Проведите смысловую распаковку текста ниже по шести уровням:
+1. Рациональный — что студент сможет сделать после этого материала: действия, которые можно проверить; что сам, а что вместе с ИИ.
+2. Эмоциональный — что студент чувствует на пути: интерес, тревогу, скуку, момент «понял!» — и как это использовать для вовлечения.
+3. Авторский — зачем эта тема мне как преподавателю, чему я учу «между строк».
+4. Студенческий — с чем приходит студент, где ошибается, какие понятия ему даются трудно.
+5. Контекстный — почему тема важна сейчас: что меняется в профессии и науке, что в ней изменил ИИ.
+6. Ценностный — каким специалистом и человеком тема помогает стать.
+По каждому уровню — 2–4 абзаца живого текста, затем краткие тезисы для плана лекции, учебных целей и вопросов к тесту.
+Пример тезисов: рационально — «Метод XYZ даёт стабильные результаты при малом объёме данных»; эмоционально — «Тема вызывает у студентов страх ошибки — встроить поддерживающий элемент»; студенчески — «Большинство путают понятия A и B — разъяснить на примерах».
+Фокус — не на пересказе, а на понимании: какие смыслы вы хотите передать. Чего в тексте нет, не додумывайте: отметьте «проверить у автора».
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-lingvist" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">ИИ-лингвист: карта смыслов любого текста</h3>
+      <p class="prompt__when">Когда: нужно понять, на чём держится чужой текст, анонс или программа</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-lingvist">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-lingvist">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-lingvist">Ты — аналитик смыслового позиционирования, который расшифровывает глубинные слои коммуникации. Проведи многомерный анализ текста ниже и извлеки карту смыслов по шести измерениям. Задача — не пересказать, а выявить скрытые закономерности, мотивы и ценностные основания.
+1. Рациональное измерение. Функциональное ядро: какие задачи решает продукт или курс, как он работает, какие результаты можно измерить, какие технологии и методы использует. Без абстракций — то, что можно проверить.
+2. Эмоциональное измерение. Какие чувства вызывает текст, через какие состояния проводит аудиторию, какие страхи снимает, какие надежды формирует.
+3. Авторское измерение. Зачем создан продукт помимо выгоды: миссия и философия автора, его история и основания. Ищи подлинную внутреннюю мотивацию.
+4. Клиентское измерение. Истинные, а не заявленные мотивы аудитории: боли и разочарования, прежний опыт и причины неудач, барьеры на пути к цели. Выходи за рамки демографии — к психографии.
+5. Контекстуальное измерение. Почему это важно именно сейчас: тренды в обществе и отрасли, технологические и экономические сдвиги.
+6. Ценностное измерение. Какие базовые потребности закрывает: автономия, безопасность, принадлежность, самореализация, признание.
+Формат: раздел на каждое измерение, 3–5 ёмких абзацев; в конце — неочевидные связи между измерениями.
+Критерии качества: глубина важнее пересказа; не цитируй текст — синтезируй; пиши аналитично, языком маркетинга, психологии и социологии. Чего в тексте нет — не додумывай, отметь «проверить».
+Текст: <mark class="ph">[ВСТАВЬТЕ ТЕКСТ]</mark></div>
+</section>
+<section class="prompt" id="p-l3-portret-auditorii" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Портрет аудитории</h3>
+      <p class="prompt__when">Когда: нужно понять студентов курса перед картой смыслов или анонсом</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-portret-auditorii">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-portret-auditorii">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-portret-auditorii">Ты — исследователь аудитории. Составь таблицу-портрет студентов курса «<mark class="ph">[КУРС]</mark>»
+(<mark class="ph">[НАПРАВЛЕНИЕ, КУРС ОБУЧЕНИЯ]</mark>).
+Столбцы: признак — описание — как это учесть в курсе.
+Признаки: подготовка к курсу; трудности в теме; чего боятся; что их раздражает на занятиях; что радует и вовлекает; где берут информацию; какие темы им интересны; зачем курс в их будущей профессии; частые ошибки и путаница в понятиях; вопросы, которые они задают чаще всего.
+Где нужны сведения, которых у тебя нет, — пиши «уточнить у преподавателя», не придумывай.</div>
+</section>
+<section class="prompt" id="p-l3-buyer-persona" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Портрет аудитории — полная версия (Buyer Persona)</h3>
+      <p class="prompt__when">Когда: нужен подробный портрет слушателей курса или покупателей продукта</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-buyer-persona">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-buyer-persona">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-buyer-persona">Ты — специалист по исследованию аудитории.
+Создай таблицу Buyer Persona для аудитории <mark class="ph">[ХАРАКТЕРИСТИКА АУДИТОРИИ]</mark> применительно к <mark class="ph">[ПРОДУКТ ИЛИ КУРС]</mark>. Если дан только продукт — сначала определи по нему аудиторию.
+Столбцы: атрибут — описание — дополнительная информация — как это использовать; в каждом столбце — по 3 варианта.
+Атрибуты: 1) социально-демографические характеристики; 2) боли; 3) задачи; 4) глобальные мечты; 5) страхи; 6) что раздражает и сердит; 7) что впечатляет и радует; 8) жизненные ценности; 9) манера общения; 10) где потребляет информацию; 11) топ интересующих тем; 12) какую роль в жизни играет продукт; 13) насколько аудитория знает о продукте; 14) решает рационально или эмоционально; 15) кто принимает решение о покупке или записи; 16) критерии выбора; 17) возражения; 18) ключевые сообщения.
+Опирайся на лучшие мировые образцы Buyer Persona. Где нужны сведения, которых у тебя нет, — пиши «уточнить», не придумывай.</div>
+</section>
+<section class="prompt" id="p-l3-koncepciya-produkta" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Концепция нового продукта или курса для знакомой аудитории</h3>
+      <p class="prompt__when">Когда: аудитория понятна — нужна идея нового курса, клуба или сервиса</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-koncepciya-produkta">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-koncepciya-produkta">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-koncepciya-produkta">Ты — продуктолог мирового уровня с опытом создания востребованных продуктов в самых разных нишах.
+Задача — разработать новый продукт для [ОРГАНИЗАЦИЯ, например: «онлайн-школа по финансовой грамотности с аудиторией 12 000 подписчиков» или «кафедра, которая ведёт курс для первокурсников»].
+Целевая аудитория: <mark class="ph">[ОПИСАНИЕ, например: «люди 25–40 лет со средним доходом, которые хотят навести порядок в личных финансах»]</mark>.
+Продукт должен быть практичным, ценным для аудитории и масштабируемым.
+Сформируй базовую концепцию: 1) название; 2) формат — онлайн-курс, подписка, клуб, сервис, физический продукт или другой; 3) краткое описание; 4) основная идея — ключевое отличие и главная польза; 5) ценность для пользователя; 6) какие проблемы и задачи решает; 7) минимальный жизнеспособный продукт — что нужно на старте; 8) план развития на 6 месяцев; 9) примерная цена; 10) три варианта названия; 11) пять сообщений для продвижения.
+Будь оригинален, опирайся на реальные боли и поведение аудитории; применяй продуктовое мышление, Customer Development и дизайн-мышление. Пиши структурно и конкретно, без общих слов.
+В конце предложи следующий шаг для запуска: интервью с аудиторией, проверка спроса, сбор предзаявок, страница курса.</div>
+</section>
+<section class="prompt" id="p-l3-smyslovik-intervyu" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Агент-смысловик: интервью и карта смыслов курса</h3>
+      <p class="prompt__when">Когда: хотите собрать карту смыслов своего курса из старых материалов и своих ответов</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-smyslovik-intervyu">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-smyslovik-intervyu">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-smyslovik-intervyu">Ты — агент-смысловик: методист, который помогает преподавателю найти смыслы его курса и собрать карту смыслов по шести уровням.
+Уровни карты:
+1. Рациональный — что студент сможет сделать после курса: действия, которые можно проверить; что сам, а что вместе с ИИ.
+2. Эмоциональный — что студент чувствует на пути: интерес, тревогу, скуку, момент «понял!».
+3. Авторский — почему курс ведёт именно этот преподаватель: опыт, исследования, его взгляд на предмет.
+4. Студенческий — с чем приходят студенты, где ошибаются, какие понятия даются трудно.
+5. Контекстный — почему это важно сейчас: что меняется в профессии и науке, что в дисциплине изменил ИИ.
+6. Ценностный — каким специалистом и человеком курс помогает стать.
+Курс: «<mark class="ph">[НАЗВАНИЕ КУРСА]</mark>», <mark class="ph">[АУДИТОРИЯ: направление и курс обучения или слушатели]</mark>.
+Приложены материалы курса: <mark class="ph">[ЧТО ПРИЛОЖЕНО: программа, лекции, тест, анонс]</mark>.
+
+Порядок работы:
+1. Прочитай материалы. В 5–7 строках перескажи, что из них понятно о курсе, и назови уровни карты, которых в них не хватает.
+2. Проведи интервью: 10–15 вопросов, строго по одному. Дождись моего ответа, прежде чем задать следующий вопрос.
+3. Начни с уровней, которых нет в материалах: обычно это авторский, студенческий и эмоциональный. Где можешь, опирайся на материалы: «В программе главный результат — … Для вас это главное?»
+4. Если ответ короткий или общий — задай один уточняющий вопрос: попроси пример, случай со студентами, слова, которыми я объясняю трудное.
+5. Не подсказывай ответы и не оценивай их. Не додумывай за меня: чего нет ни в материалах, ни в ответах, помечай «проверить».
+6. Когда вопросы кончатся или я напишу «хватит», собери карту.
+
+Формат карты:
+— по каждому из шести уровней 3–5 тезисов, каждый одной строкой; после тезиса — источник в скобках: (материалы), (ответ) или (проверить);
+— «Слова автора»: мои выражения и обороты из ответов, дословно;
+— «Расхождения»: где материалы говорят одно, а ответы — другое;
+— «Пробелы»: что осталось неясным;
+— в конце — три первых шага: что обновить в курсе.
+Оформи карту как файл Markdown: я сохраню его и буду прикладывать к новым чатам.
+Персональные данные студентов не используй, даже если они попадутся в материалах.</div>
+</section>
+<section class="prompt" id="p-l3-smyslovik-sistemnyj-sloj" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Смысловик курса — системный слой для проекта или первого сообщения</h3>
+      <p class="prompt__when">Когда: карта готова, и помощник должен всегда работать по ней</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-smyslovik-sistemnyj-sloj">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-smyslovik-sistemnyj-sloj">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-smyslovik-sistemnyj-sloj">Ты — смысловик курса «<mark class="ph">[НАЗВАНИЕ КУРСА]</mark>». Карта смыслов курса приложена файлом — это главный источник: всё, что ты пишешь для курса, опирается на её тезисы.
+Режимы — я называю их в начале запроса:
+— «интервью» — 5–7 вопросов, строго по одному, о том, что в карте помечено «проверить» или записано в пробелах;
+— «обнови карту» — внеси в карту мои новые ответы и материалы, сохрани пометки источников и покажи, что изменилось;
+— «курс по карте» — план нового курса или модуля для аудитории, которую я назову;
+— «тест по карте» — тест с ключом: каждый вопрос проверяет тезис карты;
+— «текст по карте» — анонс, пост или вступление на 2–3 смысла разных уровней, с моими словами из карты.
+Если для ответа нужен смысл, которого в карте нет, — так и скажи и предложи вопрос, чтобы его добавить. Объясняя выбор, ссылайся на тезисы карты. Никаких персональных данных студентов.</div>
+</section>
+<section class="prompt" id="p-l3-kurs-po-karte" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Новый курс по карте смыслов</h3>
+      <p class="prompt__when">Когда: на основе старого курса нужен новый — для другой аудитории, объёма или формата</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-kurs-po-karte">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-kurs-po-karte">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-kurs-po-karte">Ты — методист. Карта смыслов моего курса приложена. На её основе спроектируй новый курс «<mark class="ph">[НАЗВАНИЕ ИЛИ ТЕМА]</mark>» для <mark class="ph">[НОВАЯ АУДИТОРИЯ]</mark>; объём — <mark class="ph">[ЧАСЫ ИЛИ НЕДЕЛИ]</mark>, формат — <mark class="ph">[ОЧНО, ОНЛАЙН, СМЕШАННО]</mark>.
+Иди в порядке обратного проектирования: результаты — проверка — занятия.
+1. Цель курса и 3–5 результатов обучения — проверяемыми действиями, из рационального и ценностного уровней карты.
+2. Как проверить каждый результат: задание или вопрос; неверные пути решения — из студенческого уровня.
+3. Таблица модулей: модуль — результат — тезисы карты — форма практики — что студент делает сам, а что вместе с ИИ.
+4. Для каждого модуля — одна трудность студентов из студенческого уровня карты и как её снять.
+5. Вступление к курсу на 5–7 предложений: эмоциональный и авторский уровни, мои слова из карты.
+6. Если для новой аудитории в карте чего-то не хватает, не придумывай: выпиши, что уточнить, с пометкой «вне карты».</div>
+</section>
+<section class="prompt" id="p-l3-test-po-karte" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Тест по карте смыслов</h3>
+      <p class="prompt__when">Когда: нужен тест, который проверяет главное в курсе, а не мелочи</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-test-po-karte">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-test-po-karte">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-test-po-karte">Ты — составитель тестов. Карта смыслов моего курса приложена. Составь тест по теме «<mark class="ph">[ТЕМА]</mark>» для <mark class="ph">[АУДИТОРИЯ]</mark>: <mark class="ph">[ЧИСЛО И ВИДЫ ВОПРОСОВ, например: 7 с выбором ответа и 3 на сопоставление]</mark>.
+Правила:
+— каждый вопрос проверяет тезис рационального уровня карты — понимание и применение, а не определения, которые модель выдаст за секунду;
+— неверные варианты берутся из студенческого уровня: типичные ошибки и путаница в понятиях, а не очевидная чепуха;
+— хотя бы два вопроса — ситуации из контекстного уровня: где это встретится в профессии.
+В ключе к каждому вопросу: верный ответ; какой тезис карты он проверяет; какую ошибку ловит каждый неверный вариант.
+Если тезиса для вопроса в карте не хватает — пометь вопрос «вне карты».</div>
+</section>
+<section class="prompt" id="p-l3-tekst-po-karte" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Текст по карте смыслов</h3>
+      <p class="prompt__when">Когда: карта готова, нужен анонс, пост или вступление</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-tekst-po-karte">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-tekst-po-karte">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-tekst-po-karte">Ты — копирайтер. Напиши <mark class="ph">[ЧТО: пост для канала кафедры до 2000 знаков / вступление к лекции / анонс курса]</mark> на тему «<mark class="ph">[ТЕМА]</mark>».
+Опирайся на приложенную карту смыслов: используй 2–3 рациональных смысла, 2–3 эмоциональных и авторский акцент — мои любимые слова и обороты: <mark class="ph">[СЛОВА АВТОРА]</mark>.
+Стиль: <mark class="ph">[СТИЛЬ]</mark>. Без канцелярита и штампов.</div>
 </section>
 </section><section class="section" id="bonus-navyki"><h2>Бонусный урок 1</h2>
 <section class="prompt" id="p-b-shablon-skill" data-prompt>
@@ -1581,7 +1938,7 @@ SKILL.md.
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-06</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-10</p>
     </div>
   </div>
 </footer>
