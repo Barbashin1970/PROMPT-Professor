@@ -36,7 +36,7 @@
   </div>
 </header>
 <main id="main">
-<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 74 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
+<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 76 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
 <section class="section" id="lekciya-1"><h2>Лекция 1</h2>
 <section class="prompt" id="p-l1-test-po-formule" data-prompt>
   <div class="prompt__head">
@@ -1219,6 +1219,46 @@ ODA: O (Offer) — предложение, от которого трудно о
 Структура: разрешено (3–5 пунктов с примерами); запрещено (3–5 с примерами); по согласованию с преподавателем (2–3); как студент указывает использование ИИ (готовая формулировка для работы); как я проверяю соблюдение правил; что происходит при нарушении — обучающе, а не карательно.
 Язык — понятный студентам, без канцелярита, на одну страницу.</div>
 </section>
+<section class="prompt" id="p-l3-poisk-dlya-studenta" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Поиск материалов и план задачи для студента — без готового текста</h3>
+      <p class="prompt__when">Когда: раздайте студентам вместе с правилами курса; поиск в сервисе должен быть включён</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-poisk-dlya-studenta">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-poisk-dlya-studenta">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-poisk-dlya-studenta">Я студент <mark class="ph">[КУРС]</mark>, у меня задание: <mark class="ph">[ТЕКСТ ЗАДАНИЯ]</mark>. Готовый текст за меня не пиши.
+1. Разложи задачу на 4–6 вопросов, на которые мне нужно ответить, — в том порядке, в каком их удобно решать.
+2. К каждому вопросу найди поиском 2–3 источника: учебник, статью, официальный документ или надёжный сайт. Для каждого — название, автор, год, ссылка (DOI или URL) и одна строка: что в нём искать.
+3. Указывай только источники, которые ты нашёл поиском; если не уверен, что источник существует, так и напиши — не придумывай.
+4. В конце напомни, что мне проверить самому: открыть каждую ссылку и убедиться, что источник говорит то, что ты ему приписал.</div>
+</section>
+<section class="prompt" id="p-l3-alternativnye-resheniya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Альтернативные решения задачи: что пишут в мире</h3>
+      <p class="prompt__when">Когда: задача решена по методичке курса — найти и сравнить другие подходы; поиск должен быть включён</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-l3-alternativnye-resheniya">Копировать</button>
+      <div class="svc" data-svc data-kopirovat-pered="#t-l3-alternativnye-resheniya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-l3-alternativnye-resheniya">Я студент <mark class="ph">[КУРС]</mark>. Задачу «<mark class="ph">[УСЛОВИЕ]</mark>» я решил по методичке курса: <mark class="ph">[МОЙ МЕТОД КОРОТКО]</mark>. Помоги найти альтернативы — решение за меня не пиши.
+1. Найди поиском 3–5 работ из разных стран и научных школ — статьи, учебники, отчёты, — где такие задачи решают другими методами. Для каждой: автор, год, страна, ссылка (DOI или URL), суть метода в двух предложениях.
+2. Сравни таблицей: метод — когда он лучше метода из методички — когда хуже — что нужно, чтобы его применить.
+3. Указывай только работы, найденные поиском; если не уверен, что работа существует, так и напиши — не придумывай.
+4. В конце — три вопроса, на которые мне стоит ответить самому, сравнивая подходы.</div>
+</section>
 <section class="prompt" id="p-l3-ustojchivoe-zadanie" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -1938,7 +1978,7 @@ SKILL.md.
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-10</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-11</p>
     </div>
   </div>
 </footer>
