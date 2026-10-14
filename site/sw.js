@@ -11,7 +11,7 @@
    удаляется, страницы сохраняются заново. */
 'use strict';
 
-const VERSIYA = 'fb08705eb2e4';
+const VERSIYA = '29c24c8a68af';
 const KESH = 'kurs-ii-' + VERSIYA;
 const PREDZAGRUZKA = [
   "/bonus-illyustracii/",
@@ -39,13 +39,13 @@ const PREDZAGRUZKA = [
   "/assets/sajt.css?v=908f5b24",
   "/assets/sajt.js?v=b289be79",
   "/assets/servisy.js?v=7eafbabb",
-  "/files/konspekt-bonus-illyustracii.docx?v=f3903a73",
-  "/files/konspekt-bonus-navyki.docx?v=2d9fce43",
+  "/files/konspekt-bonus-illyustracii.docx?v=56df572d",
+  "/files/konspekt-bonus-navyki.docx?v=73a94f51",
   "/files/konspekt-lekciya-1.docx?v=0a4992b4",
   "/files/konspekt-lekciya-2.docx?v=1a226faa",
   "/files/konspekt-lekciya-3.docx?v=700995d1",
   "/files/navyki/editing-ai-writing.zip?v=f8fcc256",
-  "/files/navyki/illustrating-lessons.zip?v=305237a5",
+  "/files/navyki/illustrating-lessons.zip?v=ca628dcb",
   "/files/navyki/mapping-course-meanings.zip?v=51718cc6",
   "/files/navyki/niokr.zip?v=3c7337f9",
   "/files/navyki/researching-literature.zip?v=bd6809aa",
