@@ -36,7 +36,7 @@
   </div>
 </header>
 <main id="main">
-<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 76 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
+<div class="wrap wrap--wide"><header class="page-head"><p class="kicker">Библиотека</p><h1>Промпты курса</h1><p class="lead">Все 80 промптов курса — из трёх лекций, двух бонусных уроков и практики. Нажмите «Копировать» или «Открыть в…» — промпт скопируется, а нейросеть откроется в новой вкладке. Подсвеченные места в квадратных скобках замените своими данными. Знаете, как улучшить промпт, — <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></header><p><a href="#lekciya-1">Лекция 1</a> · <a href="#lekciya-2">Лекция 2</a> · <a href="#lekciya-3">Лекция 3</a> · <a href="#bonus-navyki">Бонусный урок 1</a> · <a href="#bonus-illyustracii">Бонусный урок 2</a> · <a href="#praktika">Практика</a></p><div class="poisk"><label class="poisk__podpis" for="poisk">Найти промпт</label><input class="poisk__pole" id="poisk" type="search" autocomplete="off" placeholder="например: тест, адаптация, эссе"><p class="caption poisk__itog" id="poisk-itog" aria-live="polite"></p></div><script>(function(){var p=document.getElementById('poisk'),it=document.getElementById('poisk-itog');p.addEventListener('input',function(){var q=p.value.trim().toLowerCase(),n=0;document.querySelectorAll('[data-prompt]').forEach(function(k){var v=!q||k.textContent.toLowerCase().indexOf(q)>-1;k.hidden=!v;if(v)n++;});it.textContent=q?('Найдено: '+n):'';});})();</script>
 <section class="section" id="lekciya-1"><h2>Лекция 1</h2>
 <section class="prompt" id="p-l1-test-po-formule" data-prompt>
   <div class="prompt__head">
@@ -1923,6 +1923,78 @@ SKILL.md.
 Отдельно — в чём особый приём автора (как написаны свет, фактура, линии).
 Затем составь промпт, который передаёт эти приёмы, но с моим содержанием: <mark class="ph">[ЧТО ДОЛЖНО БЫТЬ НА МОЕЙ КАРТИНКЕ]</mark>. Формат — <mark class="ph">[СООТНОШЕНИЕ СТОРОН]</mark>. Без текста и надписей.</div>
 </section>
+<section class="prompt" id="p-b2-json-kod" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Код картинки в JSON по 11 блокам</h3>
+      <p class="prompt__when">Когда: нашли фото или картинку с нужной сценой, светом и настроением</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-kod">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-kod">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-kod">Ты — фотограф и арт-директор. Разбери приложенную картинку и пришли её код — технический бриф в формате JSON, по которому сцену можно воспроизвести с другим человеком или предметом.
+Ключи — 11 блоков: subject, action, setting, lighting, color, style, composition, camera, mood, quality, negative. Значения — по-русски, коротко и конкретно: что, где, откуда свет, какие цвета, какой план и формат.
+Если на картинке человек, не описывай его лицо, черты и возраст — в subject напиши «человек с приложенного фото» и только одежду; позу и жесты — в action.
+После JSON — та же сцена одним абзацем на 2–3 предложения: краткая версия для сервисов, которым длинный код не подходит.</div>
+</section>
+<section class="prompt" id="p-b2-json-na-foto" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Перенести сцену на своё фото</h3>
+      <p class="prompt__when">Когда: есть код сцены и ваше обычное фото; в Алисе AI — режим редактирования фото</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-na-foto">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-na-foto">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-na-foto">Приложено моё фото. Примени к нему код сцены ниже: перенеси меня в описанную сцену.
+Сохрани меня узнаваемым: лицо, черты, причёску, цвет волос, возраст и телосложение не меняй. Меняй окружение, свет, позу, одежду, цвета и обработку — как в коде.
+Не добавляй макияж, украшения и детали, которых нет в коде. Без текста и надписей.
+Код сцены: <mark class="ph">[ВСТАВЬТЕ JSON ИЛИ КРАТКУЮ ВЕРСИЮ]</mark></div>
+</section>
+<section class="prompt" id="p-b2-json-sverka" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Сверить результат с кодом</h3>
+      <p class="prompt__when">Когда: картинка получилась, но что-то не так</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-sverka">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-sverka">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-sverka">Сравни получившуюся картинку с кодом сцены по полям: setting, lighting, color, composition, style, action. Что совпало, что нет?
+Назови одно главное расхождение и исправь только его. Лицо и черты человека не трогай.</div>
+</section>
+<section class="prompt" id="p-b2-pasport-stilya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Паспорт стиля для серии слайдов</h3>
+      <p class="prompt__when">Когда: нужна серия иллюстраций в одном стиле, а понравившийся образец уже есть</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-pasport-stilya">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-pasport-stilya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-pasport-stilya">По приложенной картинке-образцу составь паспорт стиля в JSON — только поля style, lighting, color, composition, quality, negative, без содержания образца: без его объектов и людей.
+Затем для каждого слайда — <mark class="ph">[СПИСОК СЛАЙДОВ И ЧТО НА НИХ ДОЛЖНО БЫТЬ]</mark> — напиши промпт: паспорт стиля плюс свои subject, action и setting. Формат 16:9, свободное место под заголовок, без текста и надписей.</div>
+</section>
 <section class="prompt" id="p-b2-seriya" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -1978,7 +2050,7 @@ SKILL.md.
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-11</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-14</p>
     </div>
   </div>
 </footer>

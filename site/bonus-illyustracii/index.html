@@ -44,7 +44,7 @@
 <nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-урока">Что вы унесёте с урока</a></li><li><a href="#gde-risovat">1. Где рисовать бесплатно</a></li><li><a href="#formula">2. Формула промпта картинки</a></li><li><a href="#k-slajdu">3. Картинка к слайду</a></li><li><a href="#po-obrazcu">4. Своё изображение по образцу</a></li><li><a href="#dorabotka">5. Доработка за несколько шагов</a></li><li><a href="#prava">6. Права и честность</a></li><li><a href="#navyk">7. Навык-иллюстратор</a></li><li><a href="#stili">8. Коллекция: 11 стилей</a></li><li><a href="#promty">Промпты урока</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
 <article class="prose">
 
-<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 705 КБ · сборка 2026-10-11</span><a class="btn btn--small" href="/files/konspekt-bonus-illyustracii.docx?v=6c3ca12d" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
+<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 709 КБ · сборка 2026-10-14</span><a class="btn btn--small" href="/files/konspekt-bonus-illyustracii.docx?v=f3903a73" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
 
 <blockquote>
 <p><strong>Благодарность</strong> Дамиру Халилову: рисовать картинки нейросетями автор курса учился
@@ -56,6 +56,7 @@
 <li>где рисовать бесплатно и что можно делать с картинками по условиям сервисов;</li>
 <li>формулу промпта картинки из 11 блоков;</li>
 <li>как сделать своё изображение по найденному образцу и довести его до нужного;</li>
+<li>как записать картинку кодом JSON по тем же 11 блокам и перенести сцену с образца на своё фото;</li>
 <li>коллекцию из 11 стилей с готовыми промптами и навык-иллюстратор.</li>
 </ul>
 <h2 id="gde-risovat">1. Где рисовать бесплатно</h2>
@@ -91,17 +92,17 @@
 </tr>
 <tr>
 <td>Правка своего фото</td>
-<td>режим редактирования: JPEG или PNG до 20 МБ, изменения описываются словами; сверх лимита — платно</td>
-<td>—</td>
+<td>режим редактирования: JPEG или PNG до 20 МБ; меняет фон, стиль, одежду, причёску и сохраняет лицо, как в оригинале; изменения описываются словами; сверх лимита — «буст» за 100 ₽ на месяц или «Алиса Плюс»</td>
+<td>загруженные фото описывает, но не правит</td>
 </tr>
 <tr>
 <td>Сколько хранятся</td>
-<td>14 дней</td>
+<td>14 дней, с «Алисой Плюс» — 30</td>
 <td>—</td>
 </tr>
 </tbody>
 </table>
-<p>Источники: справка Алисы AI о <a href="https://alice.yandex.ru/support/ru/assistant/chat/picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>генерации<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+<p>Режим редактирования Алисы AI сверен по справке 14.10.2026. Источники: справка Алисы AI о <a href="https://alice.yandex.ru/support/ru/assistant/chat/picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>генерации<span class="visually-hidden"> (откроется в новой вкладке)</span></a>
 и <a href="https://alice.yandex.ru/support/ru/assistant/chat/edit-photos" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>редактировании<span class="visually-hidden"> (откроется в новой вкладке)</span></a>, справка GigaChat
 о <a href="https://giga.chat/help/articles/how-to-generate-images" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>генерации<span class="visually-hidden"> (откроется в новой вкладке)</span></a> и
 <a href="https://giga.chat/help/articles/gigachat-load-picture" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>загрузке изображений<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</p>
@@ -127,6 +128,7 @@ Midjourney в курсе нет: бесплатного доступа на са
 <th>Блок</th>
 <th>Что написать</th>
 <th>Пример</th>
+<th>Ключ в JSON</th>
 </tr>
 </thead>
 <tbody>
@@ -134,61 +136,90 @@ Midjourney в курсе нет: бесплатного доступа на са
 <td>1. Объект</td>
 <td>кто или что главное, сколько, какое</td>
 <td>«пожилой учёный с седой бородой», «три колбы»</td>
+<td><code>subject</code></td>
 </tr>
 <tr>
 <td>2. Действие, поза</td>
 <td>что делает, как расположен</td>
 <td>«склонился над микроскопом»</td>
+<td><code>action</code></td>
 </tr>
 <tr>
 <td>3. Окружение</td>
 <td>где, когда, какая погода</td>
 <td>«лаборатория XIX века, вечер»</td>
+<td><code>setting</code></td>
 </tr>
 <tr>
 <td>4. Свет</td>
 <td>откуда, какой, тёплый или холодный</td>
 <td>«мягкий свет из окна слева», «золотой час»</td>
+<td><code>lighting</code></td>
 </tr>
 <tr>
 <td>5. Цвет</td>
 <td>главные цвета, насыщенность</td>
 <td>«приглушённые сине-зелёные тона»</td>
+<td><code>color</code></td>
 </tr>
 <tr>
 <td>6. Стиль, техника</td>
 <td>фото, акварель, масло, 3D, бумажная аппликация</td>
 <td>«акварель с мягкими переходами»</td>
+<td><code>style</code></td>
 </tr>
 <tr>
 <td>7. Композиция и формат</td>
 <td>план, ракурс, место под текст, соотношение сторон</td>
 <td>«общий план, свободное место слева, 16:9»</td>
+<td><code>composition</code></td>
 </tr>
 <tr>
 <td>8. Камера</td>
 <td>для «фото»: объектив, глубина резкости</td>
 <td>«85 мм, размытый фон»</td>
+<td><code>camera</code></td>
 </tr>
 <tr>
 <td>9. Настроение</td>
 <td>какое чувство вызывает</td>
 <td>«спокойное, вдохновляющее»</td>
+<td><code>mood</code></td>
 </tr>
 <tr>
 <td>10. Качество</td>
 <td>уровень детализации</td>
 <td>«высокая детализация»</td>
+<td><code>quality</code></td>
 </tr>
 <tr>
 <td>11. Что исключить</td>
 <td>чего не должно быть</td>
 <td>«без текста и надписей»</td>
+<td><code>negative</code></td>
 </tr>
 </tbody>
 </table>
 <p>Формула одной строкой: <code>[стиль] — [объект], [действие], [окружение], [свет], [цвет],
 [композиция и формат], [камера], [настроение], [качество]. Без: [что исключить].</code></p>
+<p><strong>Те же 11 блоков — кодом.</strong> Промпт можно записать в формате JSON: по ключу на блок.
+Такой «код картинки» модель читает без двусмысленностей, а вы правите его по одному полю —
+например, <code>"setting": "осенний лес"</code> меняете на <code>"зимний лес"</code> — и используете снова.
+Как получить код с готовой картинки и применить его к своему фото — в разделе 4.</p>
+<pre><code class="language-json">{
+  &quot;subject&quot;: &quot;человек с приложенного фото, в бежевом вязаном свитере и шарфе&quot;,
+  &quot;action&quot;: &quot;идёт по лесной тропинке, оглядывается через плечо, лёгкая улыбка&quot;,
+  &quot;setting&quot;: &quot;осенний лес, листопад, тропинка в жёлтых листьях&quot;,
+  &quot;lighting&quot;: &quot;мягкий контровой свет низкого солнца, золотой час&quot;,
+  &quot;color&quot;: &quot;тёплые охра и янтарь, приглушённый оливковый&quot;,
+  &quot;style&quot;: &quot;фотореализм, лёгкая плёночная обработка&quot;,
+  &quot;composition&quot;: &quot;средний план, человек справа, вертикальный формат 4:5&quot;,
+  &quot;camera&quot;: &quot;85 мм, размытый фон&quot;,
+  &quot;mood&quot;: &quot;спокойное, тёплое, немного задумчивое&quot;,
+  &quot;quality&quot;: &quot;высокая детализация&quot;,
+  &quot;negative&quot;: &quot;без текста и надписей, без других людей&quot;
+}
+</code></pre>
 <p><strong>Шесть правил:</strong></p>
 <ul>
 <li><strong>Конкретно:</strong> «три колбы с зелёной жидкостью», а не «колбы».</li>
@@ -256,6 +287,34 @@ Midjourney в курсе нет: бесплатного доступа на са
 получил подробный промпт и нарисовал по нему в GigaChat.</p>
 <p>Образец — источник приёмов, а не копия: не воспроизводите чужую картину целиком и перед
 публикацией убедитесь, что результат не повторяет узнаваемое чужое произведение.</p>
+<h3 id="json-kod">Код картинки в JSON: сцена с образца — на своё фото</h3>
+<p>Приём, который автор курса увидел в коротком видеоролике и доработал. По фото-образцу —
+например, портрету в осеннем лесу — нейросеть пишет «код» сцены, а потом применяет его
+к вашему обычному фото: вы оказываетесь в той же сцене.</p>
+<ol>
+<li><strong>Код сцены.</strong> Загрузите образец в Алису AI или GigaChat и дайте промпт «Код картинки
+   в JSON». Модель разложит картинку по 11 блокам в формате JSON — место, свет, позу,
+   композицию, камеру, палитру, обработку — и добавит краткую версию одним абзацем.</li>
+<li><strong>Своё фото.</strong> В Алисе AI откройте режим редактирования, приложите своё обычное фото —
+   например, портрет — и дайте промпт «Перенести сцену на своё фото» с этим кодом. Алиса
+   меняет фон, свет, одежду и стиль и сохраняет лицо, как в оригинале. GigaChat загруженные
+   фото только описывает, поэтому шаг 2 — в Алисе AI. Если длинный код не подходит, вставьте
+   краткую версию из шага 1.</li>
+<li><strong>Сверка.</strong> Что-то не совпало — промпт «Сверить результат с кодом»: модель найдёт главное
+   расхождение, и вы исправите одно за раз, как в разделе 5.</li>
+</ol>
+<p>Зачем код, если есть описание по 11 блокам: структура не даёт модели пропустить свет
+или ракурс, поле легко поменять — осень на зиму, вечер на утро, — а код с одного образца
+служит паспортом стиля для целой серии слайдов (промпт «Паспорт стиля для серии слайдов»).</p>
+<p>Для занятий так получаются обложка лекции, где вы — в лаборатории XIX века или
+на раскопках, и серия иллюстраций в одном стиле по одному понравившемуся образцу.</p>
+<ul>
+<li><strong>Только своё фото</strong> — или того, кто согласился. Фотографии студентов и коллег
+  не загружайте (раздел 6).</li>
+<li><strong>Если на образце человек,</strong> код описывает сцену, позу и свет, а не его внешность:
+  переносится сцена, а не чужое лицо.</li>
+<li><strong>Подпишите</strong> результат «Изображение создано нейросетью».</li>
+</ul>
 <h2 id="dorabotka">5. Доработка за несколько шагов</h2>
 <p>Первая картинка редко бывает окончательной. Правьте в том же чате: «перерисуй: …» — и меняйте
 <strong>одно за раз</strong>, иначе непонятно, что сработало. Так автор курса дорабатывал парусник
@@ -643,6 +702,78 @@ Midjourney убраны, формат указан словами. Картин�
 Отдельно — в чём особый приём автора (как написаны свет, фактура, линии).
 Затем составь промпт, который передаёт эти приёмы, но с моим содержанием: <mark class="ph">[ЧТО ДОЛЖНО БЫТЬ НА МОЕЙ КАРТИНКЕ]</mark>. Формат — <mark class="ph">[СООТНОШЕНИЕ СТОРОН]</mark>. Без текста и надписей.</div>
 </section>
+<section class="prompt" id="p-b2-json-kod" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Код картинки в JSON по 11 блокам</h3>
+      <p class="prompt__when">Когда: нашли фото или картинку с нужной сценой, светом и настроением</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-kod">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-kod">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-kod">Ты — фотограф и арт-директор. Разбери приложенную картинку и пришли её код — технический бриф в формате JSON, по которому сцену можно воспроизвести с другим человеком или предметом.
+Ключи — 11 блоков: subject, action, setting, lighting, color, style, composition, camera, mood, quality, negative. Значения — по-русски, коротко и конкретно: что, где, откуда свет, какие цвета, какой план и формат.
+Если на картинке человек, не описывай его лицо, черты и возраст — в subject напиши «человек с приложенного фото» и только одежду; позу и жесты — в action.
+После JSON — та же сцена одним абзацем на 2–3 предложения: краткая версия для сервисов, которым длинный код не подходит.</div>
+</section>
+<section class="prompt" id="p-b2-json-na-foto" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Перенести сцену на своё фото</h3>
+      <p class="prompt__when">Когда: есть код сцены и ваше обычное фото; в Алисе AI — режим редактирования фото</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-na-foto">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-na-foto">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-na-foto">Приложено моё фото. Примени к нему код сцены ниже: перенеси меня в описанную сцену.
+Сохрани меня узнаваемым: лицо, черты, причёску, цвет волос, возраст и телосложение не меняй. Меняй окружение, свет, позу, одежду, цвета и обработку — как в коде.
+Не добавляй макияж, украшения и детали, которых нет в коде. Без текста и надписей.
+Код сцены: <mark class="ph">[ВСТАВЬТЕ JSON ИЛИ КРАТКУЮ ВЕРСИЮ]</mark></div>
+</section>
+<section class="prompt" id="p-b2-json-sverka" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Сверить результат с кодом</h3>
+      <p class="prompt__when">Когда: картинка получилась, но что-то не так</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-json-sverka">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-json-sverka">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-json-sverka">Сравни получившуюся картинку с кодом сцены по полям: setting, lighting, color, composition, style, action. Что совпало, что нет?
+Назови одно главное расхождение и исправь только его. Лицо и черты человека не трогай.</div>
+</section>
+<section class="prompt" id="p-b2-pasport-stilya" data-prompt>
+  <div class="prompt__head">
+    <div class="prompt__titles">
+      <h3 class="prompt__title">Паспорт стиля для серии слайдов</h3>
+      <p class="prompt__when">Когда: нужна серия иллюстраций в одном стиле, а понравившийся образец уже есть</p>
+    </div>
+    <div class="prompt__actions">
+      <button class="btn btn--small" type="button" data-kopirovat="#t-b2-pasport-stilya">Копировать</button>
+      <div class="svc" data-svc data-svc-nabor="risovanie" data-kopirovat-pered="#t-b2-pasport-stilya">
+        <button class="btn btn--small btn--primary" type="button" aria-haspopup="true" aria-expanded="false" data-svc-knopka>Открыть в…</button>
+        <ul class="svc__menu" hidden data-svc-menu></ul>
+      </div>
+    </div>
+  </div>
+  <div class="prompt__body" id="t-b2-pasport-stilya">По приложенной картинке-образцу составь паспорт стиля в JSON — только поля style, lighting, color, composition, quality, negative, без содержания образца: без его объектов и людей.
+Затем для каждого слайда — <mark class="ph">[СПИСОК СЛАЙДОВ И ЧТО НА НИХ ДОЛЖНО БЫТЬ]</mark> — напиши промпт: паспорт стиля плюс свои subject, action и setting. Формат 16:9, свободное место под заголовок, без текста и надписей.</div>
+</section>
 <section class="prompt" id="p-b2-seriya" data-prompt>
   <div class="prompt__head">
     <div class="prompt__titles">
@@ -673,6 +804,8 @@ Midjourney убраны, формат указан словами. Картин�
    и нарисуйте своё: другое содержание — тот же приём.</li>
 <li><strong>Серия.</strong> Три картинки в одном стиле для одной презентации.</li>
 <li><strong>Проверка.</strong> Подпишите картинки и проверьте содержание: руки, приборы, детали эпохи.</li>
+<li><strong>По желанию — сцена с образца на своё фото.</strong> Найдите фото с нужной сценой, получите
+   его код в JSON, примените код к своему портрету в Алисе AI и сверьте результат с кодом.</li>
 </ol>
 <p><strong>Как понять, что получилось:</strong> картинка помогает понять слайд, а не только украшает его;
 на ней нет текста и ошибок по сути; серия выглядит одной; под картинкой стоит подпись.</p>
@@ -691,6 +824,12 @@ Midjourney убраны, формат указан словами. Картин�
 <summary>Как получить своё изображение по найденной картинке?</summary>
 <p>Загрузить её в Алису AI или GigaChat, попросить описать по 11 блокам и составить промпт,
 заменить содержание своим и нарисовать. В GigaChat — в новом диалоге.</p>
+</details>
+<details>
+<summary>Как перенести сцену с найденного фото на своё?</summary>
+<p>Попросить код картинки в JSON по 11 блокам — без внешности человека с образца, — потом
+в режиме редактирования Алисы AI приложить своё фото и попросить применить код: лицо
+остаётся вашим, меняются фон, свет, одежда и стиль. Фото — только своё или с согласия.</p>
 </details>
 <details>
 <summary>Можно ли картинку с бесплатного тарифа поставить в пособие на продажу?</summary>
@@ -718,7 +857,7 @@ GigaChat — п. 2.4). Для иных целей нужны «Алиса Плю
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-11</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-14</p>
     </div>
   </div>
 </footer>
