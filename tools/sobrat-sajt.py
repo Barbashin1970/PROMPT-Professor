@@ -550,8 +550,16 @@ def zagolovok_navyka(skill):
     return m.group(1).strip() if m else ""
 
 
+def skill_dlya_claude(skill):
+    """SKILL.md для claude.ai: без when_to_use. claude.ai, Skills API и package_skill.py
+    допускают в шапке только name, description, license, compatibility, metadata,
+    allowed-tools и на другом поле падают («Unexpected key(s) in SKILL.md frontmatter»).
+    В исходнике поле остаётся: по нему Claude Code отбирает навык."""
+    return re.sub(r"(?m)^when_to_use:.*\n", "", skill.read_text(encoding="utf-8"), count=1)
+
+
 def sobrat_navyki():
-    (SITE / "files" / "navyki").mkdir(parents=True, exist_ok=True)
+    (SITE / "files" / "navyki" / "claude").mkdir(parents=True, exist_ok=True)
     kartochki = []
     # Порядок — как в NAVYKI_RU; новая папка в skills/ с SKILL.md попадает на сайт сама
     novye = sorted(p.parent.name for p in SKILLS.glob("*/SKILL.md") if p.parent.name not in NAVYKI_RU)
@@ -579,16 +587,31 @@ def sobrat_navyki():
             zamechanie(f"навык {imya}: описание {bajty} байт > {PREDEL_OPISANIYA}")
         if len(fajly) > PREDEL_FAJLOV:
             zamechanie(f"навык {imya}: {len(fajly)} файлов > {PREDEL_FAJLOV}")
+        # Два архива: SKILL.md в корне — Perplexity и любой чат; папка навыка в корне
+        # и шапка без when_to_use — claude.ai («The ZIP should contain the skill folder
+        # as its root»). Урок vault when-to-use-breaks-claude-ai-upload, 02.11.2026.
         arhiv = SITE / "files" / "navyki" / f"{imya}.zip"
         with zipfile.ZipFile(arhiv, "w", zipfile.ZIP_DEFLATED) as z:
             for p in fajly:
                 z.write(p, p.relative_to(papka).as_posix())
+        with zipfile.ZipFile(SITE / "files" / "navyki" / "claude" / f"{imya}.zip", "w",
+                             zipfile.ZIP_DEFLATED) as z:
+            for p in fajly:
+                put = f"{imya}/{p.relative_to(papka).as_posix()}"
+                if p == skill:
+                    # дата — из исходника, а не «сейчас»: иначе архив меняется при каждой сборке
+                    info = zipfile.ZipInfo.from_file(p, put)
+                    info.compress_type = zipfile.ZIP_DEFLATED
+                    z.writestr(info, skill_dlya_claude(skill))
+                else:
+                    z.write(p, put)
         spisok = ", ".join(p.relative_to(papka).as_posix() for p in fajly)
         kartochki.append(
             f'<div class="card"><p class="num">{html.escape(imya)}</p><h3>{html.escape(NAVYKI_RU.get(imya) or zagolovok_navyka(skill) or imya)}</h3>'
             f"<p>{html.escape(opisanie)}</p>"
             f'<p class="caption">Файлы: {html.escape(spisok)} · описание {bajty} байт · zip {razmer_faila(arhiv)}</p>'
-            f'<div class="btn-row"><a class="btn btn--primary" href="/files/navyki/{imya}.zip" download>Скачать zip</a></div></div>'
+            f'<div class="btn-row"><a class="btn btn--primary" href="/files/navyki/{imya}.zip" download>Скачать zip</a>'
+            f'<a class="btn btn--quiet" href="/files/navyki/claude/{imya}.zip" download>zip для Claude</a></div></div>'
         )
     return '<div class="card-grid">' + "\n".join(kartochki) + "</div>"
 

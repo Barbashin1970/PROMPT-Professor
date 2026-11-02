@@ -11,7 +11,7 @@
    удаляется, страницы сохраняются заново. */
 'use strict';
 
-const VERSIYA = '29c24c8a68af';
+const VERSIYA = '50a52df53de9';
 const KESH = 'kurs-ii-' + VERSIYA;
 const PREDZAGRUZKA = [
   "/bonus-illyustracii/",
@@ -40,10 +40,18 @@ const PREDZAGRUZKA = [
   "/assets/sajt.js?v=b289be79",
   "/assets/servisy.js?v=7eafbabb",
   "/files/konspekt-bonus-illyustracii.docx?v=56df572d",
-  "/files/konspekt-bonus-navyki.docx?v=73a94f51",
+  "/files/konspekt-bonus-navyki.docx?v=178b59e6",
   "/files/konspekt-lekciya-1.docx?v=0a4992b4",
   "/files/konspekt-lekciya-2.docx?v=1a226faa",
   "/files/konspekt-lekciya-3.docx?v=700995d1",
+  "/files/navyki/claude/editing-ai-writing.zip?v=643338a3",
+  "/files/navyki/claude/illustrating-lessons.zip?v=bb0c3ffe",
+  "/files/navyki/claude/mapping-course-meanings.zip?v=3b902796",
+  "/files/navyki/claude/niokr.zip?v=9b734345",
+  "/files/navyki/claude/researching-literature.zip?v=d87410f1",
+  "/files/navyki/claude/spotting-ai-writing.zip?v=e7971b56",
+  "/files/navyki/claude/thinking-with-six-hats.zip?v=a896cd73",
+  "/files/navyki/claude/writing-in-styles.zip?v=0d9671e3",
   "/files/navyki/editing-ai-writing.zip?v=f8fcc256",
   "/files/navyki/illustrating-lessons.zip?v=ca628dcb",
   "/files/navyki/mapping-course-meanings.zip?v=51718cc6",

@@ -44,7 +44,7 @@
 <nav class="toc" aria-label="Содержание"><ol><li><a href="#что-вы-унесёте-с-урока">Что вы унесёте с урока</a></li><li><a href="#chto-takoe-navyk">1. Что такое навык</a></li><li><a href="#navyki-kursa">2. Навыки курса</a></li><li><a href="#obsidian">3. Чем открыть и править навык</a></li><li><a href="#kak-postavit">4. Как поставить</a></li><li><a href="#svoj-navyk">5. Как собрать свой навык</a></li><li><a href="#agent">6. Агент на своём компьютере</a></li><li><a href="#promty">Промпты урока</a></li><li><a href="#samostoyatelno">Самостоятельная практика</a></li><li><a href="#proverte-sebya">Проверьте себя</a></li><li><a href="#istochniki">Источники</a></li></ol></nav>
 <article class="prose">
 
-<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 32 КБ · сборка 2026-10-14</span><a class="btn btn--small" href="/files/konspekt-bonus-navyki.docx?v=73a94f51" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
+<div class="downloads"><div class="dl"><span class="dl__name">Конспект с промптами и практикой</span><span class="dl__meta">DOCX, 32 КБ · сборка 2026-11-02</span><a class="btn btn--small" href="/files/konspekt-bonus-navyki.docx?v=178b59e6" download>Скачать</a></div><p class="caption">Видео лекций — на сайте НГУ, где сдаётся зачёт. Слайды — по запросу: <a href="/o-kurse/#obratnaya-svyaz">напишите автору</a>.</p></div>
 
 <h2 id="что-вы-унесёте-с-урока">Что вы унесёте с урока</h2>
 <ul>
@@ -218,8 +218,13 @@
 </ul>
 <p>Описания навыков курса — 700–900 байт.</p>
 <h3 id="в-claude">В Claude</h3>
-<p>В Claude Code навык — это папка в каталоге <code>~/.claude/skills/</code>; в приложении Claude
-и через программный интерфейс навыки загружаются по
+<p>В Claude Code навык — это папка в каталоге <code>~/.claude/skills/</code>. В claude.ai и приложении
+Claude навык загружается архивом <code>[по справке Anthropic, 02.11.2026]</code>: включите «Settings →
+Capabilities → Code execution and file creation», затем «Customize → Skills → «+» →
+Create skill → Upload a skill». Берите на <a href="/navyki/">странице навыков</a> кнопку «zip для
+Claude»: claude.ai ждёт в архиве папку навыка, а не файлы в корне, и не принимает в шапке
+поле <code>when_to_use</code> — его понимает только Claude Code, поэтому в архиве для Claude его нет.
+Через программный интерфейс навыки загружаются по
 <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>документации Anthropic<span class="visually-hidden"> (откроется в новой вкладке)</span></a>.</p>
 <h3 id="бесплатно-в-любой-нейросети">Бесплатно — в любой нейросети</h3>
 <p>Навык — обычный текст, поэтому работает и без специальной функции:</p>
@@ -723,7 +728,7 @@ SKILL.md.
     
     <div class="foot__niz">
       <p>Курс повышения квалификации «ИИ в учебном процессе» · Новосибирский государственный университет</p>
-      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-10-14</p>
+      <p>Автор курса — Олег Барбашин · разработка сайта и курса — <a href="https://github.com/Barbashin1970" class="ext" target="_blank" rel="noopener noreferrer" data-ryadom>github.com/Barbashin1970<span class="visually-hidden"> (откроется в новой вкладке)</span></a> · © 2025–2026 · сборка 2026-11-02</p>
     </div>
   </div>
 </footer>

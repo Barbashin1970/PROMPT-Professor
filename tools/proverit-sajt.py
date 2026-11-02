@@ -12,6 +12,8 @@
   5. В конспектах нет пометок «ПРОВЕРИТЬ» — непроверенное не публикуется.
   6. Навыки: описание не длиннее 1024 байт, в архиве не больше 100 файлов, без PDF
      и без служебного: скрытых файлов и папок (.obsidian, .DS_Store), __MACOSX, __pycache__.
+     Архив для Claude (files/navyki/claude/) есть у каждого навыка: папка навыка в корне,
+     её имя равно name, в шапке только поля, которые принимает claude.ai.
   7. Тесты для самопроверки: среднего уровня — 6 модулей по 5 вопросов, 72 балла, порог 44;
      повышенной сложности — 10 модулей, 120 баллов, порог 72; ключ каждого вопроса есть
      среди вариантов; разделы конспекта, на которые ссылается тест, существуют; вопросы
@@ -144,7 +146,45 @@ def proverit_navyki():
                 oshibka(f"{arhiv.name}: не найдено поле description")
             elif len(m.group(1).encode("utf-8")) > 1024:
                 oshibka(f"{arhiv.name}: description {len(m.group(1).encode('utf-8'))} байт > 1024")
+    proverit_navyki_claude({a.stem for a in arhivy})
     return len(arhivy)
+
+
+# Поля шапки, которые принимают claude.ai, Skills API и package_skill.py.
+POLYA_CLAUDE = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+
+
+def proverit_navyki_claude(navyki):
+    papka = SITE / "files" / "navyki" / "claude"
+    est = {a.stem for a in papka.glob("*.zip")}
+    for imya in sorted(navyki - est):
+        oshibka(f"claude/{imya}.zip: нет архива для Claude — пересобрать сайт")
+    for imya in sorted(est - navyki):
+        oshibka(f"claude/{imya}.zip: лишний архив — навыка {imya} на сайте нет")
+    for imya in sorted(est & navyki):
+        with zipfile.ZipFile(papka / f"{imya}.zip") as z:
+            imena = [i for i in z.namelist() if not i.endswith("/")]
+            chuzhie = [i for i in imena if not i.startswith(f"{imya}/")]
+            if chuzhie:
+                oshibka(f"claude/{imya}.zip: файлы вне папки {imya}/: {', '.join(chuzhie[:3])} — "
+                        f"claude.ai ждёт папку навыка в корне архива")
+            if f"{imya}/SKILL.md" not in imena:
+                oshibka(f"claude/{imya}.zip: нет {imya}/SKILL.md")
+                continue
+            shapka = re.match(r"^---\n(.*?)\n---\n", z.read(f"{imya}/SKILL.md").decode("utf-8"), re.S)
+            if not shapka:
+                oshibka(f"claude/{imya}.zip: в SKILL.md не читается шапка")
+                continue
+            polya = set(re.findall(r"(?m)^([A-Za-z][\w-]*):", shapka.group(1)))
+            if polya - POLYA_CLAUDE:
+                oshibka(f"claude/{imya}.zip: поля {', '.join(sorted(polya - POLYA_CLAUDE))} "
+                        f"claude.ai не примет")
+            name = re.search(r'(?m)^name:\s*"?([^"\n]*)"?\s*$', shapka.group(1))
+            if not name or name.group(1) != imya:
+                oshibka(f"claude/{imya}.zip: name не равно имени папки {imya}")
+            opisanie = re.search(r'(?m)^description: "(.*?)"\s*$', shapka.group(1))
+            if opisanie and ("<" in opisanie.group(1) or ">" in opisanie.group(1)):
+                oshibka(f"claude/{imya}.zip: в description есть < или >")
 
 
 # Тесты сайта: (файл вопросов, модулей, всего баллов, порог 60 %). Движок у обоих один.

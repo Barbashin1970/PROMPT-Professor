@@ -250,3 +250,25 @@ Playwright из `~/SILL`. 10.10.2026 — ещё `proverka-karta-smyslov.js` (88 
 **Признак, что пора.** Автор соглашается или присылает свой вариант.
 
 **Оценка.** Четверть часа.
+
+## 12. Архивы навыков для claude.ai — закрыто 02.11.2026
+
+**Повод.** 02.11.2026, проверка валидатором Anthropic (`quick_validate.py` из навыка
+skill-creator): каждый навык курса отвергнут — «Unexpected key(s) in SKILL.md frontmatter:
+when_to_use». claude.ai, Skills API и `package_skill.py` допускают в шапке только `name`,
+`description`, `license`, `compatibility`, `metadata`, `allowed-tools`, а архив ждут с папкой
+навыка в корне; наши архивы — `SKILL.md` в корне, под Perplexity.
+
+**Что именно.** Второй архив каждого навыка — для Claude.
+
+**Закрыто 02.11.2026.** Сборщик кладёт рядом `site/files/navyki/claude/<навык>.zip`: папка
+навыка в корне, `when_to_use` вырезан (в исходнике остаётся — по нему Claude Code отбирает
+навык); на карточке навыка вторая кнопка «zip для Claude»; инструкции — «Навыки» и бонусный
+урок 1, раздел «В Claude». Сторож `proverit-sajt.py` проверяет раскладку, имя папки и поля
+шапки. Все восемь архивов прошли `quick_validate.py`; сама загрузка в claude.ai автором
+не проверялась. Урок vault — `knowledge/lessons/when-to-use-breaks-claude-ai-upload.md`.
+
+**Признак, что пора вернуться.** claude.ai отклонит архив при загрузке — тогда сверить
+сообщение с полями шапки и раскладкой архива.
+
+**Оценка.** Сделано за одну сессию.

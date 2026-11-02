@@ -135,8 +135,13 @@ video:
 
 ### В Claude
 
-В Claude Code навык — это папка в каталоге `~/.claude/skills/`; в приложении Claude
-и через программный интерфейс навыки загружаются по
+В Claude Code навык — это папка в каталоге `~/.claude/skills/`. В claude.ai и приложении
+Claude навык загружается архивом `[по справке Anthropic, 02.11.2026]`: включите «Settings →
+Capabilities → Code execution and file creation», затем «Customize → Skills → «+» →
+Create skill → Upload a skill». Берите на [странице навыков](/navyki/) кнопку «zip для
+Claude»: claude.ai ждёт в архиве папку навыка, а не файлы в корне, и не принимает в шапке
+поле `when_to_use` — его понимает только Claude Code, поэтому в архиве для Claude его нет.
+Через программный интерфейс навыки загружаются по
 [документации Anthropic](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview).
 
 ### Бесплатно — в любой нейросети
